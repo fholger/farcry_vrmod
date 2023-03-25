@@ -1,0 +1,73 @@
+CryENGINE MOD SDK v1.4:
+
+Source Code:
+
+* Updated source code for CryGame.DLL to match 1.4 status
+
+Documentation:
+
+* Included How to use the built in Internet simulator.pdf
+* Included Tools to tweak FarCry MP.pdf
+* Included Far Cry Joypad Functionality Manual.pdf
+* Updated GameSource-Readme.pdf
+* Updated Far Cry Engine Overview.pdf
+
+
+
+
+CryENGINE MOD SDK v1.33:
+
+Source Code:
+
+* Included source code for CryGame.DLL
+
+Documentation:
+
+* Included GameSource-Readme.pdf
+* Included Far Cry Engine Overview.pdf
+* Included Compiling Your CryGame for Linux.pdf
+* Included FCFAQ_SwoopAEon_v219.pdf
+* Minor changes in PolyBumpPlugin Product.pdf
+* Minor changes in Maya PolyBumpPlugin Product.pdf
+
+General:
+
+* Moved all documents into the Docs folder
+
+
+
+
+CryENGINE MOD SDK v1.1:
+
+
+Documentation
+
+* updated physical properties.pdf
+* updated AI Manual.pdf
+* included ScriptObjectSystem.pdf
+* included ScriptObjectGame.pdf
+* converted all documents to pdf files
+
+
+Maya:
+
+* fixed Maya5 Polybump plugin (evaluation mode was still on)
+* fixed Maya5/6 Exporter problem (no physicalisation on static objects after exporting) 
+* fixed not working antialising in Maya5 Polybump plugin
+* included Maya6 Polybump plugin
+* included Maya6 CryExporter
+
+Major issues that will be adressed in the next SDK release:
+1. export of animated objects (.cga-files)
+2. support for all playable character features
+3. removing obselete parts of the exporter
+4. Maya example files
+
+
+3ds max:
+
+* included Max6 Polybump plugin
+* included Max6 CryExporter
+
+Maya is trademark of Alias Systems Corp.
+3ds max is trademark of Autodesk Inc.

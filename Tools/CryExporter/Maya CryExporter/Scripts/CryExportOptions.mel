@@ -1,0 +1,189 @@
+// The mappig between options and control names.
+// The options may be selections, flags or floats, and their corresponding
+// controls must be either radiobuttons, or floatfields or checkboxes.
+string $g_arrCryExportExporterOptions[] = {
+	 "dontConvertCS=chkDontConvertCS"
+	,"exportAsBuilding=chkExportAsBuilding"
+	,"exportIndividualFiles=chkExportIndividualFiles"
+	,"exportMaterials=formGeom|formCommon|chkExportMaterials"
+	,"allowMultiUVPerVertex=formGeom|formCommon|chkAllowMultiUV"
+	,"exportVertexColors=formGeom|formCommon|chkVertexColors"
+	,"exportWeights=formGeom|formCommon|chkWriteWeights"
+	,"weightsPerLinkRadio=formGeom|radioWeightLinks"
+	,"animationSampleStep=formBone|editAnimationStep"
+	,"enableKeyOptimization=formKeyframe|chkEnableKeyCleanup"
+	,"rotationPrecision=formKeyframe|editRotationKeyPrecision"
+	,"positionPrecision=formKeyframe|editPositionKeyPrecision"
+	,"enableManualRange=formTiming|chkManualRange"
+	,"manualRangeStart=formTiming|editManualRangeStart"
+	,"manualRangeEnd=formTiming|editManualRangeEnd"
+};
+
+proc string CryGetControlValue (string $strControl)
+{
+	if (!`control -exists $strControl`)
+	{
+		//print ("Warning: control " + $strControl + " does not exist. Cannot get value.\n");
+		return "";
+	}
+
+	if (`checkBox -exists $strControl`)
+		return string(`checkBox -query -value $strControl`);
+	else
+	if (`floatField -exists $strControl`)
+		return string(`floatField -query -value $strControl`);
+	else	
+	if (`radioButtonGrp -exists $strControl`)
+		return string(`radioButtonGrp -query -select $strControl`);
+	print ("Warning: cannot get value from control " + $strControl + "\n");
+	return "";
+}
+
+
+// given the control name and value to set (in a string form) sets the corresponding
+// control value
+proc CrySetControlValue (string $strControl, string $strValue)
+{
+	//print ("Setting control value: " + $strControl + "=" + $strValue + "\n");
+	if (`checkBox -exists $strControl`)
+		checkBox -edit -value (int($strValue)) $strControl;
+	else
+	if (`floatField -exists $strControl`)
+		floatField -edit -value (float($strValue)) $strControl;
+	else	
+	if (`radioButtonGrp -exists $strControl`)
+		radioButtonGrp -edit -select (int($strValue)) $strControl;
+	else
+		print ("Warning: cannot set value for control " + $strControl + "\n");
+}
+
+// scans the controls and makes the option string out of them
+global proc string CryExportGetExporterOptions (string $strLayout)
+{
+	string $strOptions;
+	global string $g_arrCryExportExporterOptions[];
+	int $i;
+	for ($i = 0; $i < size($g_arrCryExportExporterOptions); ++$i)
+	{
+		string $strTok[];
+		tokenize $g_arrCryExportExporterOptions[$i] "=" $strTok;
+		string $strOptionName = $strTok[0];
+		string $strControlName = $strTok[1];
+		string $strOptionValue = CryGetControlValue ($strLayout + $strControlName);
+		if ($strOptionValue != "")
+			$strOptions += $strOptionName + "=" + $strOptionValue + ";";
+	}
+	return $strOptions;
+}
+
+// given the array of double-strings, maps (or unmaps) the given value
+// mapping [nMapSrc]->[nMapDst]
+proc string CryMapString(string $arrMap[], string $strValue, int $nMapSrc, int $nMapDst)
+{
+	// find the control that corresponds to the option and set that option to that control
+	int $i;
+	for ($i = 0; $i < size ($arrMap); ++$i)
+	{
+		string $strTok[];
+		tokenize $arrMap[$i] "=" $strTok;
+		if ($strTok[$nMapSrc] == $strValue)
+			return $strTok[$nMapDst];
+	}
+	return "";
+}
+
+// parses the option string and modifies the UI correspondingly
+global proc CryExportSetExporterOptions (string $strLayout, string $strOptions)
+{
+	//print ("Setting options: \"" + $strOptions + "\"\n");
+	global string $g_arrCryExportExporterOptions[];
+	string $arrOptions[];
+	tokenize ($strOptions, ";", $arrOptions);
+	string $strOption;
+	for ($strOption in $arrOptions)
+	{
+		string $arrOptionTokens[];
+		tokenize ($strOption, "=", $arrOptionTokens);
+		if (size ($arrOptionTokens[0]) > 0)
+		{
+			string $strName = CryMapString ($g_arrCryExportExporterOptions, $arrOptionTokens[0], 0, 1);
+			string $strValue = $arrOptionTokens [1];
+			//print ("Setting option: at " + $strLayout + ", " + $arrOptionTokens[0] + "->" + $strName + " = " + $arrOptionTokens[1] + "\n");
+			CrySetControlValue ($strLayout + $strName, $strValue);
+		}
+	}
+}
+
+
+
+global proc int CryExportOptions(
+	string $type,
+	string $parent,
+	string $action,
+	string $initialSettings,
+	string $resultCallback)
+{
+	int $result = 0;
+	source "CryExportUserInterface.mel";
+
+	setParent $parent;
+	string $strLayout = `setParent -query`+"|";
+
+	switch ($action)
+	{
+	case "post":
+		{
+			//
+			// CREATE USER INTERFACE
+			//
+			CryExportMakeUIRawCommonOptions($type);
+
+			switch ($type)
+			{
+			case "CGF":
+				CryExportMakeUIGeometryOptionsForm("formGeom", 2, 2);
+				break;
+
+			case "CAF":
+				CryExportMakeUIBoneExportOptionsForm ("formBone",4, 5);
+				CryExportMakeUIKeyframeOptimizationsForm ("formKeyframe", 4, 5);
+				CryExportMakeUITimingRangeForm ("formTiming", 4,5);
+				break;
+			};
+			
+			//
+			// INITIALIZE (THE VALUES OF) THE INTERFACE
+			//
+			CryExportSetExporterOptions ($strLayout, $initialSettings);
+	
+			switch ($type)
+			{
+			case "CGF":
+				CryExportManageUIExportWeights ($strLayout + "formGeom|");
+				break;
+			case "CAF":
+				CryExportManageUIKeyCleanup($strLayout + "formKeyframe|");
+				CryExportManageUITimingRange($strLayout + "formTiming|");
+				break;
+			}
+			$result = 1;
+		}
+		break;
+
+	case "query":
+		{
+			//
+			// RETRIEVE THE VALUES OF THE INTERFACE
+			//
+			string $strOptions = CryExportGetExporterOptions ($strLayout);
+			eval ($resultCallback + " \"" + $strOptions + "\"");
+			$result = 1;
+		}
+		break;
+
+	default:
+		break;
+	}
+
+	return $result;
+}

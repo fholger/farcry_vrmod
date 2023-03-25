@@ -1,0 +1,30 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CryGame", "CryGame\CryGame.vcproj", "{A7EC04A5-D65C-4C45-969C-D842823446ED}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+		Debug64 = Debug64
+		Profile = Profile
+		Release = Release
+		Release64 = Release64
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{A7EC04A5-D65C-4C45-969C-D842823446ED}.Debug.ActiveCfg = Debug|Win32
+		{A7EC04A5-D65C-4C45-969C-D842823446ED}.Debug.Build.0 = Debug|Win32
+		{A7EC04A5-D65C-4C45-969C-D842823446ED}.Debug64.ActiveCfg = Debug64|Win32
+		{A7EC04A5-D65C-4C45-969C-D842823446ED}.Debug64.Build.0 = Debug64|Win32
+		{A7EC04A5-D65C-4C45-969C-D842823446ED}.Profile.ActiveCfg = Profile|Win32
+		{A7EC04A5-D65C-4C45-969C-D842823446ED}.Profile.Build.0 = Profile|Win32
+		{A7EC04A5-D65C-4C45-969C-D842823446ED}.Release.ActiveCfg = Release|Win32
+		{A7EC04A5-D65C-4C45-969C-D842823446ED}.Release.Build.0 = Release|Win32
+		{A7EC04A5-D65C-4C45-969C-D842823446ED}.Release64.ActiveCfg = Release64|Win32
+		{A7EC04A5-D65C-4C45-969C-D842823446ED}.Release64.Build.0 = Release64|Win32
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal

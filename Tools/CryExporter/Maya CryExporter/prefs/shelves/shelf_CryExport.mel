@@ -1,0 +1,68 @@
+global proc shelf_CryExport () {
+    global string $gBuffStr;
+    global string $gBuffStr0;
+    global string $gBuffStr1;
+
+
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 34
+        -height 34
+        -manage 1
+        -visible 1
+        -label "Load CryExport Plugin" 
+        -image1 "CryExportLoadPlugin.bmp" 
+        -style "iconOnly" 
+        -command "loadPlugin \"MayaCryExport.mll\"" 
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 34
+        -height 34
+        -manage 1
+        -visible 1
+        -label "Unload CryExport Plugin" 
+        -image1 "CryExportUnloadPlugin.bmp" 
+        -style "iconOnly" 
+        -command "unloadPlugin \"MayaCryExport.mll\";\r\nif (`window -exists wndCryExportBOTH`)\r\n\tdeleteUI wndCryExportBOTH;\r\nif (`window -exists wndCryExportCGF`)\r\n\tdeleteUI wndCryExportCGF;\r\nif (`window -exists wndCryExportCAF`)\r\n\tdeleteUI wndCryExportCAF;\r\n" 
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 34
+        -height 34
+        -manage 1
+        -visible 1
+        -label "Geometry Export UI" 
+        -image1 "CryExportGeometryExportUI.bmp" 
+        -style "iconOnly" 
+        -command "source CryExportUserInterface;CryExportUserInterface(\"CGF\")" 
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 34
+        -height 34
+        -manage 1
+        -visible 1
+        -label "Animation Export UI" 
+        -image1 "CryExportAnimationExportUI.bmp" 
+        -style "iconOnly" 
+        -command "source CryExportUserInterface;CryExportUserInterface(\"CAF\")" 
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 34
+        -height 34
+        -manage 1
+        -visible 1
+        -label "Animation and Geometry Export UI" 
+        -image1 "CryExportBothExportUI.bmp" 
+        -style "iconOnly" 
+        -command "source CryExportUserInterface;CryExportUserInterface(\"BOTH\")" 
+    ;
+
+} 

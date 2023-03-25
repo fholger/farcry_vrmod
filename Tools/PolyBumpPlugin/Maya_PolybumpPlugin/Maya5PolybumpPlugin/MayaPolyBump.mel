@@ -1,0 +1,325 @@
+//
+// MayaPolyBump.mel by Crytek
+//
+// written by Martin Mittring
+// 
+// this MEL script need the MayaPolyBumpPlugin.mll installed (in bin/plug-ins folder)
+// install this script in the scripts/others folder
+
+global proc PBselecthighpoly( string $whichButton )
+{
+  string $newtext[]; 
+  
+  $newtext= `selectedNodes`; 
+
+  if(size($newtext)==0)
+    textField -edit -text "" $whichButton;   
+  else if(size($newtext)==1)
+    textField -edit -text $newtext[0] $whichButton;
+  else
+    confirmDialog -message "Please select only one object" -button "Ok" -defaultButton "Ok";
+}
+
+global proc PBselectlowpoly( string $whichButton )
+{
+  string $newtext[]; 
+  
+  $newtext= `selectedNodes`; 
+
+  if(size($newtext)==0)
+    textField -edit -text "" $whichButton;   
+  else if(size($newtext)==1)
+    textField -edit -text $newtext[0] $whichButton;
+  else
+    confirmDialog -message "Please select only one object" -button "Ok" -defaultButton "Ok";
+}
+
+global proc PBselectbumpmap( string $whichButton )
+{
+  global string $PBBumpmapS;
+
+  string $newtext = `MayaPolyBumpPlugin -ChooseBumpmap`; 
+  
+  textField -edit -text $newtext $whichButton;
+
+  if($newtext=="")
+    textField -edit -editable false $PBBumpmapS;
+  else
+    textField -edit -editable true $PBBumpmapS;   
+}
+
+global proc PBStop()
+{
+  MayaPolyBumpPlugin -Stop;
+}
+
+global proc PBAbout()
+{
+  MayaPolyBumpPlugin -About;
+}
+
+global proc PBDebug()
+{
+  global string $PBSourceLowT;
+  global string $PBSourceHighT;
+
+  string $lowsource=`textField -q -text $PBSourceLowT`;
+  string $highsource=`textField -q -text $PBSourceHighT`;
+
+  MayaPolyBumpPlugin $lowsource $highsource 10.0 16 16 -Debug;
+}
+
+
+
+global proc PBStart()
+{
+  global string $PBBumpmapS;
+  global string $PBBumpmapT;
+  global string $PBSourceLowT;
+  global string $PBSourceHighT;
+  global string $PBAntialiasing;
+  global string $PBExpand;
+  global string $PBExtendFilename;
+  global string $PBHitNearest,$PBHitLatest,$PBHitBest;
+  global string $PBSpaceO,$PBSpaceT,$PBSpaceC;
+  global string $PBRayLength;
+  global string $PBWidth,$PBHeight;
+  global string $PBOutAccess;
+
+  string $lowsource=`textField -q -text $PBSourceLowT`;
+  string $highsource=`textField -q -text $PBSourceHighT`;
+  string $length=`textField -q -text $PBRayLength`;
+  string $width=`optionMenu -q -value $PBWidth`;
+  string $height=`optionMenu -q -value $PBHeight`;
+  string $aa,$et,$ef,$hit,$sp,$on,$oa;
+  string $bumpstrength=`textField -q -text $PBBumpmapS`;
+  string $bumpmap=`textField -q -text $PBBumpmapT`;
+
+  if(`checkBox -q -value $PBAntialiasing` != 0)         $aa= "-Antialiasing";
+  if(`checkBox -q -value $PBExpand` != 0)               $et= "-ExpandTexture";
+  if(`checkBox -q -value $PBExtendFilename` != 0)       $ef= "-ExtendFilename";
+
+  if(`radioButton -q -select $PBHitNearest` != 0)       $hit= "-Ray_Nearest";
+  if(`radioButton -q -select $PBHitLatest` != 0)        $hit= "-Ray_Latest";
+  if(`radioButton -q -select $PBHitBest` != 0)          $hit= "-Ray_Best";
+
+  if(`radioButton -q -select $PBSpaceO` != 0)           $sp= "-ObjectSpace";
+  if(`radioButton -q -select $PBSpaceT` != 0)           $sp= "-TangentSpace";
+  if(`radioButton -q -select $PBSpaceC` != 0)           $sp= "-CloneSpace";
+
+  if(`checkBox -q -value $PBOutAccess` != 0)			$ef= "-OutAccess";
+
+
+  MayaPolyBumpPlugin $lowsource $highsource $length $width $height $aa $et $ef $hit $sp -Bumpmap $bumpstrength $bumpmap;
+}
+
+
+// the function you should call from maya.
+global proc MayaPolyBump()
+{  
+  if(`window -exists PolyBumpPlugin`)       // window title
+      deleteUI -window PolyBumpPlugin;      // window title
+
+  window PolyBumpPlugin; 
+
+  string $form = `formLayout`; 
+
+
+  // *****************************************************************************
+  // global variables
+
+  global string $PBSourceLowT;
+  global string $PBSourceHighT;
+  global string $PBBumpmapS;
+  global string $PBBumpmapT;
+  global string $PBAntialiasing;
+  global string $PBExpand;
+  global string $PBExtendFilename;
+  global string $PBHitNearest,$PBHitLatest,$PBHitBest;
+  global string $PBSpaceO,$PBSpaceT,$PBSpaceC;
+  global string $PBRayLength;
+  global string $PBWidth,$PBHeight;
+  global string $PBOutAccess;
+
+  $PBSourceLowT = `textField -text "" -editable false -width 220`;
+  $PBSourceHighT = `textField -text "" -editable false -width 220`;
+
+  $PBBumpmapS = `textField -text "30" -editable false -width 60`;
+  $PBBumpmapT = `textField -text "" -editable false -width 220`;
+
+  $PBAntialiasing = `checkBox -label Antialiasing`;
+  $PBExpand = `checkBox -label Expand`;
+  $PBExtendFilename = `checkBox -label "Extend Filename"`;
+ 
+  radioCollection;
+    $PBHitNearest = `radioButton -label "use nearest hit"`;
+    $PBHitLatest = `radioButton -label "use latest hit"`;
+    $PBHitBest = `radioButton -label "use best hit"`;              
+
+  radioCollection;
+    $PBSpaceO = `radioButton -label "Objectspace"`;
+    $PBSpaceT = `radioButton -label "Tangentspace"`;
+    $PBSpaceC = `radioButton -label "Clonespace"`;
+
+  $PBRayLength = `textField -text "10.0" -width 40`;
+
+  $PBWidth = `optionMenu`;
+	menuItem -label "8"; menuItem -label "16";
+	menuItem -label "32"; menuItem -label "64";
+	menuItem -label "128"; menuItem -label "256";
+	menuItem -label "512"; menuItem -label "1024";
+	menuItem -label "2048";  
+	optionMenu -edit -select 6 $PBWidth;
+
+  $PBHeight = `optionMenu`;
+	menuItem -label "8"; menuItem -label "16";
+	menuItem -label "32"; menuItem -label "64";
+	menuItem -label "128"; menuItem -label "256";
+	menuItem -label "512"; menuItem -label "1024";
+	menuItem -label "2048";  
+	optionMenu -edit -select 6 $PBHeight;
+
+//  string $PBWidth =  `textScrollList -append 8 -append 16 -append 32 -append 64 -append 128 -append 256 -append 512 -append 1024 -append 2048 -selectItem 256 -numberOfRows 4 -width 52 -showIndexedItem 6`;
+//  string $PBHeight = `textScrollList -append 8 -append 16 -append 32 -append 64 -append 128 -append 256 -append 512 -append 1024 -append 2048 -selectItem 256 -numberOfRows 4 -width 52 -showIndexedItem 6`;
+
+  $PBOutAccess = `checkBox -label "Accessibilty AM"`;
+ 
+  // *****************************************************************************
+  // create local elements
+
+  // highpoly, lowpoly buttons
+  string $butSourceHighT = `button -label "HighPoly" -command ("PBselecthighpoly " + $PBSourceHighT) -width 60`; 
+  string $butSourceLowT = `button -label "LowPoly" -command ("PBselectlowpoly " + $PBSourceLowT) -width 60`;
+
+  // bumpmap
+  string $butBumpmapT = `button -label "..." -command ("PBselectbumpmap " + $PBBumpmapT) -width 20`;
+
+  // start, stop, about buttons
+  string $butStart = `button -label "Start" -command "PBStart"`; 
+  string $butAbout = `button -label "About" -command "PBAbout"`; 
+  string $butStop = `button -label "Stop" -command "PBStop"`; 
+//  string $butDebug = `button -label "Debug" -command "PBDebug"`; 
+
+
+  // ray length is .. % of low poly size
+  string $RayLengthText1 = `text -label "ray length is"`;
+  string $RayLengthText2 = `text -label "% of low poly size"`;
+  
+  // width, height
+  string $WidthText = `text -label "Width:"`;
+  string $HeightText = `text -label "Height:"`;
+
+  // *****************************************************************************
+  // format gui elements
+
+  int $y=20;
+
+  formLayout -edit 
+    -attachForm $butSourceHighT top $y
+    -attachForm $butSourceHighT left 10
+    -attachForm $PBSourceHighT top $y
+    -attachForm $PBSourceHighT left 70
+    -attachForm $butSourceLowT top ($y+25)
+    -attachForm $butSourceLowT left 10
+    -attachForm $PBSourceLowT top ($y+25)
+    -attachForm $PBSourceLowT left 70
+  $form;
+  $y+=60;
+
+  formLayout -edit 
+    -attachForm $PBBumpmapS top $y
+    -attachForm $PBBumpmapS left 10
+    -attachForm $PBBumpmapT top $y
+    -attachForm $PBBumpmapT left 70
+    -attachForm $butBumpmapT top $y
+    -attachForm $butBumpmapT left 290
+  $form;
+  $y+=45;
+
+  formLayout -edit 
+    -attachForm $PBHitNearest top $y
+    -attachForm $PBHitNearest left 10
+    -attachForm $PBHitLatest top ($y+16)
+    -attachForm $PBHitLatest left 10
+    -attachForm $PBHitBest top ($y+32)
+    -attachForm $PBHitBest left 10
+  $form;
+//  $y+=47;
+
+   formLayout -edit 
+    -attachForm $RayLengthText1 top ($y+10+4)
+    -attachForm $RayLengthText1 left 140
+    -attachForm $PBRayLength top ($y+10)
+    -attachForm $PBRayLength left 200
+    -attachForm $RayLengthText2 top ($y+10+4)
+    -attachForm $RayLengthText2 left 242
+  $form;
+  $y+=60;
+ 
+  formLayout -edit 
+    -attachForm $WidthText top ($y+5+15)
+    -attachForm $WidthText left 10
+    -attachForm $PBWidth top ($y+15)
+    -attachForm $PBWidth left (43+4)
+    -attachForm $HeightText top ($y+5+15)
+    -attachForm $HeightText left 110
+    -attachForm $PBHeight top ($y+15)
+    -attachForm $PBHeight left (146+4)
+  $form;
+//  $y+=60;
+
+  formLayout -edit 
+    -attachForm $PBAntialiasing top ($y+3)
+    -attachForm $PBAntialiasing left 230
+    -attachForm $PBExpand top ($y+16+3)
+    -attachForm $PBExpand left 230
+    -attachForm $PBExtendFilename top ($y+32+3)
+    -attachForm $PBExtendFilename left 230
+  $form;
+  $y+=70;
+  
+  
+  formLayout -edit 
+    -attachForm $PBSpaceO top $y
+    -attachForm $PBSpaceO left 40
+    -attachForm $PBSpaceT top ($y+16)
+    -attachForm $PBSpaceT left 40
+    -attachForm $PBSpaceC top ($y+32)
+    -attachForm $PBSpaceC left 40
+  $form;
+  $y+=60;
+   
+  formLayout -edit 
+    -attachForm $PBOutAccess top $y
+    -attachForm $PBOutAccess left 10
+  $form;
+  $y+=40;
+
+  formLayout -edit 
+    -attachForm $butStart top $y
+    -attachForm $butStart left 10
+    -attachForm $butAbout top $y
+    -attachForm $butAbout left 60
+    -attachForm $butStop top  $y
+    -attachForm $butStop left 120 
+//    -attachForm $butDebug top  $y
+//    -attachForm $butDebug left 190 
+  $form;
+    
+  
+  
+    // *****************************************************************************
+  // set defaults
+
+  checkBox -edit -value true $PBAntialiasing;
+  checkBox -edit -value true $PBExpand;
+  checkBox -edit -value true $PBExtendFilename;
+  radioButton -edit -select $PBHitNearest;
+  radioButton -edit -select $PBSpaceO;
+
+
+  setParent ..; 
+  showWindow;
+}
+
+

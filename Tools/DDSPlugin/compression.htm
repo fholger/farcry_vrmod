@@ -1,0 +1,258 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Language" content="en-us">
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta name="GENERATOR" content="Microsoft FrontPage 4.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<title>New Page 2</title>
+</head>
+
+<body>
+
+<p align="center"><b><font size="5">NVIDIA DXT Compression Tools</font></b></p>
+<p>&nbsp;</p>
+<p><b>Adobe PhotoShop Plugin.&nbsp; </b>Reads and writes .dds files compressed
+or uncompressed</p>
+<p><b>detach.exe</b> - extracts the MIP maps from a .dds file&nbsp;</p>
+<p><b>stitch.exe </b>- recombine MIP levels to form one .dds</p>
+<p><b>nvDXT.exe</b> - batch compresses (source)</p>
+<p><b>readDXT.exe</b> - reads compressed image and writes .tga file (source)</p>
+<p><b>nvDXTLib.lib</b> - compression library for using compression in your
+tools, with examples</p>
+<p>&nbsp;</p>
+<p><br>
+<b>Adobe PhotoShop Plugin</b><br>
+</p>
+<p>&nbsp;&nbsp;&nbsp; dds.8bi (with 3D Preview, requires dx8 to be installed)<br>
+&nbsp;&nbsp;&nbsp; copy the plugin to<br>
+<br>
+&nbsp;&nbsp;&nbsp; \Program Files\Adobe\Photoshop 5.5\Plug-Ins\File Formats&nbsp;
+or</p>
+<p>&nbsp;&nbsp;&nbsp; \Program Files\Adobe\Photoshop 6.0\Plug-Ins\File Formats<br>
+<br>
+&nbsp;&nbsp;&nbsp; this also works with Paint Shop Pro<br>
+<br>
+<br>
+&nbsp;&nbsp;&nbsp; Use "Save As" and "DDS" to save compressed files<br>
+&nbsp;&nbsp;&nbsp; Allows dropping .dds files into PhotoShop<br>
+</p>
+<p>&nbsp;&nbsp;&nbsp; You can save files that are non-power of two if they are
+uncompressed, but dxtex will not be able to read them.</p>
+<p><img border="0" src="dds.jpg" width="519" height="483"><br>
+<br>
+<b>
+Save Format</b></p>
+<p>&nbsp;&nbsp;&nbsp; Chooses which format to save the image as.&nbsp; This is
+affected by Options and Fade To Color below it.</p>
+<p>&nbsp;&nbsp;&nbsp; DXT1, DXT1 with alpha, DXT3 and DXT5 are compressed
+formats</p>
+<p>&nbsp;&nbsp;&nbsp; DXT1's compression ratio is 8:1</p>
+<p>&nbsp;&nbsp;&nbsp; DXT3 and DXT5's are 4:1 compression ratio</p>
+<p>&nbsp;&nbsp;&nbsp; Other formats are uncompressed</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4444 - 4 bits for alpha, red,
+green and blue</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1555 - 1 bit for alpha, 5 for red,
+green and blue</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 565 - no alpha, 5 bits for red, 6
+bits for green, 5 bits for blue</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 8888 - 8 bits for alpha, red,
+green and blue</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+<p>&nbsp;&nbsp;&nbsp; <b>Options</b></p>
+<p>&nbsp;&nbsp;&nbsp;<b>&nbsp;&nbsp;&nbsp;&nbsp; </b>Dither - jitters image so
+16 bit image look better</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Binary Alpha - treats alpha as one
+bit only for MIP map generation</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Alpha Border - set the border of
+the texture to alpha for every MIP level</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Fade To Color - gradually fades
+from the image to a selectable color over <i>n</i> MIP maps.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+<p>&nbsp;&nbsp;&nbsp; <b>Override</b></p>
+<p>&nbsp;&nbsp;&nbsp;<b>&nbsp;&nbsp;&nbsp;&nbsp; </b>previews the xbox version
+of DXT1&nbsp;</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;</p>
+<p>&nbsp;&nbsp;&nbsp; <b>Preview Options</b></p>
+<p>&nbsp;&nbsp;&nbsp;<b>&nbsp;&nbsp;&nbsp;&nbsp; </b>Alpha Blending -
+enables/disable alpha blending using the alpha channel of the texture</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Show Differences - compares the
+full precision image with the modes that are selected</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+<b>nvDXT</b> Stand alone batch compressor<br>
+<br>
+&nbsp;&nbsp;&nbsp; nvdxt [-m] [-1c] [-1a] [-3] [-5] [-a] [-u1] [-u4] [-u5] [-u8] [-b]  [-o &lt;output_directory&gt;]
+[image_file]</p>
+<p><br>
+&nbsp;&nbsp;&nbsp; m - generate MIP maps<br>
+&nbsp;&nbsp;&nbsp; o - output directory<br>
+&nbsp;&nbsp;&nbsp; d - dither saving 16 bit formats<br>
+&nbsp;&nbsp;&nbsp; a - all image files in current directory (does not require file name)<br>
+&nbsp;&nbsp;&nbsp; b  - browse for directory (does not require file name)&nbsp;<br>
+<br>
+&nbsp;&nbsp;&nbsp; 1c - DXT1 (color only)<br>
+&nbsp;&nbsp;&nbsp; 1a - DXT1 (one bit alpha)<br>
+&nbsp;&nbsp;&nbsp; 3  - DXT3<br>
+&nbsp;&nbsp;&nbsp; 5  - DXT5<br>
+&nbsp;&nbsp;&nbsp; u1 - uncompressed 1:5:5:5<br>
+&nbsp;&nbsp;&nbsp; u4 - uncompressed 4:4:4:4<br>
+&nbsp;&nbsp;&nbsp; u5 - uncompressed 5:6:5<br>
+&nbsp;&nbsp;&nbsp; u8 - uncompressed 8:8:8:8<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp; h  - help<br>
+<br>
+<br>
+&nbsp;&nbsp;&nbsp; reads<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .tga<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .bmp<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .gif<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .ppm<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .jpg<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .tif<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .cel<br>
+<br>
+<br>
+&nbsp;&nbsp;&nbsp; Known Bugs<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .jpg currently swaps RGB<br>
+</p>
+<p><b>detach</b></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Usage: detach &lt;base_filename&gt;</p>
+<p>&nbsp;&nbsp;&nbsp; do not include the .dds extension</p>
+<p>&nbsp;&nbsp;&nbsp; for example to extract MIP maps from wood.dds use</p>
+<p><i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; detach wood</i></p>
+<p><b>stitch</b></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; Usage: stitch &lt;base_filename&gt;</p>
+<p>&nbsp;&nbsp;&nbsp; do not include the .dds extension</p>
+<p>&nbsp;&nbsp;&nbsp; for example to recombine MIP maps from wood_00.dds,..
+wood_01.dds,...</p>
+<p><i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; stitch wood</i></p>
+<p>&nbsp;</p>
+<p><b>nvDXTLib.lib</b></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <u>Compression</u> example :
+nvdxt.cpp<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Compresses an image with a user supplied callback with the data for each MIP level created.&nbsp;
+For each MIP level, your callback will be called.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Only supports input of RGB 24 or ARGB 32 bpp<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;<font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; HRESULT nvDXTcompress(unsigned char * raw_data, // pointer to data (24 or 32 bit)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned long w, // width in texels<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned long h, // height in texels<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DWORD TextureFormat, // list below<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool bGenMipMaps,    // auto gen MIP maps<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool bDither,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DWORD depth, // 3 or 4<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MIPcallback callback = 0);   // callback for generated levels</font>
+</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; if callback is == 0 (or not specified), then WriteDTXnFile is called with all file info
+instead of your callback<br>
+&nbsp;&nbsp;&nbsp;&nbsp;
+</p>
+<p><font face="Courier">&nbsp;&nbsp;&nbsp; typedef HRESULT (*MIPcallback)(</font>
+</p>
+<p><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; void * data,&nbsp;&nbsp;&nbsp;&nbsp;
+// pointer to the data to compressed data</font>
+</p>
+<p><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int miplevel,&nbsp;&nbsp;&nbsp;
+// what MIP level this is</font>
+</p>
+<p><font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DWORD
+size&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // size of the data</font>
+</p>
+<p><font face="Courier">&nbsp;&nbsp;&nbsp; );</font>
+</p>
+<p><br>
+&nbsp;&nbsp;&nbsp; // You must write the routines (or provide stubs)<br>
+&nbsp;&nbsp;&nbsp; // void WriteDTXnFile(count, buffer);<br>
+&nbsp;&nbsp;&nbsp; // void ReadDTXnFile(count, buffer);<br>
+&nbsp;&nbsp;&nbsp; //&nbsp;<br>
+&nbsp;&nbsp;&nbsp; //<br>
+<font face="Courier">&nbsp; void WriteDTXnFile(DWORD count, void * buffer);<br>
+&nbsp; void ReadDTXnFile(DWORD count, void * buffer);<br>
+</font><br>
+<br>
+<br>
+&nbsp;&nbsp;&nbsp; // TextureFormat, pass this in to request the compression
+format<br>
+<font face="Courier">&nbsp;&nbsp;&nbsp;</font> <font face="Courier">#define TF_DXT1            10<br>
+&nbsp;&nbsp;&nbsp; #define TF_DXT1_1BitAlpha  11<br>
+&nbsp;&nbsp;&nbsp; #define TF_DXT3            12<br>
+&nbsp;&nbsp;&nbsp; #define TF_DXT5            13<br>
+&nbsp;&nbsp;&nbsp; #define TF_RGB4444         14<br>
+&nbsp;&nbsp;&nbsp; #define TF_RGB1555         15<br>
+&nbsp;&nbsp;&nbsp; #define TF_RGB565          16<br>
+&nbsp;&nbsp;&nbsp; #define TF_RGB8888         17</font><br>
+<br>
+&nbsp;&nbsp;&nbsp; // error return codes<br>
+<font face="Courier">&nbsp; #define DXTERR_INPUT_POINTER_ZERO -1<br>
+&nbsp; #define DXTERR_DEPTH_IS_NOT_3_OR_4 -2<br>
+&nbsp; #define DXTERR_NON_POWER_2 -3<br>
+&nbsp;&nbsp;&nbsp;&nbsp;</font><br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp; example callback to store compressed image in a
+Direct3D texture<br>
+<font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp; LPDIRECT3DTEXTURE8 pCurrentTexture = 0;&nbsp;<br>
+<br>
+&nbsp;&nbsp;&nbsp; HRESULT LoadAllMipSurfaces(void * data, int iLevel)<br>
+&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; HRESULT hr;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; LPDIRECT3DSURFACE8 psurf;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; D3DSURFACE_DESC sd;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; D3DLOCKED_RECT lr;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hr = pCurrentTexture->GetSurfaceLevel(iLevel, &amp;psurf);<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (FAILED(hr))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return hr;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; psurf-&gt;GetDesc(&amp;sd);<br>
+<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hr = pCurrentTexture->LockRect(iLevel, &amp;lr, NULL, 0);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (FAILED(hr))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return hr;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; memcpy(lr.pBits, data, sd.Size);<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hr = pCurrentTexture->UnlockRect(iLevel);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ReleasePpo(&amp;psurf);<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&nbsp;&nbsp;&nbsp; }<br>
+</font><br>
+</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; calling sequence<br>
+<font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hr = D3DXCreateTexture(m_pd3dDevice, Width, Height, nMips,  0,   D3DFMT_DXT3,&nbsp;</font>
+</p>
+<p>&nbsp;&nbsp;&nbsp;<font face="Courier">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</font><font face="Courier">D3DPOOL_MANAGED, &amp;pCurrentTexture);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; nvDXTcompress(raw_data, Width, Height, DXT3, true, 4,
+LoadAllMipSurfaces);<br>
+<br>
+</font>
+</p>
+<p>&nbsp;
+</p>
+<p>&nbsp;&nbsp;&nbsp; To <u>decompress</u> an image use this call to read all
+MIP chains into one buffer:
+</p>
+<p><font face="Courier"><br>
+&nbsp;&nbsp;&nbsp; unsigned char * nvDXTdecompress(int &amp; w, int &amp; h, int &amp; depth, int &amp; total_width, int &amp;
+rowBytes);</font><br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; see readdxt.cpp for example<br>
+</p>
+<p><br>
+-Doug<br>
+send bugs or feature requests to doug@nvidia.com<br>
+</p>
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+</body>
+
+</html>

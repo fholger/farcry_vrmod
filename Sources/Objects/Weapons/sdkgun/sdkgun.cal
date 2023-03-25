@@ -1,0 +1,26 @@
+//sets animation directory as the same directory as the weapon - otherwise animations will always search the "animations" directory.
+$AnimDir = .
+
+//sets streaming of animation off
+$AutoUnload = no
+$DelayLoad = no
+
+activate1 = sdkgun_activate1.caf
+activate2 = sdkgun_activate2.caf
+deactivate1 = sdkgun_deactivate1.caf
+default = sdkgun_default.caf
+fidget11 = sdkgun_fidget11.caf
+fire11 = sdkgun_fire11.caf
+fire12 = sdkgun_fire12.caf
+fire13 = sdkgun_fire13.caf
+fire21 = sdkgun_fire21.caf
+fire23 = sdkgun_fire23.caf
+grenade11 = sdkgun_grenade11.caf
+grenade12 = sdkgun_grenade12.caf
+idle11 = sdkgun_idle11.caf
+idle21 = sdkgun_idle21.caf
+reload1 = sdkgun_reload1.caf
+
+//sets steaming back on for any animations listed below the following commands. this way you can blockout certain animations you wish not to have streamed.
+$AutoUnload = yes
+$DelayLoad = yes

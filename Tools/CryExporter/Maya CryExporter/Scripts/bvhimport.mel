@@ -1,0 +1,325 @@
+/*  This file downloaded from Highend3d.com
+''  
+''  Highend3d.com File Information:
+''  
+''    Script Name: BVH Import v2.0
+''    Author: Sergiy
+''    Last Updated: August 4, 2002
+''    Update/Change this file at:
+''    http://www.highend3d.com/maya/mel/?section=utilities#1840
+''  
+''  Please do not alter any information above this line
+''  it is generated dynamically by Highend3d.com and will
+''  be changed automatically on any updates.
+*/
+
+/*
+BVH file import. Builds a skeleton under bvh_import group and imports the motion.
+Sets up zero initial position at the frame -20. Works with Maya 4.0.
+Just run the script and pick a bvh file.
+
+NOTE: New Curve Default option (uder Preferences/Settings/Keys) MUST be "Independent Euler-Angle Curves"
+
+Written by Sergiy Migdalskiy <migdalskiy(at)hotmail.com>, comments and suggestions are welcome.
+
+Originally based on the bvh_import.mel script by sung joo, Kang (Gangs) / sjkang(at)bigfilm.co.kr, gangs2(at)nownuri.net
+*/
+
+string $filename=`fileDialog -dm "*.bvh"`;
+
+// This is the global skeleton scale factor. If the imported skeleton is too big, set it to a value < 1,
+// if it's too small set it to something >1
+float $globalScale = 0.1;
+
+float $globalScaleX = $globalScale;
+float $globalScaleY = $globalScale;
+float $globalScaleZ = $globalScale;
+
+
+$fileId=`fopen $filename "r"`;
+
+select -cl;
+int $joint_name_val = 0;
+string $joint_name[];
+float $offset_joint_x[], $offset_joint_y[], $offset_joint_z[];
+string $index_joint[];
+int $index = 0;
+int $index_ch = 0;
+string $index_channel[];
+string $make_joint_cmd;
+string $ch_tmp;
+float $frame_interval;
+string $temp_buff[];
+string $name, $name_temp;
+
+clear $joint_name $offset_joint_x $offset_joint_y $offset_joint_z $index_joint $index_channel;
+
+
+
+$name = `group -em -n bvh_import`;
+tokenize $name "bvh_import" $temp_buff;
+if (size($temp_buff) == 0 ) {
+	$name_temp = "";
+}
+else {
+	$name_temp = $temp_buff[0];
+}
+
+
+
+string $nextWord = `fgetword $fileId`;
+
+float $offsetx = 0;
+float $offsety = 0;
+float $offsetz = 0;
+
+int $frames;
+float $time_count = 0;
+
+string $last_joint_name_val = "";
+
+proc float Turn180Degrees (float $fAngle)
+{
+float $gPi = 3.1415926535897932384626433832795;
+	return $fAngle >= 0 ? $fAngle - $gPi : $fAngle + $gPi;
+}
+
+// mirrors the rotation: returns pi-fAngle
+// normalized to the given normalized [-pi,pi) angle
+proc float Mirror180Degrees (float $fAngle)
+{
+float $gPi = 3.1415926535897932384626433832795;
+	return $fAngle > 0 ? $gPi - $fAngle: -$gPi - $fAngle;
+}
+
+proc setRotation (string $strObject, float $fRotate[])
+{
+	float $fRotateX, $fRotateY, $fRotateZ;
+
+	$fRotateX = $fRotate[0];
+	$fRotateY = $fRotate[1];
+	$fRotateZ = $fRotate[2];
+
+	rotate -r -os 0 0 $fRotateZ $strObject;
+	rotate -r -os $fRotateX 0 0 $strObject;
+	rotate -r -os 0 $fRotateY 0 $strObject;
+	setKeyframe -at "rotateX" $strObject;
+	setKeyframe -at "rotateY" $strObject;
+	setKeyframe -at "rotateZ" $strObject;
+}
+
+while (  size($nextWord) >0 )	{
+
+		if ($nextWord == "ROOT")	{
+				$jointname = `fgetword $fileId`;
+				$joint_name[0] = $jointname+$name_temp;
+				$index_joint[$index] = $jointname+$name_temp;
+				joint -n $joint_name[0] -p 0 0 0;
+
+			}
+
+		if (($nextWord=="JOINT") || ($nextWord=="End"))    {
+
+		// find Joint name
+
+				$jointname = `fgetword $fileId`;
+				$joint_name[$joint_name_val] = $jointname+$name_temp;
+				$index_joint[$index] = $jointname+$name_temp;
+			}
+
+		if ($nextWord == "{")	{
+
+			$nextWord = `fgetword $fileId`;
+	
+			if ($nextWord == "OFFSET" )
+			{
+				// find Joint offset data
+				float $offset_x=`fgetword $fileId`;
+				float $offset_y=`fgetword $fileId`;
+				float $offset_z=`fgetword $fileId`;
+				$offset_joint_x[$joint_name_val] = $offset_x;
+				$offset_joint_y[$joint_name_val] = $offset_y;
+				$offset_joint_z[$joint_name_val] = $offset_z;
+
+				$offsetx = $offsetx + $offset_joint_x[$joint_name_val];
+				$offsety = $offsety + $offset_joint_y[$joint_name_val];
+				$offsetz = $offsetz + $offset_joint_z[$joint_name_val];
+
+				if ($joint_name_val != 0)
+				{
+					if ($joint_name[$joint_name_val] == "Site")
+						$joint_name[$joint_name_val] = "Effector" + $joint_name[$joint_name_val-1];
+					$last_joint_name_val = $joint_name_val;
+					$make_joint_cmd = "joint -n "+ $joint_name[$joint_name_val]+ " -p " + ($offsetx*$globalScaleX) + " " + ($offsety*$globalScaleY) + " " + ($offsetz*$globalScaleZ);
+					$sel_joint_cmd = "select -r " + $joint_name[$joint_name_val-1];
+					$ord_joint_cmd = "setAttr " + $joint_name[$joint_name_val-1] + ".rotateOrder 2";
+
+					eval($sel_joint_cmd);
+					eval($make_joint_cmd);
+					eval($ord_joint_cmd);
+				}
+
+				}
+				$joint_name_val ++;
+
+			}
+
+		if ($nextWord == "}")	{
+				$joint_name_val --;
+				$offsetx = $offsetx - $offset_joint_x[$joint_name_val];
+				$offsety = $offsety - $offset_joint_y[$joint_name_val];
+				$offsetz = $offsetz - $offset_joint_z[$joint_name_val];
+
+
+			}
+
+ 		if ($nextWord == "CHANNELS") {
+
+				int $tmp = `fgetword $fileId`;
+				for ($i = 1; $i	<= $tmp; $i++)	{
+						string $tmp2 = `fgetword $fileId`;
+						switch ($tmp2)	{
+								case "Xposition" :
+									$ch_tmp = "translateX";
+									break;
+
+								case "Yposition" :
+									$ch_tmp = "translateY";
+									break;
+
+								case "Zposition" :
+									$ch_tmp = "translateZ";
+									break;
+
+								case "Xrotation" :
+									$ch_tmp = "rotateX";
+									break;
+
+								case "Yrotation" :
+									$ch_tmp = "rotateY";
+									break;
+
+								case "Zrotation" :
+									$ch_tmp = "rotateZ";
+									break;
+
+						}
+						$index_channel[$index_ch] = $index_joint[$index] + "." + $ch_tmp;
+						$index_ch++;
+
+
+					}
+
+					$index ++;
+
+			}
+
+	    if ($nextWord == "MOTION") {
+
+			$nextWord = `fgetword $fileId`;
+
+			if  ($nextWord == "Frames:") {
+				$frames = `fgetword $fileId`;
+			}
+
+			$nextWord = `fgetword $fileId`;
+			$nextWord = `fgetword $fileId`;
+
+			if ($nextWord == "Time:") {
+				$frame_interval = `fgetword $fileId`;
+			}
+
+			$nextWord = `fgetword $fileId`;
+			float $fRotation[3];
+			for ( $k = 1; $k <= $frames; $k++) {
+
+				currentTime $k;
+				//print ("currentTime " + $k + "\n");
+				
+				for ($chan = 0; $chan < size($index_channel); $chan++)
+				{
+					setAttr $index_channel[$chan] 0;
+				}
+
+				for ($j=1; $j<$index_ch; $j++)
+				{
+				float $value = $nextWord;
+				string $buffer[];
+
+				tokenize $index_channel[$j-1] "." $buffer;
+				switch ($buffer[1])
+				{
+					case "translateX":
+					case "translateY":
+					case "translateZ":
+						setAttr $index_channel[$j-1] ($value*$globalScale);
+						setKeyframe -at $buffer[1] $buffer[0];
+					break;
+					case "rotateX":
+						$fRotation[0] = $value;
+						break;
+					case "rotateY":
+						$fRotation[1] = $value;
+						break;
+					case "rotateZ":
+						$fRotation[2] = $value;
+						break;
+					break;
+/*
+					case "rotateX":
+						rotate -r -os $value 0 0 $buffer[0];
+						setKeyframe -at "rotate" $buffer[0];
+					break;
+						
+					case "rotateY":
+						rotate -r -os 0 $value 0 $buffer[0];
+						setKeyframe -at "rotate" $buffer[0];
+					break;
+
+					case "rotateZ":
+						rotate -r -os 0 0 $value $buffer[0];
+						setKeyframe -at "rotate" $buffer[0];
+					break;
+*/
+				};
+
+				switch ($buffer[1])
+				{
+					//case "rotateX":
+					case "rotateY":
+					//case "rotateZ":
+						setRotation ($buffer[0], $fRotation);
+						break;
+				}
+/*
+				if ($k >= 40 && $k <= 50 )
+				{
+					print ("\tsetAttr " + $index_channel[$j-1] + "  " + $value + ";\n");
+				};
+*/
+				$nextWord =`fgetword $fileId`;
+
+				}
+
+				$time_count += ($frame_interval*30);
+				$nextWord = `fgetword $fileId`;
+			}
+		}
+
+		currentTime -20;
+		// make up the initial pose
+		for ($chan = 3; $chan < size($index_channel); $chan++)
+		{
+			string $buffer[];
+			tokenize $index_channel[$chan] "." $buffer;
+			setAttr $index_channel[$chan] 0;
+			setKeyframe -at $buffer[1] $buffer[0];
+		}
+
+
+		$nextWord = `fgetword $fileId`;
+	}
+
+select -cl;
+fclose $fileId;
+

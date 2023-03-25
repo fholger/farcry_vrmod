@@ -1,0 +1,55 @@
+// Translation of Shader names into format understandable by the CryExporter:
+// takes the name of the (shader) node 
+
+
+string $arrShaders[];
+$arrShaders = `ls -sl`;
+int $i, $j;
+string $strShader;
+
+string $cryTemplate = "cryTemplate";
+string $cryPhysicsMaterial = "cryPhysicsMaterial";
+
+for ($i = 0; $i < size($arrShaders); ++$i)
+{
+	$strShader = $arrShaders[$i];
+	print ("Processing shader " + $strShader + "\n");
+	
+	if (!attributeExists ($cryTemplate, $strShader))
+		addAttr -ln $cryTemplate -sn "cryT" -dt "string" -storable true $strShader;
+
+	if (!attributeExists ($cryPhysicsMaterial, $strShader))
+		addAttr -ln $cryPhysicsMaterial -sn "cryP" -dt "string" -storable true $strShader;
+
+	if (substring($strShader,1,2)=="s_")
+	{
+		// find the start of the template definition
+		string $strTempl = "_Templ";
+		for ($j = 4; $j <= size($strShader)-size($strTempl) && substring($strShader, $j, $j + size($strTempl)-1) != $strTempl; $j++);
+		//print ("Template name starts at position " + $j + "\n");
+		if (substring($strShader, $j, $j+size($strTempl)-1) == $strTempl)
+		{
+			// find the end of the template definition
+			for ($k = $j+size($strTempl); $k <= size($strShader) && substring($strShader,$k,$k) != "_"; ++$k);
+			//		print ("End of template definition: " + $k + "\n");
+			string $strTemplate = substring ($strShader, $j+1, $k-1);
+			string $strNewName = substring($strShader,1,$j-1);
+			string $strPhysMtl;
+			// find the physical material name
+			if ($k+1 < size($strShader) && substring($strShader,$k,$k+1) == "__")
+				$strPhysMtl = substring ($strShader, $k+2, size($strShader));
+			if (substring ($strNewName,size($strNewName),size($strNewName)) == "_")
+			{
+				// if the Templ work is preceded by two underlines __Templ..., it probably
+				// means that in Max file it was (#Templ.. Treat it correspondingly.
+				$strTemplate = "#" + $strTemplate;
+				$strNewName  = substring ($strNewName,1,size($strNewName)-1);
+			}
+			print ("Shader new name: \"" + $strNewName + "\", cryTemplate: \"" + $strTemplate + "\", cryPhysicsMaterial: \"" + $strPhysMtl + "\"\n");
+			
+			setAttr -type "string" ($strShader + "." + $cryTemplate)  $strTemplate;
+			setAttr -type "string" ($strShader + "." + $cryPhysicsMaterial) $strPhysMtl;
+			rename $strShader ($strNewName);
+		}
+	}
+}

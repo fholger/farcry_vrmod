@@ -1,0 +1,1171 @@
+//////////////////////////////////////////////////////////////////////////////////
+// Copyright(c) 2002 CryTek GmbH Germany. All rights reserved.
+//
+// Front-end interface for the MayaCryExporter plugin
+// Creates a window with all the options and parameters settable in a visual way.
+// Maya 4.0 NT Only.
+//////////////////////////////////////////////////////////////////////////////////
+
+// Adds the given path (object) to the list, if the object is not there yet
+proc CryExportAddToList (string $strLayout, string $strPath)
+{
+	string $strCryExportItemListName = $strLayout + "listItems";//$strMainWnd + "|formMain|frameItemList|form|listItems";
+	string $arrAlreadySelected[] = `textScrollList -query -allItems $strCryExportItemListName`;
+	// determine if the given object already exists in the list
+	int $i;
+	for ($i = 0; $i < size($arrAlreadySelected); $i++)
+	{
+		// if the given object already exists in the list, then don't add it - skip the addition
+		if ($arrAlreadySelected[$i] == $strPath)
+			return;
+	}
+
+	// add the object to the list	
+	textScrollList -edit -append $strPath $strCryExportItemListName;	
+}
+
+
+/////////////////////////////////////////////////////////////////////////////////////
+// CALLBACK: "Add" button near the item list
+// Adds the current selection to the item list after filtering it with the CryExportUtil command
+// $strFileType      - "CGF" or "CAF"
+// $strLayout        - path to the form containing the item list
+// $arrSelectionIn[] - incoming selection, to be transformed with the Util command
+global proc CryExportAddArrayToList (string $strFileType, string $strLayout, string $arrSelectionIn[])
+{
+	// add objects with full paths or partial paths?
+	// for bones, it's more convenient to see full paths for sorting and hierarchy reviewing
+	int $nFullPath = $strFileType == "CAF" ? true : false;
+	// the checkbox responsible for adding items to the opposite item list in "BOTH" mode
+	string $strAutoAddOpposite = ($strLayout + "chkAutoAddOpposite");
+	// item of the input selection array
+	string $strSelectionIn;
+	for ($strSelection in $arrSelectionIn)
+		$strSelectionIn += " " + $strSelection;
+	// filter the incoming selection array through the Util command
+	string $arrSelectionList[] = eval("CryExportUtil -fullPath " + $nFullPath + " -action \"to"+$strFileType+"\" " + $strSelectionIn);
+	// scan through the filtered object list
+	string $strSelection;
+	for ($strSelection in $arrSelectionList)
+	{
+		//print ("adding " + $arrSelectionList[$i]);
+		CryExportAddToList ($strLayout, $strSelection);
+
+		if (`checkBox -exists $strAutoAddOpposite`)
+			if (`checkBox -query -value $strAutoAddOpposite`)
+			{
+				// find the corresponding opposite layout and add to the list
+				string $strOppositeFileType = $strFileType == "CAF"?"CGF":"CAF";
+				string $strOppositeLayout = `substitute ("frameItemList"+$strFileType) $strLayout ("frameItemList" + $strOppositeFileType)`;
+				string $arrOppositeSelectionList[] = eval("CryExportUtil -fullPath " +(!$nFullPath) + " -action \"to" + $strOppositeFileType + "\"");
+				string $strOppositeSelection;
+				for ($strOppositeSelection in $arrOppositeSelectionList)
+					CryExportAddToList ($strOppositeLayout, $strOppositeSelection);
+			}
+	}
+}
+
+
+// CALLBACK: adds selected objects to the item list
+// $strFileType - "CAF" or "CGF"
+// $strLayout   - form containing the item list
+global proc CryExportAddSelectionToList (string $strFileType, string $strLayout)
+{
+	string $arrSelection[] = `ls -sl`;
+	CryExportAddArrayToList ($strFileType, $strLayout, $arrSelection);
+}
+
+
+// manages or unmanages the array of controls belonging to the given layout.
+// PARAMETERS:
+//   $strLayout   - the common layout
+//   $arrControls - the array of controls to (un)manage
+//   $bManage     - true (manage) or false (unmanage)
+global proc CryExportManageUIControls (string $strLayout, string $arrControls[], int $bManage)
+{
+	int $i;
+	for ($i = 0; $i < size($arrControls); ++$i)
+	{
+		control -edit -manage $bManage ($strLayout + $arrControls[$i]);
+	}
+}
+
+
+// CALLBACK: "Delete" button next to the item list
+// Deletes the currently selected items from the list (the list may allow multiple selection)
+global proc CryExportDeleteItemsFromList(string $strLayout)
+{
+	string $strCryExportItemListName = $strLayout + "listItems";
+	string $arrSelectedItems[] = `textScrollList -query -selectItem $strCryExportItemListName`;
+	// determine if the given object already exists in the list
+	int $i;
+	for ($i = 0; $i < size($arrSelectedItems); $i++)
+	{
+		textScrollList -edit -removeItem $arrSelectedItems[$i] $strCryExportItemListName;
+	}
+}
+
+// CALLBACK: "Select Items" button next to the item list
+// Selects the items (that are selected in the item list) in the Maya viewport.
+global proc CryExportSelectItems(string $strLayout)
+{
+	string $strCryExportItemListName = $strLayout + "listItems";
+	string $arrSelectedItems[] = `textScrollList -query -allItems $strCryExportItemListName`;
+	// determine if the given object already exists in the list
+	select $arrSelectedItems;
+}
+
+// CALLBACK: "Cleanup Items" button next to the item list
+// Cleans up the whole list
+global proc CryExportCleanupAllItems(string $strItemListForm)
+{
+	string $strCryExportItemListName = $strItemListForm + "listItems";
+	textScrollList -edit -removeAll $strCryExportItemListName;
+}
+
+// CALLBACK: 	"Add All" button next to the item list
+// Adds all objects in the scene to the list
+global proc CryExportAddAllToList (string $strFileType, string $strLayout)
+{
+	string $arrItems[] = `ls -transforms`;
+	CryExportAddArrayToList ($strFileType, $strLayout, $arrItems);
+}
+
+
+// From the given main dialog window of the given type (CAF/CGF)
+// retrieve the options in the form postable to the CryExportC?f command
+// These options are retrieved from the values of the controls throughout the 
+// window (checkboxes, float fields etc)
+global proc string CryExportGetCommandOptions (string $strMainWnd, string $strType)
+{
+	//print ("CryExportGetCommandOptions("+$strMainWnd + ","+$strType+")\n");
+	string $strResult;
+	string $strMainForm = $strMainWnd + "|formMain|frameExportOptions" + $strType + "|form|";
+
+	// common options - exist in all CAF and CGF options
+	if (`checkBox -query -value ($strMainForm + "chkDontConvertCS")`)
+		$strResult += "-dontConvertCS ";
+
+	if ($strType == "CAF")
+	{
+		// CAF specific options
+		// Bone options
+		string $strBoneForm = $strMainForm + "frameBoneExport|form|";
+		float $fAnimStep = `floatField -query -value ($strBoneForm + "editAnimationStep")`;
+		$strResult += "-animationStep " + $fAnimStep + " ";
+
+		int $nIgnoreDummies = `checkBox -query -value ($strBoneForm + "chkIgnoreDummies")`;
+		if ($nIgnoreDummies)
+			$strResult += "-ignoreDummies ";
+		
+		// Key optimization options
+		string $strKeyframeForm = $strMainForm + "frameKeyframeOptimization|form|";
+		if (`checkBox -query -value ($strKeyframeForm + "chkEnableKeyCleanup")`)
+		{
+			float $fRotationPrecision = `floatField -query -value ($strKeyframeForm + "editRotationKeyPrecision")`;
+			float $fPositionPrecision = `floatField -query -value ($strKeyframeForm + "editPositionKeyPrecision")`;
+			$strResult += "-rotationPrecision " + $fRotationPrecision + " ";
+			$strResult += "-positionPrecision " + $fPositionPrecision + " ";
+		}
+		else
+		{
+			$strResult += "-disableKeyOptimization ";
+		}
+
+		// Manual Time range options
+		string $strTimingForm = $strMainForm + "frameTimingRange|form|";
+		if (`checkBox -query -value ($strTimingForm + "chkManualRange")`)
+		{
+			float $fAnimStart = `floatField -query -value ($strTimingForm + "editManualRangeStart")`;
+			float $fAnimEnd   = `floatField -query -value ($strTimingForm + "editManualRangeEnd")`;
+			$strResult += "-manualRangeStart " + $fAnimStart + " -manualRangeEnd " + $fAnimEnd + " ";
+		}
+	}
+
+	if ($strType == "CGF")
+	{
+		if (`checkBox -query -value ($strMainForm + "chkExportIndividualFiles")`)
+			$strResult += "-exportIndividualFiles ";
+		// CGF specific options
+		// Retrieve the Geometry Export options
+		string $strGeomForm = $strMainForm + "frameGeomOptions|form|";
+		string $strGeomFormCommon = $strGeomForm + "formCommon|";
+		//print ("Checking " + $strGeomFormCommon + "chkExportMaterials\n");
+		if (!`checkBox -query -value ($strGeomFormCommon + "chkExportMaterials")`)
+			$strResult += "-ignoreMaterials ";
+		if (!`checkBox -query -value ($strGeomFormCommon + "chkAllowMultiUV")`)
+			$strResult += "-dontAllowMultiUV ";
+		if (`checkBox -query -value ($strGeomFormCommon + "chkVertexColors")`)
+			$strResult += "-vertexColors ";
+		if (`checkBox -query -value ($strGeomFormCommon + "chkWriteWeights")`)
+		{
+			int $nLinks = `radioButtonGrp -query -select ($strGeomForm + "radioWeightLinks")`;
+			switch ($nLinks)
+			{
+				case 1:
+					$strResult += "-maxWeightsPerLink 1 ";
+					break;
+				default:
+					break;
+			}
+		}
+		else
+			$strResult += "-maxWeightsPerLink 0 ";
+	}	
+	return $strResult;
+}
+
+// checks whether the given file path contains the file extension, and, if it does not,
+// then appends the given extension (the extension is given NOT including the dot)
+global proc string CryExpandFilePath (string $strFilePath, string $strFileType)
+{
+	int $i;
+	for ($i = size($strFilePath); $i > 0; $i -= 1)
+	{
+		switch (substring($strFilePath,$i,$i))
+		{
+			case "/":
+			case "\\":
+				// the file does not contain extension, add it
+				return ($strFilePath + "." + $strFileType);
+			case ".":
+				return ($strFilePath);				
+		}
+	}
+	// the file path is a pure file name, no extension
+	return $strFilePath + "." + $strFileType;
+}
+
+
+// Exports selected objects as individual files into the given directory
+global proc CryExportSaveIndividual (string $strMainWnd, string $strFileType, string $strDir, string $strType)
+{
+	string $strLayout = $strMainWnd + "|formMain|frameItemList" + $strFileType + "|form|";
+	//print ("OnFileSave ("+$strFilePath + ", " + $strType + ")\n");
+	string $strCryExportItemListName = $strLayout + "listItems";
+	string $strOptions;
+	string $arrSelectedItems[] = `textScrollList -query -allItems $strCryExportItemListName`;
+	string $strSelectedItem;
+	int $i;
+	string $strProgressBar = $strLayout + "formInvisible|progress";
+	print (size($arrSelectedItems) + " items, " + $strProgressBar + "\n");
+
+	progressBar -edit -beginProgress -isInterruptable true -status "Exporting Multiple Files" -maxValue (size($arrSelectedItems)) $strProgressBar;
+
+	for ($i = 0; $i < size($arrSelectedItems); ++$i)
+	{
+	$strSelectedItem = $arrSelectedItems[$i];
+	string $strExportCommand;
+	switch ($strFileType)
+	{
+		case "CAF":
+			$strExportCommand = "CryExportCaf";
+			break;
+		case "CGF":
+			$strExportCommand = "CryExportCgf";
+			break;
+		default:
+			print ("Unknown file type: " + $strFileType + "\n");
+			return;
+	}
+
+	string $strFileExt;
+	switch ($strType)
+	{
+		case "crytekBuilding":
+			$strFileExt = "bld";
+			break;
+		case "crytekGeometry":
+			$strFileExt = "cgf";
+			break;
+		case "crytekAnimation":
+			$strFileExt = "caf";
+			break;
+	}
+
+	$strOptions = CryExportGetCommandOptions($strMainWnd, $strFileType);
+
+	string $strFilePath = $strDir + $strSelectedItem + "." + $strFileExt;
+	//string $strFilePath = CryExpandFilePath ($strDir + $strSelectedItem, $strFileExt);
+	//print ("Exporting (" + $strExportCommand + ") " + size($arrSelectedItems) + " items {" + $strSelectedItems + "} to " + $strFilePath + ", options: " + $strOptions + "\n");
+	string $cmd = $strExportCommand + " -file \"" + $strFilePath + "\" ";
+	$cmd += " " + $strOptions;
+	$cmd += " " + $strSelectedItem;
+	print ("Executing: " + $cmd + "\n");
+	//pause -sec 1;
+	if (catch (`eval($cmd)`))
+	{
+		if ("Cancel" == `confirmDialog
+			-title "CryExport"
+			-message ("Could not export the " + $strType + " file " + $strFilePath + " because of an internal error.\nSee the Maya Output Window for the description of the error(s) occurred")
+			-messageAlign "left"
+			-parent $strMainWnd
+			-button "Continue" -button "Cancel" -defaultButton "Continue"
+			-cancelButton "Continue" -dismissString "Continue"`)
+		{
+			progressBar -edit -endProgress $strProgressBar;
+			return;
+		}
+	}
+	progressBar -edit -step 1 $strProgressBar;
+	}
+	CryExportSetLastExportedTo ($strLayout, $strDir);
+	progressBar -edit -endProgress $strProgressBar;
+	control -edit -manage false $strProgressBar;
+}
+
+
+
+// CALLBACK: Gets called when the user clicks "Save" in the Save file dialog box
+// that appears after clicking the "Export" button
+// Given the window with options, retrieves the options and executes the export command with all appropriate flags and options
+global proc CryExportOnFileSave (string $strMainWnd, string $strFileType, string $strFilePath, string $strType)
+{
+	string $strLayout = $strMainWnd + "|formMain|frameItemList" + $strFileType + "|form|";
+	//print ("OnFileSave ("+$strFilePath + ", " + $strType + ")\n");
+	string $strCryExportItemListName = $strLayout + "listItems";
+	string $strOptions;
+	string $arrSelectedItems[] = `textScrollList -query -allItems $strCryExportItemListName`;
+	string $strSelectedItems;
+	int $i;
+
+	for ($i = 0; $i < size($arrSelectedItems); ++$i)
+	{
+		if ($i > 0)
+			$strSelectedItems += " ";
+		$strSelectedItems += $arrSelectedItems[$i];
+	}
+
+	string $strExportCommand;
+	switch ($strFileType)
+	{
+		case "CAF":
+			$strExportCommand = "CryExportCaf";
+			break;
+		case "CGF":
+			$strExportCommand = "CryExportCgf";
+			break;
+		default:
+			print ("Unknown file type: " + $strFileType + "\n");
+			return;
+	}
+
+	string $strFileExt;
+	switch ($strType)
+	{
+		case "crytekBuilding":
+			$strFileExt = "bld";
+			break;
+		case "crytekGeometry":
+			$strFileExt = "cgf";
+			break;
+		case "crytekAnimation":
+			$strFileExt = "caf";
+			break;
+	}
+
+	$strOptions = CryExportGetCommandOptions($strMainWnd, $strFileType);
+
+	global string $gMainProgressBar;
+
+	$strFilePath = CryExpandFilePath($strFilePath,$strFileExt);
+	//print ("Exporting (" + $strExportCommand + ") " + size($arrSelectedItems) + " items {" + $strSelectedItems + "} to " + $strFilePath + ", options: " + $strOptions + "\n");
+	string $cmd = $strExportCommand + " -file \"" + $strFilePath + "\" ";
+	$cmd += " " + $strOptions;
+	//$cmd += " -progressBar \"" + $gMainProgressBar + "\"";
+	$cmd += " -progressBar \"" + $strLayout + "formInvisible|progress\"";
+	$cmd += " " + $strSelectedItems;
+	print ("Executing: " + $cmd + "\n");
+	//pause -sec 1;
+	if (catch (`eval($cmd)`))
+		confirmDialog
+			-title "CryExport"
+			-message ("Could not export the " + $strType + " file " + $strFilePath + " because of an internal error.\nSee the Maya Output Window for the description of the error(s) occurred")
+			-messageAlign "left"
+			-parent $strMainWnd
+			-button "OK" -defaultButton "OK";
+	else
+	{
+		CryExportSetLastExportedTo ($strLayout, $strFilePath);
+	}
+}
+
+
+// Exports CGF file given the window with all the options for that file export
+global proc CryExportDoExportCGF(string $strMainWnd)
+{
+	string $strLayout = $strMainWnd + "|formMain|frameItemListCGF|form|";
+	string $strCryExportItemListName = $strLayout + "listItems";
+	CryExportSetLastExportedTo ($strLayout, "");
+
+	if (!`exists CryExportCgf`)
+	{
+		loadPlugin MayaCryExport.mll;
+		if (!`exists CryExportCgf`)
+		{
+			confirmDialog
+				-title "Cry Export"
+				-message "Cannot load plugin MayaCryExport.mll.\nThe CryExportCgf command is unavailable.\nCannot export a CryEngine file."
+				-messageAlign "center"
+				-parent $strMainWnd
+				-button "OK" -defaultButton "OK";
+		}
+	}
+	
+	if (`exists CryExportCgf`)
+	{
+		int $isMultipleFileExport = `checkBox -query -value chkExportIndividualFiles`;
+		int $isBuilding = `checkBox -query -value chkExportAsBuilding`;
+		string $strType = $isBuilding?"crytekBuilding":"crytekGeometry";
+		control -edit -manage true ($strLayout + "formInvisible|progress");
+		if ($isMultipleFileExport)
+		{
+			string $strDir;
+			$strDir = eval("CryBrowseForDir -title \"Choose the target directory\"");
+			if (size($strDir) > 0)
+				CryExportSaveIndividual $strMainWnd "CGF" $strDir $strType;
+		}
+		else
+		{
+			fileBrowserDialog
+				-mode 1
+				-fileCommand ("CryExportOnFileSave \"" + $strMainWnd + "\" \"CGF\"")
+				-fileType $strType
+				-actionName ($isBuilding?"ExportBuilding":"ExportGeometry")
+				-operationMode "ExportActive"
+				;
+			control -edit -manage false ($strLayout + "formInvisible|progress");
+		}
+	}
+}
+
+
+// Exports CAF file given the options window
+global proc CryExportDoExportCAF(string $strMainWnd)
+{
+	string $strLayout = $strMainWnd + "|formMain|frameItemListCAF|form|";
+	string $strCryExportItemListName = $strLayout + "listItems";
+	CryExportSetLastExportedTo ($strLayout, "");
+	
+	if (!`exists CryExportCaf`)
+	{
+		loadPlugin "MayaCryExport.mll";
+		if (!`exists CryExportCaf`)
+		{
+			confirmDialog
+				-title "Cry Export"
+				-message "Cannot load plugin MayaCryExport.mll.\nThe CryExportCaf command is unavailable.\nCannot export a CryEngine file."
+				-messageAlign "center"
+				-parent $strMainWnd
+				-button "OK" -defaultButton "OK";
+		}
+	}
+	
+	if (`exists CryExportCaf`)
+	{
+		control -edit -manage true ($strLayout + "formInvisible|progress");
+		fileBrowserDialog
+			-mode 1
+			-fileCommand ("CryExportOnFileSave \"" + $strMainWnd + "\" \"CAF\"")
+			-fileType "crytekAnimation"
+			-actionName "ExportAnimation"
+			-operationMode "ExportActive"
+			;
+		control -edit -manage false ($strLayout + "formInvisible|progress");
+	}
+}
+
+
+//////////////////////////////////////////////////////////////////////////////
+// Makes a frame with the list box with buttons to let the user pick objects
+// for export. Under the list, there is a button "Export" which exports the
+// Cgf or Caf file.
+// $bOpposite - set to true if the opposite type list will be present and the
+// "Add related bone/mesh" checkbox is required
+global proc CryExportMakeUIExportedItems (string $strMainWnd, string $strFileType, int $bOpposite)
+{ 
+	frameLayout 
+		-label ($strFileType=="CGF"?"Object Export":"Bone Export")
+		-collapsable true -collapse false
+		-borderStyle "etchedIn" -borderVisible true
+		-marginWidth 5 -marginHeight 5
+			("frameItemList" + $strFileType);
+	formLayout
+		-numberOfDivisions 100
+			form;
+		string $strItemListForm = (`setParent -query`) + "|";
+		text txtItemListTitle;
+		switch ($strFileType)
+		{
+		case "CGF":
+			text -edit -label "The list of the exported items. When a bone is selected, the influenced skin (if any) geometry is exported"
+				txtItemListTitle;
+			break;
+		case "CAF":
+			text -edit -label "The list of the exported items. When a shape is selected, the underlying skeleton (if any) animation is exported"
+				txtItemListTitle;
+			break;
+		}
+	
+		string $strUpperAnchor = "txtItemListTitle";
+		if ($bOpposite)
+		{
+			$strUpperAnchor = "chkAutoAddOpposite";
+			checkBox
+				-label ("Add Related " + ($strFileType=="CGF"?"Bones":"Mesh"))// the Auto Add Bones/Mesh flag - for the multiple layout export UI (with both Export CAF and CGF capabilities)
+				-value true
+				$strUpperAnchor;
+		}
+		// The items to export
+		textScrollList
+			-allowMultiSelection true
+			-numberOfRows 12
+			-doubleClickCommand ("CryExportSelectItems \"" + $strItemListForm + "\"")
+			-deleteKeyCommand ("CryExportDeleteItemsFromList \"" + $strItemListForm + "\"")
+				listItems;
+		columnLayout
+			-width 100
+			-adjustableColumn true
+			//-columnAlign "center"
+			-columnAttach "both" 5
+			-columnOffset "both" 5
+			-rowSpacing 5
+				layoutListButtons;
+			button -label "Add Selection" -command ("CryExportAddSelectionToList(\"" + $strFileType + "\",\"" + $strItemListForm + "\")") btnAdd;
+ 			button -label "Delete Items" -command ("CryExportDeleteItemsFromList(\"" + $strItemListForm + "\")") btnDelete;
+			button -label "Cleanup Items" -command ("CryExportCleanupAllItems(\"" + $strItemListForm + "\")") btnCleanup;
+			button -label "Add All" -command ("CryExportAddAllToList(\"" + $strFileType + "\",\"" + $strItemListForm + "\")") btnAddAll;
+			button -label "Select Items" -command ("CryExportSelectItems(\"" + $strItemListForm + "\")") btnSelect;
+		setParent ..;
+		button
+			-label ("Export " + $strFileType)
+			-align "center"
+			-command ("CryExportDoExport" + $strFileType + "(\"" + $strMainWnd + "\")")
+			btnExport;	
+		columnLayout
+			-adjustableColumn true
+			formInvisible;
+		text
+			-label "Last Exported To:\n"
+			-align "left"
+			-manage false
+			txtLastExportedTo;
+		progressBar
+			-manage false
+			progress;
+		setParent ..;
+	formLayout -edit
+		-numberOfDivisions 100
+
+		-attachNone txtItemListTitle "bottom"
+		-attachForm txtItemListTitle "top" 5
+		-attachForm txtItemListTitle "left" 5
+		-attachForm txtItemListTitle "right" 5
+			form;
+
+	if ($bOpposite)
+		formLayout -edit
+			-attachNone chkAutoAddOpposite "bottom"
+			-attachForm chkAutoAddOpposite "left" 5
+			-attachForm chkAutoAddOpposite "right" 5
+			-attachControl chkAutoAddOpposite "top" 5 txtItemListTitle
+			form;
+
+	formLayout -edit
+		-attachNone layoutListButtons "left"
+		-attachNone layoutListButtons "bottom"
+		-attachControl layoutListButtons "top" 5 $strUpperAnchor
+		-attachForm layoutListButtons "right" 5
+
+		-attachNone listItems "bottom"
+		-attachControl listItems "top" 5 $strUpperAnchor
+		-attachForm listItems "left" 5
+		-attachControl listItems "right" 5 layoutListButtons
+
+		-attachNone btnExport "bottom"
+		-attachForm btnExport "left" 5
+		-attachForm btnExport "right" 5
+		-attachControl btnExport "top" 5 listItems
+
+		-attachNone formInvisible "bottom"
+		-attachForm formInvisible "left" 5
+		-attachForm formInvisible "right" 5
+		-attachControl formInvisible "top" 5 btnExport
+			form;
+	setParent ..;
+	setParent ..;
+}
+
+
+// sets the prompt ("last exported to")
+// if it's an empty string, then unmanages the control
+global proc CryExportSetLastExportedTo (string $strLayout, string $strFileName)
+{
+	string $strLabel = "";
+	if ($strFileName != "")
+	{
+		if (substring($strFileName,size($strFileName),size($strFileName)) == "/")
+			$strLabel = "Exported Multiple files To Directory";
+		else
+			$strLabel = "Exported To:";
+	}
+		
+
+	text -edit
+		-label ($strLabel + ":\n" + $strFileName)
+		-manage ($strFileName != "")
+			($strLayout + "formInvisible|txtLastExportedTo");
+}
+
+
+// Creates the internal(embeddable) common subform for the Bone Export options
+proc CryExportMakeUIBoneExportCommonForm ()
+{
+	columnLayout
+		-adjustableColumn true
+		-columnAlign "left"
+		-columnAttach "both" 0
+		//-rowSpacing 5
+			formCommon;
+	/*
+	checkBox
+		-label "Ignore dummies (pure transforms without shapes)"
+		chkIgnoreDummies;
+	checkBox -label "Add related bones"
+		-value true
+		chkAddRelatedBones;
+	checkBox -label "Add whole skeleton"
+		-value true	
+		chkAddWholeSkeleton;
+	*/
+	setParent ..;
+}
+
+// returns the embeddable form of the Bone Export frame
+global proc CryExportMakeUIBoneExportOptionsForm (string $strFormName, int $nOffsetVert, int $nOffsetHorz)
+{
+	formLayout -numberOfDivisions 100 $strFormName;
+
+	CryExportMakeUIBoneExportCommonForm ();
+	string $strLabelComment = `text -label "The smooth motion is not exported exactly.\nInstead, samples are taken with steps and then approximated with linear keys."`;
+	string $strLabelStep = `text -label "Step (in frames) the animation samples are taken (Ctrl+MMB-drag):"`;
+	floatField 
+		-width 80
+		-precision 2
+		-step 0.01
+		-annotation "Animation sample step (frames)"
+		-value 1
+		-minValue 0.1
+		-maxValue 120
+		editAnimationStep;
+	text -edit
+		-height `floatField -query -height editAnimationStep`
+		$strLabelStep; 
+	checkBox
+		-label "Ignore Dummies"
+		chkIgnoreDummies;
+	formLayout -edit
+		-attachNone formCommon "bottom"	
+		-attachForm formCommon "left" 5
+		-attachForm formCommon "right" 5
+		-attachForm formCommon "top" $nOffsetVert
+
+		-attachNone $strLabelComment "bottom"
+		-attachForm $strLabelComment "left" 5
+		-attachForm $strLabelComment "right" 5
+		-attachControl $strLabelComment "top" 0 formCommon
+
+		-attachNone $strLabelStep "bottom"
+		-attachNone $strLabelStep "right"
+		-attachForm $strLabelStep "left" 5
+		-attachControl $strLabelStep "top" 5 $strLabelComment
+
+		-attachNone editAnimationStep "bottom"
+		-attachNone editAnimationStep "right"
+		-attachControl editAnimationStep "left" 5 $strLabelStep
+		-attachControl editAnimationStep "top" 5 $strLabelComment
+
+		-attachNone chkIgnoreDummies "bottom"
+		-attachForm chkIgnoreDummies "left" 5
+		-attachForm chkIgnoreDummies "right" 5
+		-attachControl chkIgnoreDummies "top" 5 editAnimationStep
+			$strFormName;
+
+	setParent ..;
+}
+
+global proc CryExportMakeUIBoneExportOptionsCAF (string $strMainWnd)
+{
+	frameLayout
+		-label "Bone Export Options"
+		-collapsable true -collapse false
+		-borderStyle "etchedIn" -borderVisible true
+		-marginWidth 5 -marginHeight 5
+		frameBoneExport;
+		CryExportMakeUIBoneExportOptionsForm ("form", 0, 5);
+	setParent ..;
+}
+
+
+
+global proc CryExportMakeUIBoneExportOptionsCGF (string $strMainWnd)
+{
+	frameLayout
+		-label "Bone Export Options"
+		-collapsable true -collapse false
+		-borderStyle "etchedIn" -borderVisible true
+		-marginWidth 5 -marginHeight 5
+		frameBoneExport;
+	formLayout -numberOfDivisions 100 form;
+
+	CryExportMakeUIBoneExportCommonForm ();
+
+	formLayout -edit
+		-attachNone formCommon "bottom"	
+		-attachForm formCommon "left" 5
+		-attachForm formCommon "right" 5
+		-attachForm formCommon "top" 2
+			form;
+
+	setParent ..;
+	setParent ..;
+}
+
+
+global proc CryExportMakeUIBoneExportOptions (string $strMainWnd, string $strFileType)
+{
+	//if ($strFileType == "CGF")
+	//	CryExportMakeUIBoneExportOptionsCGF ($strMainWnd);
+
+	if ($strFileType == "CAF")
+		CryExportMakeUIBoneExportOptionsCAF ($strMainWnd);		
+}
+
+
+proc CryExportMakeUIGeomOptsCommon ()
+{
+	string $strLayout = (`setParent -query`) + "|";
+	columnLayout
+		-adjustableColumn true
+		-columnAlign "left"
+		-columnAttach "both" 0
+		//-rowSpacing 5
+			formCommon;
+		checkBox -label "Write Materials" -value true
+			chkExportMaterials;
+		checkBox -label "Allow multi UV/vertex" -value true
+			chkAllowMultiUV;
+		checkBox -label "VertexColors" -value false
+			chkVertexColors;
+		checkBox -label "Write Weights" -value true
+			-changeCommand ("CryExportManageUIExportWeights(\"" + $strLayout + "\")")
+			chkWriteWeights;
+	setParent ..;
+}
+
+
+// Make up the raw geometry options: checkboxes with the link radiogroup
+global proc CryExportMakeUIRawGeometryOptions()
+{
+	CryExportMakeUIGeomOptsCommon();
+	radioButtonGrp
+		-numberOfRadioButtons 2
+		-columnAttach 1 "both" 5
+		-columnAttach 2 "both" 5
+		-select 2
+		//-rowAttach "both" 0
+		//-adjustableColumn 2
+		-labelArray2 "1 Link" "n Links"
+			radioWeightLinks;
+}
+
+
+// Make the geometry options as a form of the given name
+global proc CryExportMakeUIGeometryOptionsForm (string $strFormName, int $nOffsetVert, int $nOffsetHorz)
+{
+	formLayout -numberOfDivisions 100 $strFormName;
+
+	CryExportMakeUIRawGeometryOptions;
+		
+	formLayout -edit
+		-attachNone formCommon "bottom"
+		-attachForm formCommon "left" $nOffsetHorz
+		-attachForm formCommon "right" $nOffsetHorz
+		-attachForm formCommon "top" $nOffsetVert
+
+		-attachNone radioWeightLinks "bottom"
+		-attachForm radioWeightLinks "left" (10 + $nOffsetHorz)
+		-attachForm radioWeightLinks "right" $nOffsetHorz
+		-attachControl radioWeightLinks "top" $nOffsetVert formCommon
+			$strFormName;
+
+	setParent ..;
+}
+
+
+// constructs the Geometry export options:
+//   Write materials
+//   Allow multi UV/vert
+global proc CryExportMakeUIGeometryExportOptions (string $strMainWnd)
+{
+	frameLayout
+		-label "Geometry Export Options"
+		-collapsable true -collapse true
+		-borderStyle "etchedIn" -borderVisible true
+		-marginWidth 5 -marginHeight 5
+			frameGeomOptions;
+	CryExportMakeUIGeometryOptionsForm ("form", 5, 2);
+	setParent ..;
+}
+
+
+global proc int CryExportNoKeyOptimizationWarning ()
+{
+	string $strConfirmation = `confirmDialog			-title "Warning"			-message "You are turning off the Keyframe Optimization option.\nWithout this option, not only existing keyframes but auto-generated keyframes will be exported, with the defined minimal step.\nThis can cause unreasonably large animation file to be exported.\nAre you sure you want to disable the Keyframe Optimization?"			-messageAlign "center"			-button "Yes" -button "Cancel" -defaultButton "Cancel" -cancelButton "Cancel" -dismissString "Cancel"			`;
+
+	return ($strConfirmation == "Yes");
+}
+
+global proc CryExportMakeUITimingRangeForm (string $strFormName, int $nOffsetVert, int $nOffsetHorz)
+{
+	formLayout -numberOfDivisions 100 $strFormName;
+	string $strLayout = `setParent -query`;
+	checkBox
+		-label "Manual range"
+		-changeCommand ("CryExportManageUITimingRange(\"" + $strLayout + "|\")")
+		//-offCommand ("CryExportNoKeyOptimizationWarning(\"" + $strLayout + "|\")")
+			chkManualRange;
+	string $strLabelStart = `text -label "Start:" txtLabelStart`;
+	floatField
+		-annotation "Start of the manual range (frames)"
+		-precision 1
+		-step 0.1
+		-value `playbackOptions -query -minTime`
+		-minValue `playbackOptions -query -animationStartTime`
+		-maxValue `playbackOptions -query -animationEndTime`
+			editManualRangeStart;
+	string $strLabelEnd = `text -label "End:" txtLabelEnd`;
+	floatField
+		-annotation "End of the manual range (frames)"
+		-precision 1
+		-step 0.1
+		-value `playbackOptions -query -maxTime`
+		-minValue `playbackOptions -query -animationStartTime`
+		-maxValue `playbackOptions -query -animationEndTime`
+		editManualRangeEnd;
+	text -edit
+		-height `floatField -query -height editManualRangeStart`
+		$strLabelStart;
+	text -edit
+		-height `floatField -query -height editManualRangeEnd`
+		$strLabelEnd;
+	formLayout -edit
+		-attachNone chkManualRange "bottom"
+		-attachForm chkManualRange "top" $nOffsetVert
+		-attachForm chkManualRange "left" $nOffsetHorz
+		-attachForm chkManualRange "right" $nOffsetHorz
+
+		-attachNone $strLabelStart "bottom"
+		-attachNone $strLabelStart "right"
+		-attachForm $strLabelStart "left" $nOffsetHorz
+		-attachControl $strLabelStart "top" 5 chkManualRange
+
+		-attachNone editManualRangeStart "bottom"
+		-attachNone editManualRangeStart "right"
+		-attachControl editManualRangeStart "left" 5 $strLabelStart
+		-attachControl editManualRangeStart "top" 5 chkManualRange
+
+		-attachNone $strLabelEnd "bottom"
+		-attachNone $strLabelEnd "right"
+		-attachControl $strLabelEnd "left" 5 editManualRangeStart
+		-attachControl $strLabelEnd "top" 5 chkManualRange
+
+		-attachNone editManualRangeEnd "bottom"
+		-attachNone editManualRangeEnd "right"
+		-attachControl editManualRangeEnd "left" 5 $strLabelEnd
+		-attachControl editManualRangeEnd "top" 5 chkManualRange
+			$strFormName;
+	setParent ..;
+}
+
+
+global proc CryExportMakeUITimingRange (string $strMainWnd)
+{
+	frameLayout
+		-label "Export Timing Range"
+		-collapsable true -collapse false
+		-borderStyle "etchedIn" -borderVisible true
+		-marginWidth 5 -marginHeight 5
+			frameTimingRange;
+		CryExportMakeUITimingRangeForm ("form", 5,5);
+	setParent ..;
+}
+
+
+
+global proc CryExportMakeUIKeyframeOptimizationsForm(string $strFormName, int $nOffsetVert, int $nOffsetHorz)
+{
+	formLayout -numberOfDivisions 100 $strFormName;
+	string $strForm = `setParent -query`;
+	checkBox
+		-label "Enable key cleanup"
+		-value true
+		-changeCommand ("CryExportManageUIKeyCleanup(\"" + $strForm + "|\")")
+		chkEnableKeyCleanup;
+	text -label "Rotation key precision" txtRotationLabel;
+	floatField
+		-annotation "Precision of the quaternions representing rotation, logarithmic scale"
+		-precision 1
+		-step 0.1
+		-value 5
+		-minValue 0.5
+		-maxValue 10
+			editRotationKeyPrecision;
+	text -label "Position key precision" txtPositionLabel;
+	floatField
+		-annotation "Precision of the vectors representing position, logarithmic scale"
+		-precision 1
+		-step 0.1
+		-value 3.5
+		-minValue 0.5
+		-maxValue 10
+			editPositionKeyPrecision;
+	text -edit
+		-height `floatField -query -height editPositionKeyPrecision`
+		txtPositionLabel;
+	text -edit
+		-height `floatField -query -height editRotationKeyPrecision`
+		txtRotationLabel;
+	formLayout -edit
+		-numberOfDivisions 100
+
+		-attachNone chkEnableKeyCleanup "bottom"
+		-attachForm chkEnableKeyCleanup "left" $nOffsetHorz
+		-attachForm chkEnableKeyCleanup "right" $nOffsetHorz
+		-attachForm chkEnableKeyCleanup "top" $nOffsetVert
+
+		-attachNone txtRotationLabel "bottom"
+		-attachNone txtRotationLabel "right"
+		-attachForm txtRotationLabel "left" $nOffsetHorz
+		-attachControl txtRotationLabel "top" 5 chkEnableKeyCleanup
+
+		-attachNone editRotationKeyPrecision "bottom"
+		-attachNone editRotationKeyPrecision "right"
+		-attachControl editRotationKeyPrecision "left" 5 txtRotationLabel
+		-attachControl editRotationKeyPrecision "top" 5 chkEnableKeyCleanup
+
+		-attachNone txtPositionLabel "bottom"
+		-attachNone txtPositionLabel "right"
+		-attachControl txtPositionLabel "left" 5 editRotationKeyPrecision
+		-attachControl txtPositionLabel "top" 5 chkEnableKeyCleanup
+
+		-attachNone editPositionKeyPrecision "bottom"
+		-attachNone editPositionKeyPrecision "right"
+		-attachControl editPositionKeyPrecision "left" 5 txtPositionLabel
+		-attachControl editPositionKeyPrecision "top" 5 chkEnableKeyCleanup
+		 $strFormName;
+	setParent ..;
+}
+
+global proc CryExportMakeUIKeyframeOptimizations(string $strMainWnd)
+{
+	frameLayout
+		-label "Keyframe Optimizations"
+		-collapsable true -collapse true
+		-borderStyle "etchedIn" -borderVisible true
+		-marginWidth 5 -marginHeight 5
+			frameKeyframeOptimization;
+		CryExportMakeUIKeyframeOptimizationsForm("form", 5, 5);
+	/* The following is not supported as of Maya 4.0
+	formLayout -edit
+		-numberOfDivisions 100
+		-attachControl txtPositionLabel "bottom" 5 editPositionKeyPrecision
+		-attachControl txtRotationLabel "bottom" 5 editRotationKeyPrecision
+		 form;
+	*/
+	setParent ..;
+}
+
+
+global proc CryExportManageUIExportWeights (string $strLayout)
+{
+	int $enableRadioWeightLinks = `checkBox -query -value ($strLayout+"formCommon|chkWriteWeights")`;
+	string $arrRadioWeightLinks[] = {"radioWeightLinks"};
+	CryExportManageUIControls ($strLayout, $arrRadioWeightLinks, $enableRadioWeightLinks);
+}
+
+
+global proc CryExportManageUIKeyCleanup(string $strLayout)
+{
+	string $strChkEnableKeyCleanup = $strLayout+"chkEnableKeyCleanup";
+	if (`checkBox -exists $strChkEnableKeyCleanup`)
+	{
+		int $enableKeyCleanup = `checkBox -query -value $strChkEnableKeyCleanup`;
+		string $arrKeyCleanupControls[] = {"editRotationKeyPrecision", "editPositionKeyPrecision", "txtPositionLabel", "txtRotationLabel"};
+		CryExportManageUIControls ($strLayout, $arrKeyCleanupControls, $enableKeyCleanup);
+	}
+}
+
+global proc CryExportManageUITimingRange(string $strLayout)
+{
+	string $strChkEnableManualRange = $strLayout+"chkManualRange";
+	if (`checkBox -exists $strChkEnableManualRange`)
+	{
+		int $enableManualRange = `checkBox -query -value $strChkEnableManualRange`;
+		/*
+		if (!$enableManualRange)
+		{
+			if (!CryExportNoKeyOptimizationWarning())
+			{
+				checkBox -edit -value true $strChkEnableManualRange;
+				return;
+			}
+		}
+		*/
+		string $arrControls[] = {"txtLabelStart", "txtLabelEnd", "editManualRangeStart", "editManualRangeEnd"};
+		CryExportManageUIControls ($strLayout, $arrControls, $enableManualRange);
+	}
+}
+
+global proc CryExportManageUI(string $strMainWnd)
+{
+	CryExportManageUITimingRange($strMainWnd + "|formMain|frameExportOptionsCAF|form|frameTimingRange|form|");
+	CryExportManageUIKeyCleanup($strMainWnd + "|formMain|frameExportOptionsCAF|form|frameKeyframeOptimization|form|");
+}
+
+global proc CryExportMakeUIRawCommonOptions (string $strFileType)
+{
+	if ($strFileType == "CGF")
+	{
+		checkBox -label "Export as a Building" chkExportAsBuilding;
+		checkBox -label "Export to multiple individual CGF files" chkExportIndividualFiles;
+	}
+	checkBox -label "Don't Convert to CryEngine native Coordinate System" chkDontConvertCS;
+}
+
+
+
+// gets called upon check change of the "Export and Building" checkbox
+global proc CryExportManageUIExportAsBuilding (string $strMainWnd)
+{
+	int $bExportAsBuilding = `checkBox -query -value ($strMainWnd + "|formMain|frameExportOptionsCGF|form|chkExportAsBuilding")`;
+	button -edit
+		-label ("Export " + ( $bExportAsBuilding ? "BLD" : "CGF" ))
+		($strMainWnd + "|formMain|frameItemListCGF|form|btnExport");
+}
+
+
+global proc CryExportSetupUI (string $strMainWnd, string $strFileType)
+{
+	if ($strFileType == "CGF")
+	{
+		checkBox -edit
+			-changeCommand ("CryExportManageUIExportAsBuilding \"" + $strMainWnd + "\"")
+			($strMainWnd + "|formMain|frameExportOptionsCGF|form|chkExportAsBuilding");
+			
+		CryExportManageUIExportAsBuilding($strMainWnd);
+	}
+}
+
+
+
+// Creates the Export Options frame and subframes for the given window/filetype ("CGF" or "CAF")
+global proc CryExportMakeUIExportOptions (string $strMainWnd, string $strFileType)
+{
+	frameLayout
+		-label (($strFileType=="CGF"?"Object":"Bone")+ " Export Options")
+		-collapsable true -collapse false
+		-borderStyle "etchedIn" -borderVisible true
+		-marginWidth 5 -marginHeight 5
+			("frameExportOptions" + $strFileType);
+	columnLayout -adjustableColumn true -columnAlign "left" form;
+
+	CryExportMakeUIRawCommonOptions ($strFileType);
+	if ($strFileType == "CGF")
+		CryExportMakeUIGeometryExportOptions($strMainWnd);
+	if ($strFileType == "CAF")
+	{
+		CryExportMakeUIBoneExportOptions($strMainWnd,"CAF");
+		CryExportMakeUIKeyframeOptimizations ($strMainWnd);
+		CryExportMakeUITimingRange($strMainWnd);
+	}
+
+	setParent ..;
+	setParent ..;
+}
+
+
+////////////////////////////////////////	////////////////////////////////////////////////////////
+// Creates interface to the CryExportCgf and CryExportCaf commands.
+// Allows the user to pick up the objects and export them with misc. options
+// that are set interactively. This functionality resembles the functionality of Max's
+// export utility UI.
+// PARAMETERS
+// $strFileType - the string identifying the file type: can be "CAF", "CGF" or "BOTH", case-sensitive
+//                BOTH means the mode that resembles the Max interface most closely - with capability
+//                to export both CAF and CGF files
+////////////////////////////////////////////////////////////////////////////////////////////////
+global proc CryExportUserInterface (string $strFileType)
+{
+	// flags indicating what kinds of files the user wishes to export
+	int $bCAF = 1;
+	int $bCGF = 1;
+	switch ($strFileType)
+	{
+	case "CAF":
+		$bCGF = 0; $bCAF = 1;
+		break;
+
+	case "CGF":
+		$bCGF = 1; $bCAF = 0;
+		break;
+
+	case "BOTH":
+		$bCAF = $bCGF = 1;
+		break;
+
+	case "":
+		break;
+
+	default: // only CAF/CGF file types are allowed
+		return;
+	}
+
+	if (!`exists "CryExportUtil"`)
+		loadPlugin "MayaCryExport.mll";
+
+	// to create a new window on each invokation, assign the result of the 
+	// consequent window command to this string.
+	string $strMainWnd = "wndCryExport"+$strFileType;
+
+	if (!`window -exists $strMainWnd`)
+	{
+		window	
+			-title ("Export CryTek " + $strFileType + " Files")
+			-retain
+			$strMainWnd;
+
+		columnLayout  -adjustableColumn true formMain;
+		if ($bCGF)
+		{
+			CryExportMakeUIExportedItems ($strMainWnd, "CGF", $bCAF);
+			CryExportMakeUIExportOptions ($strMainWnd, "CGF");
+			CryExportSetupUI ($strMainWnd, "CGF");
+		}
+		if ($bCAF)
+		{
+			CryExportMakeUIExportedItems ($strMainWnd, "CAF", $bCGF);
+			CryExportMakeUIExportOptions ($strMainWnd, "CAF");
+			CryExportSetupUI ($strMainWnd, "CAF");
+		}
+		window -edit -resizeToFitChildren true $strMainWnd;
+		CryExportManageUI($strMainWnd);
+	}
+	showWindow $strMainWnd;
+}
+/*
+global proc CryExportUserInterface ()
+{
+	CryExportUserInterfaceOpt("BOTH");
+}
+*/
