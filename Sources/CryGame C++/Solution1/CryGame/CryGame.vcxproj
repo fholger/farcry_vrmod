@@ -1,0 +1,659 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug64|Win32">
+      <Configuration>Debug64</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Profile|Win32">
+      <Configuration>Profile</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release64|Win32">
+      <Configuration>Release64</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>17.0</VCProjectVersion>
+    <ProjectGuid>{A7EC04A5-D65C-4C45-969C-D842823446ED}</ProjectGuid>
+    <SccProjectName>Perforce Project</SccProjectName>
+    <SccAuxPath />
+    <SccLocalPath>.</SccLocalPath>
+    <SccProvider>MSSCCI:Perforce SCM</SccProvider>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release64|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>v143</PlatformToolset>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug64|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>v143</PlatformToolset>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Profile|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>v143</PlatformToolset>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>v143</PlatformToolset>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>v143</PlatformToolset>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release64|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug64|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Profile|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>17.0.33122.133</_ProjectFileVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>C:\MasterCD\Bin32\</OutDir>
+    <IntDir>.\Debug\</IntDir>
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>C:\MasterCD\Bin32\</OutDir>
+    <IntDir>Release\</IntDir>
+    <LinkIncremental>false</LinkIncremental>
+    <IncludePath>$(IncludePath)</IncludePath>
+    <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</ExternalIncludePath>
+    <ExcludePath>$(ExcludePath)</ExcludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Profile|Win32'">
+    <OutDir>C:\MasterCD\Bin32\</OutDir>
+    <IntDir>Profile\</IntDir>
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug64|Win32'">
+    <OutDir>C:\MasterCD\Bin64\</OutDir>
+    <IntDir>Debug64\</IntDir>
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release64|Win32'">
+    <OutDir>C:\MasterCD\Bin64\</OutDir>
+    <IntDir>Release64\</IntDir>
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>..\CryCommon;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_DEBUG;WIN32;_WINDOWS;_USRDLL;CRYGAME_EXPORTS;_SILENCE_STDEXT_HASH_DEPRECATION_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <BufferSecurityCheck>true</BufferSecurityCheck>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile>.\Debug/CryGame.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\Debug/</AssemblerListingLocation>
+      <ObjectFileName>.\Debug/</ObjectFileName>
+      <ProgramDataBaseFileName>.\Debug/</ProgramDataBaseFileName>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <CompileAs>Default</CompileAs>
+    </ClCompile>
+    <Link>
+      <AdditionalOptions>/MACHINE:I386 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>Shlwapi.lib;wininet.lib;Wsock32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <AdditionalLibraryDirectories>..\BinkSDK;..\CryNetwork\Debug;.\..\ubisoft.com\GSServices\sdks/gs-sdk-regserver/lib_win32;.\..\ubisoft.com\GSServices\sdks/gs-sdk-msclient/lib_win32;.\..\ubisoft.com\GSServices\sdks/gs-sdk-common/lib_win32;.\..\ubisoft.com\GSServices\sdks/gs-sdk-base/lib_win32;..\ubisoft.com\GSServices\sdks\gs-sdk-cdkey\lib_win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <IgnoreSpecificDefaultLibraries>libcmt.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ImportLibrary>$(IntDir)$(TargetName).lib</ImportLibrary>
+    </Link>
+    <Midl>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetEnvironment>Win32</TargetEnvironment>
+      <TypeLibraryName>.\Debug/CryGame.tlb</TypeLibraryName>
+    </Midl>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0409</Culture>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <Optimization>Full</Optimization>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <FavorSizeOrSpeed>Size</FavorSizeOrSpeed>
+      <OmitFramePointers>true</OmitFramePointers>
+      <EnableFiberSafeOptimizations>false</EnableFiberSafeOptimizations>
+      <AdditionalIncludeDirectories>..\BinkSDK;..\CryCommon;..\ubisoft.com\ConsoleImplementation\src;..\ubisoft.com\GSServices\sdks\gs-sdk-regserver\include;..\ubisoft.com\GSServices\sdks\gs-sdk-common\include;..\ubisoft.com\GSServices\sdks\gs-sdk-msclient\include;..\ubisoft.com\GSServices\sdks\gs-sdk-base\include;..\ubisoft.com\GSServices\sdks\gs-sdk-cdkey\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_RELEASE;NDEBUG;USE_GAME_DLL;WIN32;_WINDOWS;_USRDLL;CRYGAME_EXPORTS;_SILENCE_STDEXT_HASH_DEPRECATION_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <BufferSecurityCheck>false</BufferSecurityCheck>
+      <FunctionLevelLinking>false</FunctionLevelLinking>
+      <EnableEnhancedInstructionSet>NotSet</EnableEnhancedInstructionSet>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile>.\Release/CryGame.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\Release/</AssemblerListingLocation>
+      <ObjectFileName>.\Release/</ObjectFileName>
+      <ProgramDataBaseFileName>.\Release/</ProgramDataBaseFileName>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <CompileAs>Default</CompileAs>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <IgnoreStandardIncludePath>false</IgnoreStandardIncludePath>
+    </ClCompile>
+    <Link>
+      <AdditionalOptions>/MACHINE:I386 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>Shlwapi.lib;wininet.lib;Ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>.\Release/CryGame.dll</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <AdditionalLibraryDirectories>..\BinkSDK;..\CryNetwork\Release;.\..\ubisoft.com\GSServices\sdks/gs-sdk-regserver/lib_win32;.\..\ubisoft.com\GSServices\sdks/gs-sdk-msclient/lib_win32;.\..\ubisoft.com\GSServices\sdks/gs-sdk-common/lib_win32;.\..\ubisoft.com\GSServices\sdks/gs-sdk-base/lib_win32;..\ubisoft.com\GSServices\sdks\gs-sdk-cdkey\lib_win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <ProgramDatabaseFile>.\Release/CryGame.pdb</ProgramDatabaseFile>
+      <ImportLibrary>$(IntDir)$(TargetName).lib</ImportLibrary>
+    </Link>
+    <Midl>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetEnvironment>Win32</TargetEnvironment>
+      <TypeLibraryName>.\Release/CryGame.tlb</TypeLibraryName>
+    </Midl>
+    <ResourceCompile>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0409</Culture>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Profile|Win32'">
+    <ClCompile>
+      <Optimization>Full</Optimization>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <FavorSizeOrSpeed>Size</FavorSizeOrSpeed>
+      <OmitFramePointers>true</OmitFramePointers>
+      <EnableFiberSafeOptimizations>false</EnableFiberSafeOptimizations>
+      <AdditionalIncludeDirectories>..\BinkSDK;..\CryCommon;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>NDEBUG;USE_GAME_DLL;WIN32;_WINDOWS;_USRDLL;CRYGAME_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <BufferSecurityCheck>false</BufferSecurityCheck>
+      <FunctionLevelLinking>false</FunctionLevelLinking>
+      <EnableEnhancedInstructionSet>NotSet</EnableEnhancedInstructionSet>
+      <DisableLanguageExtensions>false</DisableLanguageExtensions>
+      <ForceConformanceInForLoopScope>false</ForceConformanceInForLoopScope>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile>.\Profile/CryGame.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\Profile/</AssemblerListingLocation>
+      <ObjectFileName>.\Profile/</ObjectFileName>
+      <ProgramDataBaseFileName>.\Profile/</ProgramDataBaseFileName>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <CompileAs>Default</CompileAs>
+    </ClCompile>
+    <Link>
+      <AdditionalOptions>/MACHINE:I386 /OPT:ref,icf %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>Shlwapi.lib;wininet.lib;Ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <AdditionalLibraryDirectories>..\BinkSDK;..\CryNetwork\Release;.\..\ubisoft.com\GSServices\sdks/gs-sdk-regserver/lib_win32;.\..\ubisoft.com\GSServices\sdks/gs-sdk-msclient/lib_win32;.\..\ubisoft.com\GSServices\sdks/gs-sdk-result/lib_win32;.\..\ubisoft.com\GSServices\sdks/gs-sdk-cdkey/lib_win32;.\..\ubisoft.com\GSServices\sdks/gs-sdk-common/lib_win32;.\..\ubisoft.com\GSServices\sdks/gs-sdk-base/lib_win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <GenerateMapFile>true</GenerateMapFile>
+      <BaseAddress>0x33000000</BaseAddress>
+    </Link>
+    <Midl>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetEnvironment>Win32</TargetEnvironment>
+      <TypeLibraryName>C:\MasterCD/CryGame.tlb</TypeLibraryName>
+    </Midl>
+    <ResourceCompile>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0409</Culture>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug64|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>..\CryCommon;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_AMD64_;_DEBUG;WIN64;WIN32;_WINDOWS;_USRDLL;CRYGAME_EXPORTS;DIVX;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <BufferSecurityCheck>false</BufferSecurityCheck>
+      <FunctionLevelLinking>false</FunctionLevelLinking>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile>$(IntDir)$(ProjectName).pch</PrecompiledHeaderOutputFile>
+      <AssemblerOutput>All</AssemblerOutput>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <ProgramDataBaseFileName>$(IntDir)$(ProjectName).pdb</ProgramDataBaseFileName>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <CompileAs>Default</CompileAs>
+    </ClCompile>
+    <Link>
+      <AdditionalOptions>/MACHINE:AMD64 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>Shlwapi.lib;wininet.lib;Ws2_32.lib;../CryCommon/fSinCos64.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>$(OutDir)$(ProjectName).dll</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <IgnoreSpecificDefaultLibraries>libcmt.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ProgramDatabaseFile>$(OutDir)$(ProjectName).pdb</ProgramDatabaseFile>
+      <LargeAddressAware>true</LargeAddressAware>
+      <ImportLibrary>$(OutDir)$(ProjectName).lib</ImportLibrary>
+    </Link>
+    <Midl>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetEnvironment>Win32</TargetEnvironment>
+      <TypeLibraryName>.\Debug/CryGame.tlb</TypeLibraryName>
+    </Midl>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0409</Culture>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release64|Win32'">
+    <ClCompile>
+      <AdditionalOptions>/fp:fast /GL %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>MaxSpeed</Optimization>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <AdditionalIncludeDirectories>..\CryCommon;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_RELEASE;NDEBUG;WIN64;WIN32;_AMD64_;_WINDOWS;_USRDLL;CRYGAME_EXPORTS;DIVX;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <BufferSecurityCheck>false</BufferSecurityCheck>
+      <FunctionLevelLinking>false</FunctionLevelLinking>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile>$(IntDir)$(ProjectName).pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <ProgramDataBaseFileName>$(IntDir)$(ProjectName).pdb</ProgramDataBaseFileName>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <CompileAs>Default</CompileAs>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>Shlwapi.lib;wininet.lib;Ws2_32.lib;../CryCommon/fSinCos64.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>$(OutDir)$(ProjectName).dll</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <IgnoreSpecificDefaultLibraries>libcmt.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ProgramDatabaseFile>$(OutDir)$(ProjectName).pdb</ProgramDatabaseFile>
+      <LargeAddressAware>true</LargeAddressAware>
+      <ImportLibrary>$(OutDir)$(ProjectName).lib</ImportLibrary>
+    </Link>
+    <Midl>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetEnvironment>Win32</TargetEnvironment>
+      <TypeLibraryName>.\Debug/CryGame.tlb</TypeLibraryName>
+    </Midl>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0409</Culture>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="AdvCamSystem.cpp" />
+    <ClCompile Include="AIHandler.cpp" />
+    <ClCompile Include="BitStream_Base.cpp" />
+    <ClCompile Include="BitStream_Compressed.cpp" />
+    <ClCompile Include="BugsFlock.cpp" />
+    <ClCompile Include="CryGame.cpp" />
+    <ClCompile Include="EntityClassRegistry.cpp" />
+    <ClCompile Include="Flock.cpp" />
+    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GameActionInput.cpp" />
+    <ClCompile Include="GameCallbacks.cpp" />
+    <ClCompile Include="GameClientServer.cpp" />
+    <ClCompile Include="GameDevMode.cpp" />
+    <ClCompile Include="GameEquipPacks.cpp" />
+    <ClCompile Include="GameEvents.cpp" />
+    <ClCompile Include="GameLoading.cpp" />
+    <ClCompile Include="GameMemStats.cpp" />
+    <ClCompile Include="GameMisc.cpp" />
+    <ClCompile Include="GameMods.cpp" />
+    <ClCompile Include="GameMovieUser.cpp" />
+    <ClCompile Include="GameRadar.cpp" />
+    <ClCompile Include="GameTagPoints.cpp" />
+    <ClCompile Include="IngameDialog.cpp" />
+    <ClCompile Include="NetEntityInfo.cpp" />
+    <ClCompile Include="ScriptObjectAdvCamSystem.cpp" />
+    <ClCompile Include="ScriptObjectAI.cpp" />
+    <ClCompile Include="ScriptObjectBoids.cpp" />
+    <ClCompile Include="ScriptObjectClient.cpp" />
+    <ClCompile Include="ScriptObjectGame.cpp" />
+    <ClCompile Include="ScriptObjectInput.cpp" />
+    <ClCompile Include="ScriptObjectLanguage.cpp" />
+    <ClCompile Include="ScriptObjectPlayer.cpp" />
+    <ClCompile Include="ScriptObjectRenderer.cpp" />
+    <ClCompile Include="ScriptObjectServer.cpp" />
+    <ClCompile Include="ScriptObjectServerSlot.cpp" />
+    <ClCompile Include="ScriptObjectSpectator.cpp" />
+    <ClCompile Include="ScriptObjectStream.cpp" />
+    <ClCompile Include="ScriptObjectSynched2DTable.cpp" />
+    <ClCompile Include="ScriptObjectUI.cpp" />
+    <ClCompile Include="ScriptObjectVehicle.cpp" />
+    <ClCompile Include="ScriptObjectWeaponClass.cpp" />
+    <ClCompile Include="ScriptTimerMgr.cpp" />
+    <ClCompile Include="Spectator.cpp" />
+    <ClCompile Include="StdAfx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug64|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Profile|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release64|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="StringTableMgr.cpp" />
+    <ClCompile Include="Synched2DTable.cpp" />
+    <ClCompile Include="SynchedRandomSeed.cpp" />
+    <ClCompile Include="TimeDemoRecorder.cpp" />
+    <ClCompile Include="UIButton.cpp" />
+    <ClCompile Include="UICheckBox.cpp" />
+    <ClCompile Include="UIComboBox.cpp" />
+    <ClCompile Include="UICVars.cpp" />
+    <ClCompile Include="UIDivX_Video.cpp" />
+    <ClCompile Include="UIEditBox.cpp" />
+    <ClCompile Include="UIHud.cpp" />
+    <ClCompile Include="UIListView.cpp" />
+    <ClCompile Include="UIScreen.cpp" />
+    <ClCompile Include="UIScrollBar.cpp" />
+    <ClCompile Include="UIStatic.cpp" />
+    <ClCompile Include="UISystem.cpp" />
+    <ClCompile Include="UIVideoPanel.cpp" />
+    <ClCompile Include="UIWidget.cpp" />
+    <ClCompile Include="WeaponClass.cpp" />
+    <ClCompile Include="WeaponSystemEx.cpp" />
+    <ClCompile Include="XArea.cpp" />
+    <ClCompile Include="XClient.cpp" />
+    <ClCompile Include="XClientSnapshot.cpp" />
+    <ClCompile Include="XDemoMgr.cpp" />
+    <ClCompile Include="XEntityProcessingCmd.cpp" />
+    <ClCompile Include="XNetwork.cpp" />
+    <ClCompile Include="XNetworkStats.cpp" />
+    <ClCompile Include="XObjectProxy.cpp" />
+    <ClCompile Include="XPlayer.cpp" />
+    <ClCompile Include="XPlayerCamera.cpp" />
+    <ClCompile Include="XPlayerLight.cpp" />
+    <ClCompile Include="XplayerVehicle.cpp" />
+    <ClCompile Include="XPuppetProxy.cpp" />
+    <ClCompile Include="XServer.cpp" />
+    <ClCompile Include="XServerRules.cpp" />
+    <ClCompile Include="XServerSlot.cpp" />
+    <ClCompile Include="XSnapshot.cpp" />
+    <ClCompile Include="XSurfaceMgr.cpp" />
+    <ClCompile Include="XSystemBase.cpp" />
+    <ClCompile Include="XSystemClient.cpp" />
+    <ClCompile Include="XSystemDummy.cpp" />
+    <ClCompile Include="XSystemEntities.cpp" />
+    <ClCompile Include="XSystemServer.cpp" />
+    <ClCompile Include="XVehicle.cpp" />
+    <ClCompile Include="XVehicleProxy.cpp" />
+    <ClCompile Include="XVehicleProxyHeli.cpp" />
+    <ClCompile Include="XVehicleSystem.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\CryCommon\AABBSV.h" />
+    <ClInclude Include="..\CryCommon\AgentParams.h" />
+    <ClInclude Include="..\CryCommon\AnimKey.h" />
+    <ClInclude Include="..\CryCommon\ColorDefs.h" />
+    <ClInclude Include="..\CryCommon\CRE2DQuad.h" />
+    <ClInclude Include="..\CryCommon\CREDummy.h" />
+    <ClInclude Include="..\CryCommon\CREFlashBang.h" />
+    <ClInclude Include="..\CryCommon\CREGlare.h" />
+    <ClInclude Include="..\CryCommon\CREOcclusionQuery.h" />
+    <ClInclude Include="..\CryCommon\CREOcLeaf.h" />
+    <ClInclude Include="..\CryCommon\CREPolyMesh.h" />
+    <ClInclude Include="..\CryCommon\CREScreenProcess.h" />
+    <ClInclude Include="..\CryCommon\CREShadowMap.h" />
+    <ClInclude Include="..\CryCommon\CRESky.h" />
+    <ClInclude Include="..\CryCommon\CRETerrainSector.h" />
+    <ClInclude Include="..\CryCommon\CRETriMeshAdditionalShadow.h" />
+    <ClInclude Include="..\CryCommon\CRETriMeshShadow.h" />
+    <ClInclude Include="..\CryCommon\CrtDebugStats.h" />
+    <ClInclude Include="..\CryCommon\CryAnimationScriptCommands.h" />
+    <ClInclude Include="..\CryCommon\CryCharAnimationParams.h" />
+    <ClInclude Include="..\CryCommon\CryCharFxTrailParams.h" />
+    <ClInclude Include="..\CryCommon\CryCharMorphParams.h" />
+    <ClInclude Include="..\CryCommon\CryCompiledFile.h" />
+    <ClInclude Include="..\CryCommon\CryEngineDecalInfo.h" />
+    <ClInclude Include="..\CryCommon\CryFile.h" />
+    <ClInclude Include="..\CryCommon\CryHeaders.h" />
+    <ClInclude Include="..\CryCommon\CryLibrary.h" />
+    <ClInclude Include="..\CryCommon\CryMemoryManager.h" />
+    <ClInclude Include="..\CryCommon\CryParticleSpawnInfo.h" />
+    <ClInclude Include="..\CryCommon\CryPhysics.h" />
+    <ClInclude Include="..\CryCommon\CrySizer.h" />
+    <ClInclude Include="..\CryCommon\crysound.h" />
+    <ClInclude Include="..\CryCommon\crysound64.h" />
+    <ClInclude Include="..\CryCommon\CryVersion.h" />
+    <ClInclude Include="..\CryCommon\Cry_Camera.h" />
+    <ClInclude Include="..\CryCommon\Cry_Color4.h" />
+    <ClInclude Include="..\CryCommon\Cry_Geo.h" />
+    <ClInclude Include="..\CryCommon\Cry_GeoDistance.h" />
+    <ClInclude Include="..\CryCommon\Cry_GeoIntersect.h" />
+    <ClInclude Include="..\CryCommon\Cry_GeoOverlap.h" />
+    <ClInclude Include="..\CryCommon\Cry_Math.h" />
+    <ClInclude Include="..\CryCommon\Cry_Matrix.h" />
+    <ClInclude Include="..\CryCommon\Cry_Quat.h" />
+    <ClInclude Include="..\CryCommon\Cry_Vector2.h" />
+    <ClInclude Include="..\CryCommon\Cry_Vector3.h" />
+    <ClInclude Include="..\CryCommon\Cry_XOptimise.h" />
+    <ClInclude Include="..\CryCommon\EntityDesc.h" />
+    <ClInclude Include="..\CryCommon\Font.h" />
+    <ClInclude Include="..\CryCommon\FrameProfiler.h" />
+    <ClInclude Include="..\CryCommon\I3DEngine.h" />
+    <ClInclude Include="..\CryCommon\IAgent.h" />
+    <ClInclude Include="..\CryCommon\IAISystem.h" />
+    <ClInclude Include="..\CryCommon\IBindable.h" />
+    <ClInclude Include="..\CryCommon\IBitStream.h" />
+    <ClInclude Include="..\CryCommon\ICompressionHelper.h" />
+    <ClInclude Include="..\CryCommon\IConsole.h" />
+    <ClInclude Include="..\CryCommon\ICryAnimation.h" />
+    <ClInclude Include="..\CryCommon\ICryPak.h" />
+    <ClInclude Include="..\CryCommon\IDataProbe.h" />
+    <ClInclude Include="..\CryCommon\IEdgeConnectivityBuilder.h" />
+    <ClInclude Include="..\CryCommon\IEntityRenderState.h" />
+    <ClInclude Include="..\CryCommon\IEntitySystem.h" />
+    <ClInclude Include="..\CryCommon\IFont.h" />
+    <ClInclude Include="..\CryCommon\IGame.h" />
+    <ClInclude Include="..\CryCommon\IInput.h" />
+    <ClInclude Include="..\CryCommon\ILipSync.h" />
+    <ClInclude Include="..\CryCommon\ILMSerializationManager.h" />
+    <ClInclude Include="..\CryCommon\ILog.h" />
+    <ClInclude Include="..\CryCommon\IMarkers.h" />
+    <ClInclude Include="..\CryCommon\IMiniLog.h" />
+    <ClInclude Include="..\CryCommon\IMovieSystem.h" />
+    <ClInclude Include="..\CryCommon\INetwork.h" />
+    <ClInclude Include="..\CryCommon\IPAddress.h" />
+    <ClInclude Include="..\CryCommon\IPhysics.h" />
+    <ClInclude Include="..\CryCommon\IProcess.h" />
+    <ClInclude Include="..\CryCommon\IRenderer.h" />
+    <ClInclude Include="..\CryCommon\IScriptSystem.h" />
+    <ClInclude Include="..\CryCommon\IShader.h" />
+    <ClInclude Include="..\CryCommon\ISound.h" />
+    <ClInclude Include="..\CryCommon\IStatObj.h" />
+    <ClInclude Include="..\CryCommon\IStreamEngine.h" />
+    <ClInclude Include="..\CryCommon\IStreamPersist.h" />
+    <ClInclude Include="..\CryCommon\ISystem.h" />
+    <ClInclude Include="..\CryCommon\ITimer.h" />
+    <ClInclude Include="..\CryCommon\IValidator.h" />
+    <ClInclude Include="..\CryCommon\IXGame.h" />
+    <ClInclude Include="..\CryCommon\IXml.h" />
+    <ClInclude Include="..\CryCommon\IXMLDOM.h" />
+    <ClInclude Include="..\CryCommon\LeafBuffer.h" />
+    <ClInclude Include="..\CryCommon\Linux32Specific.h" />
+    <ClInclude Include="..\CryCommon\Linux64Specific.h" />
+    <ClInclude Include="..\CryCommon\LinuxSpecific.h" />
+    <ClInclude Include="..\CryCommon\list2.h" />
+    <ClInclude Include="..\CryCommon\LMCompStructures.h" />
+    <ClInclude Include="..\CryCommon\MakMatInfoFromMAT_ENTITY.h" />
+    <ClInclude Include="..\CryCommon\matrixnm.h" />
+    <ClInclude Include="..\CryCommon\MeshIdx.h" />
+    <ClInclude Include="..\CryCommon\Names.h" />
+    <ClInclude Include="..\CryCommon\physinterface.h" />
+    <ClInclude Include="..\CryCommon\platform.h" />
+    <ClInclude Include="..\CryCommon\primitives.h" />
+    <ClInclude Include="..\CryCommon\ProjectDefines.h" />
+    <ClInclude Include="..\CryCommon\Range.h" />
+    <ClInclude Include="..\CryCommon\RendElement.h" />
+    <ClInclude Include="..\CryCommon\ScriptObjectVector.h" />
+    <ClInclude Include="..\CryCommon\SerializeBuffer.h" />
+    <ClInclude Include="..\CryCommon\smartptr.h" />
+    <ClInclude Include="..\CryCommon\StlDbgAlloc.h" />
+    <ClInclude Include="..\CryCommon\StlUtils.h" />
+    <ClInclude Include="..\CryCommon\Stream.h" />
+    <ClInclude Include="..\CryCommon\StreamData.h" />
+    <ClInclude Include="..\CryCommon\StringUtils.h" />
+    <ClInclude Include="..\CryCommon\TAlloc.h" />
+    <ClInclude Include="..\CryCommon\Tarray.h" />
+    <ClInclude Include="..\CryCommon\TArrays.h" />
+    <ClInclude Include="..\CryCommon\TimeValue.h" />
+    <ClInclude Include="..\CryCommon\TString.h" />
+    <ClInclude Include="..\CryCommon\VertexBufferSource.h" />
+    <ClInclude Include="..\CryCommon\VertexFormats.h" />
+    <ClInclude Include="..\CryCommon\Win32specific.h" />
+    <ClInclude Include="..\CryCommon\Win64specific.h" />
+    <ClInclude Include="..\CryCommon\XboxSpecific.h" />
+    <ClInclude Include="..\CryCommon\XmlParser.h" />
+    <ClInclude Include="..\CryCommon\XmlParserFont.h" />
+    <ClInclude Include="..\CryCommon\XmlStream.h" />
+    <ClInclude Include="..\CryCommon\_ScriptableEx.h" />
+    <ClInclude Include="..\CryCommon\_TinyWindow.h" />
+    <ClInclude Include="AdvCamSystem.h" />
+    <ClInclude Include="AIHandler.h" />
+    <ClInclude Include="BitStream_Base.h" />
+    <ClInclude Include="BitStream_Compressed.h" />
+    <ClInclude Include="BugsFlock.h" />
+    <ClInclude Include="CMovieUser.h" />
+    <ClInclude Include="CryGame.h" />
+    <ClInclude Include="EntityClassRegistry.h" />
+    <ClInclude Include="FireType.h" />
+    <ClInclude Include="Flock.h" />
+    <ClInclude Include="Game.h" />
+    <ClInclude Include="GameMods.h" />
+    <ClInclude Include="GameObject.h" />
+    <ClInclude Include="GameShared.h" />
+    <ClInclude Include="IngameDialog.h" />
+    <ClInclude Include="IXSystem.h" />
+    <ClInclude Include="NetEntityInfo.h" />
+    <ClInclude Include="PlayerSystem.h" />
+    <ClInclude Include="ScriptObjectAdvCamSystem.h" />
+    <ClInclude Include="ScriptObjectAI.h" />
+    <ClInclude Include="ScriptObjectBoids.h" />
+    <ClInclude Include="ScriptObjectClient.h" />
+    <ClInclude Include="ScriptObjectGame.h" />
+    <ClInclude Include="ScriptObjectInput.h" />
+    <ClInclude Include="ScriptObjectLanguage.h" />
+    <ClInclude Include="ScriptObjectPlayer.h" />
+    <ClInclude Include="ScriptObjectRenderer.h" />
+    <ClInclude Include="ScriptObjectServer.h" />
+    <ClInclude Include="ScriptObjectServerSlot.h" />
+    <ClInclude Include="ScriptObjectSpectator.h" />
+    <ClInclude Include="ScriptObjectStream.h" />
+    <ClInclude Include="ScriptObjectSynched2DTable.h" />
+    <ClInclude Include="ScriptObjectUI.h" />
+    <ClInclude Include="ScriptObjectVehicle.h" />
+    <ClInclude Include="ScriptObjectWeaponClass.h" />
+    <ClInclude Include="ScriptTimerMgr.h" />
+    <ClInclude Include="Spectator.h" />
+    <ClInclude Include="StdAfx.h" />
+    <ClInclude Include="StringTableMgr.h" />
+    <ClInclude Include="Synched2DTable.h" />
+    <ClInclude Include="SynchedRandomSeed.h" />
+    <ClInclude Include="TagPoint.h" />
+    <ClInclude Include="TimeDemoRecorder.h" />
+    <ClInclude Include="UIButton.h" />
+    <ClInclude Include="UICheckBox.h" />
+    <ClInclude Include="UIComboBox.h" />
+    <ClInclude Include="UICVars.h" />
+    <ClInclude Include="UIDivX_Video.h" />
+    <ClInclude Include="UIEditBox.h" />
+    <ClInclude Include="UIHud.h" />
+    <ClInclude Include="UIListView.h" />
+    <ClInclude Include="UIMessages.h" />
+    <ClInclude Include="UIScreen.h" />
+    <ClInclude Include="UIScrollBar.h" />
+    <ClInclude Include="UIStatic.h" />
+    <ClInclude Include="UISystem.h" />
+    <ClInclude Include="UIVideoPanel.h" />
+    <ClInclude Include="UIWidget.h" />
+    <ClInclude Include="WeaponClass.h" />
+    <ClInclude Include="WeaponSystemEx.h" />
+    <ClInclude Include="XArea.h" />
+    <ClInclude Include="XClient.h" />
+    <ClInclude Include="XClientSnapshot.h" />
+    <ClInclude Include="XDemoMgr.h" />
+    <ClInclude Include="XEntityProcessingCmd.h" />
+    <ClInclude Include="XNetwork.h" />
+    <ClInclude Include="XNetworkStats.h" />
+    <ClInclude Include="XObjectProxy.h" />
+    <ClInclude Include="XPlayer.h" />
+    <ClInclude Include="XPuppetProxy.h" />
+    <ClInclude Include="XServer.h" />
+    <ClInclude Include="XServerRules.h" />
+    <ClInclude Include="XServerSlot.h" />
+    <ClInclude Include="XSnapshot.h" />
+    <ClInclude Include="XSurfaceMgr.h" />
+    <ClInclude Include="XSystemBase.h" />
+    <ClInclude Include="XSystemClient.h" />
+    <ClInclude Include="XSystemDummy.h" />
+    <ClInclude Include="XSystemEntities.h" />
+    <ClInclude Include="XSystemServer.h" />
+    <ClInclude Include="XVehicle.h" />
+    <ClInclude Include="XVehicleProxy.h" />
+    <ClInclude Include="XVehicleSystem.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

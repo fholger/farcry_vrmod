@@ -569,6 +569,21 @@ struct IScriptObject
 	//! @param szPath e.g. "cnt.table1.table2", "", "mytable", max 255 characters
 	//! @return true=path was valid, false otherwise
 	virtual bool GetValueRecursive( const char *szPath, IScriptObject *pObj ) = 0;
+
+	bool GetAt(int nIdx, char* &sVal)
+	{
+		return GetAt(nIdx, const_cast<const char*&>(sVal));
+	}
+
+	bool GetCurrent(char* &sVal)
+	{
+		return GetCurrent(const_cast<const char*&>(sVal));
+	}
+
+	bool GetCurrentKey(char* &sVal)
+	{
+		return GetCurrentKey(const_cast<const char*&>(sVal));
+	}
 };
 
 
@@ -650,6 +665,11 @@ struct IFunctionHandler
 	//##@}
 
 	virtual void Unref(HSCRIPTFUNCTION hFunc) = 0;
+
+	bool GetParam(int nIdx, char * &s)
+	{
+		return GetParam(nIdx, const_cast<const char*&>(s));
+	}
 };
 
 //DOC-IGNORE-BEGIN

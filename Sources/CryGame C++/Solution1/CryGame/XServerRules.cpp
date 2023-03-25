@@ -168,7 +168,7 @@ const char *CXServerRules::GetGameType()
 	if(!m_init)
 		return 0;
 
-  char *md = m_pGame->g_GameType->GetString();
+  const char *md = m_pGame->g_GameType->GetString();
   
   HSCRIPTFUNCTION fun = m_pScriptSystem->GetFunctionPtr("GameRules", "ModeDesc");
   if(fun)
