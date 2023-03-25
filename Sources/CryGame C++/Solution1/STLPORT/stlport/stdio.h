@@ -19,7 +19,7 @@
 # endif
 
 # if ! defined (_STLP_WINCE)
-# include _STLP_NATIVE_C_HEADER(stdio.h)
+# include _STLP_NATIVE_UCRT_HEADER(stdio.h)
 
 #if defined (__SUNPRO_CC) && !defined (_STRUCT_FILE)
 # define _STRUCT_FILE

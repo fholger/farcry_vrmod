@@ -490,7 +490,7 @@ namespace __std_alias = std;
 #   define _STLP_VENDOR_STD
 #   define _STLP_USING_VENDOR_STD
 #  else
-#   define _STLP_VENDOR_STD __std_alias
+#   define _STLP_VENDOR_STD std
 #   define _STLP_USING_VENDOR_STD _STLP_USING_NAMESPACE(_STLP_VENDOR_STD)
 // #   define _STLP_USING_VENDOR_STD
 #  endif

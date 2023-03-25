@@ -162,7 +162,7 @@
       <FavorSizeOrSpeed>Size</FavorSizeOrSpeed>
       <OmitFramePointers>true</OmitFramePointers>
       <EnableFiberSafeOptimizations>false</EnableFiberSafeOptimizations>
-      <AdditionalIncludeDirectories>..\BinkSDK;..\CryCommon;..\ubisoft.com\ConsoleImplementation\src;..\ubisoft.com\GSServices\sdks\gs-sdk-regserver\include;..\ubisoft.com\GSServices\sdks\gs-sdk-common\include;..\ubisoft.com\GSServices\sdks\gs-sdk-msclient\include;..\ubisoft.com\GSServices\sdks\gs-sdk-base\include;..\ubisoft.com\GSServices\sdks\gs-sdk-cdkey\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\STLPORT\stlport;..\BinkSDK;..\CryCommon;..\ubisoft.com\ConsoleImplementation\src;..\ubisoft.com\GSServices\sdks\gs-sdk-regserver\include;..\ubisoft.com\GSServices\sdks\gs-sdk-common\include;..\ubisoft.com\GSServices\sdks\gs-sdk-msclient\include;..\ubisoft.com\GSServices\sdks\gs-sdk-base\include;..\ubisoft.com\GSServices\sdks\gs-sdk-cdkey\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_RELEASE;NDEBUG;USE_GAME_DLL;WIN32;_WINDOWS;_USRDLL;CRYGAME_EXPORTS;_SILENCE_STDEXT_HASH_DEPRECATION_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
@@ -180,6 +180,7 @@
       <CompileAs>Default</CompileAs>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <IgnoreStandardIncludePath>false</IgnoreStandardIncludePath>
+      <ShowIncludes>false</ShowIncludes>
     </ClCompile>
     <Link>
       <AdditionalOptions>/MACHINE:I386 %(AdditionalOptions)</AdditionalOptions>

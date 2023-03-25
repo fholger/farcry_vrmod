@@ -20,7 +20,7 @@
 #  define _STLP_DONT_POP_0x265
 # endif
 
-# include _STLP_NATIVE_C_HEADER(stdlib.h)
+# include _STLP_NATIVE_UCRT_HEADER(stdlib.h)
 
 # if (_STLP_OUTERMOST_HEADER_ID == 0x265)
 #  if ! defined (_STLP_DONT_POP_0x265)

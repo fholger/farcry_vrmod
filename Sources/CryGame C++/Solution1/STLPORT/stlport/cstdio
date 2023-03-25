@@ -44,11 +44,11 @@
 
 #  if defined (_STLP_MSVC) || defined (__ICL)
 namespace _STLP_VENDOR_CSTD {
-inline
-int vsnprintf(char *s1, size_t n, const char *s2, va_list v)
+/*inline
+int vsnprintf(char* s1, size_t n, const char* s2, va_list v)
 {
 return ::_vsnprintf(s1, n, s2, v);
-}
+}*/
 }
 #  endif
 
@@ -94,7 +94,6 @@ using _STLP_VENDOR_CSTD::fwrite;
  using _STLP_VENDOR_CSTD::putchar;
 #   endif
 
-using _STLP_VENDOR_CSTD::gets;
 using _STLP_VENDOR_CSTD::perror;
 using _STLP_VENDOR_CSTD::printf;
 using _STLP_VENDOR_CSTD::puts;

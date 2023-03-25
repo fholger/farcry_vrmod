@@ -20,7 +20,7 @@
 #  define _STLP_DONT_POP_0x242
 # endif
 
-# include _STLP_NATIVE_C_HEADER(locale.h)
+# include _STLP_NATIVE_UCRT_HEADER(locale.h)
 
 # if (_STLP_OUTERMOST_HEADER_ID == 0x242)
 #  if ! defined (_STLP_DONT_POP_0x242)

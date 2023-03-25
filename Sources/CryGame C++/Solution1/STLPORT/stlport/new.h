@@ -30,7 +30,7 @@
 #  if defined (__GNUC__) && (__GNUC__ >=3)
 #   include _STLP_NATIVE_OLD_STREAMS_HEADER(new.h)
 #  else
-#   include _STLP_NATIVE_CPP_RUNTIME_HEADER(new.h)
+#   include _STLP_NATIVE_UCRT_HEADER(new.h)
 #  endif
 # endif
 # endif /* STL_WINCE */

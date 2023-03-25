@@ -14,6 +14,7 @@
 # else
 #  define _STLP_NATIVE_HEADER(x) <../include/##x>
 #  define _STLP_NATIVE_C_HEADER(x) <../include/##x>
+#  define _STLP_NATIVE_UCRT_HEADER(x) <../ucrt/##x>
 #  define _STLP_NATIVE_CPP_C_HEADER(x) <../include/##x>
 #  define _STLP_NATIVE_OLD_STREAMS_HEADER(x) <../include/##x>
 #  define _STLP_NATIVE_CPP_RUNTIME_HEADER(header) <../include/##header>

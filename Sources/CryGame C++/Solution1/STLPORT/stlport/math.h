@@ -26,7 +26,7 @@
 #  define exception __math_exception
 # endif
 
-# include _STLP_NATIVE_C_HEADER(math.h)
+# include _STLP_NATIVE_UCRT_HEADER(math.h)
 
 # if defined (__EXCEPTION_WAS_REDEFINED)
 #  undef exception

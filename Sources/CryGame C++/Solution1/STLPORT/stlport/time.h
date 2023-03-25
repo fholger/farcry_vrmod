@@ -20,7 +20,7 @@
 #  define _STLP_DONT_POP_0x272
 # endif
 
-# include _STLP_NATIVE_C_HEADER(time.h)
+# include _STLP_NATIVE_UCRT_HEADER(time.h)
 
 # if (_STLP_OUTERMOST_HEADER_ID == 0x272)
 #  if ! defined (_STLP_DONT_POP_0x272)

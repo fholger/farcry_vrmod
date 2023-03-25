@@ -20,7 +20,7 @@
 
 # ifndef _STLP_WINCE
 
-# include _STLP_NATIVE_C_HEADER(stddef.h)
+# include _STLP_NATIVE_UCRT_HEADER(stddef.h)
 
 # endif /* WINCE */
 

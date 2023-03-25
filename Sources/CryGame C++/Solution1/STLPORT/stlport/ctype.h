@@ -20,7 +20,7 @@
 #  define _STLP_DONT_POP_0x219
 # endif
 
-# include _STLP_NATIVE_C_HEADER(ctype.h)
+# include _STLP_NATIVE_UCRT_HEADER(ctype.h)
 
 # if (_STLP_OUTERMOST_HEADER_ID == 0x219)
 #  if ! defined (_STLP_DONT_POP_0x219)

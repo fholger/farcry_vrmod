@@ -32,7 +32,7 @@ using _STLP_VENDOR_CSTD::strspn;
 # if defined (__GNUC__) && defined (__APPLE__)
 #  include _STLP_NATIVE_C_HEADER(stddef.h)
 # else
-#  include _STLP_NATIVE_C_HEADER(wchar.h)
+#  include _STLP_NATIVE_UCRT_HEADER(wchar.h)
 # endif
 
 # endif /* WINCE */
