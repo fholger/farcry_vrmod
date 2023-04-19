@@ -1,3 +1,6 @@
 [submodule "Sources/ThirdParty/dxvk"]
 	path = Sources/ThirdParty/dxvk
 	url = git@github.com:fholger/dxvkry.git
+[submodule "Sources/ThirdParty/minhook"]
+	path = Sources/ThirdParty/minhook
+	url = https://github.com/TsudaKageyu/minhook.git
