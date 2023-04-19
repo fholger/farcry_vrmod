@@ -115,7 +115,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\CryCommon;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\STLPORT\stlport;..\CryCommon;..\..\..\ThirdParty\dxvk\src\d3d9;..\..\..\ThirdParty\dxvk\include\vulkan\include;..\..\..\ThirdParty\minhook\include;..\..\..\ThirdParty\openvr\headers;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_DEBUG;WIN32;_WINDOWS;_USRDLL;CRYGAME_EXPORTS;_SILENCE_STDEXT_HASH_DEPRECATION_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -162,7 +162,7 @@
       <FavorSizeOrSpeed>Size</FavorSizeOrSpeed>
       <OmitFramePointers>true</OmitFramePointers>
       <EnableFiberSafeOptimizations>false</EnableFiberSafeOptimizations>
-      <AdditionalIncludeDirectories>..\STLPORT\stlport;..\BinkSDK;..\CryCommon;..\ubisoft.com\ConsoleImplementation\src;..\ubisoft.com\GSServices\sdks\gs-sdk-regserver\include;..\ubisoft.com\GSServices\sdks\gs-sdk-common\include;..\ubisoft.com\GSServices\sdks\gs-sdk-msclient\include;..\ubisoft.com\GSServices\sdks\gs-sdk-base\include;..\ubisoft.com\GSServices\sdks\gs-sdk-cdkey\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\STLPORT\stlport;..\CryCommon;..\..\..\ThirdParty\dxvk\src\d3d9;..\..\..\ThirdParty\dxvk\include\vulkan\include;..\..\..\ThirdParty\minhook\include;..\..\..\ThirdParty\openvr\headers;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_RELEASE;NDEBUG;USE_GAME_DLL;WIN32;_WINDOWS;_USRDLL;CRYGAME_EXPORTS;_SILENCE_STDEXT_HASH_DEPRECATION_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
@@ -211,7 +211,7 @@
       <FavorSizeOrSpeed>Size</FavorSizeOrSpeed>
       <OmitFramePointers>true</OmitFramePointers>
       <EnableFiberSafeOptimizations>false</EnableFiberSafeOptimizations>
-      <AdditionalIncludeDirectories>..\BinkSDK;..\CryCommon;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\STLPORT\stlport;..\CryCommon;..\..\..\ThirdParty\dxvk\src\d3d9;..\..\..\ThirdParty\dxvk\include\vulkan\include;..\..\..\ThirdParty\minhook\include;..\..\..\ThirdParty\openvr\headers;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>NDEBUG;USE_GAME_DLL;WIN32;_WINDOWS;_USRDLL;CRYGAME_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
@@ -256,7 +256,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug64|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\CryCommon;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\STLPORT\stlport;..\CryCommon;..\..\..\ThirdParty\dxvk\src\d3d9;..\..\..\ThirdParty\dxvk\include\vulkan\include;..\..\..\ThirdParty\minhook\include;..\..\..\ThirdParty\openvr\headers;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_AMD64_;_DEBUG;WIN64;WIN32;_WINDOWS;_USRDLL;CRYGAME_EXPORTS;DIVX;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -304,7 +304,7 @@
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
-      <AdditionalIncludeDirectories>..\CryCommon;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\STLPORT\stlport;..\CryCommon;..\..\..\ThirdParty\dxvk\src\d3d9;..\..\..\ThirdParty\dxvk\include\vulkan\include;..\..\..\ThirdParty\minhook\include;..\..\..\ThirdParty\openvr\headers;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_RELEASE;NDEBUG;WIN64;WIN32;_AMD64_;_WINDOWS;_USRDLL;CRYGAME_EXPORTS;DIVX;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
@@ -344,6 +344,10 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\ThirdParty\minhook\src\buffer.c" />
+    <ClCompile Include="..\..\..\ThirdParty\minhook\src\hde\hde32.c" />
+    <ClCompile Include="..\..\..\ThirdParty\minhook\src\hook.c" />
+    <ClCompile Include="..\..\..\ThirdParty\minhook\src\trampoline.c" />
     <ClCompile Include="AdvCamSystem.cpp" />
     <ClCompile Include="AIHandler.cpp" />
     <ClCompile Include="BitStream_Base.cpp" />
@@ -366,6 +370,7 @@
     <ClCompile Include="GameMovieUser.cpp" />
     <ClCompile Include="GameRadar.cpp" />
     <ClCompile Include="GameTagPoints.cpp" />
+    <ClCompile Include="Hooks.cpp" />
     <ClCompile Include="IngameDialog.cpp" />
     <ClCompile Include="NetEntityInfo.cpp" />
     <ClCompile Include="ScriptObjectAdvCamSystem.cpp" />
@@ -412,6 +417,8 @@
     <ClCompile Include="UISystem.cpp" />
     <ClCompile Include="UIVideoPanel.cpp" />
     <ClCompile Include="UIWidget.cpp" />
+    <ClCompile Include="VRManager.cpp" />
+    <ClCompile Include="VRRenderer.cpp" />
     <ClCompile Include="WeaponClass.cpp" />
     <ClCompile Include="WeaponSystemEx.cpp" />
     <ClCompile Include="XArea.cpp" />
@@ -584,6 +591,7 @@
     <ClInclude Include="GameMods.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameShared.h" />
+    <ClInclude Include="Hooks.h" />
     <ClInclude Include="IngameDialog.h" />
     <ClInclude Include="IXSystem.h" />
     <ClInclude Include="NetEntityInfo.h" />
@@ -628,6 +636,8 @@
     <ClInclude Include="UISystem.h" />
     <ClInclude Include="UIVideoPanel.h" />
     <ClInclude Include="UIWidget.h" />
+    <ClInclude Include="VRManager.h" />
+    <ClInclude Include="VRRenderer.h" />
     <ClInclude Include="WeaponClass.h" />
     <ClInclude Include="WeaponSystemEx.h" />
     <ClInclude Include="XArea.h" />

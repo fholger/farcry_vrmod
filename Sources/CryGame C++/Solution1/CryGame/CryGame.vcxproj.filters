@@ -97,6 +97,12 @@
     <Filter Include="CryCommon\Misc">
       <UniqueIdentifier>{f5fc1c40-ac90-4748-9289-c63db178d291}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MinHook">
+      <UniqueIdentifier>{5a88de7b-8c19-4d64-b5e6-2b3d41cfbb53}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\VR">
+      <UniqueIdentifier>{30eb8c4b-d1d3-4ed1-b5cd-a4916f4dafbc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CryGame.cpp">
@@ -371,6 +377,27 @@
     </ClCompile>
     <ClCompile Include="Synched2DTable.cpp">
       <Filter>Source Files\Scoreboard</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\ThirdParty\minhook\src\buffer.c">
+      <Filter>MinHook</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\ThirdParty\minhook\src\hook.c">
+      <Filter>MinHook</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\ThirdParty\minhook\src\trampoline.c">
+      <Filter>MinHook</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\ThirdParty\minhook\src\hde\hde32.c">
+      <Filter>MinHook</Filter>
+    </ClCompile>
+    <ClCompile Include="Hooks.cpp">
+      <Filter>Source Files\VR</Filter>
+    </ClCompile>
+    <ClCompile Include="VRManager.cpp">
+      <Filter>Source Files\VR</Filter>
+    </ClCompile>
+    <ClCompile Include="VRRenderer.cpp">
+      <Filter>Source Files\VR</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1003,6 +1030,15 @@
     </ClInclude>
     <ClInclude Include="..\CryCommon\EntityDesc.h">
       <Filter>CryCommon\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="Hooks.h">
+      <Filter>Source Files\VR</Filter>
+    </ClInclude>
+    <ClInclude Include="VRManager.h">
+      <Filter>Source Files\VR</Filter>
+    </ClInclude>
+    <ClInclude Include="VRRenderer.h">
+      <Filter>Source Files\VR</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

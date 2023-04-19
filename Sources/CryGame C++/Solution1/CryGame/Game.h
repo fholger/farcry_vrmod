@@ -821,7 +821,7 @@ public:
 	//! Rendering callback, called at render of frame.
 	static void OnRenderCallback( void *pGame );
 
-private: // ------------------------------------------------------------
+//private: // ------------------------------------------------------------
 
 	bool ParseLevelName(const char *szLevelName,char *szLevel,char *szMission);
 
