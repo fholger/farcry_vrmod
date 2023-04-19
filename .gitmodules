@@ -1,0 +1,3 @@
+[submodule "Sources/ThirdParty/dxvk"]
+	path = Sources/ThirdParty/dxvk
+	url = git@github.com:fholger/dxvkry.git
