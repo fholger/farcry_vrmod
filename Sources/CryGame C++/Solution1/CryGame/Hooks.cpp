@@ -4,7 +4,7 @@
 
 #include <MinHook.h>
 
-#include <unordered_map>
+#include <hash_map>
 
 namespace {
 	struct HookInfo {
@@ -12,7 +12,7 @@ namespace {
 		intptr_t original;
 		intptr_t hook;
 	};
-	std::unordered_map<intptr_t, HookInfo> g_hooksToOriginal;
+	std::hash_map<intptr_t, HookInfo> g_hooksToOriginal;
 }
 
 namespace hooks {

@@ -1,7 +1,8 @@
 #pragma once
 #include "Cry_Camera.h"
 
-struct IDirect3DDevice9Ex;
+class CXGame;
+class IDirect3DDevice9Ex;
 
 class VRRenderer
 {
@@ -11,7 +12,7 @@ public:
 	void Init(CXGame *game);
 	void Shutdown();
 
-	void Render(SystemRenderFunc renderFunc, ISystem *pSystem);
+	void Render(ISystem *pSystem);
 	bool OnPrePresent(IDirect3DDevice9Ex *device);
 	void OnPostPresent();
 
@@ -37,7 +38,7 @@ private:
 	int m_windowWidth = 0;
 	int m_windowHeight = 0;
 
-	void RenderSingleEye(int eye, SystemRenderFunc renderFunc, ISystem* pSystem);
+	void RenderSingleEye(int eye, ISystem* pSystem);
 	void DrawCrosshair();
 };
 

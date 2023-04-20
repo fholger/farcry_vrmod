@@ -1040,5 +1040,8 @@
     <ClInclude Include="VRRenderer.h">
       <Filter>Source Files\VR</Filter>
     </ClInclude>
+    <ClInclude Include="ComPtr.h">
+      <Filter>Source Files\VR</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

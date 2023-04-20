@@ -73,6 +73,9 @@
 
 #include "TimeDemoRecorder.h"
 #include "GameMods.h"
+#include "Hooks.h"
+#include "VRManager.h"
+#include "VRRenderer.h"
 
 #ifdef WIN32
 #include <winioctl.h>
@@ -729,6 +732,15 @@ bool CXGame::Init(struct ISystem *pSystem,bool bDedicatedSrv,bool bInEditor,cons
 	m_bOK = true;	
 	e_deformable_terrain = NULL;
 
+	CryLogAlways("VR: Initializing engine hooks...");
+	hooks::Init();
+	gVRRenderer->Init(this);
+
+	if (!gVR->Init(this))
+		return false;
+
+	gVRRenderer->SetDesiredWindowSize();
+
 	return (true);
 }
 
@@ -813,7 +825,7 @@ bool CXGame::Update()
 	// Cannot Run Without System.
 	assert( m_pSystem );
 
-	float	maxFPS=g_maxfps->GetFVal();
+	float	maxFPS = 0; // g_maxfps->GetFVal();
 	if(maxFPS>0)
 	{
 		DWORD	extraTime = (DWORD)((1.0f/maxFPS - pTimer->GetFrameTime())*1000.0f);
@@ -953,11 +965,20 @@ bool CXGame::Update()
 	// system rendering
 	if (bRenderFrame)
 	{	
+		// VR: check render resolution
+		vector2di targetRenderSize = gVR->GetRenderSize();
+		if (targetRenderSize.x != m_pRenderer->GetWidth() || targetRenderSize.y != m_pRenderer->GetHeight())
+		{
+			gVRRenderer->ChangeRenderResolution(targetRenderSize.x, targetRenderSize.y);
+		}
+
 		// render begin must be always called anyway to clear buffer, draw buttons etc.
 		// even in menu mode
-		m_pSystem->RenderBegin();
-		
-		m_pSystem->Render();
+		//m_pSystem->RenderBegin();
+		//m_pSystem->Render();
+
+		gVRRenderer->Render(m_pSystem);
+
 		pTimer->MeasureTime("3SysRend");
 	}
 		
@@ -1022,7 +1043,9 @@ bool CXGame::Update()
 		if (m_pTimeDemoRecorder)
 			m_pTimeDemoRecorder->RenderInfo();
 
+		gVR->CaptureHUD();
 		m_pSystem->RenderEnd();
+		gVR->FinishFrame();
 	}
   pTimer->MeasureTime("3Rend Up");
 	

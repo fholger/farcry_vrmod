@@ -1,11 +1,22 @@
 #include "StdAfx.h"
 #include "VRManager.h"
-#include <openvr.h>
 #include "Cry_Camera.h"
-#include <d3d9_interfaces.h>
+#include "xplayer.h"
+#include "ComPtr.h"
+#include <vulkan/vulkan.h>
+
+//#include <d3d9_interfaces.h>
+#include <d3d9.h>
+#include <openvr.h>
+
 
 VRManager s_VRManager;
 VRManager* gVR = &s_VRManager;
+
+extern "C" void dxvkLockSubmissionQueue(IDirect3DDevice9Ex * device, bool flush);
+extern "C" void dxvkReleaseSubmissionQueue(IDirect3DDevice9Ex * device);
+extern "C" HRESULT dxvkFillVulkanTextureInfo(IDirect3DDevice9Ex * device, IDirect3DTexture9 * texture, vr::VRVulkanTextureData_t & data, VkImageLayout & layout);
+extern "C" void dxvkTransitionImageLayout(IDirect3DDevice9Ex * device, IDirect3DTexture9 * texture, VkImageLayout from, VkImageLayout to);
 
 // OpenVR: x = right, y = up, -z = forward
 // Crysis: x = right, y = forward, z = up
@@ -27,17 +38,33 @@ Matrix34 OpenVRToCrysis(const vr::HmdMatrix34_t &mat)
 	return m;
 }
 
+struct VRManager::D3DResources
+{
+	ComPtr<IDirect3DDevice9Ex> device;
+	ComPtr<IDirect3DTexture9> hudTexture;
+	ComPtr<IDirect3DTexture9> eyeTextures[2];
+};
+
+VRManager::VRManager()
+{
+	m_d3d = new D3DResources;
+}
+
+
 VRManager::~VRManager()
 {
 	// if Shutdown isn't properly called, we will get an infinite hang when trying to dispose of our D3D resources after
 	// the game already shut down. So just let go here to avoid that
-	m_device.Detach();
+	m_d3d->device.Detach();
+	delete m_d3d;
 }
 
-bool VRManager::Init()
+bool VRManager::Init(CXGame *game)
 {
 	if (m_initialized)
 		return true;
+
+	m_pGame = game;
 
 	vr::EVRInitError error;
 	vr::VR_Init(&error, vr::VRApplication_Scene);
@@ -70,13 +97,15 @@ bool VRManager::Init()
 	m_vertRenderScale = 2.f * m_verticalFov / min(fabsf(lt) + fabsf(lb), fabsf(rt) + fabsf(rb));
 	CryLogAlways("VR vert fov: %.2f  horz fov: %.2f  vert scale: %.2f", m_verticalFov, m_horizontalFov, m_vertRenderScale);
 
+	RegisterCVars();
+
 	m_initialized = true;
 	return true;
 }
 
 void VRManager::Shutdown()
 {
-	m_device.Reset();
+	m_d3d->device.Reset();
 
 	if (!m_initialized)
 		return;
@@ -88,45 +117,43 @@ void VRManager::Shutdown()
 
 void VRManager::AwaitFrame()
 {
-	if (!m_initialized || !m_device)
+	if (!m_initialized || !m_d3d->device)
 		return;
 
-	ComPtr<ID3D9VkInteropDevice> vkDevice;
-	m_device->QueryInterface(__uuidof(ID3D9VkInteropDevice), (void**)vkDevice.GetAddressOf());
-	vkDevice->LockSubmissionQueue();
+	dxvkLockSubmissionQueue(m_d3d->device.Get(), false);
 	vr::VRCompositor()->WaitGetPoses(&m_headPose, 1, nullptr, 0);
-	vkDevice->ReleaseSubmissionQueue();
+	dxvkReleaseSubmissionQueue(m_d3d->device.Get());
 }
 
 void VRManager::CaptureEye(int eye)
 {
-	if (!m_device)
+	if (!m_d3d->device)
 		return;
 
-	if (!m_eyeTextures[eye])
+	if (!m_d3d->eyeTextures[eye])
 	{
 		CreateEyeTexture(eye);
-		if (!m_eyeTextures[eye])
+		if (!m_d3d->eyeTextures[eye])
 			return;
 	}
 
 	D3DSURFACE_DESC desc;
-	m_eyeTextures[eye]->GetLevelDesc(0, &desc);
+	m_d3d->eyeTextures[eye]->GetLevelDesc(0, &desc);
 	vector2di expectedSize = GetRenderSize();
 	if (desc.Width != expectedSize.x || desc.Height != expectedSize.y)
 	{
 		// recreate with new resolution
 		CreateEyeTexture(eye);
-		if (!m_eyeTextures[eye])
+		if (!m_d3d->eyeTextures[eye])
 			return;
 	}
 
 	// acquire and copy the current swap chain buffer to the eye texture
 	ComPtr<IDirect3DSurface9> backBuffer;
-	m_device->GetBackBuffer(0, 0, D3DBACKBUFFER_TYPE_MONO, backBuffer.GetAddressOf());
+	m_d3d->device->GetBackBuffer(0, 0, D3DBACKBUFFER_TYPE_MONO, backBuffer.GetAddressOf());
 	ComPtr<IDirect3DSurface9> texSurface;
-	m_eyeTextures[eye]->GetSurfaceLevel(0, texSurface.GetAddressOf());
-	HRESULT hr = m_device->StretchRect(backBuffer.Get(), nullptr, texSurface.Get(), nullptr, D3DTEXF_POINT);
+	m_d3d->eyeTextures[eye]->GetSurfaceLevel(0, texSurface.GetAddressOf());
+	HRESULT hr = m_d3d->device->StretchRect(backBuffer.Get(), nullptr, texSurface.Get(), nullptr, D3DTEXF_POINT);
 	if (hr != S_OK)
 	{
 		CryLogAlways("ERROR: Capturing HUD failed: %i", hr);
@@ -135,33 +162,33 @@ void VRManager::CaptureEye(int eye)
 
 void VRManager::CaptureHUD()
 {
-	if (!m_device)
+	if (!m_d3d->device)
 		return;
 
-	if (!m_hudTexture)
+	if (!m_d3d->hudTexture)
 	{
 		CreateHUDTexture();
-		if (!m_hudTexture)
+		if (!m_d3d->hudTexture)
 			return;
 	}
 
 	D3DSURFACE_DESC desc;
-	m_hudTexture->GetLevelDesc(0, &desc);
+	m_d3d->hudTexture->GetLevelDesc(0, &desc);
 	vector2di expectedSize = GetRenderSize();
 	if (desc.Width != expectedSize.x || desc.Height != expectedSize.y)
 	{
 		// recreate with new resolution
 		CreateHUDTexture();
-		if (!m_hudTexture)
+		if (!m_d3d->hudTexture)
 			return;
 	}
 
 	// acquire and copy the current back buffer to the HUD texture
 	ComPtr<IDirect3DSurface9> backBuffer;
-	m_device->GetBackBuffer(0, 0, D3DBACKBUFFER_TYPE_MONO, backBuffer.GetAddressOf());
+	m_d3d->device->GetBackBuffer(0, 0, D3DBACKBUFFER_TYPE_MONO, backBuffer.GetAddressOf());
 	ComPtr<IDirect3DSurface9> texSurface;
-	m_hudTexture->GetSurfaceLevel(0, texSurface.GetAddressOf());
-	HRESULT hr = m_device->StretchRect(backBuffer.Get(), nullptr, texSurface.Get(), nullptr, D3DTEXF_POINT);
+	m_d3d->hudTexture->GetSurfaceLevel(0, texSurface.GetAddressOf());
+	HRESULT hr = m_d3d->device->StretchRect(backBuffer.Get(), nullptr, texSurface.Get(), nullptr, D3DTEXF_POINT);
 	if (hr != S_OK)
 	{
 		CryLogAlways("ERROR: Capturing HUD failed: %i", hr);
@@ -170,55 +197,32 @@ void VRManager::CaptureHUD()
 
 void VRManager::SetDevice(IDirect3DDevice9Ex *device)
 {
-	if (device != m_device.Get())
+	if (device != m_d3d->device.Get())
 		InitDevice(device);
 }
 
 void VRManager::FinishFrame()
 {
-	if (!m_initialized || !m_device || !m_eyeTextures[0] || !m_eyeTextures[1])
+	if (!m_initialized || !m_d3d->device || !m_d3d->eyeTextures[0] || !m_d3d->eyeTextures[1])
 		return;
 
-	ComPtr<ID3D9VkInteropDevice> vkDevice;
-	m_device->QueryInterface(__uuidof(ID3D9VkInteropDevice), (void**)vkDevice.GetAddressOf());
-
-  vr::VRVulkanTextureData_t vkTexData[3];
+	vr::VRVulkanTextureData_t vkTexData[3];
 	VkImageLayout origLayout[3];
-	ComPtr<ID3D9VkInteropTexture> vkTex[3];
-	VkImageSubresourceRange range;
-	range.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
-	range.baseMipLevel = 0;
-	range.levelCount = 1;
-	range.baseArrayLayer = 0;
-	range.layerCount = 1;
 
 	for (int eye = 0; eye < 3; ++eye)
 	{
-		IDirect3DTexture9 *tex = eye == 2 ? m_hudTexture.Get() : m_eyeTextures[eye].Get();
-		tex->QueryInterface(__uuidof(ID3D9VkInteropTexture), (void**)vkTex[eye].GetAddressOf());
-		VkImage image;
-		VkImageCreateInfo createInfo {};
-		createInfo.sType = VK_STRUCTURE_TYPE_IMAGE_CREATE_INFO;
-		HRESULT hr = vkTex[eye]->GetVulkanImageInfo(&image, &origLayout[eye], &createInfo);
+		IDirect3DTexture9 *tex = eye == 2 ? m_d3d->hudTexture.Get() : m_d3d->eyeTextures[eye].Get();
+		HRESULT hr = dxvkFillVulkanTextureInfo(m_d3d->device.Get(), tex, vkTexData[eye], origLayout[eye]);
 		if (hr != S_OK)
 		{
 			CryLogAlways("Fetching vulkan image info failed: %i", hr);
 		}
-		vkDevice->TransitionTextureLayout(vkTex[eye].Get(), &range, origLayout[eye], VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL);
+		dxvkTransitionImageLayout(m_d3d->device.Get(), tex, origLayout[eye], VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL);
+	}
 
-		vkTexData[eye].m_nFormat = createInfo.format;
-		vkTexData[eye].m_nWidth = createInfo.extent.width;
-		vkTexData[eye].m_nHeight = createInfo.extent.height;
-		vkTexData[eye].m_nImage = (uint64_t)image;
-		vkTexData[eye].m_nSampleCount = 1;
-		vkDevice->GetSubmissionQueue(&vkTexData[eye].m_pQueue, nullptr, &vkTexData[eye].m_nQueueFamilyIndex);
-		vkDevice->GetVulkanHandles(&vkTexData[eye].m_pInstance, &vkTexData[eye].m_pPhysicalDevice, &vkTexData[eye].m_pDevice);
-  }
+	dxvkLockSubmissionQueue(m_d3d->device.Get(), true);
 
-	vkDevice->FlushRenderingCommands();
-	vkDevice->LockSubmissionQueue();
-
-  for (int eye = 0; eye < 2; ++eye) 
+	for (int eye = 0; eye < 2; ++eye) 
 	{
 		// game is currently using symmetric projection, we need to cut off the texture accordingly
 		vr::VRTextureBounds_t bounds;
@@ -243,11 +247,12 @@ void VRManager::FinishFrame()
 	vr::VROverlay()->SetOverlayTexture(m_hudOverlay, &texInfo);
 
 	vr::VRCompositor()->PostPresentHandoff();
-	vkDevice->ReleaseSubmissionQueue();
+	dxvkReleaseSubmissionQueue(m_d3d->device.Get());
 
 	for (int eye = 0; eye < 3; ++eye)
 	{
-		vkDevice->TransitionTextureLayout(vkTex[eye].Get(), &range, VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL, origLayout[eye]);
+		IDirect3DTexture9 *tex = eye == 2 ? m_d3d->hudTexture.Get() : m_d3d->eyeTextures[eye].Get();
+		dxvkTransitionImageLayout(m_d3d->device.Get(), tex, VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL, origLayout[eye]);
 	}
 }
 
@@ -282,14 +287,12 @@ void VRManager::ModifyViewCamera(int eye, CCamera& cam)
 		return;
 	}
 
-	Ang3 angles = cam.GetAngles();
+	Ang3 angles = Deg2Rad(cam.GetAngles());
 	Vec3 position = cam.GetPos();
 
 	// eliminate pitch and roll
-	// switch around, because these functions do not agree on which angle is what...
-	angles.z = angles.x;
 	angles.y = 0;
-	angles.x = 0;
+	angles.z = 0;
 
 	if (eye == 0)
 	{
@@ -300,7 +303,7 @@ void VRManager::ModifyViewCamera(int eye, CCamera& cam)
 		else if (yawDiff > gf_PI)
 			yawDiff -= 2 * gf_PI;
 
-		float maxDiff = g_pGameCVars->vr_yaw_deadzone_angle * gf_PI / 180.f;
+		float maxDiff = vr_yaw_deadzone_angle->GetFVal() * gf_PI / 180.f;
 		if (yawDiff > maxDiff)
 			m_prevViewYaw += yawDiff - maxDiff;
 		if (yawDiff < -maxDiff)
@@ -310,8 +313,12 @@ void VRManager::ModifyViewCamera(int eye, CCamera& cam)
 		if (m_prevViewYaw < -gf_PI)
 			m_prevViewYaw += 2*gf_PI;
 
-		CPlayer *pPlayer = static_cast<CPlayer *>(gEnv->pGame->GetIGameFramework()->GetClientActor());
-		if (pPlayer && pPlayer->GetLinkedVehicle())
+		CPlayer *pPlayer = 0;
+		if (m_pGame->GetMyPlayer())
+		{
+			m_pGame->GetMyPlayer()->GetContainer()->QueryContainerInterface(CIT_IPLAYER,(void **)&pPlayer);
+		}
+		if (pPlayer && pPlayer->GetVehicle())
 		{
 			// don't use this while in a vehicle, it feels off
 			m_prevViewYaw = angles.z;
@@ -328,20 +335,21 @@ void VRManager::ModifyViewCamera(int eye, CCamera& cam)
 	viewMat = viewMat * headMat * eyeMat;
 
 	cam.SetPos(viewMat.GetTranslation());
-	//fixme
-	cam.SetAngle(viewMat.);
+	angles.SetAnglesXYZ(Matrix33(viewMat));
+	angles.Rad2Deg();
+	cam.SetAngle(angles);
 
 	// we don't have obvious access to the projection matrix, and the camera code is written with symmetric projection in mind
 	// for now, set up a symmetric FOV and cut off parts of the image during submission
 	float vertFov = atanf(m_verticalFov) * 2;
-	cam.SetFov(vertFov);
 	vector2di renderSize = GetRenderSize();
-	cam.SetFrustum(renderSize.x, renderSize.y, vertFov, cam.GetNearPlane(), cam.GetFarPlane());
+	cam.Init(renderSize.x, renderSize.y, vertFov, cam.GetZMax(), 0, cam.GetZMin());
+	cam.Update();
 
 	// but we can set up frustum planes for our asymmetric projection, which should help culling accuracy.
 	float tanl, tanr, tant, tanb;
 	vr::VRSystem()->GetProjectionRaw(eye == 0 ? vr::Eye_Left : vr::Eye_Right, &tanl, &tanr, &tant, &tanb);
-	cam.UpdateFrustumFromVRRaw(tanl, tanr, -tanb, -tant);
+	//cam.UpdateFrustumFromVRRaw(tanl, tanr, -tanb, -tant);
 }
 
 void VRManager::GetEffectiveRenderLimits(int eye, float* left, float* right, float* top, float* bottom)
@@ -356,34 +364,40 @@ void VRManager::GetEffectiveRenderLimits(int eye, float* left, float* right, flo
 
 void VRManager::InitDevice(IDirect3DDevice9Ex* device)
 {
-	m_hudTexture.Reset();
-	m_eyeTextures[0].Reset();
-	m_eyeTextures[1].Reset();
+	m_d3d->hudTexture.Reset();
+	m_d3d->eyeTextures[0].Reset();
+	m_d3d->eyeTextures[1].Reset();
 
 	CryLogAlways("Acquiring device...");
-	m_device = device;
+	m_d3d->device = device;
 
 	//VR_InitD3D10DeviceHooks(m_device.Get());
 }
 
 void VRManager::CreateEyeTexture(int eye)
 {
-	if (!m_device)
+	if (!m_d3d->device)
 		return;
 
 	vector2di size = GetRenderSize();
 	CryLogAlways("Creating eye texture %i: %i x %i", eye, size.x, size.y);
-	HRESULT hr = m_device->CreateTexture(size.x, size.y, 1, D3DUSAGE_RENDERTARGET, D3DFMT_A8R8G8B8, D3DPOOL_DEFAULT, m_eyeTextures[eye].ReleaseAndGetAddressOf(), nullptr);
+	HRESULT hr = m_d3d->device->CreateTexture(size.x, size.y, 1, D3DUSAGE_RENDERTARGET, D3DFMT_A8R8G8B8, D3DPOOL_DEFAULT, m_d3d->eyeTextures[eye].ReleaseAndGetAddressOf(), nullptr);
 	CryLogAlways("CreateTexture2D return code: %i", hr);
 }
 
 void VRManager::CreateHUDTexture()
 {
-	if (!m_device)
+	if (!m_d3d->device)
 		return;
 
 	vector2di size = GetRenderSize();
 	CryLogAlways("Creating HUD texture: %i x %i", size.x, size.y);
-	HRESULT hr = m_device->CreateTexture(size.x, size.y, 1, D3DUSAGE_RENDERTARGET, D3DFMT_A8R8G8B8, D3DPOOL_DEFAULT, m_hudTexture.ReleaseAndGetAddressOf(), nullptr);
+	HRESULT hr = m_d3d->device->CreateTexture(size.x, size.y, 1, D3DUSAGE_RENDERTARGET, D3DFMT_A8R8G8B8, D3DPOOL_DEFAULT, m_d3d->hudTexture.ReleaseAndGetAddressOf(), nullptr);
 	CryLogAlways("CreateRenderTarget return code: %i", hr);
+}
+
+void VRManager::RegisterCVars()
+{
+	IConsole* console = m_pGame->GetSystem()->GetIConsole();
+	vr_yaw_deadzone_angle = console->CreateVariable("vr_yaw_deadzone_angle", "30", VF_SAVEGAME, "Controls the deadzone angle in front of the player where weapon aim does not rotate the camera");
 }

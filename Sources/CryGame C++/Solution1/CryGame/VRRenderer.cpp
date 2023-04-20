@@ -14,7 +14,7 @@ namespace
 
 VRRenderer* gVRRenderer = &g_vrRendererImpl;
 
-HRESULT __stdcall D3D9_Present(IDirect3DDevice9Ex *pSelf, const RECT* pSourceRect, const RECT* pDestRect,HWND hDestWindowOverride, const RGNDATA* pDirtyRegion)
+HRESULT D3D9_Present(IDirect3DDevice9Ex *pSelf, const RECT* pSourceRect, const RECT* pDestRect,HWND hDestWindowOverride, const RGNDATA* pDirtyRegion)
 {
 	HRESULT hr = S_OK;
 
@@ -38,11 +38,6 @@ BOOL Hook_SetWindowPos(HWND hWnd, HWND hWndInsertAfter, int  X, int  Y, int  cx,
 	return TRUE;
 }
 
-void VR_ISystem_Render(ISystem *pSelf)
-{
-	gVRRenderer->Render(hooks::CallOriginal(VR_ISystem_Render), pSelf);
-}
-
 extern "C" {
   __declspec(dllimport) IDirect3DDevice9Ex* dxvkGetCreatedDevice();
 }
@@ -59,8 +54,7 @@ void VRRenderer::Init(CXGame *game)
 	}
 
 	CryLogAlways("Initializing rendering function hooks");
-	hooks::InstallVirtualFunctionHook("ISystem::Render", game->m_pSystem, &ISystem::Render, &VR_ISystem_Render);
-	hooks::InstallVirtualFunctionHook("IDirect3DDevice9Ex::Present", device, &IDirect3DDevice9Ex::Present, &D3D9_Present);
+	//hooks::InstallVirtualFunctionHook("IDirect3DDevice9Ex::Present", device, &IDirect3DDevice9Ex::Present, &D3D9_Present);
 	hooks::InstallHook("SetWindowPos", &SetWindowPos, &Hook_SetWindowPos);
 }
 
@@ -68,27 +62,28 @@ void VRRenderer::Shutdown()
 {
 }
 
-void VRRenderer::Render(SystemRenderFunc renderFunc, ISystem* pSystem)
+void VRRenderer::Render(ISystem* pSystem)
 {
 	m_originalViewCamera = pSystem->GetViewCamera();
 
+	gVR->SetDevice(dxvkGetCreatedDevice());
 	gVR->AwaitFrame();
 
-	RenderSingleEye(0, renderFunc, pSystem);
-	// need to call RenderBegin to reset state, otherwise we get messed up object culling and other issues
-	pSystem->RenderBegin();
-	RenderSingleEye(1, renderFunc, pSystem);
+	for (int eye = 0; eye < 2; ++eye)
+	{
+		pSystem->RenderBegin();
+		RenderSingleEye(eye, pSystem);
+	}
 
 	vector2di renderSize = gVR->GetRenderSize();
 	m_pGame->m_pRenderer->SetScissor(0, 0, renderSize.x, renderSize.y);
 	// clear render target to fully transparent for HUD render
-	//ColorF transparent(0, 0, 0, 0);
-	//m_pGame->m_pRenderer->ClearBuffer(FRT_CLEAR_COLOR | FRT_CLEAR_IMMEDIATE, &transparent);
+	dxvkGetCreatedDevice()->Clear(0, nullptr, D3DCLEAR_TARGET, D3DCOLOR_ARGB(0, 0, 0, 0), 0, 0);
 
 	if (!ShouldRenderVR())
 	{
 		// for things like the binoculars, we skip the stereo rendering and instead render to the 2D screen
-		renderFunc(pSystem);
+		pSystem->Render();
 	}
 }
 
@@ -153,9 +148,7 @@ bool VRRenderer::ShouldRenderVR() const
 	return !m_binocularsActive;
 }
 
-extern void DrawHUDFaders();
-
-void VRRenderer::RenderSingleEye(int eye, SystemRenderFunc renderFunc, ISystem* pSystem)
+void VRRenderer::RenderSingleEye(int eye, ISystem* pSystem)
 {
 	CCamera eyeCam = m_originalViewCamera;
 	gVR->ModifyViewCamera(eye, eyeCam);
@@ -170,14 +163,12 @@ void VRRenderer::RenderSingleEye(int eye, SystemRenderFunc renderFunc, ISystem* 
 	// do not render while in menu, as it shows a rotating game world that is disorienting
 	if (/*!menu->IsMenuActive() &&*/ ShouldRenderVR())
 	{
-		renderFunc(pSystem);
+		pSystem->Render();
 		DrawCrosshair();
 	}
 
 	pSystem->SetViewCamera(m_originalViewCamera);
 	m_viewCamOverridden = false;
-
-	DrawHUDFaders();
 
 	gVR->CaptureEye(eye);
 }

@@ -1,18 +1,18 @@
 #pragma once
-#include <wrl/client.h>
 #include <openvr.h>
-#include <d3d9.h>
 
 #undef GetUserName
 
-using Microsoft::WRL::ComPtr;
+class CXGame;
+class IDirect3DDevice9Ex;
 
 class VRManager
 {
 public:
+	VRManager();
 	~VRManager();
 
-	bool Init();
+	bool Init(CXGame *game);
 	void Shutdown();
 
 	void AwaitFrame();
@@ -30,10 +30,11 @@ public:
 	void GetEffectiveRenderLimits(int eye, float* left, float* right, float* top, float* bottom);
 
 private:
+	struct D3DResources;
+
+	CXGame* m_pGame;
 	bool m_initialized = false;
-	ComPtr<IDirect3DDevice9Ex> m_device;
-	ComPtr<IDirect3DTexture9> m_hudTexture;
-	ComPtr<IDirect3DTexture9> m_eyeTextures[2];
+	D3DResources* m_d3d = nullptr;
 	vr::TrackedDevicePose_t m_headPose;
 	vr::VROverlayHandle_t m_hudOverlay;
 	float m_verticalFov;
@@ -45,6 +46,9 @@ private:
 	void InitDevice(IDirect3DDevice9Ex* device);
 	void CreateEyeTexture(int eye);
 	void CreateHUDTexture();
+
+	ICVar* vr_yaw_deadzone_angle;
+	void RegisterCVars();
 };
 
 extern VRManager* gVR;
