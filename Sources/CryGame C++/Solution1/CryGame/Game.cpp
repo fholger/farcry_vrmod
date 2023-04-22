@@ -969,7 +969,7 @@ bool CXGame::Update()
 		vector2di targetRenderSize = gVR->GetRenderSize();
 		if (targetRenderSize.x != m_pRenderer->GetWidth() || targetRenderSize.y != m_pRenderer->GetHeight())
 		{
-			gVRRenderer->ChangeRenderResolution(targetRenderSize.x, targetRenderSize.y);
+			//gVRRenderer->ChangeRenderResolution(targetRenderSize.x, targetRenderSize.y);
 		}
 
 		// render begin must be always called anyway to clear buffer, draw buttons etc.

@@ -287,12 +287,14 @@ void VRManager::ModifyViewCamera(int eye, CCamera& cam)
 		return;
 	}
 
-	Ang3 angles = Deg2Rad(cam.GetAngles());
+	Ang3 angles = cam.GetAngles();
 	Vec3 position = cam.GetPos();
 
+	angles = Deg2Rad(angles);
 	// eliminate pitch and roll
+	//angles.z = angles.x;
 	angles.y = 0;
-	angles.z = 0;
+	angles.x = 0;
 
 	if (eye == 0)
 	{
@@ -334,9 +336,11 @@ void VRManager::ModifyViewCamera(int eye, CCamera& cam)
 	Matrix34 headMat = OpenVRToCrysis(m_headPose.mDeviceToAbsoluteTracking);
 	viewMat = viewMat * headMat * eyeMat;
 
-	cam.SetPos(viewMat.GetTranslation());
+	position = viewMat.GetTranslation();
+	cam.SetPos(position);
 	angles.SetAnglesXYZ(Matrix33(viewMat));
 	angles.Rad2Deg();
+	angles.x = -angles.x;
 	cam.SetAngle(angles);
 
 	// we don't have obvious access to the projection matrix, and the camera code is written with symmetric projection in mind

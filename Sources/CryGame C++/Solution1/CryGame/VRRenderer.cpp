@@ -71,18 +71,18 @@ void VRRenderer::Render(ISystem* pSystem)
 
 	for (int eye = 0; eye < 2; ++eye)
 	{
-		pSystem->RenderBegin();
 		RenderSingleEye(eye, pSystem);
 	}
 
 	vector2di renderSize = gVR->GetRenderSize();
-	m_pGame->m_pRenderer->SetScissor(0, 0, renderSize.x, renderSize.y);
+	//m_pGame->m_pRenderer->SetScissor(0, 0, renderSize.x, renderSize.y);
 	// clear render target to fully transparent for HUD render
-	dxvkGetCreatedDevice()->Clear(0, nullptr, D3DCLEAR_TARGET, D3DCOLOR_ARGB(0, 0, 0, 0), 0, 0);
+	//dxvkGetCreatedDevice()->Clear(0, nullptr, D3DCLEAR_TARGET, D3DCOLOR_ARGB(0, 0, 0, 0), 0, 0);
 
 	if (!ShouldRenderVR())
 	{
 		// for things like the binoculars, we skip the stereo rendering and instead render to the 2D screen
+		pSystem->RenderBegin();
 		pSystem->Render();
 	}
 }
@@ -132,10 +132,10 @@ void VRRenderer::ChangeRenderResolution(int width, int height)
 	char cmd[16];
 	m_ignoreWindowSizeChanges = true;
 	snprintf(cmd, sizeof(cmd), "r_width %i", width);
-	m_pGame->GetSystem()->GetIConsole()->ExecuteString(cmd);
+	//m_pGame->GetSystem()->GetIConsole()->ExecuteString(cmd);
 	snprintf(cmd, sizeof(cmd), "r_height %i", height);
-	m_pGame->GetSystem()->GetIConsole()->ExecuteString(cmd);
-	m_pGame->m_pRenderer->ChangeResolution(width, height, 8, 0, false);
+	//m_pGame->GetSystem()->GetIConsole()->ExecuteString(cmd);
+	//m_pGame->m_pRenderer->ChangeResolution(width, height, 8, 0, false);
 	m_pGame->m_pRenderer->EnableVSync(false);
 	m_ignoreWindowSizeChanges = false;
 }
@@ -144,6 +144,7 @@ bool VRRenderer::ShouldRenderVR() const
 {
 	//if (g_pGameCVars->vr_cutscenes_2d && g_pGame->GetIGameFramework()->GetIViewSystem()->IsPlayingCutScene())
 	//	return false;
+	return true;
 
 	return !m_binocularsActive;
 }
@@ -153,18 +154,20 @@ void VRRenderer::RenderSingleEye(int eye, ISystem* pSystem)
 	CCamera eyeCam = m_originalViewCamera;
 	gVR->ModifyViewCamera(eye, eyeCam);
 	pSystem->SetViewCamera(eyeCam);
+	//m_pGame->m_pRenderer->SetCamera(eyeCam);
 	m_viewCamOverridden = true;
 	float fov = eyeCam.GetFov();
 	//m_pGame->m_pRenderer->EF_Query(EFQ_DrawNearFov, (INT_PTR)&fov);
 
-	m_pGame->m_pRenderer->ClearColorBuffer(Vec3(0, 0, 0));
+	//m_pGame->m_pRenderer->ClearColorBuffer(Vec3(0, 0, 0));
 
 	//CFlashMenuObject* menu = static_cast<CGame*>(gEnv->pGame)->GetMenu();
 	// do not render while in menu, as it shows a rotating game world that is disorienting
 	if (/*!menu->IsMenuActive() &&*/ ShouldRenderVR())
 	{
+		pSystem->RenderBegin();
 		pSystem->Render();
-		DrawCrosshair();
+		//DrawCrosshair();
 	}
 
 	pSystem->SetViewCamera(m_originalViewCamera);
