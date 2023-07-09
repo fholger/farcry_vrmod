@@ -969,6 +969,7 @@ bool CXGame::Update()
 		vector2di targetRenderSize = gVR->GetRenderSize();
 		if (targetRenderSize.x != m_pRenderer->GetWidth() || targetRenderSize.y != m_pRenderer->GetHeight())
 		{
+			//CryLogAlways("Current render resolution: %i x %i", m_pRenderer->GetWidth(), m_pRenderer->GetHeight());
 			//gVRRenderer->ChangeRenderResolution(targetRenderSize.x, targetRenderSize.y);
 		}
 

@@ -19,20 +19,20 @@ extern "C" HRESULT dxvkFillVulkanTextureInfo(IDirect3DDevice9Ex * device, IDirec
 extern "C" void dxvkTransitionImageLayout(IDirect3DDevice9Ex * device, IDirect3DTexture9 * texture, VkImageLayout from, VkImageLayout to);
 
 // OpenVR: x = right, y = up, -z = forward
-// Crysis: x = right, y = forward, z = up
+// Crysis: x = left, -y = forward, z = up
 Matrix34 OpenVRToCrysis(const vr::HmdMatrix34_t &mat)
 {
 	Matrix34 m;
 	m.m00 = mat.m[0][0];
 	m.m01 = -mat.m[0][2];
-	m.m02 = mat.m[0][1];
-	m.m03 = mat.m[0][3];
+	m.m02 = -mat.m[0][1];
+	m.m03 = -mat.m[0][3];
 	m.m10 = -mat.m[2][0];
 	m.m11 = mat.m[2][2];
-	m.m12 = -mat.m[2][1];
-	m.m13 = -mat.m[2][3];
-	m.m20 = mat.m[1][0];
-	m.m21 = -mat.m[1][2];
+	m.m12 = mat.m[2][1];
+	m.m13 = mat.m[2][3];
+	m.m20 = -mat.m[1][0];
+	m.m21 = mat.m[1][2];
 	m.m22 = mat.m[1][1];
 	m.m23 = mat.m[1][3];
 	return m;
@@ -227,6 +227,7 @@ void VRManager::FinishFrame()
 		// game is currently using symmetric projection, we need to cut off the texture accordingly
 		vr::VRTextureBounds_t bounds;
 		GetEffectiveRenderLimits(eye, &bounds.uMin, &bounds.uMax, &bounds.vMin, &bounds.vMax);
+		CryLogAlways("Submitting eye %i with bounds: %.2f %.2f %.2f %.2f", eye, bounds.uMin, bounds.vMin, bounds.uMax, bounds.vMax);
 
 		vr::Texture_t vrTexData;
 		vrTexData.eColorSpace = vr::ColorSpace_Auto;
@@ -261,6 +262,8 @@ vector2di VRManager::GetRenderSize() const
 	if (!m_initialized)
 		return vector2di(1280, 800);
 
+	return vector2di(m_pGame->m_pRenderer->GetWidth(), m_pGame->m_pRenderer->GetHeight());
+
 	uint32_t width, height;
 	vr::VRSystem()->GetRecommendedRenderTargetSize(&width, &height);
 	height *= m_vertRenderScale;
@@ -289,10 +292,10 @@ void VRManager::ModifyViewCamera(int eye, CCamera& cam)
 
 	Ang3 angles = cam.GetAngles();
 	Vec3 position = cam.GetPos();
+	CryLogAlways("Cam before update: pos (%.2f, %.2f, %.2f)  angles (%.2f, %.2f, %.2f)", position.x, position.y, position.z, angles.x, angles.y, angles.z);
 
 	angles = Deg2Rad(angles);
 	// eliminate pitch and roll
-	//angles.z = angles.x;
 	angles.y = 0;
 	angles.x = 0;
 
@@ -340,15 +343,17 @@ void VRManager::ModifyViewCamera(int eye, CCamera& cam)
 	cam.SetPos(position);
 	angles.SetAnglesXYZ(Matrix33(viewMat));
 	angles.Rad2Deg();
-	angles.x = -angles.x;
 	cam.SetAngle(angles);
+	CryLogAlways("Cam after update: pos (%.2f, %.2f, %.2f)  angles (%.2f, %.2f, %.2f)", position.x, position.y, position.z, angles.x, angles.y, angles.z);
 
 	// we don't have obvious access to the projection matrix, and the camera code is written with symmetric projection in mind
 	// for now, set up a symmetric FOV and cut off parts of the image during submission
-	float vertFov = atanf(m_verticalFov) * 2;
 	vector2di renderSize = GetRenderSize();
-	cam.Init(renderSize.x, renderSize.y, vertFov, cam.GetZMax(), 0, cam.GetZMin());
+	m_horizontalFov = m_verticalFov * renderSize.x / (float)renderSize.y;
+	float vertFov = atanf(m_verticalFov) * 2;
+	cam.Init(renderSize.x, renderSize.y, atanf(m_horizontalFov) * 2 * vr_fov_mult->GetFVal(), cam.GetZMax(), 0, cam.GetZMin());
 	cam.Update();
+	CryLogAlways("Updated FOV for eye %i: %.2f", eye, cam.GetFov());
 
 	// but we can set up frustum planes for our asymmetric projection, which should help culling accuracy.
 	float tanl, tanr, tant, tanb;
@@ -404,4 +409,5 @@ void VRManager::RegisterCVars()
 {
 	IConsole* console = m_pGame->GetSystem()->GetIConsole();
 	vr_yaw_deadzone_angle = console->CreateVariable("vr_yaw_deadzone_angle", "30", VF_SAVEGAME, "Controls the deadzone angle in front of the player where weapon aim does not rotate the camera");
+	vr_fov_mult = console->CreateVariable("vr_fov_mult", "1", 0, "");
 }

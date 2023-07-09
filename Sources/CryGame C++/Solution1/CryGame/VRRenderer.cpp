@@ -29,6 +29,8 @@ HRESULT D3D9_Present(IDirect3DDevice9Ex *pSelf, const RECT* pSourceRect, const R
 
 BOOL Hook_SetWindowPos(HWND hWnd, HWND hWndInsertAfter, int  X, int  Y, int  cx, int  cy, UINT uFlags)
 {
+	CryLogAlways("SetWindowPos (%i, %i, %i, %i)", X, Y, cx, cy);
+	return hooks::CallOriginal(Hook_SetWindowPos)(hWnd, hWndInsertAfter, X, Y, cx, cy, uFlags);
 	if (!gVRRenderer->ShouldIgnoreWindowSizeChanges())
 	{
 		gVRRenderer->SetDesiredWindowSize();
@@ -36,6 +38,28 @@ BOOL Hook_SetWindowPos(HWND hWnd, HWND hWndInsertAfter, int  X, int  Y, int  cx,
 	}
 
 	return TRUE;
+}
+
+BOOL Hook_GetClientRect(HWND hWnd, LPRECT Rect)
+{
+	CryLogAlways("GetClientRect called.");
+	BOOL result = hooks::CallOriginal(Hook_GetClientRect)(hWnd, Rect);
+	CryLogAlways("GetClientRect finished.");
+	if (Rect != nullptr)
+	{
+		int x1 = Rect->left;
+		int x2 = Rect->right;
+		int y1 = Rect->top;
+		int y2 = Rect->bottom;
+		CryLogAlways("GetClientRect (%i, %i, %i, %i)", x1, y1, x2, y2);
+	}
+	return result;
+}
+
+BOOL Hook_GetMonitorInfoA(HMONITOR hMonitor, LPMONITORINFO lpmi)
+{
+	CryLogAlways("GetMonitorInfoA called");
+	return hooks::CallOriginal(Hook_GetMonitorInfoA)(hMonitor, lpmi);
 }
 
 extern "C" {
@@ -56,6 +80,8 @@ void VRRenderer::Init(CXGame *game)
 	CryLogAlways("Initializing rendering function hooks");
 	//hooks::InstallVirtualFunctionHook("IDirect3DDevice9Ex::Present", device, &IDirect3DDevice9Ex::Present, &D3D9_Present);
 	hooks::InstallHook("SetWindowPos", &SetWindowPos, &Hook_SetWindowPos);
+	//hooks::InstallHook("GetClientRect", &GetClientRect, &Hook_GetClientRect);
+	hooks::InstallHook("GetMonitorInfoA", &GetMonitorInfoA, &Hook_GetMonitorInfoA);
 }
 
 void VRRenderer::Shutdown()
@@ -65,6 +91,7 @@ void VRRenderer::Shutdown()
 void VRRenderer::Render(ISystem* pSystem)
 {
 	m_originalViewCamera = pSystem->GetViewCamera();
+	CryLogAlways("Original view camera has FOV %.2f", m_originalViewCamera.GetFov());
 
 	gVR->SetDevice(dxvkGetCreatedDevice());
 	gVR->AwaitFrame();
@@ -75,14 +102,14 @@ void VRRenderer::Render(ISystem* pSystem)
 	}
 
 	vector2di renderSize = gVR->GetRenderSize();
-	//m_pGame->m_pRenderer->SetScissor(0, 0, renderSize.x, renderSize.y);
+	m_pGame->m_pRenderer->SetScissor(0, 0, renderSize.x, renderSize.y);
 	// clear render target to fully transparent for HUD render
-	//dxvkGetCreatedDevice()->Clear(0, nullptr, D3DCLEAR_TARGET, D3DCOLOR_ARGB(0, 0, 0, 0), 0, 0);
+	dxvkGetCreatedDevice()->Clear(0, nullptr, D3DCLEAR_TARGET, D3DCOLOR_ARGB(0, 0, 0, 0), 0, 0);
 
 	if (!ShouldRenderVR())
 	{
 		// for things like the binoculars, we skip the stereo rendering and instead render to the 2D screen
-		pSystem->RenderBegin();
+		//pSystem->RenderBegin();
 		pSystem->Render();
 	}
 }
@@ -135,8 +162,10 @@ void VRRenderer::ChangeRenderResolution(int width, int height)
 	//m_pGame->GetSystem()->GetIConsole()->ExecuteString(cmd);
 	snprintf(cmd, sizeof(cmd), "r_height %i", height);
 	//m_pGame->GetSystem()->GetIConsole()->ExecuteString(cmd);
-	//m_pGame->m_pRenderer->ChangeResolution(width, height, 8, 0, false);
+	m_pGame->m_pRenderer->ChangeResolution(width, height, 32, 0, false);
 	m_pGame->m_pRenderer->EnableVSync(false);
+	m_pGame->m_pRenderer->ChangeViewport(0, 0, width, height);
+	m_pGame->m_pRenderer->ChangeDisplay(width, height, 32);
 	m_ignoreWindowSizeChanges = false;
 }
 
@@ -159,7 +188,7 @@ void VRRenderer::RenderSingleEye(int eye, ISystem* pSystem)
 	float fov = eyeCam.GetFov();
 	//m_pGame->m_pRenderer->EF_Query(EFQ_DrawNearFov, (INT_PTR)&fov);
 
-	//m_pGame->m_pRenderer->ClearColorBuffer(Vec3(0, 0, 0));
+	m_pGame->m_pRenderer->ClearColorBuffer(Vec3(0, 0, 0));
 
 	//CFlashMenuObject* menu = static_cast<CGame*>(gEnv->pGame)->GetMenu();
 	// do not render while in menu, as it shows a rotating game world that is disorienting
