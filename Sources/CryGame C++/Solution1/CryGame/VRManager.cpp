@@ -94,6 +94,8 @@ bool VRManager::Init(CXGame *game)
 	CryLogAlways("Right eye - l: %.2f  r: %.2f  t: %.2f  b: %.2f", rl, rr, rt, rb);
 	m_verticalFov = max(max(fabsf(lt), fabsf(lb)), max(fabsf(rt), fabsf(rb)));
 	m_horizontalFov = max(max(fabsf(ll), fabsf(lr)), max(fabsf(rl), fabsf(rr)));
+	m_verticalFov = max(m_verticalFov, m_horizontalFov);
+	m_horizontalFov = m_verticalFov;
 	m_vertRenderScale = 2.f * m_verticalFov / min(fabsf(lt) + fabsf(lb), fabsf(rt) + fabsf(rb));
 	CryLogAlways("VR vert fov: %.2f  horz fov: %.2f  vert scale: %.2f", m_verticalFov, m_horizontalFov, m_vertRenderScale);
 
@@ -348,10 +350,8 @@ void VRManager::ModifyViewCamera(int eye, CCamera& cam)
 	// for now, set up a symmetric FOV and cut off parts of the image during submission
 	vector2di renderSize = GetRenderSize();
 	float vertFovAngle = atanf(m_verticalFov) * 2;
-	//float horzFovAngle = atanf(m_horizontalFov) * 2;
-	float horzFovAngle = vertFovAngle * renderSize.x / (float)renderSize.y;
-	m_horizontalFov = tanf(.5f * horzFovAngle);
-	cam.Init(renderSize.x, renderSize.y, horzFovAngle * vr_fov_mult->GetFVal(), cam.GetZMax(), vertFovAngle/horzFovAngle/vr_fov_mult->GetFVal(), cam.GetZMin());
+	float horzFovAngle = atanf(m_horizontalFov) * 2;
+	cam.Init(renderSize.x, renderSize.y, horzFovAngle, cam.GetZMax(), vertFovAngle/horzFovAngle, cam.GetZMin());
 	cam.Update();
 
 	CryLogAlways("Horz fov expected: %.2f  actual: %.2f", m_horizontalFov, tanf(cam.GetFov() * .5f));
