@@ -292,7 +292,6 @@ void VRManager::ModifyViewCamera(int eye, CCamera& cam)
 
 	Ang3 angles = cam.GetAngles();
 	Vec3 position = cam.GetPos();
-	CryLogAlways("Cam before update: pos (%.2f, %.2f, %.2f)  angles (%.2f, %.2f, %.2f)", position.x, position.y, position.z, angles.x, angles.y, angles.z);
 
 	angles = Deg2Rad(angles);
 	// eliminate pitch and roll
@@ -329,7 +328,7 @@ void VRManager::ModifyViewCamera(int eye, CCamera& cam)
 			m_prevViewYaw = angles.z;
 		}
 	}
-	angles.z = m_prevViewYaw;
+	//angles.z = m_prevViewYaw;
 
 	Matrix34 viewMat;
 	viewMat.SetRotationXYZ(angles, position);
@@ -344,16 +343,19 @@ void VRManager::ModifyViewCamera(int eye, CCamera& cam)
 	angles.SetAnglesXYZ(Matrix33(viewMat));
 	angles.Rad2Deg();
 	cam.SetAngle(angles);
-	CryLogAlways("Cam after update: pos (%.2f, %.2f, %.2f)  angles (%.2f, %.2f, %.2f)", position.x, position.y, position.z, angles.x, angles.y, angles.z);
 
 	// we don't have obvious access to the projection matrix, and the camera code is written with symmetric projection in mind
 	// for now, set up a symmetric FOV and cut off parts of the image during submission
 	vector2di renderSize = GetRenderSize();
-	m_horizontalFov = m_verticalFov * renderSize.x / (float)renderSize.y;
-	float vertFov = atanf(m_verticalFov) * 2;
-	cam.Init(renderSize.x, renderSize.y, atanf(m_horizontalFov) * 2 * vr_fov_mult->GetFVal(), cam.GetZMax(), 0, cam.GetZMin());
+	float vertFovAngle = atanf(m_verticalFov) * 2;
+	//float horzFovAngle = atanf(m_horizontalFov) * 2;
+	float horzFovAngle = vertFovAngle * renderSize.x / (float)renderSize.y;
+	m_horizontalFov = tanf(.5f * horzFovAngle);
+	cam.Init(renderSize.x, renderSize.y, horzFovAngle * vr_fov_mult->GetFVal(), cam.GetZMax(), vertFovAngle/horzFovAngle/vr_fov_mult->GetFVal(), cam.GetZMin());
 	cam.Update();
-	CryLogAlways("Updated FOV for eye %i: %.2f", eye, cam.GetFov());
+
+	CryLogAlways("Horz fov expected: %.2f  actual: %.2f", m_horizontalFov, tanf(cam.GetFov() * .5f));
+	CryLogAlways("Vert fov expected: %.2f  actual: %.2f", m_verticalFov, tanf(cam.GetFov() * .5f * cam.GetProjRatio()));
 
 	// but we can set up frustum planes for our asymmetric projection, which should help culling accuracy.
 	float tanl, tanr, tant, tanb;
