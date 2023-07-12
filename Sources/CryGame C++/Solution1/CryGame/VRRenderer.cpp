@@ -50,7 +50,6 @@ void VRRenderer::Shutdown()
 void VRRenderer::Render(ISystem* pSystem)
 {
 	m_originalViewCamera = pSystem->GetViewCamera();
-	CryLogAlways("Original view camera has FOV %.2f", m_originalViewCamera.GetFov());
 
 	gVR->SetDevice(dxvkGetCreatedDevice());
 	gVR->AwaitFrame();

@@ -227,7 +227,6 @@ void VRManager::FinishFrame()
 		// game is currently using symmetric projection, we need to cut off the texture accordingly
 		vr::VRTextureBounds_t bounds;
 		GetEffectiveRenderLimits(eye, &bounds.uMin, &bounds.uMax, &bounds.vMin, &bounds.vMax);
-		CryLogAlways("Submitting eye %i with bounds: %.2f %.2f %.2f %.2f", eye, bounds.uMin, bounds.vMin, bounds.uMax, bounds.vMax);
 
 		vr::Texture_t vrTexData;
 		vrTexData.eColorSpace = vr::ColorSpace_Auto;
@@ -346,8 +345,8 @@ void VRManager::ModifyViewCamera(int eye, CCamera& cam)
 	// for now, set up a symmetric FOV and cut off parts of the image during submission
 	vector2di renderSize = GetRenderSize();
 	float vertFovAngle = atanf(m_verticalFov) * 2;
-	float horzFovAngle = atanf(m_horizontalFov) * 2;
-	cam.Init(renderSize.x, renderSize.y, horzFovAngle, cam.GetZMax(), vertFovAngle/horzFovAngle, cam.GetZMin());
+	float horzFovAngle = vertFovAngle * renderSize.x / (float)renderSize.y;
+	cam.Init(renderSize.x, renderSize.y, horzFovAngle, cam.GetZMax(), 0, cam.GetZMin());
 	cam.Update();
 
 	// but we can set up frustum planes for our asymmetric projection, which should help culling accuracy.
