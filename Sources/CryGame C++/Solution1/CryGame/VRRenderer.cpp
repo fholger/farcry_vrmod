@@ -14,52 +14,14 @@ namespace
 
 VRRenderer* gVRRenderer = &g_vrRendererImpl;
 
-HRESULT D3D9_Present(IDirect3DDevice9Ex *pSelf, const RECT* pSourceRect, const RECT* pDestRect,HWND hDestWindowOverride, const RGNDATA* pDirtyRegion)
-{
-	HRESULT hr = S_OK;
-
-	if (gVRRenderer->OnPrePresent(pSelf))
-	{
-		hr = hooks::CallOriginal(D3D9_Present)(pSelf, pSourceRect, pDestRect, hDestWindowOverride, pDirtyRegion);
-		gVRRenderer->OnPostPresent();
-	}
-
-	return hr;
-}
-
 BOOL Hook_SetWindowPos(HWND hWnd, HWND hWndInsertAfter, int  X, int  Y, int  cx, int  cy, UINT uFlags)
 {
-	CryLogAlways("SetWindowPos (%i, %i, %i, %i)", X, Y, cx, cy);
-	return hooks::CallOriginal(Hook_SetWindowPos)(hWnd, hWndInsertAfter, X, Y, cx, cy, uFlags);
 	if (!gVRRenderer->ShouldIgnoreWindowSizeChanges())
 	{
-		gVRRenderer->SetDesiredWindowSize();
 		return hooks::CallOriginal(Hook_SetWindowPos)(hWnd, hWndInsertAfter, 0, 0, cx, cy, uFlags);
 	}
 
 	return TRUE;
-}
-
-BOOL Hook_GetClientRect(HWND hWnd, LPRECT Rect)
-{
-	CryLogAlways("GetClientRect called.");
-	BOOL result = hooks::CallOriginal(Hook_GetClientRect)(hWnd, Rect);
-	CryLogAlways("GetClientRect finished.");
-	if (Rect != nullptr)
-	{
-		int x1 = Rect->left;
-		int x2 = Rect->right;
-		int y1 = Rect->top;
-		int y2 = Rect->bottom;
-		CryLogAlways("GetClientRect (%i, %i, %i, %i)", x1, y1, x2, y2);
-	}
-	return result;
-}
-
-BOOL Hook_GetMonitorInfoA(HMONITOR hMonitor, LPMONITORINFO lpmi)
-{
-	CryLogAlways("GetMonitorInfoA called");
-	return hooks::CallOriginal(Hook_GetMonitorInfoA)(hMonitor, lpmi);
 }
 
 extern "C" {
@@ -78,10 +40,7 @@ void VRRenderer::Init(CXGame *game)
 	}
 
 	CryLogAlways("Initializing rendering function hooks");
-	//hooks::InstallVirtualFunctionHook("IDirect3DDevice9Ex::Present", device, &IDirect3DDevice9Ex::Present, &D3D9_Present);
-	hooks::InstallHook("SetWindowPos", &SetWindowPos, &Hook_SetWindowPos);
-	//hooks::InstallHook("GetClientRect", &GetClientRect, &Hook_GetClientRect);
-	hooks::InstallHook("GetMonitorInfoA", &GetMonitorInfoA, &Hook_GetMonitorInfoA);
+	//hooks::InstallHook("SetWindowPos", &SetWindowPos, &Hook_SetWindowPos);
 }
 
 void VRRenderer::Shutdown()
@@ -109,7 +68,7 @@ void VRRenderer::Render(ISystem* pSystem)
 	if (!ShouldRenderVR())
 	{
 		// for things like the binoculars, we skip the stereo rendering and instead render to the 2D screen
-		//pSystem->RenderBegin();
+		pSystem->RenderBegin();
 		pSystem->Render();
 	}
 }
@@ -142,31 +101,26 @@ void VRRenderer::ProjectToScreenPlayerCam(float ptx, float pty, float ptz, float
 	m_pGame->m_pRenderer->SetCamera(currentCam);
 }
 
-void VRRenderer::SetDesiredWindowSize()
-{
-	m_windowWidth = m_pGame->m_pRenderer->GetWidth();
-	m_windowHeight = m_pGame->m_pRenderer->GetHeight();
-}
-
-vector2di VRRenderer::GetWindowSize() const
-{
-	return vector2di(m_windowWidth, m_windowHeight);
-}
-
 void VRRenderer::ChangeRenderResolution(int width, int height)
 {
 	CryLogAlways("Changing render resolution to %i x %i", width, height);
-	char cmd[16];
+
+	// Far Cry's renderer has a safeguard where it checks the window size does not exceed the desktop size
+	// this is no good for VR, so we temporarily change the memory where the game stores the desktop size (as found with the debugger)
+	int* desktopWidth = reinterpret_cast<int*>(reinterpret_cast<uintptr_t>(m_pGame->m_pRenderer) + 0x016808);
+	int* desktopHeight = reinterpret_cast<int*>(reinterpret_cast<uintptr_t>(m_pGame->m_pRenderer) + 0x01680C);
+	int oldDeskWidth = *desktopWidth;
+	int oldDeskHeight = *desktopHeight;
+	*desktopWidth = width + 16;
+	*desktopHeight = height + 32;
+
 	m_ignoreWindowSizeChanges = true;
-	snprintf(cmd, sizeof(cmd), "r_width %i", width);
-	//m_pGame->GetSystem()->GetIConsole()->ExecuteString(cmd);
-	snprintf(cmd, sizeof(cmd), "r_height %i", height);
-	//m_pGame->GetSystem()->GetIConsole()->ExecuteString(cmd);
 	m_pGame->m_pRenderer->ChangeResolution(width, height, 32, 0, false);
 	m_pGame->m_pRenderer->EnableVSync(false);
-	m_pGame->m_pRenderer->ChangeViewport(0, 0, width, height);
-	m_pGame->m_pRenderer->ChangeDisplay(width, height, 32);
 	m_ignoreWindowSizeChanges = false;
+
+	*desktopWidth = oldDeskWidth;
+	*desktopHeight = oldDeskHeight;
 }
 
 bool VRRenderer::ShouldRenderVR() const
@@ -183,9 +137,7 @@ void VRRenderer::RenderSingleEye(int eye, ISystem* pSystem)
 	CCamera eyeCam = m_originalViewCamera;
 	gVR->ModifyViewCamera(eye, eyeCam);
 	pSystem->SetViewCamera(eyeCam);
-	//m_pGame->m_pRenderer->SetCamera(eyeCam);
 	m_viewCamOverridden = true;
-	float fov = eyeCam.GetFov();
 	//m_pGame->m_pRenderer->EF_Query(EFQ_DrawNearFov, (INT_PTR)&fov);
 
 	m_pGame->m_pRenderer->ClearColorBuffer(Vec3(0, 0, 0));

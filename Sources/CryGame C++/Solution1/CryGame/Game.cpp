@@ -739,7 +739,8 @@ bool CXGame::Init(struct ISystem *pSystem,bool bDedicatedSrv,bool bInEditor,cons
 	if (!gVR->Init(this))
 		return false;
 
-	gVRRenderer->SetDesiredWindowSize();
+	// TODO: make window size in VR configurable
+	m_pRenderer->ChangeResolution(1280, 720, 32, 0, false);
 
 	return (true);
 }
@@ -969,8 +970,8 @@ bool CXGame::Update()
 		vector2di targetRenderSize = gVR->GetRenderSize();
 		if (targetRenderSize.x != m_pRenderer->GetWidth() || targetRenderSize.y != m_pRenderer->GetHeight())
 		{
-			//CryLogAlways("Current render resolution: %i x %i", m_pRenderer->GetWidth(), m_pRenderer->GetHeight());
-			//gVRRenderer->ChangeRenderResolution(targetRenderSize.x, targetRenderSize.y);
+			CryLogAlways("Current render resolution: %i x %i", m_pRenderer->GetWidth(), m_pRenderer->GetHeight());
+			gVRRenderer->ChangeRenderResolution(targetRenderSize.x, targetRenderSize.y);
 		}
 
 		// render begin must be always called anyway to clear buffer, draw buttons etc.
