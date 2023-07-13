@@ -7,6 +7,10 @@
 #include "VRManager.h"
 #include <d3d9.h>
 
+#include "WeaponClass.h"
+#include "xplayer.h"
+#include "XVehicle.h"
+
 namespace
 {
 	VRRenderer g_vrRendererImpl;
@@ -147,7 +151,7 @@ void VRRenderer::RenderSingleEye(int eye, ISystem* pSystem)
 	{
 		pSystem->RenderBegin();
 		pSystem->Render();
-		//DrawCrosshair();
+		DrawCrosshair();
 	}
 
 	pSystem->SetViewCamera(m_originalViewCamera);
@@ -158,43 +162,35 @@ void VRRenderer::RenderSingleEye(int eye, ISystem* pSystem)
 
 void VRRenderer::DrawCrosshair()
 {
-	/* FIXME
-	// don't show crosshair during cutscenes
-	if (m_pGame->GetIGameFramework()->GetIViewSystem()->IsPlayingCutScene())
+	// don't show crosshair if HUD is disabled (e.g. during cutscenes
+	if (m_pGame->cl_display_hud->GetIVal() == 0)
 		return;
 
-	CPlayer *pPlayer = static_cast<CPlayer *>(m_pGame->GetIGameFramework()->GetClientActor());
+	CPlayer* pPlayer = m_pGame->GetLocalPlayer();
 	if (!pPlayer)
 		return;
-	if (CWeapon *weapon = pPlayer->GetWeapon(pPlayer->GetCurrentItemId(true)))
-	{
-		// don't draw a crosshair if the weapon laser is active
-		if (weapon->IsLamLaserActivated())
-			return;
-	}
 
 	const CCamera& cam = m_originalViewCamera;
-	Vec3 crosshairPos = cam.GetPosition();
-	Vec3 dir = cam.GetViewdir();
+	Vec3 crosshairPos = cam.GetPos();
+	Matrix33 transform;
+	transform.SetRotationXYZ(Deg2Rad(cam.GetAngles()));
+	Vec3 dir = -transform.GetColumn(1);
 	dir.Normalize();
-	float maxDistance = 10.f;
+	float maxDistance = 16.f;
 
-	std::vector<IPhysicalEntity*> skipEntities;
-	skipEntities.push_back(pPlayer->GetEntity()->GetPhysics());
-	if (pPlayer->GetLinkedVehicle())
+	IPhysicalEntity* skipPlayer = pPlayer->GetEntity()->GetPhysics();
+	IPhysicalEntity* skipVehicle = nullptr;
+	if (pPlayer->GetVehicle())
 	{
-		skipEntities.push_back(pPlayer->GetLinkedVehicle()->GetEntity()->GetPhysics());
-		IPhysicalEntity* vecSkipEnts[8];
-		int numSkips = pPlayer->GetLinkedVehicle()->GetSkipEntities(vecSkipEnts, 8);
-		for (int i = 0; i < numSkips; ++i)
-			skipEntities.push_back(vecSkipEnts[i]);
-		maxDistance = 16.f;
+		skipVehicle = pPlayer->GetVehicle()->GetEntity()->GetPhysics();
+		maxDistance = 24.f;
 	}
 	const int objects = ent_all;
-	const int flags = (geom_colltype_ray << rwi_colltype_bit) | rwi_colltype_any | (10 & rwi_pierceability_mask) | (geom_colltype14 << rwi_colltype_bit);
+	const int flags = rwi_separate_important_hits;
 
 	ray_hit hit;
-	if (gEnv->pPhysicalWorld->RayWorldIntersection(crosshairPos, dir*maxDistance, objects, flags, &hit, 1, skipEntities.data(), skipEntities.size()))
+	IPhysicalWorld *physicalWorld = m_pGame->GetSystem()->GetIPhysicalWorld();
+	if (physicalWorld->RayWorldIntersection(crosshairPos, dir*maxDistance, objects, flags, &hit, 1, skipPlayer, skipVehicle))
 	{
 		crosshairPos = hit.pt;
 	}
@@ -204,12 +200,5 @@ void VRRenderer::DrawCrosshair()
 	}
 
 	// for the moment, draw something primitive with the debug tools. Maybe later we can find something more elegant...
-	SAuxGeomRenderFlags geomMode;
-	geomMode.SetDepthTestFlag(e_DepthTestOff);
-	geomMode.SetMode2D3DFlag(e_Mode3D);
-	geomMode.SetDrawInFrontMode(e_DrawInFrontOn);
-	gEnv->pRenderer->GetIRenderAuxGeom()->SetRenderFlags(geomMode);
-	gEnv->pRenderer->GetIRenderAuxGeom()->DrawSphere(crosshairPos, 0.03f, ColorB(240, 240, 240));
-	gEnv->pRenderer->GetIRenderAuxGeom()->Flush();
-	*/
+	m_pGame->m_pRenderer->DrawBall(crosshairPos, 0.06f);
 }

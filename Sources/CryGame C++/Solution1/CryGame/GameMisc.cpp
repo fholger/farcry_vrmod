@@ -110,6 +110,17 @@ IEntity *CXGame::GetMyPlayer()
 	return NULL;
 }
 
+CPlayer* CXGame::GetLocalPlayer()
+{
+	IEntity* playerEnt = GetMyPlayer();
+	CPlayer* player;
+	if (playerEnt && playerEnt->GetContainer()->QueryContainerInterface(CIT_IPLAYER, (void**)&player))
+	{
+		return player;
+	}
+	return nullptr;
+}
+
 //////////////////////////////////////////////////////////////////////////
 //! Selects the current UI (hud etc.)
 void CXGame::SetCurrentUI(CUIHud *pUI)

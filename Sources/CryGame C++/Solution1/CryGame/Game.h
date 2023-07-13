@@ -301,6 +301,7 @@ public:
 	void LoadLevelCS(bool reconnect, const char *szMapName, const char *szMissionName, bool listen);
 
 	IEntity *GetMyPlayer();
+	CPlayer* GetLocalPlayer();
 
 	// tagpoint management functions
 	ITagPoint *CreateTagPoint( const string &name, const Vec3 &pos, const Vec3 &angles);
