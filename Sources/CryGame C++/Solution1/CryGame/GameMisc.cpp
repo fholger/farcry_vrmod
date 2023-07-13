@@ -166,7 +166,7 @@ void CXGame::HideLocalPlayer( bool hide,bool bEditor )
 					pPlayer->GetEntity()->DrawCharacter(1, 0);
 				}
 				else{
-					pPlayer->GetEntity()->DrawCharacter(1, CS_FLAG_DRAW_NEAR);
+					pPlayer->GetEntity()->DrawCharacter(1, CS_FLAG_DRAW_MODEL);
 				}
 			}
 
