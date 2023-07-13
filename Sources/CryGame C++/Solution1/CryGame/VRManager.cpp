@@ -402,7 +402,7 @@ void VRManager::CreateHUDTexture()
 void VRManager::RegisterCVars()
 {
 	IConsole* console = m_pGame->GetSystem()->GetIConsole();
-	vr_yaw_deadzone_angle = console->CreateVariable("vr_yaw_deadzone_angle", "30", VF_DUMPTODISK, "Controls the deadzone angle in front of the player where weapon aim does not rotate the camera");
+	vr_yaw_deadzone_angle = console->CreateVariable("vr_yaw_deadzone_angle", "30", VF_SAVEGAME, "Controls the deadzone angle in front of the player where weapon aim does not rotate the camera");
 
 	// disable motion blur, as it does not work properly in VR
 	console->GetCVar("r_MotionBlur")->ForceSet("0");
