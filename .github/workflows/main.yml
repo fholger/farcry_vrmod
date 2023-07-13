@@ -19,10 +19,38 @@ jobs:
         with:
           submodules: recursive
 
+      - name: Setup Python (for meson)
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      - name: Install meson
+        run: pip install meson ninja
+
+      - name: Install Vulkan SDK
+        uses: humbletim/setup-vulkan-sdk@v1.2.0
+        with:
+          vulkan-query-version: latest
+          vulkan-use-cache: true
+          vulkan-components: Glslang
+
       - name: Setup MSBuild
         uses: microsoft/setup-msbuild@v1.1
         with:
           msbuild-architecture: x86
+
+      - name: Prepare MSCV devenv
+        uses: bus1/cabuild/action/msdevshell@v1
+        with:
+          architecture: x86
+
+      - name: Prepare dxvk build
+        working-directory: "Sources/ThirdParty/dxvk"
+        run: meson setup --buildtype release --backend vs build
+
+      - name: Build dxvk
+        working-directory: "Sources/ThirdParty/dxvk/build"
+        run: msbuild dxvk.sln -m
 
       - name: Build CryGame
         working-directory: "Sources/CryGame C++/Solution1"
