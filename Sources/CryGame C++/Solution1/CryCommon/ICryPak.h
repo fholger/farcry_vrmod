@@ -263,10 +263,10 @@ struct ICryPak
   virtual intptr_t 
   FindFirst(
   const char *pDir, 
-  struct _finddata64i32_t *fd
+  struct _finddata32_t *fd
   )=0;
 
-  virtual int FindNext(intptr_t handle, struct _finddata64i32_t *fd)=0;
+  virtual int FindNext(intptr_t handle, struct _finddata32_t *fd)=0;
   virtual int FindClose(intptr_t handle)=0;
 	//returns file modification time
 	virtual FILETIME GetModificationTime(FILE*f)=0;

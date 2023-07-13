@@ -163,6 +163,7 @@ int CXSurfaceMgr::GetDefaultMaterial()
 //////////////////////////////////////////////////////////////////////////
 void CXSurfaceMgr::ReloadMaterials()
 {
+	CryLogAlways("CXSurfaceMgr reloading materials");
 	m_mapMaterialsNames.clear();
 	MaterialsNamesMapItor itor=m_mapMaterialsNames.begin();
 	while(itor!=m_mapMaterialsNames.end())
@@ -189,7 +190,7 @@ bool CXSurfaceMgr::LoadMaterials( const string &sFolder,bool bReload,bool bAddMa
 	// Reserve first 100 ids for terrain.
 	int surfaceId = 102; // 100,101 reserved for default and water.
 	
-	struct _finddata_t c_file;
+	struct _finddata32_t c_file;
 	intptr_t hFile;
 	string sSearchPattern = sFolder+"\\*.*";
 	char fName[_MAX_PATH];

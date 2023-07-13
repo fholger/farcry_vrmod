@@ -312,7 +312,7 @@ void CGameMods::ScanMods()
 	ClearMods();
 
 	// search all files in the mods folder
-	struct _finddata_t c_file;
+	struct _finddata32_t c_file;
   intptr_t hFile;
 	string sSearchPattern = "Mods/*.*";  
 

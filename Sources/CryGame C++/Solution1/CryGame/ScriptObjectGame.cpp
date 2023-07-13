@@ -1089,7 +1089,7 @@ int CScriptObjectGame::GetLevelList (IFunctionHandler* pH)
  
 	string sLevelsFolder = m_pGame->GetLevelsFolder();
 
-	struct _finddata_t c_file;
+	struct _finddata32_t c_file;
   intptr_t hFile;
 
 	ICryPak *pIPak = m_pSystem->GetIPak();
