@@ -48,7 +48,6 @@ private:
 	void CreateHUDTexture();
 
 	ICVar* vr_yaw_deadzone_angle;
-	ICVar* vr_fov_mult;
 	void RegisterCVars();
 };
 
