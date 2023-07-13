@@ -1,0 +1,29 @@
+name: Far Cry VR Automated Build
+
+on:
+  push:
+    branches: [ main ]
+    tags: [ 'v*.*.*' ]
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build Far Cry VR
+    runs-on: windows-2022
+
+    permissions: write-all
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: recursive
+
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v1.1
+        with:
+          msbuild-architecture: x86
+
+      - name: Build CryGame
+        working-directory: "Sources/CryGame C++/Solution1"
+        run: msbuild Solution1.sln /p:Configuration=Release -m
