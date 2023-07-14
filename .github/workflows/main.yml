@@ -39,13 +39,14 @@ jobs:
         with:
           msbuild-architecture: x86
 
-      - name: Prepare MSCV devenv
+      - name: Prepare MSVC devenv
         uses: bus1/cabuild/action/msdevshell@v1
         with:
           architecture: x86
 
       - name: Prepare dxvk build
         working-directory: "Sources/ThirdParty/dxvk"
+        shell: cmd
         run: dxvkry_setup.bat
 
       - name: Build dxvk
