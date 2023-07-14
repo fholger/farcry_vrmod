@@ -46,11 +46,13 @@ jobs:
 
       - name: Prepare dxvk build
         working-directory: "Sources/ThirdParty/dxvk"
-        run: meson setup --buildtype release --backend vs build
+        run: dxvkry_setup.bat
 
       - name: Build dxvk
         working-directory: "Sources/ThirdParty/dxvk/build"
-        run: msbuild dxvk.sln -m
+        run: |
+          msbuild dxvk.sln -m
+          meson install
 
       - name: Build CryGame
         working-directory: "Sources/CryGame C++/Solution1"
