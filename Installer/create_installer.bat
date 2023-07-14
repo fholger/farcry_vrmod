@@ -4,4 +4,6 @@ if exist %PACKAGE_DIR% (rmdir /S /Q %PACKAGE_DIR%)
 
 set FARCRY_INSTALL_DIR=%PACKAGE_DIR%
 call %CURRENT_DIR%\..\install.bat
+
+cd %CURRENT_DIR%
 call "C:\Program Files (x86)\NSIS\makensis.exe" farcry.nsi

@@ -58,3 +58,29 @@ jobs:
       - name: Build CryGame
         working-directory: "Sources/CryGame C++/Solution1"
         run: msbuild Solution1.sln /p:Configuration=Release -m
+
+      - name: Create installer
+        working-directory: installer
+        shell: cmd
+        run: create_installer.bat
+
+      - name: Update Github dev release
+        if: github.ref == 'refs/heads/main'
+        uses: marvinpinto/action-automatic-releases@latest
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          automatic_release_tag: "latest"
+          prerelease: true
+          title: "FarCry VR development build"
+          files: |
+            installer/farcry-vrmod*.exe
+
+      - name: Create tagged Github release
+        if: github.ref_type == 'tag'
+        uses: marvinpinto/action-automatic-releases@latest
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          prerelease: false
+          title: "FarCry VR release ${{ github.ref_name }}"
+          files: |
+            installer/farcry-vrmod*.exe
