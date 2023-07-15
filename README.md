@@ -24,6 +24,11 @@ There is currently no way to change VR-specific settings in the game's options, 
 The following VR specific options are available:
 
 - `vr_yaw_deadzone_angle` - by default, you can move the mouse a certain distance in the horizontal direction before your view starts to rotate. This is to allow you to aim more precisely without constantly rotating your view. If you do not like this, set it to 0 to disable the deadzone.
+- `vr_render_force_max_terrain_detail` - if enabled (default), will force distant terrain to render at a higher level of detail.
+
+You may also be interested in the following base game options to improve the look of the game:
+
+- `e_vegetation_sprites_distance_ratio` - Increase this value to something like 100 to render vegetation at full detail even far in the distance. Significantly improves the look of the game and avoids the constant changes between vegetation models and sprites as you move around the world. Might cause some glitches in specific scenes, though, so you may have to lower it as needed.
 
 ## Playing
 
