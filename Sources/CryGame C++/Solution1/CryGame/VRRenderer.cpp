@@ -199,5 +199,6 @@ void VRRenderer::DrawCrosshair()
 	}
 
 	// for the moment, draw something primitive with the debug tools. Maybe later we can find something more elegant...
+	m_pGame->m_pRenderer->SetState(GS_NODEPTHTEST);
 	m_pGame->m_pRenderer->DrawBall(crosshairPos - dir * 0.06f, 0.06f);
 }
