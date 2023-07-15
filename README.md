@@ -33,7 +33,6 @@ Once in position, go to your desktop and bring up the SteamVR desktop menu and s
 ## Known issues
 
 - The desktop mirror does not display anything beyond the menu or HUD. If you wish to record gameplay, use the SteamVR mirror view, instead.
-- Flocks of birds or fish render only in one eye. As a workaround, you can disable them entirely by setting `e_flocks 0`.
 - Distant LOD may under certain viewing angles cause stereo artifacting.
 - Binoculars and possibly other zoomed views are non-functional.
 - Videos are not being played. The Mod SDK does not possess any ability to play video files; I may restore videos later, but it is low priority. If you are playing Far Cry for the first time, be aware that you will miss out on a few video cutscenes throughout the game.

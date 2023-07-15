@@ -1486,11 +1486,6 @@ public:
 			// motion blur is broken in VR, so make sure we keep this disabled
 			return "0";
 		}
-		if (name == "e_flocks")
-		{
-			// flocks are currently broken in VR, they only render to one eye
-			return "0";
-		}
 
 		return pCVar->GetString();
 	}

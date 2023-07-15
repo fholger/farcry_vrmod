@@ -1314,7 +1314,7 @@ void CFlock::OnDraw(const SRendParams & EntDrawParams)
 
 	// Only draw birds flock on the same frame id, as update call.
 	int frameId = m_flockMgr->GetSystem()->GetIRenderer()->GetFrameID();
-	if (abs(frameId-m_updateFrameID) > 2)
+	if (abs(frameId-m_updateFrameID) > 3)
 		return;
 
 	SRendParams rp( EntDrawParams );
