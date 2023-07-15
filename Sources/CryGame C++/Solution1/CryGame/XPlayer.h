@@ -387,16 +387,20 @@ public:
 	*/
 	void SetShake(const Vec3& shakeAxis, float shakeDegree, float shakeFreq, float shakeTime) 
 	{ 
+		return;
 		m_walkParams.shakeAxis=shakeAxis; m_walkParams.shakeDegree=shakeDegree; 
 		m_walkParams.shakeFreq=shakeFreq; m_walkParams.shakeTime=shakeTime; 
 		m_walkParams.shakeOffset=0.0f; m_walkParams.shakeElapsedTime=0.0f; 
 	}
 
 	void SetShakeL(const Vec3& shakeAmpl, const Vec3& shakeFreq, const float shakeTime) 
-			{ m_walkParams.shakeLAmpl=shakeAmpl; m_walkParams.shakeLFreq=shakeFreq; m_walkParams.shakeLTime=shakeTime; m_walkParams.shakeLElapsedTime=0.0f; }
+	{
+		return; m_walkParams.shakeLAmpl = shakeAmpl; m_walkParams.shakeLFreq = shakeFreq; m_walkParams.shakeLTime = shakeTime; m_walkParams.shakeLElapsedTime = 0.0f;
+	}
 
 	void SetShakeL2(const Vec3& shakeAmpl, const Vec3& shakeFreq, const float shakeTime) 
-			{ m_walkParams.shakeLAmpl=shakeAmpl; m_walkParams.shakeLFreq=shakeFreq; 
+	{
+		return; m_walkParams.shakeLAmpl = shakeAmpl; m_walkParams.shakeLFreq = shakeFreq;
 					if(m_walkParams.shakeLElapsedTime<m_walkParams.shakeLTime)
 						m_walkParams.shakeLTime += shakeTime;
 					else
