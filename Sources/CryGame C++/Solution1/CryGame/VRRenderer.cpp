@@ -28,6 +28,12 @@ BOOL Hook_SetWindowPos(HWND hWnd, HWND hWndInsertAfter, int  X, int  Y, int  cx,
 	return TRUE;
 }
 
+HRESULT D3D9_Present(IDirect3DDevice9Ex *pSelf, const RECT* pSourceRect, const RECT* pDestRect, HWND hDestWindowOverride, const RGNDATA* pDirtyRegion)
+{
+	gVRRenderer->OnPrePresent();
+	return hooks::CallOriginal(D3D9_Present)(pSelf, pSourceRect, pDestRect, hDestWindowOverride, pDirtyRegion);
+}
+
 extern "C" {
   __declspec(dllimport) IDirect3DDevice9Ex* dxvkGetCreatedDevice();
 }
@@ -36,7 +42,7 @@ void VRRenderer::Init(CXGame *game)
 {
 	m_pGame = game;
 
-	IDirect3DDevice9Ex* device = dxvkGetCreatedDevice();
+	IDirect3DDevice9* device = dxvkGetCreatedDevice();
 	if (!device)
 	{
 		CryLogAlways("Could not get d3d9 device from dxvk");
@@ -45,6 +51,7 @@ void VRRenderer::Init(CXGame *game)
 
 	CryLogAlways("Initializing rendering function hooks");
 	//hooks::InstallHook("SetWindowPos", &SetWindowPos, &Hook_SetWindowPos);
+	hooks::InstallVirtualFunctionHook("IDirect3DDevice9Ex::Present", device, 17, &D3D9_Present);
 }
 
 void VRRenderer::Shutdown()
@@ -76,16 +83,9 @@ void VRRenderer::Render(ISystem* pSystem)
 	}
 }
 
-bool VRRenderer::OnPrePresent(IDirect3DDevice9Ex *device)
+void VRRenderer::OnPrePresent()
 {
-	gVR->SetDevice(device);
 	gVR->CaptureHUD();
-	return true;
-}
-
-void VRRenderer::OnPostPresent()
-{
-	gVR->FinishFrame();
 }
 
 const CCamera& VRRenderer::GetCurrentViewCamera() const
