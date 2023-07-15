@@ -1465,11 +1465,41 @@ public:
 	{
 		m_pFile=pFile;
 	}
+
+	string GetValue(ICVar *pCVar)
+	{
+		string name = pCVar->GetName();
+		if (name == "r_Width")
+		{
+			// will contain the VR render size, overwrite with a more sensible value so that playing flat
+			// will create a sensible window size
+			return "1280";
+		}
+		if (name == "r_Height")
+		{
+			// will contain the VR render size, overwrite with a more sensible value so that playing flat
+			// will create a sensible window size
+			return "720";
+		}
+		if (name == "r_MotionBlur")
+		{
+			// motion blur is broken in VR, so make sure we keep this disabled
+			return "0";
+		}
+		if (name == "e_flocks")
+		{
+			// flocks are currently broken in VR, they only render to one eye
+			return "0";
+		}
+
+		return pCVar->GetString();
+	}
+
 	virtual void OnElementFound(ICVar *pCVar)
 	{
 		if (pCVar && (pCVar->GetFlags() & VF_DUMPTODISK))
 		{
-			string szValue = pCVar->GetString();
+			string szValue = GetValue(pCVar);
 			int pos;
 
 			// replace \ with \\ 
