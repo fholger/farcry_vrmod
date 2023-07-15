@@ -1737,6 +1737,18 @@ void CXGame::MenuOn()
 	}
 }
 
+bool CXGame::AreBinocularsActive()
+{
+	_SmartScriptObject binoculars(m_pScriptSystem, true);
+	if (m_pScriptSystem->GetGlobalValue("Binoculars", binoculars))
+	{
+		int isActive;
+		if (binoculars->GetValue("IsActive", isActive))
+			return isActive != 0;
+	}
+
+	return false;
+}
 //////////////////////////////////////////////////////////////////////////
 void CXGame::MenuOff()
 {

@@ -417,6 +417,8 @@ public:
 	//@}
 	//! save/laod game
 
+	bool AreBinocularsActive();
+
 	bool SaveToStream(CStream &stm, Vec3 *pos, Vec3 *angles,string sFilename);
 	bool LoadFromStream(CStream &stm, bool isdemo);
 	bool LoadFromStream_RELEASEVERSION(CStream &str, bool isdemo, CScriptObjectStream &scriptStream);

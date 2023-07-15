@@ -128,11 +128,10 @@ void VRRenderer::ChangeRenderResolution(int width, int height)
 
 bool VRRenderer::ShouldRenderVR() const
 {
-	//if (g_pGameCVars->vr_cutscenes_2d && g_pGame->GetIGameFramework()->GetIViewSystem()->IsPlayingCutScene())
-	//	return false;
-	return true;
+	if (m_pGame->AreBinocularsActive())
+		return false;
 
-	return !m_binocularsActive;
+	return true;
 }
 
 void VRRenderer::RenderSingleEye(int eye, ISystem* pSystem)
