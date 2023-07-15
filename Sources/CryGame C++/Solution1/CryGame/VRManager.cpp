@@ -254,6 +254,12 @@ void VRManager::FinishFrame()
 		IDirect3DTexture9 *tex = eye == 2 ? m_d3d->hudTexture.Get() : m_d3d->eyeTextures[eye].Get();
 		dxvkTransitionImageLayout(m_d3d->device.Get(), tex, VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL, origLayout[eye]);
 	}
+
+	if (vr_render_force_max_terrain_detail != 0)
+	{
+		// make sure terrain is rendered at max detail pretty much everywhere
+		e_terrain_lod_ratio->Set(0.1f);
+	}
 }
 
 vector2di VRManager::GetRenderSize() const
@@ -304,7 +310,7 @@ void VRManager::ModifyViewCamera(int eye, CCamera& cam)
 		else if (yawDiff > gf_PI)
 			yawDiff -= 2 * gf_PI;
 
-		float maxDiff = vr_yaw_deadzone_angle->GetFVal() * gf_PI / 180.f;
+		float maxDiff = vr_yaw_deadzone_angle * gf_PI / 180.f;
 		if (yawDiff > maxDiff)
 			m_prevViewYaw += yawDiff - maxDiff;
 		if (yawDiff < -maxDiff)
@@ -402,7 +408,10 @@ void VRManager::CreateHUDTexture()
 void VRManager::RegisterCVars()
 {
 	IConsole* console = m_pGame->GetSystem()->GetIConsole();
-	vr_yaw_deadzone_angle = console->CreateVariable("vr_yaw_deadzone_angle", "30", VF_SAVEGAME, "Controls the deadzone angle in front of the player where weapon aim does not rotate the camera");
+	console->Register("vr_yaw_deadzone_angle", &vr_yaw_deadzone_angle, 30, VF_DUMPTODISK, "Controls the deadzone angle in front of the player where weapon aim does not rotate the camera");
+	console->Register("vr_render_force_max_terrain_detail", &vr_render_force_max_terrain_detail, 1, VF_DUMPTODISK, "If enabled, will force terrain to render at max detail even in the distance");
+
+	e_terrain_lod_ratio = console->GetCVar("e_terrain_lod_ratio");
 
 	// disable motion blur, as it does not work properly in VR
 	console->GetCVar("r_MotionBlur")->ForceSet("0");

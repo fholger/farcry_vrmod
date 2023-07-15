@@ -47,7 +47,9 @@ private:
 	void CreateEyeTexture(int eye);
 	void CreateHUDTexture();
 
-	ICVar* vr_yaw_deadzone_angle;
+	float vr_yaw_deadzone_angle;
+	int vr_render_force_max_terrain_detail;
+	ICVar* e_terrain_lod_ratio = nullptr;
 	void RegisterCVars();
 };
 
