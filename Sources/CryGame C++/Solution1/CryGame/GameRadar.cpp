@@ -117,7 +117,7 @@ void CXGame::DrawRadar(float x, float y, float w, float h, float fRange, INT_PTR
 
   // clear radar background alpha
   m_pRenderer->SetState(GS_BLSRC_ONE | GS_BLDST_ZERO | GS_NODEPTHTEST | GS_COLMASKONLYALPHA);
-  m_pRenderer->Draw2dImage(fMaskPosX, fMaskPosY, fMaskW, fMaskH, iRadarMaskID, 0, 0.1f, 0.1f, 0, 0, 1, 1, 1, 1);
+  //m_pRenderer->Draw2dImage(fMaskPosX, fMaskPosY, fMaskW, fMaskH, iRadarMaskID, 0, 0.1f, 0.1f, 0, 0, 1, 1, 1, 1);
 
   // get radar data
   float fRadarPosX=fMapCenter.x-0.5f*130.0f;
@@ -129,7 +129,7 @@ void CXGame::DrawRadar(float x, float y, float w, float h, float fRange, INT_PTR
   m_pRenderer->Draw2dImage(fRadarPosX, fRadarPosY, fRadarW, fRadarH, iRadarMaskID, 0, 1, 1, 0, 0, 1,1, 1, 1); 
 
   // add the radar
-  m_pRenderer->SetState(GS_BLSRC_ONEMINUSDSTALPHA | GS_BLDST_DSTALPHA | GS_NODEPTHTEST);
+  m_pRenderer->SetState(GS_BLSRC_DSTALPHA | GS_BLDST_ONEMINUSDSTALPHA | GS_NODEPTHTEST);
   static float fCurrCompassAngle=pPlayer->GetAngles().z;
   float fCurrAngle=pPlayer->GetAngles().z;
   fCurrCompassAngle+=(pPlayer->GetAngles().z-fCurrCompassAngle)*pTimer->GetFrameTime()*8.0f;    
@@ -138,7 +138,7 @@ void CXGame::DrawRadar(float x, float y, float w, float h, float fRange, INT_PTR
   // add radar noise..
   static float fNoiseMove=0.0f;
   fNoiseMove+=pTimer->GetFrameTime()*2.0f;      
-  m_pRenderer->Draw2dImage(fRadarPosX, fRadarPosY, fRadarW, fRadarH, iRadarMaskID, 0+fNoiseMove, 0, 0.1f+fNoiseMove, 1.5f, 0, 1, 1.0f, 1.0f, 1.0f);  
+  //m_pRenderer->Draw2dImage(fRadarPosX, fRadarPosY, fRadarW, fRadarH, iRadarMaskID, 0+fNoiseMove, 0, 0.1f+fNoiseMove, 1.5f, 0, 1, 1.0f, 1.0f, 1.0f);  
 
   // render player icon
   float fPlayerSize=16.0f;

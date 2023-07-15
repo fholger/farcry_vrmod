@@ -1913,8 +1913,8 @@ function Hud:DrawStealthMeter(x,y)
 	self:DrawElement(91.5, 522-6, self.txi.shape_stealth_right,1, 1, 1, 0.9);						
 	
 	if(self.curr_stealth>0.01) then
-		self:DrawGauge(6-1, 523-6, 100, self.curr_stealth, self.txi.sealth_inside_left, 1, 1, 1, 0.75, 0, 0);
-		self:DrawGauge(94.5, 523-6, 100, self.curr_stealth, self.txi.sealth_inside_right, 1, 1, 1, 0.75, 0, 0);
+		self:DrawGauge(6-1, 523-6, 100, self.curr_stealth, self.txi.sealth_inside_left, 1, 1, 1, 0.9, 0, 0);
+		self:DrawGauge(94.5, 523-6, 100, self.curr_stealth, self.txi.sealth_inside_right, 1, 1, 1, 0.9, 0, 0);
 	end
 end
 
@@ -2918,8 +2918,6 @@ function Hud:OnUpdateCommonHudElements()
 		ent:Render();
 	end
 	
-	self:FlushCommon();
-	
 	--------------
 	-- blink radar
 		
@@ -2945,6 +2943,8 @@ function Hud:OnUpdateCommonHudElements()
 			self:DrawRadar(15, 480, 104, 102);
 		end
 	end		
+
+	self:FlushCommon();
 	
 	-----------------
 	-- render pickups	
