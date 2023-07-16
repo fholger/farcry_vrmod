@@ -13,7 +13,7 @@ public:
 	void Shutdown();
 
 	void Render(ISystem *pSystem);
-	void OnPrePresent();
+	bool OnPrePresent(IDirect3DDevice9Ex *device);
 	void OnPostPresent();
 
 	const CCamera& GetCurrentViewCamera() const;

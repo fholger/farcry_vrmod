@@ -1045,6 +1045,7 @@ bool CXGame::Update()
 		if (m_pTimeDemoRecorder)
 			m_pTimeDemoRecorder->RenderInfo();
 
+		gVR->CaptureHUD();
 		m_pSystem->RenderEnd();
 		gVR->FinishFrame();
 	}
