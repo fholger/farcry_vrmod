@@ -115,7 +115,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\STLPORT\stlport;..\CryCommon;..\..\..\ThirdParty\dxvk\src\d3d9;..\..\..\ThirdParty\dxvk\include\vulkan\include;..\..\..\ThirdParty\minhook\include;..\..\..\ThirdParty\openvr\headers;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\STLPORT\stlport;..\CryCommon;..\..\..\ThirdParty\dxvk\src\d3d9;..\..\..\ThirdParty\dxvk\include\vulkan\include;..\..\..\ThirdParty\minhook\include;..\..\..\ThirdParty\openvr\headers;..\..\..\ThirdParty\ffmpeg\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_DEBUG;WIN32;_WINDOWS;_USRDLL;CRYGAME_EXPORTS;_SILENCE_STDEXT_HASH_DEPRECATION_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -136,9 +136,9 @@
     </ClCompile>
     <Link>
       <AdditionalOptions>/MACHINE:I386 %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>d3d9.lib;openvr_api.lib;Shlwapi.lib;wininet.lib;Wsock32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>d3d9.lib;openvr_api.lib;avcodec.lib;avformat.lib;avutil.lib;swscale.lib;Shlwapi.lib;wininet.lib;Wsock32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <AdditionalLibraryDirectories>..\..\..\ThirdParty\dxvk\lib;..\..\..\ThirdParty\openvr\lib\win32;..\BinkSDK;..\CryNetwork\Debug;.\..\ubisoft.com\GSServices\sdks/gs-sdk-regserver/lib_win32;.\..\ubisoft.com\GSServices\sdks/gs-sdk-msclient/lib_win32;.\..\ubisoft.com\GSServices\sdks/gs-sdk-common/lib_win32;.\..\ubisoft.com\GSServices\sdks/gs-sdk-base/lib_win32;..\ubisoft.com\GSServices\sdks\gs-sdk-cdkey\lib_win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\..\ThirdParty\dxvk\lib;..\..\..\ThirdParty\openvr\lib\win32;..\..\..\ThirdParty\ffmpeg\lib;..\BinkSDK;..\CryNetwork\Debug;.\..\ubisoft.com\GSServices\sdks/gs-sdk-regserver/lib_win32;.\..\ubisoft.com\GSServices\sdks/gs-sdk-msclient/lib_win32;.\..\ubisoft.com\GSServices\sdks/gs-sdk-common/lib_win32;.\..\ubisoft.com\GSServices\sdks/gs-sdk-base/lib_win32;..\ubisoft.com\GSServices\sdks\gs-sdk-cdkey\lib_win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries>libcmt.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ImportLibrary>$(IntDir)$(TargetName).lib</ImportLibrary>
@@ -166,7 +166,7 @@
       <FavorSizeOrSpeed>Size</FavorSizeOrSpeed>
       <OmitFramePointers>true</OmitFramePointers>
       <EnableFiberSafeOptimizations>false</EnableFiberSafeOptimizations>
-      <AdditionalIncludeDirectories>..\STLPORT\stlport;..\CryCommon;..\..\..\ThirdParty\dxvk\src\d3d9;..\..\..\ThirdParty\dxvk\include\vulkan\include;..\..\..\ThirdParty\minhook\include;..\..\..\ThirdParty\openvr\headers;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\STLPORT\stlport;..\CryCommon;..\..\..\ThirdParty\dxvk\src\d3d9;..\..\..\ThirdParty\dxvk\include\vulkan\include;..\..\..\ThirdParty\minhook\include;..\..\..\ThirdParty\openvr\headers;..\..\..\ThirdParty\ffmpeg\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_RELEASE;NDEBUG;USE_GAME_DLL;WIN32;_WINDOWS;_USRDLL;CRYGAME_EXPORTS;_SILENCE_STDEXT_HASH_DEPRECATION_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
@@ -189,10 +189,10 @@
     </ClCompile>
     <Link>
       <AdditionalOptions>/MACHINE:I386 %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>d3d9.lib;openvr_api.lib;Shlwapi.lib;wininet.lib;Ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>d3d9.lib;openvr_api.lib;avcodec.lib;avformat.lib;avutil.lib;swscale.lib;Shlwapi.lib;wininet.lib;Ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>.\Release/CryGame.dll</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <AdditionalLibraryDirectories>..\..\..\ThirdParty\dxvk\lib;..\..\..\ThirdParty\openvr\lib\win32;..\BinkSDK;..\CryNetwork\Release;.\..\ubisoft.com\GSServices\sdks/gs-sdk-regserver/lib_win32;.\..\ubisoft.com\GSServices\sdks/gs-sdk-msclient/lib_win32;.\..\ubisoft.com\GSServices\sdks/gs-sdk-common/lib_win32;.\..\ubisoft.com\GSServices\sdks/gs-sdk-base/lib_win32;..\ubisoft.com\GSServices\sdks\gs-sdk-cdkey\lib_win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\..\ThirdParty\dxvk\lib;..\..\..\ThirdParty\openvr\lib\win32;..\..\..\ThirdParty\ffmpeg\lib;..\BinkSDK;..\CryNetwork\Release;.\..\ubisoft.com\GSServices\sdks/gs-sdk-regserver/lib_win32;.\..\ubisoft.com\GSServices\sdks/gs-sdk-msclient/lib_win32;.\..\ubisoft.com\GSServices\sdks/gs-sdk-common/lib_win32;.\..\ubisoft.com\GSServices\sdks/gs-sdk-base/lib_win32;..\ubisoft.com\GSServices\sdks\gs-sdk-cdkey\lib_win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <ProgramDatabaseFile>.\Release/CryGame.pdb</ProgramDatabaseFile>
       <ImportLibrary>$(IntDir)$(TargetName).lib</ImportLibrary>
     </Link>
@@ -219,7 +219,7 @@
       <FavorSizeOrSpeed>Size</FavorSizeOrSpeed>
       <OmitFramePointers>true</OmitFramePointers>
       <EnableFiberSafeOptimizations>false</EnableFiberSafeOptimizations>
-      <AdditionalIncludeDirectories>..\STLPORT\stlport;..\CryCommon;..\..\..\ThirdParty\dxvk\src\d3d9;..\..\..\ThirdParty\dxvk\include\vulkan\include;..\..\..\ThirdParty\minhook\include;..\..\..\ThirdParty\openvr\headers;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\STLPORT\stlport;..\CryCommon;..\..\..\ThirdParty\dxvk\src\d3d9;..\..\..\ThirdParty\dxvk\include\vulkan\include;..\..\..\ThirdParty\minhook\include;..\..\..\ThirdParty\openvr\headers;..\..\..\ThirdParty\ffmpeg\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>NDEBUG;USE_GAME_DLL;WIN32;_WINDOWS;_USRDLL;CRYGAME_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
@@ -241,9 +241,9 @@
     </ClCompile>
     <Link>
       <AdditionalOptions>/MACHINE:I386 /OPT:ref,icf %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>d3d9.lib;openvr_api.lib;Shlwapi.lib;wininet.lib;Ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>d3d9.lib;openvr_api.lib;avcodec.lib;avformat.lib;avutil.lib;swscale.lib;Shlwapi.lib;wininet.lib;Ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <AdditionalLibraryDirectories>..\..\..\ThirdParty\dxvk\lib;..\..\..\ThirdParty\openvr\lib\win32;..\BinkSDK;..\CryNetwork\Release;.\..\ubisoft.com\GSServices\sdks/gs-sdk-regserver/lib_win32;.\..\ubisoft.com\GSServices\sdks/gs-sdk-msclient/lib_win32;.\..\ubisoft.com\GSServices\sdks/gs-sdk-result/lib_win32;.\..\ubisoft.com\GSServices\sdks/gs-sdk-cdkey/lib_win32;.\..\ubisoft.com\GSServices\sdks/gs-sdk-common/lib_win32;.\..\ubisoft.com\GSServices\sdks/gs-sdk-base/lib_win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\..\ThirdParty\dxvk\lib;..\..\..\ThirdParty\openvr\lib\win32;..\..\..\ThirdParty\ffmpeg\lib;..\BinkSDK;..\CryNetwork\Release;.\..\ubisoft.com\GSServices\sdks/gs-sdk-regserver/lib_win32;.\..\ubisoft.com\GSServices\sdks/gs-sdk-msclient/lib_win32;.\..\ubisoft.com\GSServices\sdks/gs-sdk-result/lib_win32;.\..\ubisoft.com\GSServices\sdks/gs-sdk-cdkey/lib_win32;.\..\ubisoft.com\GSServices\sdks/gs-sdk-common/lib_win32;.\..\ubisoft.com\GSServices\sdks/gs-sdk-base/lib_win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <GenerateMapFile>true</GenerateMapFile>
@@ -267,7 +267,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug64|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\STLPORT\stlport;..\CryCommon;..\..\..\ThirdParty\dxvk\src\d3d9;..\..\..\ThirdParty\dxvk\include\vulkan\include;..\..\..\ThirdParty\minhook\include;..\..\..\ThirdParty\openvr\headers;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\STLPORT\stlport;..\CryCommon;..\..\..\ThirdParty\dxvk\src\d3d9;..\..\..\ThirdParty\dxvk\include\vulkan\include;..\..\..\ThirdParty\minhook\include;..\..\..\ThirdParty\openvr\headers;..\..\..\ThirdParty\ffmpeg\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_AMD64_;_DEBUG;WIN64;WIN32;_WINDOWS;_USRDLL;CRYGAME_EXPORTS;DIVX;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -287,7 +287,7 @@
     </ClCompile>
     <Link>
       <AdditionalOptions>/MACHINE:AMD64 %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>d3d9.lib;openvr_api.lib;Shlwapi.lib;wininet.lib;Ws2_32.lib;../CryCommon/fSinCos64.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>d3d9.lib;openvr_api.lib;avcodec.lib;avformat.lib;avutil.lib;swscale.lib;Shlwapi.lib;wininet.lib;Ws2_32.lib;../CryCommon/fSinCos64.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(ProjectName).dll</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <IgnoreSpecificDefaultLibraries>libcmt.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
@@ -295,7 +295,7 @@
       <ProgramDatabaseFile>$(OutDir)$(ProjectName).pdb</ProgramDatabaseFile>
       <LargeAddressAware>true</LargeAddressAware>
       <ImportLibrary>$(OutDir)$(ProjectName).lib</ImportLibrary>
-      <AdditionalLibraryDirectories>..\..\..\ThirdParty\dxvk\lib;..\..\..\ThirdParty\openvr\lib\win32;</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\..\ThirdParty\dxvk\lib;..\..\..\ThirdParty\openvr\lib\win32;..\..\..\ThirdParty\ffmpeg\lib;</AdditionalLibraryDirectories>
     </Link>
     <Midl>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -319,7 +319,7 @@
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
-      <AdditionalIncludeDirectories>..\STLPORT\stlport;..\CryCommon;..\..\..\ThirdParty\dxvk\src\d3d9;..\..\..\ThirdParty\dxvk\include\vulkan\include;..\..\..\ThirdParty\minhook\include;..\..\..\ThirdParty\openvr\headers;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\STLPORT\stlport;..\CryCommon;..\..\..\ThirdParty\dxvk\src\d3d9;..\..\..\ThirdParty\dxvk\include\vulkan\include;..\..\..\ThirdParty\minhook\include;..\..\..\ThirdParty\openvr\headers;..\..\..\ThirdParty\ffmpeg\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_RELEASE;NDEBUG;WIN64;WIN32;_AMD64_;_WINDOWS;_USRDLL;CRYGAME_EXPORTS;DIVX;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
@@ -337,7 +337,7 @@
       <CompileAs>Default</CompileAs>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>d3d9.lib;openvr_api.lib;Shlwapi.lib;wininet.lib;Ws2_32.lib;../CryCommon/fSinCos64.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>d3d9.lib;openvr_api.lib;avcodec.lib;avformat.lib;avutil.lib;swscale.lib;Shlwapi.lib;wininet.lib;Ws2_32.lib;../CryCommon/fSinCos64.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(ProjectName).dll</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <IgnoreSpecificDefaultLibraries>libcmt.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
@@ -345,7 +345,7 @@
       <ProgramDatabaseFile>$(OutDir)$(ProjectName).pdb</ProgramDatabaseFile>
       <LargeAddressAware>true</LargeAddressAware>
       <ImportLibrary>$(OutDir)$(ProjectName).lib</ImportLibrary>
-      <AdditionalLibraryDirectories>..\..\..\ThirdParty\dxvk\lib;..\..\..\ThirdParty\openvr\lib\win32;</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\..\ThirdParty\dxvk\lib;..\..\..\ThirdParty\openvr\lib\win32;..\..\..\ThirdParty\ffmpeg\lib;</AdditionalLibraryDirectories>
     </Link>
     <Midl>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
