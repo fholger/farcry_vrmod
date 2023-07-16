@@ -17,18 +17,16 @@
 #include "UIVideoPanel.h"
 #include "UISystem.h"
 
-#if !defined(NOT_USE_DIVX_SDK)
-#include "UIDivX_Video.h"
-#endif
-
-#if !defined(WIN64) && !defined(LINUX) && !defined(NOT_USE_BINK_SDK)
-#pragma comment(lib, "binkw32.lib")
-#endif
+extern "C" {
+#include <libavcodec/avcodec.h>
+#include <libavformat/avformat.h>
+#include <libswscale/swscale.h>
+}
 
 _DECLARE_SCRIPTABLEEX(CUIVideoPanel)
 
 //////////////////////////////////////////////////////////////////////
-static bool g_bBinkInit = 0;
+static bool g_ffmpegInit = false;
 
 ////////////////////////////////////////////////////////////////////// 
 CUIVideoPanel::CUIVideoPanel()
@@ -54,29 +52,14 @@ string CUIVideoPanel::GetClassName()
 }
 
 ////////////////////////////////////////////////////////////////////// 
-int CUIVideoPanel::InitBink()
+int CUIVideoPanel::InitFfmpeg()
 {
-#if !defined(WIN64) && !defined(LINUX) && !defined(NOT_USE_BINK_SDK)
-	if (g_bBinkInit)
+	if (g_ffmpegInit)
 	{
 		return 1;
 	}
 
-	if (!BinkSoundUseDirectSound(0))
-	{
-		m_pUISystem->GetISystem()->GetILog()->Log("$4Bink Error$1: %s", BinkGetError());
-		m_pUISystem->GetISystem()->GetILog()->Log("  Trying WaveOut");
-
-		if (!BinkSoundUseWaveOut())
-		{
-			char *szError = BinkGetError();
-			m_pUISystem->GetISystem()->GetILog()->Log("$4Bink Error$1: %s", szError);
-			m_pUISystem->GetISystem()->GetILog()->Log("  No sound will be played!");
-		}
-	}
-
-#endif
-	g_bBinkInit = 1;
+	g_ffmpegInit = true;
 	return 1;
 }
 
@@ -84,99 +67,58 @@ int CUIVideoPanel::InitBink()
 ////////////////////////////////////////////////////////////////////// 
 int CUIVideoPanel::LoadVideo(const string &szFileName, bool bSound)
 {
-	
-#if !defined(WIN64) && !defined(NOT_USE_BINK_SDK)
-	m_DivX_Active=1; // FIXME - activate DivX
-	//check if a BINK-file exists 
-	HBINK hBink = BinkOpen(szFileName.c_str(), BINKSNDTRACK);
-	if (hBink) {
-		m_DivX_Active=0; //deactivate DivX
-		BinkClose(hBink);
-	}
-#endif
-#if !defined(NOT_USE_DIVX_SDK)	
-	if (m_DivX_Active){
-		m_DivX_Active = g_DivXPlayer.Load_DivX( this, szFileName );
-		return m_DivX_Active;
-	}
-#endif
-#if !defined(WIN64) && !defined(NOT_USE_BINK_SDK)
+	CryLogAlways("Attempting to play video %s", szFileName.c_str());
 
-	if (m_hBink)
-	{
-		BinkClose(m_hBink);
-
-		m_hBink = 0;
-	}
-
-	if (m_pSwapBuffer)
-	{
-		delete[] m_pSwapBuffer;
-		m_pSwapBuffer = 0;
-	}
-
-	if (m_iTextureID > -1)
-	{
-		m_pUISystem->GetIRenderer()->RemoveTexture(m_iTextureID);
-		m_iTextureID = -1;
-	}
+	ReleaseVideo();
 
 	if (szFileName.empty())
 	{
 		return 0;
 	}
 
-	if (!InitBink())
+	// load file
+	// check for a MOD first
+	const char *szPrefix=NULL;
+	IGameMods *pMods=m_pUISystem->GetISystem()->GetIGame()->GetModsInterface();
+	if (pMods)		
+		szPrefix=pMods->GetModPath(szFileName.c_str());
+			
+	if(szPrefix)
 	{
-		return 0;
+		if (avformat_open_input(&m_formatCtx, szPrefix, nullptr, nullptr) != 0)
+			m_formatCtx = nullptr;
 	}
 
-	if (!bSound)
+	// try in the original folder
+	if(!m_formatCtx)
 	{
-		unsigned long dwTrack = 0;
-
-		BinkSetSoundTrack(0, &dwTrack);
-	}
-	else
-	{
-		unsigned long dwTrack = 0;
-
-		BinkSetSoundTrack(1, &dwTrack);
-	}
-
-	// load bink file
-	if (stricmp(szFileName.c_str(), "binklogo") == 0)
-	{
-		m_hBink = BinkOpen((const char *)BinkLogoAddress(), BINKFROMMEMORY | BINKSNDTRACK);
-	}
-	else
-	{
-		// check for a MOD first
-		const char *szPrefix=NULL;
-		IGameMods *pMods=m_pUISystem->GetISystem()->GetIGame()->GetModsInterface();
-		if (pMods)		
-			szPrefix=pMods->GetModPath(szFileName.c_str());
-				
-		if(szPrefix)
+		if (avformat_open_input(&m_formatCtx, szFileName.c_str(), nullptr, nullptr) != 0)
 		{
-			m_hBink = BinkOpen(szPrefix, BINKSNDTRACK);
-		}
-
-		// try in the original folder
-		if(!m_hBink)
-		{
-			m_hBink = BinkOpen(szFileName.c_str(), BINKSNDTRACK);
+			OnError("Failed to open video file");
+			return 0;
 		}
 	}
 
-	if (!m_hBink)
+	if (avformat_find_stream_info(m_formatCtx, nullptr) < 0)
 	{
-		char *szError = BinkGetError();
-
-		OnError(szError);
-
+		ReleaseVideo();
+		OnError("Failed to find stream info");
 		return 0;
 	}
+
+	for (int i = 0; i < m_formatCtx->nb_streams; ++i)
+	{
+		AVCodecParameters* params = m_formatCtx->streams[i]->codecpar;
+		if (params->codec_type == AVMEDIA_TYPE_VIDEO)
+		{
+			const AVCodec* codec = avcodec_find_decoder(params->codec_id);
+			CryLogAlways("Found video codec %s: resolution %d x %d", codec->long_name, params->width, params->height);
+		}
+	}
+
+	return 0;
+
+#if 0
 
 	// create swap buffer
 	m_pSwapBuffer = new int[m_hBink->Width * m_hBink->Height];
@@ -217,13 +159,7 @@ int CUIVideoPanel::LoadVideo(const string &szFileName, bool bSound)
 		return 0;
 	}
 	return 1;
-#else
-	OnError("");
-
-	return 0;
 #endif
-
-	return 0;
 }
 
 ////////////////////////////////////////////////////////////////////// 
@@ -358,14 +294,9 @@ int CUIVideoPanel::Stop()
 ////////////////////////////////////////////////////////////////////// 
 int CUIVideoPanel::ReleaseVideo()
 {
-	if (m_DivX_Active){
-		return 1;
-	}
-
-#if !defined(WIN64) && !defined(LINUX) && !defined(NOT_USE_BINK_SDK)
-	if (m_hBink)
+	if (m_formatCtx)
 	{
-		BinkClose(m_hBink);
+		avformat_close_input(&m_formatCtx);
 	}
 
 	if (m_iTextureID > -1)
@@ -374,7 +305,6 @@ int CUIVideoPanel::ReleaseVideo()
 		m_iTextureID = -1;
 	}
 
-	m_hBink = 0;
 	m_szVideoFile = "";
 
 	if (m_pSwapBuffer)
@@ -382,10 +312,6 @@ int CUIVideoPanel::ReleaseVideo()
 		delete[] m_pSwapBuffer;
 		m_pSwapBuffer = 0;
 	}
-	return 1;
-#else
-	return 0;
-#endif
 
 	return 1;
 }

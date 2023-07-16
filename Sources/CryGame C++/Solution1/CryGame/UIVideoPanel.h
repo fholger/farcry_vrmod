@@ -27,6 +27,8 @@
 
 class CUISystem;
 
+struct AVFormatContext;
+
 //////////////////////////////////////////////////////////////////////
 class CUIVideoPanel : public CUIWidget, public _ScriptableEx<CUIVideoPanel>
 {
@@ -44,7 +46,7 @@ public:
 	LRESULT Update(unsigned int iMessage, WPARAM wParam, LPARAM lParam);	//AMD Port
 	int Draw(int iPass);
 
-	int InitBink();
+	int InitFfmpeg();
 
 	int LoadVideo(const string &szFileName, bool bSound);	
 
@@ -92,9 +94,6 @@ public:
 	bool					m_DivX_Active;
 
 	string				m_szVideoFile;
-#if !defined(WIN64) && !defined(LINUX) && !defined(NOT_USE_BINK_SDK)
-	HBINK					m_hBink;
-#endif
 	bool					m_bPaused;
 	bool					m_bPlaying;
 	bool					m_bLooping;
@@ -102,6 +101,8 @@ public:
 	int						m_iTextureID;
 	UISkinTexture m_pOverlay;
 	int						*m_pSwapBuffer;
+
+	AVFormatContext* m_formatCtx;
 };
 
 #endif

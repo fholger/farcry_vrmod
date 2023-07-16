@@ -142,6 +142,7 @@
       <IgnoreSpecificDefaultLibraries>libcmt.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ImportLibrary>$(IntDir)$(TargetName).lib</ImportLibrary>
+      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
     </Link>
     <Midl>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -195,6 +196,7 @@
       <AdditionalLibraryDirectories>..\..\..\ThirdParty\dxvk\lib;..\..\..\ThirdParty\openvr\lib\win32;..\..\..\ThirdParty\ffmpeg\lib;..\BinkSDK;..\CryNetwork\Release;.\..\ubisoft.com\GSServices\sdks/gs-sdk-regserver/lib_win32;.\..\ubisoft.com\GSServices\sdks/gs-sdk-msclient/lib_win32;.\..\ubisoft.com\GSServices\sdks/gs-sdk-common/lib_win32;.\..\ubisoft.com\GSServices\sdks/gs-sdk-base/lib_win32;..\ubisoft.com\GSServices\sdks\gs-sdk-cdkey\lib_win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <ProgramDatabaseFile>.\Release/CryGame.pdb</ProgramDatabaseFile>
       <ImportLibrary>$(IntDir)$(TargetName).lib</ImportLibrary>
+      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
     </Link>
     <Midl>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -248,6 +250,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <GenerateMapFile>true</GenerateMapFile>
       <BaseAddress>0x33000000</BaseAddress>
+      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
     </Link>
     <Midl>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -296,6 +299,7 @@
       <LargeAddressAware>true</LargeAddressAware>
       <ImportLibrary>$(OutDir)$(ProjectName).lib</ImportLibrary>
       <AdditionalLibraryDirectories>..\..\..\ThirdParty\dxvk\lib;..\..\..\ThirdParty\openvr\lib\win32;..\..\..\ThirdParty\ffmpeg\lib;</AdditionalLibraryDirectories>
+      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
     </Link>
     <Midl>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -346,6 +350,7 @@
       <LargeAddressAware>true</LargeAddressAware>
       <ImportLibrary>$(OutDir)$(ProjectName).lib</ImportLibrary>
       <AdditionalLibraryDirectories>..\..\..\ThirdParty\dxvk\lib;..\..\..\ThirdParty\openvr\lib\win32;..\..\..\ThirdParty\ffmpeg\lib;</AdditionalLibraryDirectories>
+      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
     </Link>
     <Midl>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
