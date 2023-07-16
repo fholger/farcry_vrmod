@@ -21,6 +21,7 @@ extern "C" {
 #include <libavcodec/avcodec.h>
 #include <libavformat/avformat.h>
 #include <libswscale/swscale.h>
+#include <libavutil/imgutils.h>
 }
 
 _DECLARE_SCRIPTABLEEX(CUIVideoPanel)
@@ -34,7 +35,8 @@ CUIVideoPanel::CUIVideoPanel()
 #if !defined(WIN64) && !defined(LINUX) && !defined(NOT_USE_BINK_SDK)
 	m_hBink(0),
 #endif
-	m_bLooping(1), m_bPlaying(0), m_bPaused(0), m_iTextureID(-1), m_pSwapBuffer(0), m_szVideoFile(""), m_bKeepAspect(1)
+	m_bLooping(1), m_bPlaying(0), m_bPaused(0), m_iTextureID(-1), m_pSwapBuffer(0), m_szVideoFile(""), m_bKeepAspect(1),
+	m_formatCtx(0), m_codec(0), m_videoParams(0), m_codecCtx(0), m_rawFrame(0), m_frame(0), m_frameReady(false), m_swsCtx(0)
 {
 	m_DivX_Active=0;
 }
@@ -94,7 +96,7 @@ int CUIVideoPanel::LoadVideo(const string &szFileName, bool bSound)
 	{
 		if (avformat_open_input(&m_formatCtx, szFileName.c_str(), nullptr, nullptr) != 0)
 		{
-			OnError("Failed to open video file");
+			CryLogAlways("Failed to open video file");
 			return 0;
 		}
 	}
@@ -102,7 +104,7 @@ int CUIVideoPanel::LoadVideo(const string &szFileName, bool bSound)
 	if (avformat_find_stream_info(m_formatCtx, nullptr) < 0)
 	{
 		ReleaseVideo();
-		OnError("Failed to find stream info");
+		CryLogAlways("Failed to find stream info");
 		return 0;
 	}
 
@@ -111,134 +113,123 @@ int CUIVideoPanel::LoadVideo(const string &szFileName, bool bSound)
 		AVCodecParameters* params = m_formatCtx->streams[i]->codecpar;
 		if (params->codec_type == AVMEDIA_TYPE_VIDEO)
 		{
-			const AVCodec* codec = avcodec_find_decoder(params->codec_id);
-			CryLogAlways("Found video codec %s: resolution %d x %d", codec->long_name, params->width, params->height);
+			m_streamIndex = i;
+			m_videoParams = params;
+			m_codec = avcodec_find_decoder(params->codec_id);
+			CryLogAlways("Found video codec %s: resolution %d x %d", m_codec->long_name, params->width, params->height);
+			break;
 		}
 	}
 
-	return 0;
-
-#if 0
-
-	// create swap buffer
-	m_pSwapBuffer = new int[m_hBink->Width * m_hBink->Height];
-
-	if (!m_pSwapBuffer)
+	if (!m_codec)
 	{
-		assert(!"Failed to create video swap buffer for blitting video!");
-
-		BinkClose(m_hBink);
-		m_hBink = 0;
-
-		OnError("");
-
+		ReleaseVideo();
+		CryLogAlways("Failed to find video stream");
 		return 0;
 	}
 
-	// create texture for blitting
-
-  // WORKAROUND: NVidia driver bug during playing of video file
-  // Solution: Never remove video texture (non-power-of-two)
-  if (m_hBink->Width==640 && m_hBink->Height==480)
-	  m_iTextureID = 	m_pUISystem->GetIRenderer()->DownLoadToVideoMemory((unsigned char *)m_pSwapBuffer, m_hBink->Width, m_hBink->Height, eTF_0888, eTF_0888, 0, 0, FILTER_LINEAR, 0, "$VideoPanel", FT_DYNAMIC);
-  else
-    m_iTextureID = 	m_pUISystem->GetIRenderer()->DownLoadToVideoMemory((unsigned char *)m_pSwapBuffer, m_hBink->Width, m_hBink->Height, eTF_0888, eTF_0888, 0, 0, FILTER_LINEAR, 0, NULL, FT_DYNAMIC);
-
-	if (m_iTextureID == -1)
+	m_codecCtx = avcodec_alloc_context3(m_codec);
+	avcodec_parameters_to_context(m_codecCtx, m_videoParams);
+	if (avcodec_open2(m_codecCtx, m_codec, nullptr) < 0)
 	{
-		assert(!"Failed to create video memory surface for blitting video!");
-
-		delete[] m_pSwapBuffer;
-		m_pSwapBuffer = 0;
-
-		BinkClose(m_hBink);
-		m_hBink = 0;
-		
-		OnError("");
-
+		ReleaseVideo();
+		CryLogAlways("Failed to open codec");
 		return 0;
 	}
+
+	m_rawFrame = av_frame_alloc();
+	m_frame = av_frame_alloc();
+
+	m_swsCtx = sws_getContext(m_codecCtx->width, m_codecCtx->height, m_codecCtx->pix_fmt, m_codecCtx->width, m_codecCtx->height, AV_PIX_FMT_BGRA, SWS_BILINEAR, nullptr, nullptr, nullptr);
+
+	int numBytes = av_image_get_buffer_size(AV_PIX_FMT_BGRA, m_codecCtx->width, m_codecCtx->height, 1);
+	m_pSwapBuffer = (uint8_t*)av_malloc(numBytes);
+	av_image_fill_arrays(m_frame->data, m_frame->linesize, m_pSwapBuffer, AV_PIX_FMT_BGRA, m_codecCtx->width, m_codecCtx->height, 1);
+
+    m_iTextureID = 	m_pUISystem->GetIRenderer()->DownLoadToVideoMemory(m_pSwapBuffer, m_codecCtx->width, m_codecCtx->height, eTF_8888, eTF_8888, 0, 0, FILTER_LINEAR, 0, NULL, FT_DYNAMIC);
+
+	m_videoStartTime = m_pUISystem->GetISystem()->GetITimer()->GetAsyncCurTime();
+	m_frameReady = false;
+
+	CryLogAlways("Ready to play video");
+
 	return 1;
-#endif
 }
 
 ////////////////////////////////////////////////////////////////////// 
 LRESULT CUIVideoPanel::Update(unsigned int iMessage, WPARAM wParam, LPARAM lParam)	//AMD Port
 {
-
 	FUNCTION_PROFILER( m_pUISystem->GetISystem(), PROFILE_GAME );
-#if !defined(NOT_USE_DIVX_SDK)
-	if (m_DivX_Active){
-		g_DivXPlayer.Update_DivX(this);
-		return CUISystem::DefaultUpdate(this, iMessage, wParam, lParam);
-	}
-#endif
-#if !defined(WIN64) && !defined(NOT_USE_BINK_SDK)
 
 	if ((iMessage == UIM_DRAW) && (wParam == 0))
 	{
 		// stream the frame here
-		if (m_bPlaying && m_hBink && m_pSwapBuffer)
+		if (m_bPlaying && m_formatCtx && m_pSwapBuffer)
 		{
-			if (!BinkWait(m_hBink))
+			AVPacket packet;
+			while (!m_frameReady && av_read_frame(m_formatCtx, &packet) >= 0)
 			{
+				if (packet.stream_index == m_streamIndex)
 				{
-					FRAME_PROFILER("CUIVideoPanel::Update:BinkDoFrame", m_pUISystem->GetISystem(), PROFILE_GAME);
-					BinkDoFrame(m_hBink);		
-				}
-
-				if ((m_iTextureID > -1) && (m_pSwapBuffer))
-				{
+					avcodec_send_packet(m_codecCtx, &packet);
+					int result = avcodec_receive_frame(m_codecCtx, m_rawFrame);
+					av_packet_unref(&packet);
+					if (result == 0)
 					{
-						FRAME_PROFILER("CUIVideoPanel::Update:BinkCopyToBuffer", m_pUISystem->GetISystem(), PROFILE_GAME);
-						BinkCopyToBuffer(m_hBink, m_pSwapBuffer, m_hBink->Width * 4, m_hBink->Height, 0, 0, BINKCOPYALL | BINKSURFACE32);
+						sws_scale(m_swsCtx, m_rawFrame->data, m_rawFrame->linesize, 0, m_codecCtx->height, m_frame->data, m_frame->linesize);
+						m_frameReady = true;
+						m_frameDisplayTime = m_videoStartTime + m_rawFrame->best_effort_timestamp * av_q2d(m_formatCtx->streams[m_streamIndex]->time_base);
+						break;
 					}
-
+					else if (result == AVERROR(EAGAIN))
 					{
-						FRAME_PROFILER("Renderer::UpdateTextureInVideoMemory", m_pUISystem->GetISystem(), PROFILE_GAME);
-						m_pUISystem->GetIRenderer()->UpdateTextureInVideoMemory(m_iTextureID, (unsigned char *)m_pSwapBuffer, 0, 0, m_hBink->Width, m_hBink->Height, eTF_8888);
+						// need more data for the frame
+						continue;
+					}
+					else
+					{
+						// error occurred during decoding
+						break;
 					}
 				}
-
-				if ((m_hBink->FrameNum < m_hBink->Frames) || m_bLooping)
+				else
 				{
-					FRAME_PROFILER("CUIVideoPanel::Update:BinkNextFrame", m_pUISystem->GetISystem(), PROFILE_GAME);
-					BinkNextFrame(m_hBink);
+					av_packet_unref(&packet);
 				}
+			}
+
+			if (!m_frameReady)
+			{
+				CryLogAlways("No frame ready, might have run into problems or end of file");
+				Stop();
+				OnFinished();
+			}
+
+			float curTime = m_pUISystem->GetISystem()->GetITimer()->GetAsyncCurTime();
+			if (m_frameReady && curTime >= m_frameDisplayTime)
+			{
+				if (m_iTextureID > -1)
+				{
+					CryLogAlways("Uploading new frame contents to texture");
+					m_pUISystem->GetIRenderer()->UpdateTextureInVideoMemory(m_iTextureID, m_pSwapBuffer, 0, 0, m_codecCtx->width, m_codecCtx->height, eTF_8888);
+					m_frameReady = false;
+				}
+				
 			}
 		}
 
-		int iResult = CUISystem::DefaultUpdate(this, iMessage, wParam, lParam);
-
-		if (m_hBink && ((m_hBink->FrameNum == m_hBink->Frames) && !m_bLooping))
-		{
-			Stop();
-
-			OnFinished();
-		}
-
-		return iResult;
+		return CUISystem::DefaultUpdate(this, iMessage, wParam, lParam);
 	}
 
+
 	return CUISystem::DefaultUpdate(this, iMessage, wParam, lParam);
-
-#endif
-
-	return 0;
 }
 
 
 ////////////////////////////////////////////////////////////////////// 
 int CUIVideoPanel::Play()
 {
-	if (m_DivX_Active){
-		m_bPlaying = 1;
-		m_bPaused = 0;
-		return 1;
-	}	
-
-#if !defined(WIN64) && !defined(LINUX) && !defined(NOT_USE_BINK_SDK)
-	if (!m_hBink)
+	if (!m_formatCtx)
 	{
 		if (m_szVideoFile.empty())
 		{
@@ -251,53 +242,49 @@ int CUIVideoPanel::Play()
 		}
 	}
 
-	BinkPause(m_hBink, 0);
  	m_bPlaying = 1;
 	m_bPaused = 0;
 	return 1;
-#else
-	return 0;
-#endif
-
-	return 0;
 }
 
 ////////////////////////////////////////////////////////////////////// 
 int CUIVideoPanel::Stop()
 {
-#if !defined(NOT_USE_DIVX_SDK)
-	if (m_DivX_Active){
-		g_DivXPlayer.StopSound();
-		m_bPaused = 0;
-		m_bPlaying = 0;
-		return 1;
-	}
-#endif
-#if !defined(WIN64) && !defined(NOT_USE_BINK_SDK)
-	if (!m_hBink)
+	if (!m_formatCtx)
 	{
 		return 0;
 	}
-	BinkPause(m_hBink, 1);
-	BinkClose(m_hBink);
-	m_hBink = 0;
 	m_bPaused = 0;
 	m_bPlaying = 0;
 	return 1;
-#endif
-
-	m_bPaused = 0;
-	m_bPlaying = 0;
-	return 1;	
 }
 
 ////////////////////////////////////////////////////////////////////// 
 int CUIVideoPanel::ReleaseVideo()
 {
+	if (m_swsCtx)
+	{
+		sws_freeContext(m_swsCtx);
+		m_swsCtx = nullptr;
+	}
+	if (m_rawFrame)
+	{
+		av_frame_free(&m_rawFrame);
+	}
+	if (m_frame)
+	{
+		av_frame_free(&m_frame);
+	}
+	if (m_codecCtx)
+	{
+		avcodec_free_context(&m_codecCtx);
+	}
 	if (m_formatCtx)
 	{
 		avformat_close_input(&m_formatCtx);
 	}
+	m_codec = nullptr;
+	m_videoParams = nullptr;
 
 	if (m_iTextureID > -1)
 	{
@@ -309,9 +296,13 @@ int CUIVideoPanel::ReleaseVideo()
 
 	if (m_pSwapBuffer)
 	{
-		delete[] m_pSwapBuffer;
+		av_free(m_pSwapBuffer);
 		m_pSwapBuffer = 0;
 	}
+
+	m_frameReady = false;
+	m_frameDisplayTime = 0;
+	m_videoStartTime = 0;
 
 	return 1;
 }
@@ -319,78 +310,33 @@ int CUIVideoPanel::ReleaseVideo()
 ////////////////////////////////////////////////////////////////////// 
 int CUIVideoPanel::Pause(bool bPause)
 {
-	if (m_DivX_Active){
-		return 1;
-	}
-
-
-#if !defined(WIN64) && !defined(LINUX) && !defined(NOT_USE_BINK_SDK)
-	if (!m_hBink)
+	if (!m_formatCtx)
 	{
 		return 0;
 	}
 
-	if (bPause)
-	{
-		if (!m_bPaused)
-		{
-			m_bPaused = 1;
-			BinkPause(m_hBink, 1);
-		}
-	}
-	else
-	{
-		if (m_bPaused)
-		{
-			m_bPaused = 0;
-			BinkPause(m_hBink, 0);
-		}
-	}
-	return 1;
-#else
-	return 0;
-#endif
-
+	m_bPaused = bPause;
 	return 1;
 }
 
 ////////////////////////////////////////////////////////////////////// 
 int CUIVideoPanel::IsPlaying()
 {
-	if (m_DivX_Active){
-		return (m_bPlaying ? 1 : 0);
-	}
-
-#if !defined(WIN64) && !defined(LINUX) && !defined(NOT_USE_BINK_SDK)
-	if (!m_hBink)
+	if (!m_formatCtx)
 	{
 		return 0;
 	}
 	return (m_bPlaying ? 1 : 0);
-#else
-	return 0;
-#endif
-
-	return (0);
 }
 
 ////////////////////////////////////////////////////////////////////// 
 int CUIVideoPanel::IsPaused()
 {
-	if (m_DivX_Active){
-		return (m_bPaused ? 1 : 0);
-	}
-#if !defined(WIN64) && !defined(LINUX) && !defined(NOT_USE_BINK_SDK)
-	if (!m_hBink)
+	if (!m_formatCtx)
 	{
 		return 0;
 	}
 	return (m_bPaused ? 1 : 0);
-#else
-	return 0;
-#endif
-
-	return 0;
 }
 
 ////////////////////////////////////////////////////////////////////// 
@@ -517,10 +463,9 @@ int CUIVideoPanel::Draw(int iPass)
 		float fWidth = pAbsoluteRect.fWidth;
 		float fHeight = pAbsoluteRect.fHeight;
 
-#if !defined(WIN64) && !defined(LINUX) && !defined(NOT_USE_BINK_SDK)
-		if (m_bKeepAspect && m_hBink)
+		if (m_bKeepAspect && m_codecCtx)
 		{
-			float fAspect = m_hBink->Width / (float)m_hBink->Height;
+			float fAspect = m_codecCtx->width / (float)m_codecCtx->height;
 
 			if (fAspect < 1.0f)
 			{
@@ -531,7 +476,6 @@ int CUIVideoPanel::Draw(int iPass)
 				fHeight = fWidth / fAspect;
 			}
 		}
-#endif
 
 		if (fWidth > pAbsoluteRect.fWidth)
 		{
@@ -592,18 +536,12 @@ int CUIVideoPanel::Draw(int iPass)
 ////////////////////////////////////////////////////////////////////// 
 int CUIVideoPanel::EnableVideo(bool bEnable)
 {
-#if !defined(WIN64) && !defined(LINUX) && !defined(NOT_USE_BINK_SDK)
-	if (!m_hBink)
+	if (!m_formatCtx)
 	{
 		return 0;
 	}
 
-	return BinkSetVideoOnOff(m_hBink, bEnable ? 1 : 0);
-#else
-	return 0;
-#endif
-
-	return 0;
+	return 1;
 }
 
 ////////////////////////////////////////////////////////////////////// 

@@ -28,6 +28,12 @@
 class CUISystem;
 
 struct AVFormatContext;
+struct AVCodec;
+struct AVCodecParameters;
+struct AVCodecContext;
+struct AVPacket;
+struct AVFrame;
+struct SwsContext;
 
 //////////////////////////////////////////////////////////////////////
 class CUIVideoPanel : public CUIWidget, public _ScriptableEx<CUIVideoPanel>
@@ -100,9 +106,19 @@ public:
 	bool					m_bKeepAspect;
 	int						m_iTextureID;
 	UISkinTexture m_pOverlay;
-	int						*m_pSwapBuffer;
+	uint8_t					*m_pSwapBuffer;
 
 	AVFormatContext* m_formatCtx;
+	const AVCodec* m_codec;
+	AVCodecParameters* m_videoParams;
+	AVCodecContext* m_codecCtx;
+	AVFrame* m_rawFrame;
+	AVFrame* m_frame;
+	SwsContext* m_swsCtx;
+	int m_streamIndex;
+	bool m_frameReady;
+	float m_frameDisplayTime;
+	float m_videoStartTime;
 };
 
 #endif
