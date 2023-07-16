@@ -441,6 +441,19 @@ bool CPlayer::Init()
 	return true;
 }
 
+bool CPlayer::IsWeaponZoomActive() const
+{
+	if (!m_stats.aiming || !GetSelectedWeapon())
+		return false;
+
+	string weaponName = GetSelectedWeapon()->GetName();
+	// we want to switch to 2D rendering mode for appropriate weapons
+	if (weaponName == "RL" || weaponName == "SniperRifle" || weaponName == "OICW")
+		return true;
+
+	return false;
+}
+
 //////////////////////////////////////////////////////////////////////
 /*!Called by the entity when the angles are changed.
 This notification is used to force the orientation of the player.

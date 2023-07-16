@@ -131,6 +131,10 @@ bool VRRenderer::ShouldRenderVR() const
 	if (m_pGame->AreBinocularsActive())
 		return false;
 
+	CPlayer *player = m_pGame->GetLocalPlayer();
+	if (player && player->IsWeaponZoomActive())
+		return false;
+
 	return true;
 }
 

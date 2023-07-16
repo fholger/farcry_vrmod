@@ -366,6 +366,8 @@ public:
 	bool	HasFlashLight() const	{	return m_stats.has_flashlight;	}
 	void	GiveFlashLight( bool on );
 
+	bool	IsWeaponZoomActive() const;
+
 	// interface IEntityContainer 
 
 	virtual bool Init();
