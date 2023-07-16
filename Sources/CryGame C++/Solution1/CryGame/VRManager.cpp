@@ -304,7 +304,8 @@ void VRManager::ModifyViewCamera(int eye, CCamera& cam)
 	if (eye == 0)
 	{
 		// manage the aiming deadzone in which the camera should not be rotated
-		float yawDiff = angles.z - m_prevViewYaw;
+		float yawAngle = DEG2RAD(AngleMod(RAD2DEG(angles.z)));
+		float yawDiff = yawAngle - m_prevViewYaw;
 		if (yawDiff < -gf_PI)
 			yawDiff += 2 * gf_PI;
 		else if (yawDiff > gf_PI)
