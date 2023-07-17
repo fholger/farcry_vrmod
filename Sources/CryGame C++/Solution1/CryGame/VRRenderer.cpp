@@ -1,5 +1,6 @@
 #include "StdAfx.h"
 #include "VRRenderer.h"
+#include "VRManager.h"
 
 #include "Cry_Camera.h"
 #include "Game.h"
@@ -155,12 +156,45 @@ void VRRenderer::RenderSingleEye(int eye, ISystem* pSystem)
 		pSystem->RenderBegin();
 		pSystem->Render();
 		DrawCrosshair();
+		DrawHand(0);
+		DrawHand(1);
 	}
 
 	pSystem->SetViewCamera(m_originalViewCamera);
 	m_viewCamOverridden = false;
 
 	gVR->CaptureEye(eye);
+}
+
+
+void VRRenderer::DrawHand(int leftRight) {
+	vr::TrackedDevicePose_t *hand = gVR->getHandPose(leftRight);
+	if (!hand->bDeviceIsConnected || !hand->bPoseIsValid)
+		return;
+
+	// don't show crosshair if HUD is disabled (e.g. during cutscenes
+	if (m_pGame->cl_display_hud->GetIVal() == 0)
+		return;
+
+	CPlayer* pPlayer = m_pGame->GetLocalPlayer();
+	if (!pPlayer)
+		return;
+
+	const CCamera& cam = m_originalViewCamera;
+	Matrix34 handMat = VRManager::OpenVRToCrysis(hand->mDeviceToAbsoluteTracking);
+	
+	Matrix34 camMat;
+	camMat.SetRotationXYZ(Deg2Rad(cam.GetAngles()), Vec3(0.0f,0.0f,0.0f));
+	Vec3 rotatedHands = camMat * handMat.GetTranslation();
+
+	// something something
+	// m_pGame->GetSystem()->GetIConsole()->GetCVar("g_LeftHanded")
+	if (leftRight == 1) {  // use the right hand for aiming for now
+		// TODO update 1st person player model
+		// TODO update CPlayer::UpdateWeapon based on hand position
+	}
+
+	m_pGame->m_pRenderer->DrawBall(cam.GetPos() + rotatedHands, 0.1f);
 }
 
 void VRRenderer::DrawCrosshair()

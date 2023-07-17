@@ -1,6 +1,7 @@
 #pragma once
 #include "Cry_Camera.h"
 
+
 class CXGame;
 class IDirect3DDevice9Ex;
 
@@ -36,6 +37,7 @@ private:
 
 	void RenderSingleEye(int eye, ISystem* pSystem);
 	void DrawCrosshair();
+	void DrawHand(int pose);
 };
 
 extern VRRenderer* gVRRenderer;

@@ -6,11 +6,15 @@
 class CXGame;
 class IDirect3DDevice9Ex;
 
+
 class VRManager
 {
 public:
+	static Matrix34 OpenVRToCrysis(const vr::HmdMatrix34_t& mat);
+
 	VRManager();
 	~VRManager();
+
 
 	bool Init(CXGame *game);
 	void Shutdown();
@@ -29,13 +33,19 @@ public:
 
 	void GetEffectiveRenderLimits(int eye, float* left, float* right, float* top, float* bottom);
 
+	vr::TrackedDevicePose_t* getHandPose(int leftRight);
+
 private:
 	struct D3DResources;
+
 
 	CXGame* m_pGame;
 	bool m_initialized = false;
 	D3DResources* m_d3d = nullptr;
 	vr::TrackedDevicePose_t m_headPose;
+	vr::TrackedDevicePose_t m_poses[vr::k_unMaxTrackedDeviceCount];
+	vr::IVRSystem *m_system;
+	
 	vr::VROverlayHandle_t m_hudOverlay;
 	float m_verticalFov;
 	float m_horizontalFov;
