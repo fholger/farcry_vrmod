@@ -36,7 +36,8 @@ CUIVideoPanel::CUIVideoPanel()
 	m_hBink(0),
 #endif
 	m_bLooping(1), m_bPlaying(0), m_bPaused(0), m_iTextureID(-1), m_pSwapBuffer(0), m_szVideoFile(""), m_bKeepAspect(1),
-	m_formatCtx(0), m_codec(0), m_videoParams(0), m_codecCtx(0), m_rawFrame(0), m_frame(0), m_frameReady(false), m_swsCtx(0)
+	m_formatCtx(0), m_codec(0), m_videoParams(0), m_codecCtx(0), m_rawFrame(0), m_frame(0), m_frameReady(false), m_swsCtx(0),
+	m_soundDevice(0), m_primaryBuffer(0), m_streamingBuffer(0)
 {
 	m_DivX_Active=0;
 }
@@ -45,6 +46,7 @@ CUIVideoPanel::CUIVideoPanel()
 CUIVideoPanel::~CUIVideoPanel()
 {
 	ReleaseVideo();
+	ShutdownAudio();
 }
 
 ////////////////////////////////////////////////////////////////////// 
@@ -54,15 +56,75 @@ string CUIVideoPanel::GetClassName()
 }
 
 ////////////////////////////////////////////////////////////////////// 
-int CUIVideoPanel::InitFfmpeg()
+int CUIVideoPanel::InitAudio()
 {
-	if (g_ffmpegInit)
+	if (m_soundDevice)
 	{
 		return 1;
 	}
 
-	g_ffmpegInit = true;
+	CryLogAlways("Initializing audio playback system for video panel");
+
+	if (FAILED(DirectSoundCreate8(nullptr, &m_soundDevice, nullptr)))
+	{
+		CryLogAlways("Failed to create DirectSound device");
+		return 0;
+	}
+
+	HWND hWnd = (HWND)m_pUISystem->GetIRenderer()->GetHWND();
+	if (FAILED(m_soundDevice->SetCooperativeLevel(hWnd, DSSCL_PRIORITY)))
+	{
+		CryLogAlways("Failed to set cooperative level for DirectSound device");
+		ShutdownAudio();
+		return 0;
+	}
+
+	// create primary buffer
+	DSBUFFERDESC desc = {};
+	desc.dwSize = sizeof(DSBUFFERDESC);
+	desc.dwFlags = DSBCAPS_PRIMARYBUFFER;
+	if (FAILED(m_soundDevice->CreateSoundBuffer(&desc, &m_primaryBuffer, nullptr)))
+	{
+		CryLogAlways("Failed to create primary sound buffer");
+		ShutdownAudio();
+		return 0;
+	}
+
+	// set primary buffer format
+	WAVEFORMATEX format = {};
+	format.wFormatTag = WAVE_FORMAT_PCM;
+	format.nChannels = 2;
+	format.nSamplesPerSec = 44100;
+	format.wBitsPerSample = 16;
+	format.nBlockAlign = (format.nChannels * format.wBitsPerSample) / 8;
+	format.nAvgBytesPerSec = format.nSamplesPerSec * format.nBlockAlign;
+	if (FAILED(m_primaryBuffer->SetFormat(&format)))
+	{
+		CryLogAlways("Failed to set primary buffer format");
+		ShutdownAudio();
+		return 0;
+	}
+
 	return 1;
+}
+
+void CUIVideoPanel::ShutdownAudio()
+{
+	if (m_streamingBuffer)
+	{
+		m_streamingBuffer->Release();
+		m_streamingBuffer = nullptr;
+	}
+	if (m_primaryBuffer)
+	{
+		m_primaryBuffer->Release();
+		m_primaryBuffer = nullptr;
+	}
+	if (m_soundDevice)
+	{
+		m_soundDevice->Release();
+		m_soundDevice = nullptr;
+	}
 }
 
 
@@ -72,6 +134,7 @@ int CUIVideoPanel::LoadVideo(const string &szFileName, bool bSound)
 	CryLogAlways("Attempting to play video %s", szFileName.c_str());
 
 	ReleaseVideo();
+	InitAudio();
 
 	if (szFileName.empty())
 	{

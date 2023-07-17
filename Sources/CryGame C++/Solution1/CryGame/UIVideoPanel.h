@@ -20,6 +20,7 @@
 
 #include "UIWidget.h"
 #include "UISystem.h"
+#include <dsound.h>
 
 #if !defined(WIN64) && !defined(LINUX) && !defined(NOT_USE_BINK_SDK)
 #	include "../binksdk/bink.h"
@@ -52,7 +53,10 @@ public:
 	LRESULT Update(unsigned int iMessage, WPARAM wParam, LPARAM lParam);	//AMD Port
 	int Draw(int iPass);
 
-	int InitFfmpeg();
+	void UpdateAudio();
+
+	int InitAudio();
+	void ShutdownAudio();
 
 	int LoadVideo(const string &szFileName, bool bSound);	
 
@@ -119,6 +123,10 @@ public:
 	bool m_frameReady;
 	float m_frameDisplayTime;
 	float m_videoStartTime;
+
+	LPDIRECTSOUND8 m_soundDevice;
+	LPDIRECTSOUNDBUFFER m_primaryBuffer;
+	LPDIRECTSOUNDBUFFER m_streamingBuffer;
 };
 
 #endif
