@@ -193,8 +193,9 @@ void VRRenderer::DrawHand(int leftRight) {
 		// TODO update 1st person player model
 		// TODO update CPlayer::UpdateWeapon based on hand position
 	}
-
-	m_pGame->m_pRenderer->DrawBall(cam.GetPos() + rotatedHands, 0.1f);
+	if (gVR->vr_render_debug_hands == 1) {
+		m_pGame->m_pRenderer->DrawBall(cam.GetPos() + rotatedHands, 0.1f);
+	}
 }
 
 void VRRenderer::DrawCrosshair()
