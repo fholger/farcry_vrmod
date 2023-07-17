@@ -296,6 +296,9 @@ void VRManager::ModifyViewCamera(int eye, CCamera& cam)
 	Ang3 angles = cam.GetAngles();
 	Vec3 position = cam.GetPos();
 
+	// set z-min to smallest possible value so near plane does clip into environment
+	cam.SetZMin(0.01f);
+
 	angles = Deg2Rad(angles);
 	// eliminate pitch and roll
 	angles.y = 0;
