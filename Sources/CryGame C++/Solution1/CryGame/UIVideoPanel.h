@@ -53,6 +53,7 @@ public:
 	LRESULT Update(unsigned int iMessage, WPARAM wParam, LPARAM lParam);	//AMD Port
 	int Draw(int iPass);
 
+	void UpdateVideo();
 	void UpdateAudio();
 
 	int InitAudio();
@@ -113,13 +114,13 @@ public:
 	uint8_t					*m_pSwapBuffer;
 
 	AVFormatContext* m_formatCtx;
-	const AVCodec* m_codec;
+	const AVCodec* m_videoCodec;
 	AVCodecParameters* m_videoParams;
-	AVCodecContext* m_codecCtx;
+	AVCodecContext* m_videoCodecCtx;
 	AVFrame* m_rawFrame;
 	AVFrame* m_frame;
 	SwsContext* m_swsCtx;
-	int m_streamIndex;
+	int m_videoStreamIdx;
 	bool m_frameReady;
 	float m_frameDisplayTime;
 	float m_videoStartTime;
@@ -127,6 +128,11 @@ public:
 	LPDIRECTSOUND8 m_soundDevice;
 	LPDIRECTSOUNDBUFFER m_primaryBuffer;
 	LPDIRECTSOUNDBUFFER m_streamingBuffer;
+
+	int m_audioStreamIdx;
+	const AVCodec* m_audioCodec;
+	AVCodecParameters* m_audioParams;
+	AVCodecContext* m_audioCodecCtx;
 };
 
 #endif

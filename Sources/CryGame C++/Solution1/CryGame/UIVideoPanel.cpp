@@ -29,6 +29,9 @@ _DECLARE_SCRIPTABLEEX(CUIVideoPanel)
 //////////////////////////////////////////////////////////////////////
 static bool g_ffmpegInit = false;
 
+constexpr DWORD kBufferSize = 32768;
+constexpr DWORD kNumBuffers = 3;
+
 ////////////////////////////////////////////////////////////////////// 
 CUIVideoPanel::CUIVideoPanel()
 :
@@ -36,8 +39,8 @@ CUIVideoPanel::CUIVideoPanel()
 	m_hBink(0),
 #endif
 	m_bLooping(1), m_bPlaying(0), m_bPaused(0), m_iTextureID(-1), m_pSwapBuffer(0), m_szVideoFile(""), m_bKeepAspect(1),
-	m_formatCtx(0), m_codec(0), m_videoParams(0), m_codecCtx(0), m_rawFrame(0), m_frame(0), m_frameReady(false), m_swsCtx(0),
-	m_soundDevice(0), m_primaryBuffer(0), m_streamingBuffer(0)
+	m_formatCtx(0), m_videoCodec(0), m_videoParams(0), m_videoCodecCtx(0), m_rawFrame(0), m_frame(0), m_frameReady(false), m_swsCtx(0),
+	m_soundDevice(0), m_primaryBuffer(0), m_streamingBuffer(0), m_audioCodec(0), m_audioCodecCtx(0), m_audioParams(0)
 {
 	m_DivX_Active=0;
 }
@@ -105,6 +108,18 @@ int CUIVideoPanel::InitAudio()
 		return 0;
 	}
 
+	// create streaming buffer
+	DWORD bufferBytes = kBufferSize * kNumBuffers;
+	desc.dwFlags = DSBCAPS_CTRLPOSITIONNOTIFY | DSBCAPS_GLOBALFOCUS | DSBCAPS_GETCURRENTPOSITION2;
+	desc.dwBufferBytes = bufferBytes;
+	desc.lpwfxFormat = &format;
+	if (FAILED(m_soundDevice->CreateSoundBuffer(&desc, &m_streamingBuffer, nullptr)))
+	{
+		CryLogAlways("Failed to create streaming buffer");
+		ShutdownAudio();
+		return 0;
+	}
+
 	return 1;
 }
 
@@ -112,11 +127,13 @@ void CUIVideoPanel::ShutdownAudio()
 {
 	if (m_streamingBuffer)
 	{
+		m_streamingBuffer->Stop();
 		m_streamingBuffer->Release();
 		m_streamingBuffer = nullptr;
 	}
 	if (m_primaryBuffer)
 	{
+		m_primaryBuffer->Stop();
 		m_primaryBuffer->Release();
 		m_primaryBuffer = nullptr;
 	}
@@ -171,50 +188,73 @@ int CUIVideoPanel::LoadVideo(const string &szFileName, bool bSound)
 		return 0;
 	}
 
+	m_videoStreamIdx = -1;
+	m_audioStreamIdx = -1;
 	for (int i = 0; i < m_formatCtx->nb_streams; ++i)
 	{
 		AVCodecParameters* params = m_formatCtx->streams[i]->codecpar;
-		if (params->codec_type == AVMEDIA_TYPE_VIDEO)
+		if (params->codec_type == AVMEDIA_TYPE_VIDEO && m_videoStreamIdx == -1)
 		{
-			m_streamIndex = i;
+			m_videoStreamIdx = i;
 			m_videoParams = params;
-			m_codec = avcodec_find_decoder(params->codec_id);
-			CryLogAlways("Found video codec %s: resolution %d x %d", m_codec->long_name, params->width, params->height);
-			break;
+			m_videoCodec = avcodec_find_decoder(params->codec_id);
+			CryLogAlways("Found video codec %s: resolution %d x %d", m_videoCodec->long_name, params->width, params->height);
+		}
+		if (params->codec_type == AVMEDIA_TYPE_AUDIO && m_audioStreamIdx == -1)
+		{
+			m_audioStreamIdx = i;
+			m_audioParams = params;
+			m_audioCodec = avcodec_find_decoder(params->codec_id);
+			CryLogAlways("Found audio codec %s", m_audioCodec->long_name);
 		}
 	}
 
-	if (!m_codec)
+	if (!m_videoCodec)
 	{
 		ReleaseVideo();
 		CryLogAlways("Failed to find video stream");
 		return 0;
 	}
 
-	m_codecCtx = avcodec_alloc_context3(m_codec);
-	avcodec_parameters_to_context(m_codecCtx, m_videoParams);
-	if (avcodec_open2(m_codecCtx, m_codec, nullptr) < 0)
+	m_videoCodecCtx = avcodec_alloc_context3(m_videoCodec);
+	avcodec_parameters_to_context(m_videoCodecCtx, m_videoParams);
+	if (avcodec_open2(m_videoCodecCtx, m_videoCodec, nullptr) < 0)
 	{
 		ReleaseVideo();
-		CryLogAlways("Failed to open codec");
+		CryLogAlways("Failed to open video codec");
 		return 0;
 	}
 
 	m_rawFrame = av_frame_alloc();
 	m_frame = av_frame_alloc();
 
-	m_swsCtx = sws_getContext(m_codecCtx->width, m_codecCtx->height, m_codecCtx->pix_fmt, m_codecCtx->width, m_codecCtx->height, AV_PIX_FMT_BGRA, SWS_BILINEAR, nullptr, nullptr, nullptr);
+	m_swsCtx = sws_getContext(m_videoCodecCtx->width, m_videoCodecCtx->height, m_videoCodecCtx->pix_fmt, m_videoCodecCtx->width, m_videoCodecCtx->height, AV_PIX_FMT_BGRA, SWS_BILINEAR, nullptr, nullptr, nullptr);
 
-	int numBytes = av_image_get_buffer_size(AV_PIX_FMT_BGRA, m_codecCtx->width, m_codecCtx->height, 1);
+	int numBytes = av_image_get_buffer_size(AV_PIX_FMT_BGRA, m_videoCodecCtx->width, m_videoCodecCtx->height, 1);
 	m_pSwapBuffer = (uint8_t*)av_malloc(numBytes);
-	av_image_fill_arrays(m_frame->data, m_frame->linesize, m_pSwapBuffer, AV_PIX_FMT_BGRA, m_codecCtx->width, m_codecCtx->height, 1);
+	av_image_fill_arrays(m_frame->data, m_frame->linesize, m_pSwapBuffer, AV_PIX_FMT_BGRA, m_videoCodecCtx->width, m_videoCodecCtx->height, 1);
 
-    m_iTextureID = 	m_pUISystem->GetIRenderer()->DownLoadToVideoMemory(m_pSwapBuffer, m_codecCtx->width, m_codecCtx->height, eTF_8888, eTF_8888, 0, 0, FILTER_LINEAR, 0, NULL, FT_DYNAMIC);
+    m_iTextureID = 	m_pUISystem->GetIRenderer()->DownLoadToVideoMemory(m_pSwapBuffer, m_videoCodecCtx->width, m_videoCodecCtx->height, eTF_8888, eTF_8888, 0, 0, FILTER_LINEAR, 0, NULL, FT_DYNAMIC);
 
 	m_videoStartTime = m_pUISystem->GetISystem()->GetITimer()->GetAsyncCurTime();
 	m_frameReady = false;
 
 	CryLogAlways("Ready to play video");
+
+	if (!m_audioCodec)
+	{
+		CryLogAlways("Did not find suitable audio codec for video file");
+		return 1;
+	}
+
+	m_audioCodecCtx = avcodec_alloc_context3(m_audioCodec);
+	avcodec_parameters_to_context(m_audioCodecCtx, m_audioParams);
+	if (avcodec_open2(m_audioCodecCtx, m_audioCodec, nullptr) < 0)
+	{
+		CryLogAlways("Failed to open audio codec");
+		m_audioCodec = nullptr;
+		return 1;
+	}
 
 	return 1;
 }
@@ -226,59 +266,15 @@ LRESULT CUIVideoPanel::Update(unsigned int iMessage, WPARAM wParam, LPARAM lPara
 
 	if ((iMessage == UIM_DRAW) && (wParam == 0))
 	{
-		// stream the frame here
 		if (m_bPlaying && m_formatCtx && m_pSwapBuffer)
 		{
-			AVPacket packet;
-			while (!m_frameReady && av_read_frame(m_formatCtx, &packet) >= 0)
-			{
-				if (packet.stream_index == m_streamIndex)
-				{
-					avcodec_send_packet(m_codecCtx, &packet);
-					int result = avcodec_receive_frame(m_codecCtx, m_rawFrame);
-					av_packet_unref(&packet);
-					if (result == 0)
-					{
-						sws_scale(m_swsCtx, m_rawFrame->data, m_rawFrame->linesize, 0, m_codecCtx->height, m_frame->data, m_frame->linesize);
-						m_frameReady = true;
-						m_frameDisplayTime = m_videoStartTime + m_rawFrame->best_effort_timestamp * av_q2d(m_formatCtx->streams[m_streamIndex]->time_base);
-						break;
-					}
-					else if (result == AVERROR(EAGAIN))
-					{
-						// need more data for the frame
-						continue;
-					}
-					else
-					{
-						// error occurred during decoding
-						break;
-					}
-				}
-				else
-				{
-					av_packet_unref(&packet);
-				}
-			}
-
-			if (!m_frameReady)
-			{
-				CryLogAlways("No frame ready, might have run into problems or end of file");
-				Stop();
-				OnFinished();
-			}
-
-			float curTime = m_pUISystem->GetISystem()->GetITimer()->GetAsyncCurTime();
-			if (m_frameReady && curTime >= m_frameDisplayTime)
-			{
-				if (m_iTextureID > -1)
-				{
-					CryLogAlways("Uploading new frame contents to texture");
-					m_pUISystem->GetIRenderer()->UpdateTextureInVideoMemory(m_iTextureID, m_pSwapBuffer, 0, 0, m_codecCtx->width, m_codecCtx->height, eTF_8888);
-					m_frameReady = false;
-				}
-				
-			}
+			// handle video playback
+			UpdateVideo();
+		}
+		if (m_bPlaying && m_soundDevice)
+		{
+			// handle audio playback
+			UpdateAudio();
 		}
 
 		return CUISystem::DefaultUpdate(this, iMessage, wParam, lParam);
@@ -338,16 +334,22 @@ int CUIVideoPanel::ReleaseVideo()
 	{
 		av_frame_free(&m_frame);
 	}
-	if (m_codecCtx)
+	if (m_audioCodecCtx)
 	{
-		avcodec_free_context(&m_codecCtx);
+		avcodec_free_context(&m_audioCodecCtx);
+	}
+	if (m_videoCodecCtx)
+	{
+		avcodec_free_context(&m_videoCodecCtx);
 	}
 	if (m_formatCtx)
 	{
 		avformat_close_input(&m_formatCtx);
 	}
-	m_codec = nullptr;
+	m_videoCodec = nullptr;
 	m_videoParams = nullptr;
+	m_audioCodec = nullptr;
+	m_audioParams = nullptr;
 
 	if (m_iTextureID > -1)
 	{
@@ -526,9 +528,9 @@ int CUIVideoPanel::Draw(int iPass)
 		float fWidth = pAbsoluteRect.fWidth;
 		float fHeight = pAbsoluteRect.fHeight;
 
-		if (m_bKeepAspect && m_codecCtx)
+		if (m_bKeepAspect && m_videoCodecCtx)
 		{
-			float fAspect = m_codecCtx->width / (float)m_codecCtx->height;
+			float fAspect = m_videoCodecCtx->width / (float)m_videoCodecCtx->height;
 
 			if (fAspect < 1.0f)
 			{
@@ -594,6 +596,65 @@ int CUIVideoPanel::Draw(int iPass)
 	DrawChildren();
 
 	return 1;
+}
+
+void CUIVideoPanel::UpdateVideo()
+{
+	AVPacket packet;
+	while (!m_frameReady && av_read_frame(m_formatCtx, &packet) >= 0)
+	{
+		if (packet.stream_index == m_videoStreamIdx)
+		{
+			avcodec_send_packet(m_videoCodecCtx, &packet);
+			int result = avcodec_receive_frame(m_videoCodecCtx, m_rawFrame);
+			av_packet_unref(&packet);
+			if (result == 0)
+			{
+				sws_scale(m_swsCtx, m_rawFrame->data, m_rawFrame->linesize, 0, m_videoCodecCtx->height, m_frame->data, m_frame->linesize);
+				m_frameReady = true;
+				m_frameDisplayTime = m_videoStartTime + m_rawFrame->best_effort_timestamp * av_q2d(m_formatCtx->streams[m_videoStreamIdx]->time_base);
+				break;
+			}
+			else if (result == AVERROR(EAGAIN))
+			{
+				// need more data for the frame
+				continue;
+			}
+			else
+			{
+				// error occurred during decoding
+				break;
+			}
+		}
+		else
+		{
+			av_packet_unref(&packet);
+		}
+	}
+
+	if (!m_frameReady)
+	{
+		CryLogAlways("No frame ready, might have run into problems or end of file");
+		Stop();
+		OnFinished();
+	}
+
+	float curTime = m_pUISystem->GetISystem()->GetITimer()->GetAsyncCurTime();
+	if (m_frameReady && curTime >= m_frameDisplayTime)
+	{
+		if (m_iTextureID > -1)
+		{
+			CryLogAlways("Uploading new frame contents to texture");
+			m_pUISystem->GetIRenderer()->UpdateTextureInVideoMemory(m_iTextureID, m_pSwapBuffer, 0, 0, m_videoCodecCtx->width, m_videoCodecCtx->height, eTF_8888);
+			m_frameReady = false;
+		}
+		
+	}
+}
+
+void CUIVideoPanel::UpdateAudio()
+{
+	AVPacket packet;
 }
 
 ////////////////////////////////////////////////////////////////////// 
