@@ -20,7 +20,7 @@ extern "C" void dxvkTransitionImageLayout(IDirect3DDevice9Ex * device, IDirect3D
 
 // OpenVR: x = right, y = up, -z = forward
 // Crysis: x = left, -y = forward, z = up
-Matrix34 OpenVRToCrysis(const vr::HmdMatrix34_t &mat)
+Matrix34 VRManager::OpenVRToCrysis(const vr::HmdMatrix34_t &mat)
 {
 	Matrix34 m;
 	m.m00 = mat.m[0][0];
@@ -59,6 +59,19 @@ VRManager::~VRManager()
 	delete m_d3d;
 }
 
+vr::TrackedDevicePose_t* VRManager::getHandPose(int leftRight) {
+	if (!m_system) {
+		return nullptr;
+	}
+	return &m_poses[
+		m_system->GetTrackedDeviceIndexForControllerRole(
+			leftRight == 0
+			? vr::ETrackedControllerRole::TrackedControllerRole_LeftHand
+			: vr::ETrackedControllerRole::TrackedControllerRole_RightHand
+		)
+	];
+}
+
 bool VRManager::Init(CXGame *game)
 {
 	if (m_initialized)
@@ -67,7 +80,9 @@ bool VRManager::Init(CXGame *game)
 	m_pGame = game;
 
 	vr::EVRInitError error;
-	vr::VR_Init(&error, vr::VRApplication_Scene);
+	m_system = vr::VR_Init(&error, vr::VRApplication_Scene);
+	
+
 	if (error != vr::VRInitError_None)
 	{
 		CryError("Failed to initialize OpenVR: %s", vr::VR_GetVRInitErrorAsEnglishDescription(error));
@@ -121,7 +136,8 @@ void VRManager::AwaitFrame()
 		return;
 
 	dxvkLockSubmissionQueue(m_d3d->device.Get(), false);
-	vr::VRCompositor()->WaitGetPoses(&m_headPose, 1, nullptr, 0);
+	vr::VRCompositor()->WaitGetPoses(m_poses, vr::k_unMaxTrackedDeviceCount, nullptr, 0);
+	m_headPose = m_poses[0];
 	dxvkReleaseSubmissionQueue(m_d3d->device.Get());
 }
 
@@ -293,6 +309,9 @@ void VRManager::ModifyViewCamera(int eye, CCamera& cam)
 		return;
 	}
 
+	// set z-min to smallest possible value so near plane does clip into environment
+	cam.SetZMin(0.01f);
+
 	Ang3 angles = cam.GetAngles();
 	Vec3 position = cam.GetPos();
 
@@ -300,7 +319,7 @@ void VRManager::ModifyViewCamera(int eye, CCamera& cam)
 	// eliminate pitch and roll
 	angles.y = 0;
 	angles.x = 0;
-
+	
 	if (eye == 0)
 	{
 		// manage the aiming deadzone in which the camera should not be rotated
