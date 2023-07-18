@@ -22,6 +22,10 @@
 #include "UISystem.h"
 #include <dsound.h>
 
+extern "C" {
+	#include <libavcodec/packet.h>
+}
+
 #if !defined(WIN64) && !defined(LINUX) && !defined(NOT_USE_BINK_SDK)
 #	include "../binksdk/bink.h"
 #endif
@@ -32,7 +36,6 @@ struct AVFormatContext;
 struct AVCodec;
 struct AVCodecParameters;
 struct AVCodecContext;
-struct AVPacket;
 struct AVFrame;
 struct SwsContext;
 
@@ -53,8 +56,9 @@ public:
 	LRESULT Update(unsigned int iMessage, WPARAM wParam, LPARAM lParam);	//AMD Port
 	int Draw(int iPass);
 
-	void UpdateVideo();
+	bool ReadVideo();
 	void UpdateAudio();
+	bool DecodeVideo();
 
 	int InitAudio();
 	void ShutdownAudio();
@@ -133,6 +137,11 @@ public:
 	const AVCodec* m_audioCodec;
 	AVCodecParameters* m_audioParams;
 	AVCodecContext* m_audioCodecCtx;
+
+	std::queue<AVPacket> m_queuedVideoPackets;
+	int m_queuedVideoBytes;
+	std::queue<AVPacket> m_queuedAudioPackets;
+	int m_queuedAudioBytes;
 };
 
 #endif

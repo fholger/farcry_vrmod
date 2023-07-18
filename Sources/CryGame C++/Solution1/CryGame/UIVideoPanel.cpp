@@ -31,6 +31,7 @@ static bool g_ffmpegInit = false;
 
 constexpr DWORD kBufferSize = 32768;
 constexpr DWORD kNumBuffers = 3;
+constexpr int MAX_QUEUED_VIDEO_BYTES = 1024 * 1024;
 
 ////////////////////////////////////////////////////////////////////// 
 CUIVideoPanel::CUIVideoPanel()
@@ -266,15 +267,28 @@ LRESULT CUIVideoPanel::Update(unsigned int iMessage, WPARAM wParam, LPARAM lPara
 
 	if ((iMessage == UIM_DRAW) && (wParam == 0))
 	{
-		if (m_bPlaying && m_formatCtx && m_pSwapBuffer)
+		if (m_bPlaying && m_formatCtx)
 		{
 			// handle video playback
-			UpdateVideo();
-		}
-		if (m_bPlaying && m_soundDevice)
-		{
-			// handle audio playback
-			UpdateAudio();
+			bool ok = ReadVideo();
+			ok = ok && DecodeVideo();
+
+			if (!ok)
+			{
+				CryLogAlways("No frame ready, might have run into problems or end of file");
+				Stop();
+				OnFinished();
+			}
+
+			float curTime = m_pUISystem->GetISystem()->GetITimer()->GetAsyncCurTime();
+			if (m_frameReady && curTime >= m_frameDisplayTime)
+			{
+				if (m_iTextureID > -1)
+				{
+					m_pUISystem->GetIRenderer()->UpdateTextureInVideoMemory(m_iTextureID, m_pSwapBuffer, 0, 0, m_videoCodecCtx->width, m_videoCodecCtx->height, eTF_8888);
+					m_frameReady = false;
+				}
+			}
 		}
 
 		return CUISystem::DefaultUpdate(this, iMessage, wParam, lParam);
@@ -321,6 +335,19 @@ int CUIVideoPanel::Stop()
 ////////////////////////////////////////////////////////////////////// 
 int CUIVideoPanel::ReleaseVideo()
 {
+	while (!m_queuedVideoPackets.empty())
+	{
+		av_packet_unref(&m_queuedVideoPackets.front());
+		m_queuedVideoPackets.pop();
+	}
+	m_queuedVideoBytes = 0;
+	while (!m_queuedAudioPackets.empty())
+	{
+		av_packet_unref(&m_queuedAudioPackets.front());
+		m_queuedAudioPackets.pop();
+	}
+	m_queuedAudioBytes = 0;
+
 	if (m_swsCtx)
 	{
 		sws_freeContext(m_swsCtx);
@@ -598,63 +625,89 @@ int CUIVideoPanel::Draw(int iPass)
 	return 1;
 }
 
-void CUIVideoPanel::UpdateVideo()
+bool CUIVideoPanel::ReadVideo()
 {
+	if (m_queuedVideoBytes >= MAX_QUEUED_VIDEO_BYTES)
+		return true;
+
 	AVPacket packet;
-	while (!m_frameReady && av_read_frame(m_formatCtx, &packet) >= 0)
+	int result = av_read_frame(m_formatCtx, &packet);
+	if (result >= 0)
 	{
 		if (packet.stream_index == m_videoStreamIdx)
 		{
-			avcodec_send_packet(m_videoCodecCtx, &packet);
-			int result = avcodec_receive_frame(m_videoCodecCtx, m_rawFrame);
-			av_packet_unref(&packet);
-			if (result == 0)
-			{
-				sws_scale(m_swsCtx, m_rawFrame->data, m_rawFrame->linesize, 0, m_videoCodecCtx->height, m_frame->data, m_frame->linesize);
-				m_frameReady = true;
-				m_frameDisplayTime = m_videoStartTime + m_rawFrame->best_effort_timestamp * av_q2d(m_formatCtx->streams[m_videoStreamIdx]->time_base);
-				break;
-			}
-			else if (result == AVERROR(EAGAIN))
-			{
-				// need more data for the frame
-				continue;
-			}
-			else
-			{
-				// error occurred during decoding
-				break;
-			}
+			CryLogAlways("Queuing video packet");
+			m_queuedVideoPackets.push(packet);
+			m_queuedVideoBytes += packet.size;
 		}
+		/*else if (packet.stream_index == m_audioStreamIdx)
+		{
+			CryLogAlways("Queuing audio packet");
+			m_queuedAudioPackets.push(packet);
+			m_queuedAudioBytes += packet.size;
+		}*/
 		else
 		{
+			// don't need this, but must still dereference
 			av_packet_unref(&packet);
 		}
 	}
-
-	if (!m_frameReady)
+	else
 	{
-		CryLogAlways("No frame ready, might have run into problems or end of file");
-		Stop();
-		OnFinished();
+		return false;
 	}
 
-	float curTime = m_pUISystem->GetISystem()->GetITimer()->GetAsyncCurTime();
-	if (m_frameReady && curTime >= m_frameDisplayTime)
-	{
-		if (m_iTextureID > -1)
-		{
-			CryLogAlways("Uploading new frame contents to texture");
-			m_pUISystem->GetIRenderer()->UpdateTextureInVideoMemory(m_iTextureID, m_pSwapBuffer, 0, 0, m_videoCodecCtx->width, m_videoCodecCtx->height, eTF_8888);
-			m_frameReady = false;
-		}
-		
-	}
+	return true;
 }
 
 void CUIVideoPanel::UpdateAudio()
 {
 	AVPacket packet;
+}
+
+bool CUIVideoPanel::DecodeVideo()
+{
+	if (m_frameReady)
+		return true;
+
+	while (!m_queuedVideoPackets.empty())
+	{
+		AVPacket* packet = &m_queuedVideoPackets.front();
+		int result = avcodec_send_packet(m_videoCodecCtx, packet);
+		if (result == 0)
+		{
+			// successfully fed packet, can discard
+			m_queuedVideoBytes -= packet->size;
+			av_packet_unref(packet);
+			m_queuedVideoPackets.pop();
+		}
+		else if (result == AVERROR(EAGAIN))
+		{
+			// can't send any more data right now, need to try again later
+			break;
+		}
+		else
+		{
+			// some error occurred, or EOF
+			return false;
+		}
+	}
+
+	// see if we have enough data to get a finished frame
+	int result = avcodec_receive_frame(m_videoCodecCtx, m_rawFrame);
+	if (result == 0)
+	{
+		sws_scale(m_swsCtx, m_rawFrame->data, m_rawFrame->linesize, 0, m_videoCodecCtx->height, m_frame->data, m_frame->linesize);
+		m_frameReady = true;
+		m_frameDisplayTime = m_videoStartTime + m_rawFrame->best_effort_timestamp * av_q2d(m_formatCtx->streams[m_videoStreamIdx]->time_base);
+	}
+	else if (result != AVERROR(EAGAIN))
+	{
+		// error occurred during decoding, or EOF
+		return false;
+	}
+
+	return true;
 }
 
 ////////////////////////////////////////////////////////////////////// 
