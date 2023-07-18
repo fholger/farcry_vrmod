@@ -57,7 +57,7 @@ public:
 	int Draw(int iPass);
 
 	bool ReadVideo();
-	void UpdateAudio();
+	bool DecodeAudio();
 	bool DecodeVideo();
 
 	int InitAudio();

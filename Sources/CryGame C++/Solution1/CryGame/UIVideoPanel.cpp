@@ -32,6 +32,7 @@ static bool g_ffmpegInit = false;
 constexpr DWORD kBufferSize = 32768;
 constexpr DWORD kNumBuffers = 3;
 constexpr int MAX_QUEUED_VIDEO_BYTES = 1024 * 1024;
+constexpr int MAX_QUEUED_AUDIO_BYTES = 64 * 1024;
 
 ////////////////////////////////////////////////////////////////////// 
 CUIVideoPanel::CUIVideoPanel()
@@ -627,7 +628,7 @@ int CUIVideoPanel::Draw(int iPass)
 
 bool CUIVideoPanel::ReadVideo()
 {
-	if (m_queuedVideoBytes >= MAX_QUEUED_VIDEO_BYTES)
+	if (m_queuedVideoBytes >= MAX_QUEUED_VIDEO_BYTES || m_queuedAudioBytes >= MAX_QUEUED_AUDIO_BYTES)
 		return true;
 
 	AVPacket packet;
@@ -640,12 +641,12 @@ bool CUIVideoPanel::ReadVideo()
 			m_queuedVideoPackets.push(packet);
 			m_queuedVideoBytes += packet.size;
 		}
-		/*else if (packet.stream_index == m_audioStreamIdx)
+		else if (packet.stream_index == m_audioStreamIdx)
 		{
 			CryLogAlways("Queuing audio packet");
 			m_queuedAudioPackets.push(packet);
 			m_queuedAudioBytes += packet.size;
-		}*/
+		}
 		else
 		{
 			// don't need this, but must still dereference
@@ -660,9 +661,29 @@ bool CUIVideoPanel::ReadVideo()
 	return true;
 }
 
-void CUIVideoPanel::UpdateAudio()
+bool CUIVideoPanel::DecodeAudio()
 {
-	AVPacket packet;
+	while (!m_queuedAudioPackets.empty())
+	{
+		AVPacket* packet = &m_queuedAudioPackets.front();
+		int result = avcodec_send_packet(m_audioCodecCtx, packet);
+		if (result == 0)
+		{
+			m_queuedAudioBytes -= packet->size;
+			av_packet_unref(packet);
+			m_queuedAudioPackets.pop();
+		}
+		else if (result == AVERROR(EAGAIN))
+		{
+			// can't send any more data right now, need to try again later
+			break;
+		}
+		else
+		{
+			// error occurred, or EOF
+			return false;
+		}
+	}
 }
 
 bool CUIVideoPanel::DecodeVideo()
