@@ -281,10 +281,10 @@ LRESULT CUIVideoPanel::Update(unsigned int iMessage, WPARAM wParam, LPARAM lPara
 		{
 			// handle video playback
 			bool ok = ReadVideo();
-			ok = ok && DecodeVideo();
-			ok = ok && DecodeAudio();
+			ok = DecodeVideo() && ok;
+			ok = DecodeAudio() && ok;
 
-			if (!ok)
+			if (!ok && m_availableAudioBytes <= 0)
 			{
 				CryLogAlways("No frame ready, might have run into problems or end of file");
 				Stop();
@@ -784,7 +784,7 @@ bool CUIVideoPanel::DecodeVideo()
 
 void CUIVideoPanel::StreamAudio()
 {
-	if (m_pcmBuffer.empty() || !m_streamingBuffer || !m_primaryBuffer)
+	if (!m_streamingBuffer || !m_primaryBuffer)
 		return;
 
 	// check status of primary sound buffer
@@ -816,7 +816,7 @@ void CUIVideoPanel::StreamAudio()
 		m_streamingWriteOffset = 0;
 	}
 
-	if (m_availableAudioBytes >= MAX_QUEUED_AUDIO_BYTES / 2)
+	if (m_availableAudioBytes >= MAX_QUEUED_AUDIO_BYTES / 2 || m_pcmBuffer.empty())
 		return;
 
 	DWORD bytesToWrite = (m_streamingWriteOffset < playPos ? playPos : MAX_QUEUED_AUDIO_BYTES) - m_streamingWriteOffset;
