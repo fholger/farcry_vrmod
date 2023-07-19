@@ -12,11 +12,13 @@ These things may be added later.
 ## Installation
 
 Download and install Far Cry. Then head over to the mod's [Releases](https://github.com/fholger/farcry_vrmod/releases) and
-find the latest release at the top of the page. Under the "Assets" section find and download the `farcry-vrmod-x.y.zip` archive.
-Open it and extract all files into your Far Cry install directory. If you are not sure where it is located,
+find the latest release at the top of the page. Under the "Assets" section find and download the `farcry-vrmod-x.y.exe` installer.
+Open it and install into your Far Cry install directory. If you are not sure where it is located,
 right-click on Far Cry in your Steam library, then select "Manage" -> "Browse local files", and it will show you the game's install location.
 
 Launch the `FarCryVR.bat` to start the game in VR.
+
+Note: the installer is not signed, so Windows will most likely complain about it. You'll have to tell it to execute the installer, anyway.
 
 ## Configuration
 
@@ -25,6 +27,7 @@ The following VR specific options are available:
 
 - `vr_yaw_deadzone_angle` - by default, you can move the mouse a certain distance in the horizontal direction before your view starts to rotate. This is to allow you to aim more precisely without constantly rotating your view. If you do not like this, set it to 0 to disable the deadzone.
 - `vr_render_force_max_terrain_detail` - if enabled (default), will force distant terrain to render at a higher level of detail.
+- `vr_video_disable` - can be used to disable any and all video playback in the mod
 
 You may also be interested in the following base game options to improve the look of the game:
 
@@ -38,10 +41,8 @@ Once in position, go to your desktop and bring up the SteamVR desktop menu and s
 ## Known issues
 
 - The desktop mirror does not display anything beyond the menu or HUD. If you wish to record gameplay, use the SteamVR mirror view, instead.
+- The VR view will not show loading screens or the console. When the game is loading, you may either see emptiness or a frozen image. Have patience :)
 - Distant LOD may under certain viewing angles cause stereo artifacting.
-- Binoculars and possibly other zoomed views are non-functional.
-- Videos are not being played. The Mod SDK does not possess any ability to play video files; I may restore videos later, but it is low priority. If you are playing Far Cry for the first time, be aware that you will miss out on a few video cutscenes throughout the game.
-- The compass has a black rectangular border.
 
 ## Legal notices
 
