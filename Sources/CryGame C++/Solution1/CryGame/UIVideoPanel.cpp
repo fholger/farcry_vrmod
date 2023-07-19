@@ -45,6 +45,7 @@ CUIVideoPanel::CUIVideoPanel()
 	m_soundDevice(0), m_primaryBuffer(0), m_streamingBuffer(0), m_audioCodec(0), m_audioCodecCtx(0), m_audioParams(0), m_swrCtx(0)
 {
 	m_DivX_Active=0;
+	vr_video_disable = nullptr;
 }
 
 ////////////////////////////////////////////////////////////////////// 
@@ -58,6 +59,12 @@ CUIVideoPanel::~CUIVideoPanel()
 string CUIVideoPanel::GetClassName()
 {
 	return UICLASSNAME_VIDEOPANEL;
+}
+
+int CUIVideoPanel::OnInit()
+{
+	vr_video_disable = m_pUISystem->GetISystem()->GetIConsole()->CreateVariable("vr_video_disable", "0", VF_DUMPTODISK, "Set to 1 to disable all video playback");
+	return CUIWidget::OnInit();
 }
 
 ////////////////////////////////////////////////////////////////////// 
@@ -150,6 +157,9 @@ void CUIVideoPanel::ShutdownAudio()
 ////////////////////////////////////////////////////////////////////// 
 int CUIVideoPanel::LoadVideo(const string &szFileName, bool bSound)
 {
+	if (vr_video_disable && vr_video_disable->GetIVal() != 0)
+		return 0;
+
 	CryLogAlways("Attempting to play video %s", szFileName.c_str());
 
 	ReleaseVideo();

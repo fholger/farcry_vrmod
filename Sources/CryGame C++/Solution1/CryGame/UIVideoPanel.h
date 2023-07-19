@@ -54,6 +54,8 @@ public:
 
 	string GetClassName();
 
+	int OnInit() override;
+
 	LRESULT Update(unsigned int iMessage, WPARAM wParam, LPARAM lParam);	//AMD Port
 	int Draw(int iPass);
 
@@ -152,6 +154,8 @@ public:
 	float m_audioTime;
 
 	float GetAudioTime();
+
+	ICVar* vr_video_disable;
 };
 
 #endif
