@@ -87,7 +87,7 @@ int CUIVideoPanel::InitAudio()
 	// create primary buffer
 	DSBUFFERDESC desc = {};
 	desc.dwSize = sizeof(DSBUFFERDESC);
-	desc.dwFlags = DSBCAPS_PRIMARYBUFFER;
+	desc.dwFlags = DSBCAPS_PRIMARYBUFFER; // | DSBCAPS_CTRLVOLUME;
 	if (FAILED(m_soundDevice->CreateSoundBuffer(&desc, &m_primaryBuffer, nullptr)))
 	{
 		CryLogAlways("Failed to create primary sound buffer");
@@ -112,7 +112,7 @@ int CUIVideoPanel::InitAudio()
 
 	// create streaming buffer
 	DWORD bufferBytes = MAX_QUEUED_AUDIO_BYTES;
-	desc.dwFlags = DSBCAPS_CTRLPOSITIONNOTIFY | DSBCAPS_GLOBALFOCUS | DSBCAPS_GETCURRENTPOSITION2;
+	desc.dwFlags = DSBCAPS_GLOBALFOCUS | DSBCAPS_GETCURRENTPOSITION2; // | DSBCAPS_CTRLVOLUME;
 	desc.dwBufferBytes = bufferBytes;
 	desc.lpwfxFormat = &format;
 	if (FAILED(m_soundDevice->CreateSoundBuffer(&desc, &m_streamingBuffer, nullptr)))
@@ -463,28 +463,21 @@ int CUIVideoPanel::IsPaused()
 ////////////////////////////////////////////////////////////////////// 
 int CUIVideoPanel::SetVolume(int iTrackID, float fVolume)
 {
-
-	if (m_DivX_Active){
-		return 1;
-	}
-
-#if !defined(WIN64) && !defined(LINUX) && !defined(NOT_USE_BINK_SDK)
-	if (!m_hBink)
+	if (!m_primaryBuffer)
 	{
-		return 0;
+		InitAudio();
 	}
 
 	if (fVolume < 0.0f)
 	{
 		fVolume = 0.0f;
 	}
+	if (fVolume > 1.0f)
+	{
+		fVolume = 1.0f;
+	}
 
-	BinkSetVolume(m_hBink, iTrackID, (int)(fVolume * 32768));
-
-	return 1;
-#else
-	return 0;
-#endif
+	//m_primaryBuffer->SetVolume(DSBVOLUME_MIN * pow(1.0f - fVolume, 3));
 
 	return 1;
 }
