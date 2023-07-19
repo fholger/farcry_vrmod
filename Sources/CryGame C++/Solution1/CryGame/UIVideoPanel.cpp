@@ -249,7 +249,7 @@ int CUIVideoPanel::LoadVideo(const string &szFileName, bool bSound)
     m_iTextureID = 	m_pUISystem->GetIRenderer()->DownLoadToVideoMemory(m_pSwapBuffer, m_videoCodecCtx->width, m_videoCodecCtx->height, eTF_8888, eTF_8888, 0, 0, FILTER_LINEAR, 0, NULL, FT_DYNAMIC);
 
 	m_videoStartTime = m_pUISystem->GetISystem()->GetITimer()->GetAsyncCurTime();
-	m_audioTime = m_videoStartTime;
+	m_audioTime = 0;
 	m_frameReady = false;
 
 	CryLogAlways("Ready to play video");
@@ -707,7 +707,7 @@ bool CUIVideoPanel::DecodeAudio()
 			// update audio clock with processed packet's pts
 			if (packet->pts != AV_NOPTS_VALUE)
 			{
-				m_audioTime = m_videoStartTime + packet->pts * av_q2d(m_formatCtx->streams[m_audioStreamIdx]->time_base);
+				m_audioTime = packet->pts * av_q2d(m_formatCtx->streams[m_audioStreamIdx]->time_base);
 			}
 			m_queuedAudioBytes -= packet->size;
 			av_packet_unref(packet);
@@ -779,7 +779,7 @@ bool CUIVideoPanel::DecodeVideo()
 	{
 		sws_scale(m_swsCtx, m_rawFrame->data, m_rawFrame->linesize, 0, m_videoCodecCtx->height, m_frame->data, m_frame->linesize);
 		m_frameReady = true;
-		m_frameDisplayTime = m_videoStartTime + m_rawFrame->best_effort_timestamp * av_q2d(m_formatCtx->streams[m_videoStreamIdx]->time_base);
+		m_frameDisplayTime = m_rawFrame->best_effort_timestamp * av_q2d(m_formatCtx->streams[m_videoStreamIdx]->time_base);
 	}
 	else if (result != AVERROR(EAGAIN))
 	{
@@ -844,7 +844,7 @@ void CUIVideoPanel::StreamAudio()
 		// start playing if necessary
 		DWORD status;
 		m_streamingBuffer->GetStatus(&status);
-		if (!(status & DSBSTATUS_PLAYING))
+		if (!(status & DSBSTATUS_PLAYING) && m_availableAudioBytes >= MAX_QUEUED_AUDIO_BYTES / 4)
 		{
 			m_streamingBuffer->Play(0, 0, DSBPLAY_LOOPING);
 		}
@@ -1163,10 +1163,10 @@ int CUIVideoPanel::EnableAudio(IFunctionHandler *pH)
 
 float CUIVideoPanel::GetAudioTime()
 {
-	if (!m_audioCodecCtx)
+	if (!m_audioCodecCtx || m_audioTime <= 2.f)
 	{
-		// if we don't have an audio track, fall back to system clock
-		return m_pUISystem->GetISystem()->GetITimer()->GetAsyncCurTime();
+		// if we don't have an audio track or are still in the process of starting, fall back to system clock
+		return m_pUISystem->GetISystem()->GetITimer()->GetAsyncCurTime() - m_videoStartTime;
 	}
 
 	int remainingAudioBytes = m_availableAudioBytes + m_pcmBuffer.size();
