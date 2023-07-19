@@ -136,7 +136,7 @@
     </ClCompile>
     <Link>
       <AdditionalOptions>/MACHINE:I386 %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>d3d9.lib;dsound.lib;openvr_api.lib;avcodec.lib;avformat.lib;avutil.lib;swscale.lib;Shlwapi.lib;wininet.lib;Wsock32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>d3d9.lib;dsound.lib;openvr_api.lib;avcodec.lib;avformat.lib;avutil.lib;swscale.lib;swresample.lib;Shlwapi.lib;wininet.lib;Wsock32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <AdditionalLibraryDirectories>..\..\..\ThirdParty\dxvk\lib;..\..\..\ThirdParty\openvr\lib\win32;..\..\..\ThirdParty\ffmpeg\lib;..\BinkSDK;..\CryNetwork\Debug;.\..\ubisoft.com\GSServices\sdks/gs-sdk-regserver/lib_win32;.\..\ubisoft.com\GSServices\sdks/gs-sdk-msclient/lib_win32;.\..\ubisoft.com\GSServices\sdks/gs-sdk-common/lib_win32;.\..\ubisoft.com\GSServices\sdks/gs-sdk-base/lib_win32;..\ubisoft.com\GSServices\sdks\gs-sdk-cdkey\lib_win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries>libcmt.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
@@ -190,7 +190,7 @@
     </ClCompile>
     <Link>
       <AdditionalOptions>/MACHINE:I386 %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>d3d9.lib;dsound.lib;openvr_api.lib;avcodec.lib;avformat.lib;avutil.lib;swscale.lib;Shlwapi.lib;wininet.lib;Ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>d3d9.lib;dsound.lib;openvr_api.lib;avcodec.lib;avformat.lib;avutil.lib;swscale.lib;swresample.lib;Shlwapi.lib;wininet.lib;Ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>.\Release/CryGame.dll</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <AdditionalLibraryDirectories>..\..\..\ThirdParty\dxvk\lib;..\..\..\ThirdParty\openvr\lib\win32;..\..\..\ThirdParty\ffmpeg\lib;..\BinkSDK;..\CryNetwork\Release;.\..\ubisoft.com\GSServices\sdks/gs-sdk-regserver/lib_win32;.\..\ubisoft.com\GSServices\sdks/gs-sdk-msclient/lib_win32;.\..\ubisoft.com\GSServices\sdks/gs-sdk-common/lib_win32;.\..\ubisoft.com\GSServices\sdks/gs-sdk-base/lib_win32;..\ubisoft.com\GSServices\sdks\gs-sdk-cdkey\lib_win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -243,7 +243,7 @@
     </ClCompile>
     <Link>
       <AdditionalOptions>/MACHINE:I386 /OPT:ref,icf %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>d3d9.lib;dsound.lib;openvr_api.lib;avcodec.lib;avformat.lib;avutil.lib;swscale.lib;Shlwapi.lib;wininet.lib;Ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>d3d9.lib;dsound.lib;openvr_api.lib;avcodec.lib;avformat.lib;avutil.lib;swscale.lib;swresample.lib;Shlwapi.lib;wininet.lib;Ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <AdditionalLibraryDirectories>..\..\..\ThirdParty\dxvk\lib;..\..\..\ThirdParty\openvr\lib\win32;..\..\..\ThirdParty\ffmpeg\lib;..\BinkSDK;..\CryNetwork\Release;.\..\ubisoft.com\GSServices\sdks/gs-sdk-regserver/lib_win32;.\..\ubisoft.com\GSServices\sdks/gs-sdk-msclient/lib_win32;.\..\ubisoft.com\GSServices\sdks/gs-sdk-result/lib_win32;.\..\ubisoft.com\GSServices\sdks/gs-sdk-cdkey/lib_win32;.\..\ubisoft.com\GSServices\sdks/gs-sdk-common/lib_win32;.\..\ubisoft.com\GSServices\sdks/gs-sdk-base/lib_win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
@@ -290,7 +290,7 @@
     </ClCompile>
     <Link>
       <AdditionalOptions>/MACHINE:AMD64 %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>d3d9.lib;dsound.lib;openvr_api.lib;avcodec.lib;avformat.lib;avutil.lib;swscale.lib;Shlwapi.lib;wininet.lib;Ws2_32.lib;../CryCommon/fSinCos64.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>d3d9.lib;dsound.lib;openvr_api.lib;avcodec.lib;avformat.lib;avutil.lib;swscale.lib;swresample.lib;Shlwapi.lib;wininet.lib;Ws2_32.lib;../CryCommon/fSinCos64.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(ProjectName).dll</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <IgnoreSpecificDefaultLibraries>libcmt.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
@@ -341,7 +341,7 @@
       <CompileAs>Default</CompileAs>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>d3d9.lib;dsound.lib;openvr_api.lib;avcodec.lib;avformat.lib;avutil.lib;swscale.lib;Shlwapi.lib;wininet.lib;Ws2_32.lib;../CryCommon/fSinCos64.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>d3d9.lib;dsound.lib;openvr_api.lib;avcodec.lib;avformat.lib;avutil.lib;swscale.lib;swresample.lib;Shlwapi.lib;wininet.lib;Ws2_32.lib;../CryCommon/fSinCos64.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(ProjectName).dll</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <IgnoreSpecificDefaultLibraries>libcmt.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>

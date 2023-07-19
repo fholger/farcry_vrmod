@@ -22,6 +22,8 @@ extern "C" {
 #include <libavformat/avformat.h>
 #include <libswscale/swscale.h>
 #include <libavutil/imgutils.h>
+#include <libswresample/swresample.h>
+#include <libavutil/opt.h>
 }
 
 _DECLARE_SCRIPTABLEEX(CUIVideoPanel)
@@ -29,8 +31,6 @@ _DECLARE_SCRIPTABLEEX(CUIVideoPanel)
 //////////////////////////////////////////////////////////////////////
 static bool g_ffmpegInit = false;
 
-constexpr DWORD kBufferSize = 32768;
-constexpr DWORD kNumBuffers = 3;
 constexpr int MAX_QUEUED_VIDEO_BYTES = 1024 * 1024;
 constexpr int MAX_QUEUED_AUDIO_BYTES = 64 * 1024;
 
@@ -42,7 +42,7 @@ CUIVideoPanel::CUIVideoPanel()
 #endif
 	m_bLooping(1), m_bPlaying(0), m_bPaused(0), m_iTextureID(-1), m_pSwapBuffer(0), m_szVideoFile(""), m_bKeepAspect(1),
 	m_formatCtx(0), m_videoCodec(0), m_videoParams(0), m_videoCodecCtx(0), m_rawFrame(0), m_frame(0), m_frameReady(false), m_swsCtx(0),
-	m_soundDevice(0), m_primaryBuffer(0), m_streamingBuffer(0), m_audioCodec(0), m_audioCodecCtx(0), m_audioParams(0)
+	m_soundDevice(0), m_primaryBuffer(0), m_streamingBuffer(0), m_audioCodec(0), m_audioCodecCtx(0), m_audioParams(0), m_swrCtx(0)
 {
 	m_DivX_Active=0;
 }
@@ -111,7 +111,7 @@ int CUIVideoPanel::InitAudio()
 	}
 
 	// create streaming buffer
-	DWORD bufferBytes = kBufferSize * kNumBuffers;
+	DWORD bufferBytes = MAX_QUEUED_AUDIO_BYTES;
 	desc.dwFlags = DSBCAPS_CTRLPOSITIONNOTIFY | DSBCAPS_GLOBALFOCUS | DSBCAPS_GETCURRENTPOSITION2;
 	desc.dwBufferBytes = bufferBytes;
 	desc.lpwfxFormat = &format;
@@ -258,6 +258,15 @@ int CUIVideoPanel::LoadVideo(const string &szFileName, bool bSound)
 		return 1;
 	}
 
+	m_swrCtx = swr_alloc();
+	av_opt_set_int(m_swrCtx, "in_channel_layout", m_audioCodecCtx->channel_layout, 0);
+	av_opt_set_int(m_swrCtx, "in_sample_rate", m_audioCodecCtx->sample_rate, 0);
+	av_opt_set_sample_fmt(m_swrCtx, "in_sample_fmt", m_audioCodecCtx->sample_fmt, 0);
+	av_opt_set_int(m_swrCtx, "out_channel_layout", AV_CH_LAYOUT_STEREO, 0);
+	av_opt_set_int(m_swrCtx, "out_sample_rate", 44100, 0);
+	av_opt_set_sample_fmt(m_swrCtx, "out_sample_fmt", AV_SAMPLE_FMT_S16, 0);
+	swr_init(m_swrCtx);
+
 	return 1;
 }
 
@@ -273,6 +282,7 @@ LRESULT CUIVideoPanel::Update(unsigned int iMessage, WPARAM wParam, LPARAM lPara
 			// handle video playback
 			bool ok = ReadVideo();
 			ok = ok && DecodeVideo();
+			ok = ok && DecodeAudio();
 
 			if (!ok)
 			{
@@ -290,11 +300,10 @@ LRESULT CUIVideoPanel::Update(unsigned int iMessage, WPARAM wParam, LPARAM lPara
 					m_frameReady = false;
 				}
 			}
+
+			StreamAudio();
 		}
-
-		return CUISystem::DefaultUpdate(this, iMessage, wParam, lParam);
 	}
-
 
 	return CUISystem::DefaultUpdate(this, iMessage, wParam, lParam);
 }
@@ -324,9 +333,13 @@ int CUIVideoPanel::Play()
 ////////////////////////////////////////////////////////////////////// 
 int CUIVideoPanel::Stop()
 {
-	if (!m_formatCtx)
+	if (m_streamingBuffer)
 	{
-		return 0;
+		m_streamingBuffer->Stop();
+	}
+	if (m_primaryBuffer)
+	{
+		m_primaryBuffer->Stop();
 	}
 	m_bPaused = 0;
 	m_bPlaying = 0;
@@ -336,6 +349,12 @@ int CUIVideoPanel::Stop()
 ////////////////////////////////////////////////////////////////////// 
 int CUIVideoPanel::ReleaseVideo()
 {
+	if (m_streamingBuffer)
+	{
+		m_streamingBuffer->Stop();
+		m_streamingBuffer->SetCurrentPosition(0);
+	}
+	m_streamingWriteOffset = 0;
 	while (!m_queuedVideoPackets.empty())
 	{
 		av_packet_unref(&m_queuedVideoPackets.front());
@@ -348,7 +367,14 @@ int CUIVideoPanel::ReleaseVideo()
 		m_queuedAudioPackets.pop();
 	}
 	m_queuedAudioBytes = 0;
+	m_availableAudioBytes = 0;
+	m_lastPlayPosition = 0;
+	m_pcmBuffer.clear();
 
+	if (m_swrCtx)
+	{
+		swr_free(&m_swrCtx);
+	}
 	if (m_swsCtx)
 	{
 		sws_freeContext(m_swsCtx);
@@ -637,13 +663,11 @@ bool CUIVideoPanel::ReadVideo()
 	{
 		if (packet.stream_index == m_videoStreamIdx)
 		{
-			CryLogAlways("Queuing video packet");
 			m_queuedVideoPackets.push(packet);
 			m_queuedVideoBytes += packet.size;
 		}
 		else if (packet.stream_index == m_audioStreamIdx)
 		{
-			CryLogAlways("Queuing audio packet");
 			m_queuedAudioPackets.push(packet);
 			m_queuedAudioBytes += packet.size;
 		}
@@ -663,6 +687,13 @@ bool CUIVideoPanel::ReadVideo()
 
 bool CUIVideoPanel::DecodeAudio()
 {
+	if (!m_audioCodecCtx)
+		return true;
+
+	if (m_pcmBuffer.size() >= MAX_QUEUED_AUDIO_BYTES)
+		return true;
+	CryLogAlways("PCM buffer at %ul", m_pcmBuffer.size());
+
 	while (!m_queuedAudioPackets.empty())
 	{
 		AVPacket* packet = &m_queuedAudioPackets.front();
@@ -672,6 +703,7 @@ bool CUIVideoPanel::DecodeAudio()
 			m_queuedAudioBytes -= packet->size;
 			av_packet_unref(packet);
 			m_queuedAudioPackets.pop();
+			CryLogAlways("Successfully sent audio packet, remaining queued bytes: %i", m_queuedAudioBytes);
 		}
 		else if (result == AVERROR(EAGAIN))
 		{
@@ -684,6 +716,25 @@ bool CUIVideoPanel::DecodeAudio()
 			return false;
 		}
 	}
+
+	int result = avcodec_receive_frame(m_audioCodecCtx, m_rawFrame);
+	if (result == 0)
+	{
+		CryLogAlways("Successfully decoded an audio frame");
+		size_t bufferSize = av_samples_get_buffer_size(nullptr, 2, m_rawFrame->nb_samples, AV_SAMPLE_FMT_S16, 0);
+		m_pcmBuffer.resize(m_pcmBuffer.size() + bufferSize);
+		uint8_t* buffer = &m_pcmBuffer[m_pcmBuffer.size() - bufferSize];
+		swr_convert(m_swrCtx, &buffer, bufferSize / (2 * av_get_bytes_per_sample(AV_SAMPLE_FMT_S16)),
+			const_cast<const uint8_t**>(m_rawFrame->extended_data), m_rawFrame->nb_samples);
+		m_nextAudioTime = m_videoStartTime + m_rawFrame->best_effort_timestamp * av_q2d(m_formatCtx->streams[m_audioStreamIdx]->time_base);
+	}
+	else if (result != AVERROR(EAGAIN))
+	{
+		// error occurred during decoding, or EOF
+		return false;
+	}
+
+	return true;
 }
 
 bool CUIVideoPanel::DecodeVideo()
@@ -729,6 +780,91 @@ bool CUIVideoPanel::DecodeVideo()
 	}
 
 	return true;
+}
+
+void CUIVideoPanel::StreamAudio()
+{
+	if (m_pcmBuffer.empty() || !m_streamingBuffer || !m_primaryBuffer)
+		return;
+
+	// check status of primary sound buffer
+	DWORD status;
+	m_primaryBuffer->GetStatus(&status);
+	if (!(status & DSBSTATUS_PLAYING))
+	{
+		CryLogAlways("Primary buffer was not playing, starting");
+		m_primaryBuffer->Play(0, 0, DSBPLAY_LOOPING);
+	}
+	if (status & DSBSTATUS_BUFFERLOST)
+	{
+		CryLogAlways("Lost primary sound buffer, trying to restore");
+		m_primaryBuffer->Restore();
+	}
+
+	DWORD playPos;
+	m_streamingBuffer->GetCurrentPosition(&playPos, nullptr);
+	if (m_lastPlayPosition <= playPos)
+		m_availableAudioBytes -= (playPos - m_lastPlayPosition);
+	else
+		m_availableAudioBytes -= (MAX_QUEUED_AUDIO_BYTES - m_lastPlayPosition + playPos);
+	m_lastPlayPosition = playPos;
+	if (m_streamingWriteOffset == MAX_QUEUED_AUDIO_BYTES)
+		m_streamingWriteOffset = 0;
+	if (m_availableAudioBytes < 0)
+	{
+		m_streamingBuffer->SetCurrentPosition(0);
+		m_streamingWriteOffset = 0;
+	}
+
+	if (m_availableAudioBytes >= MAX_QUEUED_AUDIO_BYTES / 2)
+		return;
+
+	DWORD bytesToWrite = (m_streamingWriteOffset < playPos ? playPos : MAX_QUEUED_AUDIO_BYTES) - m_streamingWriteOffset;
+	bytesToWrite = min(bytesToWrite, m_pcmBuffer.size());
+
+	void* buf1, * buf2;
+	DWORD size1, size2;
+	CryLogAlways("Trying to lock streaming buffer at offset %d to write %d bytes of data", m_streamingWriteOffset, bytesToWrite);
+	HRESULT result = m_streamingBuffer->Lock(m_streamingWriteOffset, bytesToWrite, &buf1, &size1, &buf2, &size2, 0);
+	if (result == DS_OK)
+	{
+		CryLogAlways("Copying %d bytes of audio data", size1);
+		memcpy(buf1, &m_pcmBuffer[0], size1);
+		m_streamingWriteOffset += size1;
+		m_streamingBuffer->Unlock(buf1, size1, buf2, size2);
+		m_pcmBuffer.erase(m_pcmBuffer.begin(), m_pcmBuffer.begin() + size1);
+		m_availableAudioBytes += size1;
+
+		// start playing if necessary
+		DWORD status;
+		m_streamingBuffer->GetStatus(&status);
+		if (!(status & DSBSTATUS_PLAYING))
+		{
+			m_streamingBuffer->Play(0, 0, DSBPLAY_LOOPING);
+		}
+	}
+	else if (result == DSERR_BUFFERLOST)
+	{
+		CryLogAlways("Lost streaming sound buffer, trying to restore");
+		m_streamingBuffer->Restore();
+		m_streamingWriteOffset = 0;
+	}
+	else if (result == DSERR_PRIOLEVELNEEDED)
+	{
+		CryLogAlways("Prio level needed");
+	}
+	else if (result == DSERR_INVALIDPARAM)
+	{
+		CryLogAlways("Invalid param");
+	}
+	else if (result == DSERR_INVALIDCALL)
+	{
+		CryLogAlways("Invalid call");
+	}
+	else
+	{
+		CryLogAlways("Unknown error when locking streaming buffer");
+	}
 }
 
 ////////////////////////////////////////////////////////////////////// 

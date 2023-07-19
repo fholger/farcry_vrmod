@@ -38,6 +38,7 @@ struct AVCodecParameters;
 struct AVCodecContext;
 struct AVFrame;
 struct SwsContext;
+struct SwrContext;
 
 //////////////////////////////////////////////////////////////////////
 class CUIVideoPanel : public CUIWidget, public _ScriptableEx<CUIVideoPanel>
@@ -59,6 +60,7 @@ public:
 	bool ReadVideo();
 	bool DecodeAudio();
 	bool DecodeVideo();
+	void StreamAudio();
 
 	int InitAudio();
 	void ShutdownAudio();
@@ -132,6 +134,7 @@ public:
 	LPDIRECTSOUND8 m_soundDevice;
 	LPDIRECTSOUNDBUFFER m_primaryBuffer;
 	LPDIRECTSOUNDBUFFER m_streamingBuffer;
+	DWORD m_streamingWriteOffset;
 
 	int m_audioStreamIdx;
 	const AVCodec* m_audioCodec;
@@ -142,6 +145,12 @@ public:
 	int m_queuedVideoBytes;
 	std::queue<AVPacket> m_queuedAudioPackets;
 	int m_queuedAudioBytes;
+	SwrContext* m_swrCtx;
+	std::vector<uint8_t> m_pcmBuffer;
+	int m_availableAudioBytes;
+	DWORD m_lastPlayPosition;
+	float m_audioTime;
+	float m_nextAudioTime;
 };
 
 #endif
