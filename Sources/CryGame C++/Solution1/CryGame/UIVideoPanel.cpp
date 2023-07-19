@@ -692,7 +692,6 @@ bool CUIVideoPanel::DecodeAudio()
 
 	if (m_pcmBuffer.size() >= MAX_QUEUED_AUDIO_BYTES)
 		return true;
-	CryLogAlways("PCM buffer at %ul", m_pcmBuffer.size());
 
 	while (!m_queuedAudioPackets.empty())
 	{
@@ -703,7 +702,6 @@ bool CUIVideoPanel::DecodeAudio()
 			m_queuedAudioBytes -= packet->size;
 			av_packet_unref(packet);
 			m_queuedAudioPackets.pop();
-			CryLogAlways("Successfully sent audio packet, remaining queued bytes: %i", m_queuedAudioBytes);
 		}
 		else if (result == AVERROR(EAGAIN))
 		{
@@ -720,7 +718,6 @@ bool CUIVideoPanel::DecodeAudio()
 	int result = avcodec_receive_frame(m_audioCodecCtx, m_rawFrame);
 	if (result == 0)
 	{
-		CryLogAlways("Successfully decoded an audio frame");
 		size_t bufferSize = av_samples_get_buffer_size(nullptr, 2, m_rawFrame->nb_samples, AV_SAMPLE_FMT_S16, 0);
 		m_pcmBuffer.resize(m_pcmBuffer.size() + bufferSize);
 		uint8_t* buffer = &m_pcmBuffer[m_pcmBuffer.size() - bufferSize];
@@ -824,11 +821,9 @@ void CUIVideoPanel::StreamAudio()
 
 	void* buf1, * buf2;
 	DWORD size1, size2;
-	CryLogAlways("Trying to lock streaming buffer at offset %d to write %d bytes of data", m_streamingWriteOffset, bytesToWrite);
 	HRESULT result = m_streamingBuffer->Lock(m_streamingWriteOffset, bytesToWrite, &buf1, &size1, &buf2, &size2, 0);
 	if (result == DS_OK)
 	{
-		CryLogAlways("Copying %d bytes of audio data", size1);
 		memcpy(buf1, &m_pcmBuffer[0], size1);
 		m_streamingWriteOffset += size1;
 		m_streamingBuffer->Unlock(buf1, size1, buf2, size2);
@@ -849,21 +844,9 @@ void CUIVideoPanel::StreamAudio()
 		m_streamingBuffer->Restore();
 		m_streamingWriteOffset = 0;
 	}
-	else if (result == DSERR_PRIOLEVELNEEDED)
-	{
-		CryLogAlways("Prio level needed");
-	}
-	else if (result == DSERR_INVALIDPARAM)
-	{
-		CryLogAlways("Invalid param");
-	}
-	else if (result == DSERR_INVALIDCALL)
-	{
-		CryLogAlways("Invalid call");
-	}
 	else
 	{
-		CryLogAlways("Unknown error when locking streaming buffer");
+		CryLogAlways("Unknown error when locking streaming buffer: %i", result);
 	}
 }
 
