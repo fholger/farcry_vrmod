@@ -94,7 +94,7 @@ int CUIVideoPanel::InitAudio()
 	// create primary buffer
 	DSBUFFERDESC desc = {};
 	desc.dwSize = sizeof(DSBUFFERDESC);
-	desc.dwFlags = DSBCAPS_PRIMARYBUFFER; // | DSBCAPS_CTRLVOLUME;
+	desc.dwFlags = DSBCAPS_PRIMARYBUFFER;
 	if (FAILED(m_soundDevice->CreateSoundBuffer(&desc, &m_primaryBuffer, nullptr)))
 	{
 		CryLogAlways("Failed to create primary sound buffer");
@@ -119,7 +119,7 @@ int CUIVideoPanel::InitAudio()
 
 	// create streaming buffer
 	DWORD bufferBytes = MAX_QUEUED_AUDIO_BYTES;
-	desc.dwFlags = DSBCAPS_GLOBALFOCUS | DSBCAPS_GETCURRENTPOSITION2; // | DSBCAPS_CTRLVOLUME;
+	desc.dwFlags = DSBCAPS_GLOBALFOCUS | DSBCAPS_GETCURRENTPOSITION2 | DSBCAPS_CTRLVOLUME;
 	desc.dwBufferBytes = bufferBytes;
 	desc.lpwfxFormat = &format;
 	if (FAILED(m_soundDevice->CreateSoundBuffer(&desc, &m_streamingBuffer, nullptr)))
@@ -473,21 +473,27 @@ int CUIVideoPanel::IsPaused()
 ////////////////////////////////////////////////////////////////////// 
 int CUIVideoPanel::SetVolume(int iTrackID, float fVolume)
 {
-	if (!m_primaryBuffer)
+	if (!m_streamingBuffer)
 	{
 		InitAudio();
 	}
 
-	if (fVolume < 0.0f)
+	if (fVolume < 0.001f)
 	{
-		fVolume = 0.0f;
+		fVolume = 0.001f;
 	}
 	if (fVolume > 1.0f)
 	{
 		fVolume = 1.0f;
 	}
 
-	//m_primaryBuffer->SetVolume(DSBVOLUME_MIN * pow(1.0f - fVolume, 3));
+	float dBValue = 20 * log10f(fVolume);
+	CryLogAlways("Setting audio volume to %.2f dB attenuation (%.2f)", dBValue, fVolume);
+	HRESULT hr = m_streamingBuffer->SetVolume(dBValue * 100);
+	if (FAILED(hr))
+	{
+		CryLogAlways("Setting volume failed: %i", hr);
+	}
 
 	return 1;
 }
