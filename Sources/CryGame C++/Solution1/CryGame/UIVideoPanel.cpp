@@ -239,6 +239,7 @@ int CUIVideoPanel::LoadVideo(const string &szFileName, bool bSound)
     m_iTextureID = 	m_pUISystem->GetIRenderer()->DownLoadToVideoMemory(m_pSwapBuffer, m_videoCodecCtx->width, m_videoCodecCtx->height, eTF_8888, eTF_8888, 0, 0, FILTER_LINEAR, 0, NULL, FT_DYNAMIC);
 
 	m_videoStartTime = m_pUISystem->GetISystem()->GetITimer()->GetAsyncCurTime();
+	m_audioTime = m_videoStartTime;
 	m_frameReady = false;
 
 	CryLogAlways("Ready to play video");
@@ -291,8 +292,9 @@ LRESULT CUIVideoPanel::Update(unsigned int iMessage, WPARAM wParam, LPARAM lPara
 				OnFinished();
 			}
 
-			float curTime = m_pUISystem->GetISystem()->GetITimer()->GetAsyncCurTime();
-			if (m_frameReady && curTime >= m_frameDisplayTime)
+			// we sync video playback with the audio time to keep them in sync. It's the simplest thing we can do...
+			float currentTime = GetAudioTime();
+			if (m_frameReady && currentTime >= m_frameDisplayTime)
 			{
 				if (m_iTextureID > -1)
 				{
@@ -699,6 +701,11 @@ bool CUIVideoPanel::DecodeAudio()
 		int result = avcodec_send_packet(m_audioCodecCtx, packet);
 		if (result == 0)
 		{
+			// update audio clock with processed packet's pts
+			if (packet->pts != AV_NOPTS_VALUE)
+			{
+				m_audioTime = m_videoStartTime + packet->pts * av_q2d(m_formatCtx->streams[m_audioStreamIdx]->time_base);
+			}
 			m_queuedAudioBytes -= packet->size;
 			av_packet_unref(packet);
 			m_queuedAudioPackets.pop();
@@ -723,7 +730,8 @@ bool CUIVideoPanel::DecodeAudio()
 		uint8_t* buffer = &m_pcmBuffer[m_pcmBuffer.size() - bufferSize];
 		swr_convert(m_swrCtx, &buffer, bufferSize / (2 * av_get_bytes_per_sample(AV_SAMPLE_FMT_S16)),
 			const_cast<const uint8_t**>(m_rawFrame->extended_data), m_rawFrame->nb_samples);
-		m_nextAudioTime = m_videoStartTime + m_rawFrame->best_effort_timestamp * av_q2d(m_formatCtx->streams[m_audioStreamIdx]->time_base);
+
+		m_audioTime += m_rawFrame->nb_samples / (double)m_audioCodecCtx->sample_rate;
 	}
 	else if (result != AVERROR(EAGAIN))
 	{
@@ -1148,4 +1156,19 @@ int CUIVideoPanel::EnableAudio(IFunctionHandler *pH)
 	EnableAudio(iEnable != 0);
 	
 	return pH->EndFunction(1);
+}
+
+float CUIVideoPanel::GetAudioTime()
+{
+	if (!m_audioCodecCtx)
+	{
+		// if we don't have an audio track, fall back to system clock
+		return m_pUISystem->GetISystem()->GetITimer()->GetAsyncCurTime();
+	}
+
+	int remainingAudioBytes = m_availableAudioBytes + m_pcmBuffer.size();
+	int bytesPerSec = 44100 * 2 * sizeof(int16_t);
+
+	// m_audioTime is estimated time at the end of all processed data, need to subtract the amount that hasn't been played, yet
+	return m_audioTime - (float)remainingAudioBytes / bytesPerSec;
 }

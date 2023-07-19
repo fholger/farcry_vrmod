@@ -150,7 +150,8 @@ public:
 	int m_availableAudioBytes;
 	DWORD m_lastPlayPosition;
 	float m_audioTime;
-	float m_nextAudioTime;
+
+	float GetAudioTime();
 };
 
 #endif
