@@ -2314,6 +2314,19 @@ void CPlayer::ProcessWeapons(CXEntityProcessingCmd &cmd)
 	if (m_bWriteOccured) m_bWriteOccured = false;
 }
 
+void CPlayer::ProcessRoomscaleMovement(const Matrix34& hmdTransform)
+{
+	Ang3 hmdAngles;
+	hmdAngles.SetAnglesXYZ((Matrix33)hmdTransform);
+
+	Ang3 angles = m_pEntity->GetAngles();
+	angles.z = Snap_s180(angles.z + RAD2DEG(hmdAngles.z));
+	m_pEntity->SetAngles(angles);
+
+	Matrix33 playerTransform;
+	playerTransform.SetRotationXYZ(angles);
+}
+
 //////////////////////////////////////////////////////////////////////////
 void CPlayer::FireGrenade(const Vec3d &origin, const Vec3d &angles, IEntity *pIShooter)
 {

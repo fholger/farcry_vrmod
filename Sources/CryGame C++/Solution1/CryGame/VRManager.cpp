@@ -382,8 +382,21 @@ void VRManager::GetEffectiveRenderLimits(int eye, float* left, float* right, flo
 
 void VRManager::ProcessInput()
 {
-	if (m_inputReady && vr_enable_motion_controllers)
-		m_input.ProcessInput();
+	if (!m_inputReady || !vr_enable_motion_controllers)
+		return;
+
+	m_input.ProcessInput();
+	CPlayer* player = m_pGame->GetLocalPlayer();
+	if (player)
+	{
+		player->ProcessRoomscaleMovement(m_hmdTransform);
+		// update reference position
+		Ang3 angles;
+		angles.SetAnglesXYZ((Matrix33)m_hmdTransform);
+		m_referenceYaw += angles.z;
+
+		UpdateHmdTransform();
+	}
 }
 
 void VRManager::InitDevice(IDirect3DDevice9Ex* device)
