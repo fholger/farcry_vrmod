@@ -37,6 +37,7 @@ private:
 
 	CXGame* m_pGame;
 	bool m_initialized = false;
+	bool m_inputReady = false;
 	D3DResources* m_d3d = nullptr;
 	vr::TrackedDevicePose_t m_headPose;
 	vr::VROverlayHandle_t m_hudOverlay;
@@ -52,6 +53,7 @@ private:
 
 	float vr_yaw_deadzone_angle;
 	int vr_render_force_max_terrain_detail;
+	int vr_enable_motion_controllers;
 	ICVar* e_terrain_lod_ratio = nullptr;
 	void RegisterCVars();
 

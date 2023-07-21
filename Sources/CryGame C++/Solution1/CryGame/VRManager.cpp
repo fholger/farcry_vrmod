@@ -99,8 +99,7 @@ bool VRManager::Init(CXGame *game)
 
 	RegisterCVars();
 
-	// TODO: deal with return value
-	m_input.Init(game);
+	m_inputReady = m_input.Init(game);
 
 	m_initialized = true;
 	return true;
@@ -377,7 +376,8 @@ void VRManager::GetEffectiveRenderLimits(int eye, float* left, float* right, flo
 
 void VRManager::ProcessInput()
 {
-	m_input.ProcessInput();
+	if (m_inputReady && vr_enable_motion_controllers)
+		m_input.ProcessInput();
 }
 
 void VRManager::InitDevice(IDirect3DDevice9Ex* device)
@@ -418,6 +418,7 @@ void VRManager::RegisterCVars()
 {
 	IConsole* console = m_pGame->GetSystem()->GetIConsole();
 	console->Register("vr_yaw_deadzone_angle", &vr_yaw_deadzone_angle, 30, VF_DUMPTODISK, "Controls the deadzone angle in front of the player where weapon aim does not rotate the camera");
+	console->Register("vr_enable_motion_controllers", &vr_enable_motion_controllers, 0, VF_DUMPTODISK, "Enable this to use VR motion controllers instead of keyboard+mouse");
 	console->Register("vr_render_force_max_terrain_detail", &vr_render_force_max_terrain_detail, 1, VF_DUMPTODISK, "If enabled, will force terrain to render at max detail even in the distance");
 
 	e_terrain_lod_ratio = console->GetCVar("e_terrain_lod_ratio");
