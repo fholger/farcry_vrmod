@@ -101,6 +101,9 @@ bool VRManager::Init(CXGame *game)
 
 	m_inputReady = m_input.Init(game);
 
+	m_referencePosition = Vec3(0, 0, 0);
+	m_referenceYaw = 0;
+
 	m_initialized = true;
 	return true;
 }
@@ -125,6 +128,8 @@ void VRManager::AwaitFrame()
 	dxvkLockSubmissionQueue(m_d3d->device.Get(), false);
 	vr::VRCompositor()->WaitGetPoses(&m_headPose, 1, nullptr, 0);
 	dxvkReleaseSubmissionQueue(m_d3d->device.Get());
+
+	UpdateHmdTransform();
 }
 
 void VRManager::CaptureEye(int eye)
@@ -342,7 +347,7 @@ void VRManager::ModifyViewCamera(int eye, CCamera& cam)
 
 	vr::HmdMatrix34_t eyeMatVR = vr::VRSystem()->GetEyeToHeadTransform(eye == 0 ? vr::Eye_Left : vr::Eye_Right);
 	Matrix34 eyeMat = OpenVRToFarCry(eyeMatVR);
-	Matrix34 headMat = OpenVRToFarCry(m_headPose.mDeviceToAbsoluteTracking);
+	Matrix34 headMat = m_hmdTransform;
 	viewMat = viewMat * headMat * eyeMat;
 
 	position = viewMat.GetTranslation();
@@ -426,4 +431,16 @@ void VRManager::RegisterCVars()
 
 	// disable motion blur, as it does not work properly in VR
 	console->GetCVar("r_MotionBlur")->ForceSet("0");
+}
+
+void VRManager::UpdateHmdTransform()
+{
+	Ang3 refAngles(0, 0, m_referenceYaw);
+	Matrix33 refTransform;
+	refTransform.SetRotationXYZ(refAngles);
+	refTransform.Transpose();
+
+	Matrix34 rawHmdTransform = OpenVRToFarCry(m_headPose.mDeviceToAbsoluteTracking);
+	rawHmdTransform.SetTranslation(rawHmdTransform.GetTranslation() - m_referencePosition);
+	m_hmdTransform = refTransform * rawHmdTransform;
 }
