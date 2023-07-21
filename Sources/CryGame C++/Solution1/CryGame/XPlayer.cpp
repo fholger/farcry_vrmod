@@ -31,6 +31,8 @@
 // to use _isnan()
 #include <float.h>
 
+#include "VRManager.h"
+
 //////////////////////////////////////////////////////////////////////
 //! Minimal time before player can be alive again.
 #define PLAYER_RESPAWN_TIME 1.0f
@@ -1730,7 +1732,7 @@ void CPlayer::ProcessMovements(CXEntityProcessingCmd &cmd, bool bScheduled)
 
 		bMoveF=true;
 		float fFwd=1.0f;
-		if (m_pGame->cl_use_joypad->GetIVal())
+		if (m_pGame->cl_use_joypad->GetIVal() || gVR->UseMotionControllers())
 			fFwd=cmd.GetMoveFwd();
 
 		if(m_stats.onLadder)	// when on ladder - move mostly UP/DOWN
@@ -1773,7 +1775,7 @@ void CPlayer::ProcessMovements(CXEntityProcessingCmd &cmd, bool bScheduled)
 
 		bMoveB=true;
 		float fBack=1.0f;
-		if (m_pGame->cl_use_joypad->GetIVal())			
+		if (m_pGame->cl_use_joypad->GetIVal() || gVR->UseMotionControllers())
 			fBack=cmd.GetMoveBack();
 
 		//FIXME: would be nice if backward key detach us from the ladder when we approach the ground (instead use the jump button), but for this
@@ -1813,7 +1815,7 @@ void CPlayer::ProcessMovements(CXEntityProcessingCmd &cmd, bool bScheduled)
 	{	
 		bMoveL=true;
 		float fLR=1.0f;
-		if (m_pGame->cl_use_joypad->GetIVal())
+		if (m_pGame->cl_use_joypad->GetIVal() || gVR->UseMotionControllers())
 			fLR=cmd.GetMoveLeft();		
 
 		{
@@ -1827,7 +1829,7 @@ void CPlayer::ProcessMovements(CXEntityProcessingCmd &cmd, bool bScheduled)
 	{			
 		bMoveR=true;
 		float fLR=1.0f;
-		if (m_pGame->cl_use_joypad->GetIVal())
+		if (m_pGame->cl_use_joypad->GetIVal() || gVR->UseMotionControllers())
 			fLR=cmd.GetMoveRight();		
 
 		{
@@ -1933,7 +1935,7 @@ void CPlayer::ProcessMovements(CXEntityProcessingCmd &cmd, bool bScheduled)
 		inputspeed *= fSpeedScale;
 
 		// Resolve analog movement magnitudes
-		if (m_pGame->cl_use_joypad->GetIVal())
+		if (m_pGame->cl_use_joypad->GetIVal() || gVR->UseMotionControllers())
 		{		
 			float fMoveMag=0;
 			{

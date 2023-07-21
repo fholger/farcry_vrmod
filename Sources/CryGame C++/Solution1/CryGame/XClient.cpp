@@ -44,6 +44,7 @@
 #include "StreamData.h"									// CStreamData_WorldPos
 #include <map>													// STL map<>
 #include "Game.h"
+#include "VRManager.h"
 
 //////////////////////////////////////////////////////////////////////
 CXClient::CXClient() 
@@ -1587,7 +1588,7 @@ void CXClient::TriggerMoveFB(float fValue,XActivationEvent ae)
 ///////////////////////////////////////////////
 void CXClient::TriggerTurnLR(float fValue,XActivationEvent ae)
 { 
-	if (true || m_pGame->cl_use_joypad->GetIVal())
+	if (m_pGame->cl_use_joypad->GetIVal() || gVR->UseMotionControllers())
 	{	
 		float fFovMul = 1.0f;
 		float fVal=fValue;
@@ -1669,7 +1670,7 @@ void CXClient::TriggerTurnLR(float fValue,XActivationEvent ae)
 //////////////////////////////////////////////////////////////////////
 void CXClient::TriggerTurnUD(float fValue,XActivationEvent ae)
 {
-	if (m_pGame->cl_use_joypad->GetIVal())
+	if (m_pGame->cl_use_joypad->GetIVal() || gVR->UseMotionControllers())
 	{	
 		float fFovMul = 1.0f;
 		float fVal=fValue;
