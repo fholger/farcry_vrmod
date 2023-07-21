@@ -1,5 +1,5 @@
 !include "MUI2.nsh"
-!define VERSION '0.3.0'
+!define VERSION '0.4.0a'
 
 Name "FarCry VR Mod"
 
