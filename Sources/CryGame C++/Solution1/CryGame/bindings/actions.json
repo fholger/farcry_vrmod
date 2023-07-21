@@ -1,0 +1,16 @@
+{
+  "default_bindings": [
+  ],
+  "actions": [
+    {
+      "name": "/actions/farcry/in/ACTION_FIRE0",
+      "type": "boolean"
+    }
+  ],
+  "localization": [
+    {
+      "language_tag": "en_US",
+      "/actions/farcry/in/ACTION_FIRE0": "Fire Weapon"
+    }
+  ]
+}

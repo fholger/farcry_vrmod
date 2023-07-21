@@ -1,9 +1,12 @@
 #include "StdAfx.h"
 #include "VRManager.h"
+#include "VRInput.h"
 #include "Cry_Camera.h"
 #include "xplayer.h"
 #include "ComPtr.h"
 #include <vulkan/vulkan.h>
+#include <filesystem>
+
 
 //#include <d3d9_interfaces.h>
 #include <d3d9.h>
@@ -72,6 +75,7 @@ vr::TrackedDevicePose_t* VRManager::getHandPose(int leftRight) {
 	];
 }
 
+
 bool VRManager::Init(CXGame *game)
 {
 	if (m_initialized)
@@ -88,6 +92,8 @@ bool VRManager::Init(CXGame *game)
 		CryError("Failed to initialize OpenVR: %s", vr::VR_GetVRInitErrorAsEnglishDescription(error));
 		return false;
 	}
+
+	m_vrInput = new VRInput(m_pGame);
 
 	vr::VRCompositor()->SetTrackingSpace(vr::TrackingUniverseSeated);
 
@@ -138,6 +144,8 @@ void VRManager::AwaitFrame()
 	dxvkLockSubmissionQueue(m_d3d->device.Get(), false);
 	vr::VRCompositor()->WaitGetPoses(m_poses, vr::k_unMaxTrackedDeviceCount, nullptr, 0);
 	m_headPose = m_poses[0];
+	m_vrInput->ProcessInput();
+
 	dxvkReleaseSubmissionQueue(m_d3d->device.Get());
 }
 

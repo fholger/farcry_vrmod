@@ -1,0 +1,15 @@
+{
+  "/actions/farcry": {
+    "sources": [
+      {
+        "path": "/user/hand/right/input/trigger",
+        "mode": "button",
+        "inputs": {
+          "click": {
+            "output": "/actions/farcry/in/ACTION_FIRE0"
+          }
+        }
+      }
+    ]
+  }
+}

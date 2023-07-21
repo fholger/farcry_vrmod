@@ -4,6 +4,7 @@
 #undef GetUserName
 
 class CXGame;
+class VRInput;
 class IDirect3DDevice9Ex;
 
 class VRManager
@@ -43,6 +44,7 @@ private:
 	vr::TrackedDevicePose_t m_poses[vr::k_unMaxTrackedDeviceCount];
 	vr::IVRSystem *m_system;
 	vr::VROverlayHandle_t m_hudOverlay;
+	VRInput* m_vrInput;
 	float m_verticalFov;
 	float m_horizontalFov;
 	float m_vertRenderScale;
