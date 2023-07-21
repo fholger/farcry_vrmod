@@ -65,8 +65,8 @@ void VRInput::ProcessInput()
 	HandleAnalogAction(m_moveMove, 1, &CXClient::TriggerMoveFB);
 	HandleAnalogAction(m_moveTurn, 0, &CXClient::TriggerTurnLR);
 	HandleBooleanAction(m_moveSprint, &CXClient::TriggerRunSprint);
-	HandleBooleanAction(m_moveCrouch, &CXClient::TriggerMoveModeToggle, false);
-	HandleBooleanAction(m_moveJump, &CXClient::TriggerJump);
+	HandleBooleanAction(m_moveCrouch, &CXClient::TriggerMoveModeSwitch, false);
+	HandleBooleanAction(m_moveJump, &CXClient::TriggerJump, false);
 	HandleBooleanAction(m_weaponsFire, &CXClient::TriggerFire0);
 }
 

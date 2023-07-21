@@ -1513,6 +1513,23 @@ void CPlayer::ProcessMovements(CXEntityProcessingCmd &cmd, bool bScheduled)
 		bool bGoCrouch = cmd.CheckAction(ACTION_MOVEMODE) || m_bStayCrouch;
 		bool bGoProne = cmd.CheckAction(ACTION_MOVEMODE2);
 
+		if (cmd.CheckAction(ACTION_MOVEMODE_SWITCH) && !m_pVehicle)
+		{
+			if (m_CurStance == eCrouch)
+			{
+				bGoCrouch = false;
+				bGoProne = true;
+				m_bStayCrouch = false;
+			}
+			else
+			{
+				bGoCrouch = true;
+				bGoProne = false;
+				m_bStayCrouch = true;
+			}
+			cmd.RemoveAction(ACTION_MOVEMODE_SWITCH);
+		}
+
 		if (m_stats.crouch && !m_bSwimming && !m_stats.onLadder)
 		{
 			//if it was crouching lets remove it otherwise the "onhold" will not work
@@ -1937,7 +1954,7 @@ void CPlayer::ProcessMovements(CXEntityProcessingCmd &cmd, bool bScheduled)
 		speedxyz*=inputspeed;
 	}
 	
-	// if player wants to jump AND proning - stand up
+	// if player wants to jump AND crouching/proning - stand up
 	// otherwise if not crouching AND has enough stamina for jump 
 	// AND not in air right now OR in water deep enough (go up then)
 	// AND not in landing animation
@@ -1953,6 +1970,12 @@ void CPlayer::ProcessMovements(CXEntityProcessingCmd &cmd, bool bScheduled)
 		else if(m_CurStance == eProne)
 		{
 			GoStand(false);
+			cmd.RemoveAction(ACTION_JUMP);
+		}
+		else if(m_CurStance == eCrouch && m_bStayCrouch)
+		{
+			GoStand(false);
+			m_bStayCrouch = false;
 			cmd.RemoveAction(ACTION_JUMP);
 		}
 		else 
@@ -5329,7 +5352,7 @@ bool	CPlayer::GoProne( )
 {
 	IPhysicalEntity*	phys = m_pEntity->GetPhysics();
 
-	if(!CanProne(false))
+	if(!CanProne(true))
 		return false;
 
 	if ( phys && m_CurStance != eProne)				//!=eDimProne)

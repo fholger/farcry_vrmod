@@ -1791,6 +1791,11 @@ void CXClient::TriggerMoveModeToggle(float fValue,XActivationEvent ae)
 	m_PlayerProcessingCmd.AddAction(ACTION_MOVEMODE_TOGGLE);
 }
 
+void CXClient::TriggerMoveModeSwitch(float fValue, XActivationEvent ae)
+{
+	m_PlayerProcessingCmd.AddAction(ACTION_MOVEMODE_SWITCH);
+}
+
 //////////////////////////////////////////////////////////////////////
 void CXClient::TriggerAimToggle(float fValue,XActivationEvent ae)
 {

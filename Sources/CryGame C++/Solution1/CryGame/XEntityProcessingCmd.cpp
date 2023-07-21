@@ -26,6 +26,7 @@ CXEntityProcessingCmd::CXEntityProcessingCmd()
 	m_vDeltaAngles[2] = 0.0f;
 	m_nActionFlags[0]=0;
 	m_nActionFlags[1]=0;
+	m_nActionFlags[2]=0;
 	m_fLeaning=0.0f;
 	Reset();
 }
@@ -62,6 +63,7 @@ void CXEntityProcessingCmd::Reset()
 {
 	m_nActionFlags[0] = 0;
 	m_nActionFlags[1] = 0;
+	m_nActionFlags[2] = 0;
 	m_iPhysicalTime = 0;
 	m_nTimeSlices = 0;
 }
@@ -98,6 +100,9 @@ bool CXEntityProcessingCmd::Write( CStream &stm, IBitStream *pBitStream, bool bW
 		return false;
 
 	if(!stm.WritePacked(m_nActionFlags[1]))
+		return false;
+
+	if(!stm.WritePacked(m_nActionFlags[2]))
 		return false;
 
 	if (bWriteAngles)
@@ -140,6 +145,9 @@ bool CXEntityProcessingCmd::Read( CStream &stm, IBitStream *pBitStream )
 		return false;
 
 	if(!stm.ReadPacked(m_nActionFlags[1]))
+		return false;
+
+	if(!stm.ReadPacked(m_nActionFlags[2]))
 		return false;
 
 	bool bReadAngles;

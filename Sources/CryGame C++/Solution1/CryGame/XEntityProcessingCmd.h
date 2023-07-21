@@ -95,7 +95,7 @@ public:
 	 
 public: 
 
-	unsigned int			m_nActionFlags[2];	//!< Timedemo recorded needs access to these.
+	unsigned int			m_nActionFlags[3];	//!< Timedemo recorded needs access to these.
 
 private: 	
 

@@ -249,6 +249,7 @@ public:
 	void TriggerScreenshot(float fValue, XActivationEvent ae);
 
 	void TriggerMoveModeToggle(float fValue, XActivationEvent ae);
+	void TriggerMoveModeSwitch(float fValue, XActivationEvent ae);
 	void TriggerAimToggle(float fValue, XActivationEvent ae);
 
 	BEGIN_INPUTACTIONMAP()
@@ -304,6 +305,7 @@ public:
 		REGISTER_INPUTACTIONMAP(ACTION_TAKESCREENSHOT, TriggerScreenshot)
 
 		REGISTER_INPUTACTIONMAP(ACTION_MOVEMODE_TOGGLE, TriggerMoveModeToggle)
+		REGISTER_INPUTACTIONMAP(ACTION_MOVEMODE_SWITCH, TriggerMoveModeSwitch)
 		REGISTER_INPUTACTIONMAP(ACTION_AIM_TOGGLE, TriggerAimToggle)
 
 	END_INPUTACTIONMAP()
