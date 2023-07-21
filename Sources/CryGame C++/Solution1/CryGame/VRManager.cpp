@@ -19,8 +19,8 @@ extern "C" HRESULT dxvkFillVulkanTextureInfo(IDirect3DDevice9Ex * device, IDirec
 extern "C" void dxvkTransitionImageLayout(IDirect3DDevice9Ex * device, IDirect3DTexture9 * texture, VkImageLayout from, VkImageLayout to);
 
 // OpenVR: x = right, y = up, -z = forward
-// Crysis: x = left, -y = forward, z = up
-Matrix34 OpenVRToCrysis(const vr::HmdMatrix34_t &mat)
+// FarCry: x = left, -y = forward, z = up
+Matrix34 OpenVRToFarCry(const vr::HmdMatrix34_t &mat)
 {
 	Matrix34 m;
 	m.m00 = mat.m[0][0];
@@ -341,8 +341,8 @@ void VRManager::ModifyViewCamera(int eye, CCamera& cam)
 	viewMat.SetRotationXYZ(angles, position);
 
 	vr::HmdMatrix34_t eyeMatVR = vr::VRSystem()->GetEyeToHeadTransform(eye == 0 ? vr::Eye_Left : vr::Eye_Right);
-	Matrix34 eyeMat = OpenVRToCrysis(eyeMatVR);
-	Matrix34 headMat = OpenVRToCrysis(m_headPose.mDeviceToAbsoluteTracking);
+	Matrix34 eyeMat = OpenVRToFarCry(eyeMatVR);
+	Matrix34 headMat = OpenVRToFarCry(m_headPose.mDeviceToAbsoluteTracking);
 	viewMat = viewMat * headMat * eyeMat;
 
 	position = viewMat.GetTranslation();
