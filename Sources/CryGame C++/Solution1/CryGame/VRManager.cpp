@@ -99,6 +99,9 @@ bool VRManager::Init(CXGame *game)
 
 	RegisterCVars();
 
+	// TODO: deal with return value
+	m_input.Init(game);
+
 	m_initialized = true;
 	return true;
 }
@@ -370,6 +373,11 @@ void VRManager::GetEffectiveRenderLimits(int eye, float* left, float* right, flo
 	*right = 0.5f + 0.5f * r / m_horizontalFov;
 	*top = 0.5f - 0.5f * b / m_verticalFov;
 	*bottom = 0.5f - 0.5f * t / m_verticalFov;
+}
+
+void VRManager::ProcessInput()
+{
+	m_input.ProcessInput();
 }
 
 void VRManager::InitDevice(IDirect3DDevice9Ex* device)

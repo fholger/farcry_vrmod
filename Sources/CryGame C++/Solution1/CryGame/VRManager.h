@@ -1,5 +1,6 @@
 #pragma once
 #include <openvr.h>
+#include "VRInput.h"
 
 #undef GetUserName
 
@@ -29,6 +30,8 @@ public:
 
 	void GetEffectiveRenderLimits(int eye, float* left, float* right, float* top, float* bottom);
 
+	void ProcessInput();
+
 private:
 	struct D3DResources;
 
@@ -51,6 +54,8 @@ private:
 	int vr_render_force_max_terrain_detail;
 	ICVar* e_terrain_lod_ratio = nullptr;
 	void RegisterCVars();
+
+	VRInput m_input;
 };
 
 extern VRManager* gVR;

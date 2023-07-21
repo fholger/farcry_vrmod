@@ -915,6 +915,8 @@ bool CXGame::Update()
 		// update client
 		if (m_pClient)
 		{
+			gVR->ProcessInput();
+
 			m_pClient->UpdateClientNetwork();
 			pTimer->MeasureTime("Net");
 

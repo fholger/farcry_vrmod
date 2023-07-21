@@ -1,0 +1,52 @@
+{
+  "supports_dominant_hand_setting": true,
+  "default_bindings": [
+    {
+      "binding_url" : "bindings_touch.json",
+      "controller_type" : "oculus_touch"
+    },
+    {
+      "binding_url" : "bindings_knuckles.json",
+      "controller_type" : "knuckles"
+    }
+  ],
+  "action_sets": [
+    {
+      "name": "/actions/default",
+      "usage": "leftright"
+	},
+    {
+      "name": "/actions/weapons",
+	  "usage": "leftright"
+	}
+  ],
+  "actions": [
+    {
+      "name" : "/actions/default/in/HapticVibration",
+      "type" : "vibration"
+    },
+    {
+      "name" : "/actions/default/in/HandPoseLeft",
+      "requirement" : "mandatory",
+      "type" : "pose"
+    },
+    {
+      "name" : "/actions/default/in/HandPoseRight",
+      "requirement" : "mandatory",
+      "type" : "pose"
+    },
+    {
+      "name": "/actions/weapons/in/fire",
+      "type": "boolean"
+    }
+  ],
+  "localization": [
+    {
+      "language_tag": "en_US",
+      "/actions/farcry/in/ACTION_FIRE0": "Fire Weapon"
+    }
+  ],
+  "localization_files": {
+    "en_US" : "actions_en_us.json"
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "action_manifest_version" : 0,
+  "alias_info" : {},
+  "category" : "steamvr_input",
+  "controller_type" : "knuckles",
+  "description" : "Default two handed bindings with movement on the off hand",
+  "name" : "Dual Controllers",
+  "options" : {},
+  "simulated_actions" : [],
+  "bindings" : {
+    "/actions/default": {
+      "haptics" : [
+        {
+          "output" : "/actions/default/in/hapticvibration",
+          "path" : "/user/hand/left/output/haptic"
+        },
+        {
+          "output" : "/actions/default/in/hapticvibration",
+          "path" : "/user/hand/right/output/haptic"
+        }
+      ],
+      "poses" : [
+        {
+          "output" : "/actions/default/in/handposeleft",
+          "path" : "/user/hand/left/pose/handgrip"
+        },
+        {
+          "output" : "/actions/default/in/handposeright",
+          "path" : "/user/hand/right/pose/handgrip"
+        }
+      ]
+    },
+    "/actions/weapons": {
+      "sources": [
+        {
+          "path": "/user/hand/right/input/trigger",
+          "mode": "button",
+          "inputs": {
+            "click": {
+              "output": "/actions/weapons/in/fire"
+            }
+          }
+        }
+      ]
+    }
+  }
+}
