@@ -334,7 +334,8 @@ void VRManager::ModifyViewCamera(int eye, CCamera& cam)
 			m_prevViewYaw = angles.z;
 		}
 	}
-	angles.z = m_prevViewYaw;
+	if (!UseMotionControllers())
+		angles.z = m_prevViewYaw;
 
 	Matrix34 viewMat;
 	viewMat.SetRotationXYZ(angles, position);
