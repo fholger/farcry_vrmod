@@ -489,6 +489,12 @@ int CUIVideoPanel::SetVolume(int iTrackID, float fVolume)
 
 	float dBValue = 20 * log10f(fVolume);
 	CryLogAlways("Setting audio volume to %.2f dB attenuation (%.2f)", dBValue, fVolume);
+
+	if (!m_streamingBuffer) {
+		CryLogAlways("Setting volume failed: streamingBuffer not initialized");
+		return 1;
+	}
+
 	HRESULT hr = m_streamingBuffer->SetVolume(dBValue * 100);
 	if (FAILED(hr))
 	{
