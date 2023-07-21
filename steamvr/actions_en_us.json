@@ -1,4 +1,6 @@
 {
   "language_tag": "en_US",
-  "/actions/farcry/in/ACTION_FIRE0": "Fire Weapon"
+  "/actions/default": "Controllers",
+  "/actions/move": "Movement",
+  "/actions/weapons": "Weapons"
 }

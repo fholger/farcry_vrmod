@@ -1574,20 +1574,20 @@ void CXClient::TriggerMoveFB(float fValue,XActivationEvent ae)
 	
 	if(fVal<0)
 	{
-		m_PlayerProcessingCmd.SetMoveFwd(-fVal);
-		m_PlayerProcessingCmd.AddAction(ACTION_MOVE_FORWARD);
+		m_PlayerProcessingCmd.SetMoveBack(-fVal);
+		m_PlayerProcessingCmd.AddAction(ACTION_MOVE_BACKWARD);
 	}
 	else if (fVal>0)
 	{
-		m_PlayerProcessingCmd.SetMoveBack(fVal);
-		m_PlayerProcessingCmd.AddAction(ACTION_MOVE_BACKWARD);
+		m_PlayerProcessingCmd.SetMoveFwd(fVal);
+		m_PlayerProcessingCmd.AddAction(ACTION_MOVE_FORWARD);
 	}
 }
 
 ///////////////////////////////////////////////
 void CXClient::TriggerTurnLR(float fValue,XActivationEvent ae)
 { 
-	if (m_pGame->cl_use_joypad->GetIVal())
+	if (true || m_pGame->cl_use_joypad->GetIVal())
 	{	
 		float fFovMul = 1.0f;
 		float fVal=fValue;
@@ -1606,7 +1606,7 @@ void CXClient::TriggerTurnLR(float fValue,XActivationEvent ae)
 			//  Then apply sensitivity factor.
 			float fSensGainLR=2.1f;      // sensitivity : will come from a console var.
 			float fSensScaleLR=1.0f;
-			float fDeadZoneTurnLR=0.2f;   // 20% deadzone. Check TCR for this. will come from a console var.
+			float fDeadZoneTurnLR=0.4f;
 
 			IInput *pInput=m_pGame->GetSystem()->GetIInput();
 			if(pInput)

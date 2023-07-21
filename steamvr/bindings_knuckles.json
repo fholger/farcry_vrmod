@@ -30,6 +30,84 @@
         }
       ]
     },
+    "/actions/move": {
+      "sources": [
+        {
+          "inputs" : {
+            "position" : {
+              "output" : "/actions/move/in/move"
+            }
+          },
+          "mode" : "joystick",
+          "parameters" : {
+            "exponent" : "2"
+          },
+          "path" : "/user/hand/left/input/thumbstick"
+        },
+        {
+          "inputs" : {
+            "east" : {
+              "output" : "/actions/move/in/turnright"
+            },
+            "west" : {
+              "output" : "/actions/move/in/turnleft"
+            }
+          },
+          "mode" : "dpad",
+          "parameters" : {
+            "deadzone_pct" : "75",
+            "overlap_pct" : "0",
+            "sticky": "true",
+            "sub_mode" : "touch"
+          },
+          "path" : "/user/hand/right/input/thumbstick"
+        },
+        {
+          "inputs" : {
+            "position" : {
+              "output" : "/actions/move/in/continuousturn"
+            }
+          },
+          "mode" : "joystick",
+          "parameters" : {
+            "deadzone_pct" : "0",
+            "exponent" : "2",
+            "sticky_click" : "false"
+          },
+          "path" : "/user/hand/right/input/thumbstick"
+        },
+        {
+          "inputs" : {
+            "click" : {
+              "output" : "/actions/move/in/sprint"
+            }
+          },
+          "mode" : "joystick",
+          "parameters" : {
+            "sticky_click" : "true"
+          },
+          "path" : "/user/hand/left/input/thumbstick"
+        },
+        {
+          "inputs" : {
+            "north" : {
+              "output" : "/actions/move/in/jump"
+            },
+            "south" : {
+              "output" : "/actions/move/in/crouch"
+            }
+          },
+          "mode" : "dpad",
+          "parameters" : {
+            "deadzone_pct" : "80",
+            "overlap_pct" : "0",
+            "sub_mode" : "touch",
+            "sticky": "true"
+          },
+          "path" : "/user/hand/right/input/thumbstick"
+        }
+      ]
+    },
     "/actions/weapons": {
       "sources": [
         {

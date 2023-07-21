@@ -18,6 +18,10 @@
     {
       "name": "/actions/weapons",
 	  "usage": "leftright"
+	},
+    {
+      "name": "/actions/move",
+	  "usage": "leftright"
 	}
   ],
   "actions": [
@@ -34,6 +38,34 @@
       "name" : "/actions/default/in/HandPoseRight",
       "requirement" : "mandatory",
       "type" : "pose"
+    },
+    {
+      "name" : "/actions/move/in/Move",
+      "type" : "vector2"
+    },
+    {
+      "name" : "/actions/move/in/ContinuousTurn",
+      "type": "vector2"
+    },
+    {
+      "name" : "/actions/move/in/TurnLeft",
+      "type" : "boolean"
+    },
+    {
+      "name" : "/actions/move/in/TurnRight",
+      "type" : "boolean"
+    },
+    {
+      "name" : "/actions/move/in/Sprint",
+      "type" : "boolean"
+    },
+    {
+      "name" : "/actions/move/in/Jump",
+      "type" : "boolean"
+    },
+    {
+      "name" : "/actions/move/in/Crouch",
+      "type" : "boolean"
     },
     {
       "name": "/actions/weapons/in/fire",
