@@ -398,7 +398,7 @@ void VRManager::ProcessRoomscale()
 		player->ProcessRoomscaleMovement(offset);
 		Ang3 angles;
 		angles.SetAnglesXYZ((Matrix33)m_hmdTransform);
-		player->ProcessRoomscaleRotation(angles.z);
+		m_pGame->GetClient()->TriggerRoomscaleTurn(RAD2DEG(angles.z), RAD2DEG(angles.x));
 
 		Matrix34 rawHmdTransform = OpenVRToFarCry(m_headPose.mDeviceToAbsoluteTracking);
 		angles.SetAnglesXYZ((Matrix33)rawHmdTransform);

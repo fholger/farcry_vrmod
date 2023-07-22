@@ -206,6 +206,7 @@ public:
 	void TriggerReload(float fValue,XActivationEvent ae);
 	void TriggerUse(float fValue,XActivationEvent ae);
 	void TriggerTurnLR(float fValue,XActivationEvent ae);
+	void TriggerRoomscaleTurn(float fYaw, float fPitch);
 	void TriggerTurnUD(float fValue,XActivationEvent ae);
 	void TriggerWalk(float fValue,XActivationEvent ae);
 	void TriggerRunSprint(float fValue,XActivationEvent ae);

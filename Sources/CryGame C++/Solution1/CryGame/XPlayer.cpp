@@ -2314,13 +2314,6 @@ void CPlayer::ProcessWeapons(CXEntityProcessingCmd &cmd)
 	if (m_bWriteOccured) m_bWriteOccured = false;
 }
 
-void CPlayer::ProcessRoomscaleRotation(float yawRad)
-{
-	Ang3 angles = m_pEntity->GetAngles();
-	angles.z += RAD2DEG(yawRad);
-	m_pEntity->SetAngles(angles);
-}
-
 void CPlayer::ProcessRoomscaleMovement(const Vec3& offset)
 {
 	Ang3 angles = Deg2Rad(m_pEntity->GetAngles());

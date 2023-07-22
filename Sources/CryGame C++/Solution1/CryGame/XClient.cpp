@@ -1667,6 +1667,20 @@ void CXClient::TriggerTurnLR(float fValue,XActivationEvent ae)
 	}
 }
 
+void CXClient::TriggerRoomscaleTurn(float fYaw, float fPitch)
+{
+	if (fabsf(fYaw) > 0.001)
+	{
+		m_PlayerProcessingCmd.GetDeltaAngles()[ROLL] += fYaw;
+		m_PlayerProcessingCmd.AddAction(ACTION_TURNLR);
+	}
+	if (fabsf(fPitch) > 0.001)
+	{
+		m_PlayerProcessingCmd.GetDeltaAngles()[YAW] = fPitch;
+		m_PlayerProcessingCmd.AddAction(ACTION_TURNUD);
+	}
+}
+
 //////////////////////////////////////////////////////////////////////
 void CXClient::TriggerTurnUD(float fValue,XActivationEvent ae)
 {

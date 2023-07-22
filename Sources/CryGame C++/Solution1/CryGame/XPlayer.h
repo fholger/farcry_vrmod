@@ -280,7 +280,6 @@ public:
 	virtual void ProcessAngles(CXEntityProcessingCmd &ProcessingCmd);
 	virtual void ProcessMovements(CXEntityProcessingCmd &ProcessingCmd, bool bScheduled=false);
 	virtual void ProcessWeapons(CXEntityProcessingCmd &ProcessingCmd);
-	void ProcessRoomscaleRotation(float yawRad);
 	void ProcessRoomscaleMovement(const Vec3& offset);
 
 	virtual void FireGrenade(const Vec3 &origin, const Vec3 &angles, IEntity *pIShooter);
