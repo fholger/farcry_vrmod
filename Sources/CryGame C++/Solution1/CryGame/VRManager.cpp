@@ -393,18 +393,36 @@ void VRManager::ProcessRoomscale()
 {
 	CPlayer* player = m_pGame->GetLocalPlayer();
 	if (!player || m_pGame->IsCutSceneActive())
+	{
+		m_skippedRoomscaleMovement = true;
 		return;
+	}
 
-	Vec3 offset = m_hmdTransform.GetTranslation();
-	player->ProcessRoomscaleMovement(offset);
+	Matrix34 rawHmdTransform = OpenVRToFarCry(m_headPose.mDeviceToAbsoluteTracking);
+	Ang3 rawAngles;
+	rawAngles.SetAnglesXYZ((Matrix33)rawHmdTransform);
+
+	if (m_skippedRoomscaleMovement)
+	{
+		// if we previously skipped roomscale movement, reset our offsets to not accidentally move way too much
+		m_referencePosition = rawHmdTransform.GetTranslation();
+		m_referenceYaw = rawAngles.z;
+		UpdateHmdTransform();
+		m_skippedRoomscaleMovement = false;
+	}
+
+	if (!player->GetVehicle())
+	{
+		Vec3 offset = m_hmdTransform.GetTranslation();
+		player->ProcessRoomscaleMovement(offset);
+		m_referencePosition = rawHmdTransform.GetTranslation();
+	}
+
 	Ang3 angles;
 	angles.SetAnglesXYZ((Matrix33)m_hmdTransform);
 	m_pGame->GetClient()->TriggerRoomscaleTurn(RAD2DEG(angles.z), RAD2DEG(angles.x));
+	m_referenceYaw = rawAngles.z;
 
-	Matrix34 rawHmdTransform = OpenVRToFarCry(m_headPose.mDeviceToAbsoluteTracking);
-	angles.SetAnglesXYZ((Matrix33)rawHmdTransform);
-	m_referenceYaw = angles.z;
-	m_referencePosition = rawHmdTransform.GetTranslation();
 	UpdateHmdTransform();
 }
 
