@@ -2314,17 +2314,41 @@ void CPlayer::ProcessWeapons(CXEntityProcessingCmd &cmd)
 	if (m_bWriteOccured) m_bWriteOccured = false;
 }
 
-void CPlayer::ProcessRoomscaleMovement(const Matrix34& hmdTransform)
+void CPlayer::ProcessRoomscaleRotation(float yawRad)
 {
-	Ang3 hmdAngles;
-	hmdAngles.SetAnglesXYZ((Matrix33)hmdTransform);
-
 	Ang3 angles = m_pEntity->GetAngles();
-	angles.z = Snap_s180(angles.z + RAD2DEG(hmdAngles.z));
+	angles.z += RAD2DEG(yawRad);
 	m_pEntity->SetAngles(angles);
+}
 
+void CPlayer::ProcessRoomscaleMovement(const Vec3& offset)
+{
+	Ang3 angles = Deg2Rad(m_pEntity->GetAngles());
+	angles.x = angles.y = 0;
 	Matrix33 playerTransform;
 	playerTransform.SetRotationXYZ(angles);
+
+	Vec3 playerPos = m_pEntity->GetPos();
+	Vec3 worldOffset = playerTransform * offset;
+	worldOffset.z = 0;
+	Vec3 desiredPos = playerPos + worldOffset;
+
+	IPhysicalEntity* physEnt = m_pEntity->GetPhysics();
+	IPhysicalWorld* world = physEnt->GetWorld();
+	// find ground at target position
+	ray_hit hit;
+	bool didHit = world->RayTraceEntity(physEnt, desiredPos , Vec3(0, 0, -2), &hit);
+	if (!didHit || !CanStand(desiredPos))
+	{
+		// try again from a stepped up position
+		didHit = world->RayTraceEntity(physEnt, desiredPos + Vec3(0, 0, 0.3f), Vec3(0, 0, -2.3f), &hit);
+	}
+	//desiredPos = hit.pt;
+
+	//if (didHit && CanStand(desiredPos))
+	{
+		m_pEntity->SetPos(desiredPos);
+	}
 }
 
 //////////////////////////////////////////////////////////////////////////

@@ -65,6 +65,7 @@ private:
 	Matrix34 m_hmdTransform;
 
 	void UpdateHmdTransform();
+	void ProcessRoomscale();
 };
 
 extern VRManager* gVR;

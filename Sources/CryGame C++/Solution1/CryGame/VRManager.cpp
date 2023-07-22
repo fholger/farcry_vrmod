@@ -386,18 +386,28 @@ void VRManager::ProcessInput()
 		return;
 
 	m_input.ProcessInput();
+	ProcessRoomscale();
+}
+
+void VRManager::ProcessRoomscale()
+{
 	CPlayer* player = m_pGame->GetLocalPlayer();
 	if (player)
 	{
-		player->ProcessRoomscaleMovement(m_hmdTransform);
-		// update reference position
+		Vec3 offset = m_hmdTransform.GetTranslation();
+		player->ProcessRoomscaleMovement(offset);
 		Ang3 angles;
 		angles.SetAnglesXYZ((Matrix33)m_hmdTransform);
-		m_referenceYaw += angles.z;
+		player->ProcessRoomscaleRotation(angles.z);
 
+		Matrix34 rawHmdTransform = OpenVRToFarCry(m_headPose.mDeviceToAbsoluteTracking);
+		angles.SetAnglesXYZ((Matrix33)rawHmdTransform);
+		m_referenceYaw = angles.z;
+		m_referencePosition = rawHmdTransform.GetTranslation();
 		UpdateHmdTransform();
 	}
 }
+
 
 void VRManager::InitDevice(IDirect3DDevice9Ex* device)
 {
