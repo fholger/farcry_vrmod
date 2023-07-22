@@ -52,6 +52,7 @@
 #define ENTITYTYPE_OWNTEAM			0x00000004
 
 #define SAVEMAGIC "CRYLEVELSAVE"
+#include "CMovieUser.h"
 
 // game states
 enum { CGS_INPROGRESS=0, CGS_COUNTDOWN=1, CGS_PREWAR=2, CGS_INTERMISSION=3 };
@@ -811,6 +812,8 @@ public:
 	void PlaySequence(const char *pszName,bool bResetFX);
 	//! stops the current cutscene
 	void StopCurrentCutscene();
+
+	bool IsCutSceneActive() const { return m_pMovieUser && m_pMovieUser->IsCutSceneActive(); }
 
 
 	ActionsEnumMap& GetActionsEnumMap() { return m_mapActionsEnum; }

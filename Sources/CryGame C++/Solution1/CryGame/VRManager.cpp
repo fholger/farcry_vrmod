@@ -392,20 +392,20 @@ void VRManager::ProcessInput()
 void VRManager::ProcessRoomscale()
 {
 	CPlayer* player = m_pGame->GetLocalPlayer();
-	if (player)
-	{
-		Vec3 offset = m_hmdTransform.GetTranslation();
-		player->ProcessRoomscaleMovement(offset);
-		Ang3 angles;
-		angles.SetAnglesXYZ((Matrix33)m_hmdTransform);
-		m_pGame->GetClient()->TriggerRoomscaleTurn(RAD2DEG(angles.z), RAD2DEG(angles.x));
+	if (!player || m_pGame->IsCutSceneActive())
+		return;
 
-		Matrix34 rawHmdTransform = OpenVRToFarCry(m_headPose.mDeviceToAbsoluteTracking);
-		angles.SetAnglesXYZ((Matrix33)rawHmdTransform);
-		m_referenceYaw = angles.z;
-		m_referencePosition = rawHmdTransform.GetTranslation();
-		UpdateHmdTransform();
-	}
+	Vec3 offset = m_hmdTransform.GetTranslation();
+	player->ProcessRoomscaleMovement(offset);
+	Ang3 angles;
+	angles.SetAnglesXYZ((Matrix33)m_hmdTransform);
+	m_pGame->GetClient()->TriggerRoomscaleTurn(RAD2DEG(angles.z), RAD2DEG(angles.x));
+
+	Matrix34 rawHmdTransform = OpenVRToFarCry(m_headPose.mDeviceToAbsoluteTracking);
+	angles.SetAnglesXYZ((Matrix33)rawHmdTransform);
+	m_referenceYaw = angles.z;
+	m_referencePosition = rawHmdTransform.GetTranslation();
+	UpdateHmdTransform();
 }
 
 

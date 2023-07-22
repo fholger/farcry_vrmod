@@ -17,6 +17,11 @@
 #ifndef MOVIE_USER_H
 #define MOVIE_USER_H
 
+#include <IMovieSystem.h>
+#include <ISound.h>
+
+class CXGame;
+
 //////////////////////////////////////////////////////////////////////
 class CMovieUser : public IMovieUser, public ISoundEventListener
 {
@@ -40,6 +45,8 @@ public:
 
 	// Implements ISoundEventListener.
 	void OnSoundEvent( ESoundCallbackEvent event,ISound *pSound );
+
+	bool IsCutSceneActive() const { return m_InCutSceneCounter > 0; }
 
 private:
 	void ResetCutSceneParams();
