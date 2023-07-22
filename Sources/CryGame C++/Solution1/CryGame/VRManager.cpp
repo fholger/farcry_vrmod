@@ -9,6 +9,8 @@
 #include <d3d9.h>
 #include <openvr.h>
 
+#include "VRRenderer.h"
+
 
 VRManager s_VRManager;
 VRManager* gVR = &s_VRManager;
@@ -392,7 +394,7 @@ void VRManager::ProcessInput()
 void VRManager::ProcessRoomscale()
 {
 	CPlayer* player = m_pGame->GetLocalPlayer();
-	if (!player || m_pGame->IsCutSceneActive())
+	if (!player || m_pGame->IsCutSceneActive() || !gVRRenderer->ShouldRenderVR())
 	{
 		m_skippedRoomscaleMovement = true;
 		return;
