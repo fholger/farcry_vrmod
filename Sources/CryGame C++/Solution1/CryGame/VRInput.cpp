@@ -37,6 +37,10 @@ bool VRInput::Init(CXGame* game)
 	vr::VRInput()->GetActionSetHandle("/actions/move", &m_moveSet);
 	vr::VRInput()->GetActionSetHandle("/actions/weapons", &m_weaponsSet);
 
+	vr::VRInput()->GetActionHandle("/actions/default/in/menu", &m_defaultMenu);
+	vr::VRInput()->GetActionHandle("/actions/default/in/use", &m_defaultUse);
+	vr::VRInput()->GetActionHandle("/actions/default/in/binoculars", &m_defaultBinoculars);
+
 	vr::VRInput()->GetActionHandle("/actions/move/in/move", &m_moveMove);
 	vr::VRInput()->GetActionHandle("/actions/move/in/continuousturn", &m_moveTurn);
 	vr::VRInput()->GetActionHandle("/actions/move/in/sprint", &m_moveSprint);
@@ -44,6 +48,11 @@ bool VRInput::Init(CXGame* game)
 	vr::VRInput()->GetActionHandle("/actions/move/in/crouch", &m_moveCrouch);
 
 	vr::VRInput()->GetActionHandle("/actions/weapons/in/fire", &m_weaponsFire);
+	vr::VRInput()->GetActionHandle("/actions/weapons/in/reload", &m_weaponsReload);
+	vr::VRInput()->GetActionHandle("/actions/weapons/in/aim", &m_weaponsAim);
+	vr::VRInput()->GetActionHandle("/actions/weapons/in/firemode", &m_weaponsFireMode);
+	vr::VRInput()->GetActionHandle("/actions/weapons/in/next", &m_weaponsNextWeapon);
+	vr::VRInput()->GetActionHandle("/actions/weapons/in/prev", &m_weaponsPrevWeapon);
 
 	m_pGame = game;
 	return true;
@@ -61,6 +70,9 @@ void VRInput::ProcessInput()
 	if (!m_pGame->GetClient())
 		return;
 
+	HandleBooleanAction(m_defaultMenu, &CXClient::TriggerMenu, false);
+	HandleBooleanAction(m_defaultUse, &CXClient::TriggerUse, false);
+	HandleBooleanAction(m_defaultBinoculars, &CXClient::TriggerItem0, false);
 	HandleAnalogAction(m_moveMove, 0, &CXClient::TriggerMoveLR);
 	HandleAnalogAction(m_moveMove, 1, &CXClient::TriggerMoveFB);
 	HandleAnalogAction(m_moveTurn, 0, &CXClient::TriggerTurnLR);
@@ -68,6 +80,11 @@ void VRInput::ProcessInput()
 	HandleBooleanAction(m_moveCrouch, &CXClient::TriggerMoveModeSwitch, false);
 	HandleBooleanAction(m_moveJump, &CXClient::TriggerJump, false);
 	HandleBooleanAction(m_weaponsFire, &CXClient::TriggerFire0);
+	HandleBooleanAction(m_weaponsReload, &CXClient::TriggerReload, false);
+	HandleBooleanAction(m_weaponsNextWeapon, &CXClient::TriggerNextWeapon, false);
+	HandleBooleanAction(m_weaponsPrevWeapon, &CXClient::TriggerPrevWeapon, false);
+	HandleBooleanAction(m_weaponsFireMode, &CXClient::TriggerFireMode, false);
+	HandleBooleanAction(m_weaponsAim, &CXClient::TriggerZoomToggle, false);
 }
 
 void VRInput::HandleBooleanAction(vr::VRActionHandle_t actionHandle, TriggerFn trigger, bool continuous)

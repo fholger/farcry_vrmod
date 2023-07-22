@@ -40,6 +40,18 @@
       "type" : "pose"
     },
     {
+      "name" : "/actions/default/in/Use",
+      "type" : "boolean"
+    },
+    {
+      "name" : "/actions/default/in/Menu",
+      "type" : "boolean"
+    },
+    {
+      "name" : "/actions/default/in/Binoculars",
+      "type" : "boolean"
+    },
+    {
       "name" : "/actions/move/in/Move",
       "type" : "vector2"
     },
@@ -68,14 +80,28 @@
       "type" : "boolean"
     },
     {
-      "name": "/actions/weapons/in/fire",
+      "name": "/actions/weapons/in/Fire",
       "type": "boolean"
-    }
-  ],
-  "localization": [
+    },
     {
-      "language_tag": "en_US",
-      "/actions/farcry/in/ACTION_FIRE0": "Fire Weapon"
+      "name": "/actions/weapons/in/Reload",
+      "type": "boolean"
+    },
+    {
+      "name": "/actions/weapons/in/Aim",
+      "type": "boolean"
+    },
+    {
+      "name": "/actions/weapons/in/FireMode",
+      "type": "boolean"
+    },
+    {
+      "name": "/actions/weapons/in/Next",
+      "type": "boolean"
+    },
+    {
+      "name": "/actions/weapons/in/Prev",
+      "type": "boolean"
     }
   ],
   "localization_files": {

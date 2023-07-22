@@ -245,6 +245,7 @@ public:
 	void TriggerConcentration(float fValue,XActivationEvent ae);
 	void TriggerQuickLoad(float fValue,XActivationEvent ae);
 	void TriggerQuickSave(float fValue,XActivationEvent ae);
+	void TriggerMenu(float fValue, XActivationEvent ae);
 	void TriggerMessageMode(float fValue,XActivationEvent ae);
 	void TriggerMessageMode2(float fValue,XActivationEvent ae);
 	void TriggerScreenshot(float fValue, XActivationEvent ae);

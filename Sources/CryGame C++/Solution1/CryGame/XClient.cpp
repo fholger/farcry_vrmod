@@ -2062,6 +2062,11 @@ void CXClient::TriggerQuickSave(float fValue,XActivationEvent ae)
 	}
 }
 
+void CXClient::TriggerMenu(float fValue, XActivationEvent ae)
+{
+	m_pGame->SendMessageA("Switch");
+}
+
 //////////////////////////////////////////////////////////////////////
 void CXClient::TriggerMessageMode(float fValue,XActivationEvent ae)
 {

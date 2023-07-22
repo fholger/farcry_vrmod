@@ -28,6 +28,26 @@
           "output" : "/actions/default/in/handposeright",
           "path" : "/user/hand/right/pose/handgrip"
         }
+      ],
+      "sources": [
+        {
+          "path": "/user/hand/left/input/b",
+          "mode": "button",
+          "inputs": {
+            "click": {
+              "output": "/actions/default/in/menu"
+            }
+          }
+        },
+        {
+          "path": "/user/hand/left/input/a",
+          "mode": "button",
+          "inputs": {
+            "click": {
+              "output": "/actions/default/in/binoculars"
+            }
+          }
+        }
       ]
     },
     "/actions/move": {
@@ -116,6 +136,42 @@
           "inputs": {
             "click": {
               "output": "/actions/weapons/in/fire"
+            }
+          }
+        },
+        {
+          "path": "/user/hand/right/input/grip",
+          "mode": "button",
+          "inputs": {
+            "click": {
+              "output": "/actions/weapons/in/aim"
+            }
+          }
+        },
+        {
+          "path": "/user/hand/right/input/trackpad",
+          "mode": "button",
+          "inputs": {
+            "click": {
+              "output": "/actions/weapons/in/next"
+            }
+          }
+        },
+        {
+          "inputs" : {
+            "click" : {
+              "output" : "/actions/weapons/in/firemode"
+            }
+          },
+          "mode" : "joystick",
+          "path" : "/user/hand/right/input/thumbstick"
+        },
+        {
+          "path": "/user/hand/right/input/a",
+          "mode": "button",
+          "inputs": {
+            "click": {
+              "output": "/actions/weapons/in/reload"
             }
           }
         }
