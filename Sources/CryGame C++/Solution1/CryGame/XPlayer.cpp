@@ -2326,22 +2326,10 @@ void CPlayer::ProcessRoomscaleMovement(const Vec3& offset)
 	worldOffset.z = 0;
 	Vec3 desiredPos = playerPos + worldOffset;
 
-	IPhysicalEntity* physEnt = m_pEntity->GetPhysics();
-	IPhysicalWorld* world = physEnt->GetWorld();
-	// find ground at target position
-	ray_hit hit;
-	bool didHit = world->RayTraceEntity(physEnt, desiredPos , Vec3(0, 0, -2), &hit);
-	if (!didHit || !CanStand(desiredPos))
-	{
-		// try again from a stepped up position
-		didHit = world->RayTraceEntity(physEnt, desiredPos + Vec3(0, 0, 0.3f), Vec3(0, 0, -2.3f), &hit);
-	}
-	//desiredPos = hit.pt;
-
-	//if (didHit && CanStand(desiredPos))
-	{
-		m_pEntity->SetPos(desiredPos);
-	}
+	// fixme: the engine appears to do a good job of preventing the player from clipping into obstacles and getting up terrain slopes
+	// still, would be better if we could explicitly check if the position is free, but there is no easily accessible way for us to do
+	// so...
+	m_pEntity->SetPos(desiredPos);
 }
 
 //////////////////////////////////////////////////////////////////////////
