@@ -394,7 +394,7 @@ void VRManager::ProcessInput()
 void VRManager::ProcessRoomscale()
 {
 	CPlayer* player = m_pGame->GetLocalPlayer();
-	if (!player || m_pGame->IsCutSceneActive() || !gVRRenderer->ShouldRenderVR())
+	if (!player || m_pGame->IsCutSceneActive() || !gVRRenderer->ShouldRenderVR() || m_pGame->IsInMenu())
 	{
 		m_skippedRoomscaleMovement = true;
 		return;
