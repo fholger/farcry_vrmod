@@ -11,12 +11,12 @@ VRInput::VRInput(CXGame* pGame) {
 	m_pGame = pGame;
 
 
-	if (!fileExists("ADD ABSOLUTE PATH TO actions.json here")) {
+	if (!fileExists("C:\\Users\\Tom\\Downloads\\far cry\\farcry_vrmod\\Sources\\CryGame C++\\Solution1\\CryGame\\bindings\\actions.json")) {
 		CryError("Action.json not found");
 	}
 
 	vr::EVRInputError input_error = vr::VRInput()->SetActionManifestPath(
-		"ADD ABSOLUTE PATH TO actions.json here"
+		"C:\\Users\\Tom\\Downloads\\far cry\\farcry_vrmod\\Sources\\CryGame C++\\Solution1\\CryGame\\bindings\\actions.json"
 	);
 	if (input_error != vr::VRInputError_None) {
 		CryError("Failed to initialize VRInput: %s", input_error);
@@ -37,6 +37,7 @@ VRInput::VRInput(CXGame* pGame) {
 
 	m_activeActionSet.ulActionSet = m_actionSetFarCry;
 	m_activeActionSet.ulRestrictedToDevice = vr::k_ulInvalidInputValueHandle;
+	m_activeActionSet.nPriority = 0;
 }
 
 void VRInput::ProcessInput() {
@@ -47,6 +48,7 @@ void VRInput::ProcessInput() {
 	{
 		console->PrintLine("error vr input");
 		CryError("Error UpdateActionState");
+		return;
 	}
 	vr::InputDigitalActionData_t actionDataStruct;
 	vr::VRInput()->GetDigitalActionData(m_actionHandle_ACTION_FIRE0, &actionDataStruct, sizeof(actionDataStruct), vr::k_ulInvalidInputValueHandle);

@@ -465,6 +465,7 @@
     <ClCompile Include="UISystem.cpp" />
     <ClCompile Include="UIVideoPanel.cpp" />
     <ClCompile Include="UIWidget.cpp" />
+    <ClCompile Include="VRInput.cpp" />
     <ClCompile Include="VRManager.cpp" />
     <ClCompile Include="VRRenderer.cpp" />
     <ClCompile Include="WeaponClass.cpp" />
@@ -685,6 +686,7 @@
     <ClInclude Include="UISystem.h" />
     <ClInclude Include="UIVideoPanel.h" />
     <ClInclude Include="UIWidget.h" />
+    <ClInclude Include="VRInput.h" />
     <ClInclude Include="VRManager.h" />
     <ClInclude Include="VRRenderer.h" />
     <ClInclude Include="WeaponClass.h" />

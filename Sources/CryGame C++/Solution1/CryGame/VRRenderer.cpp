@@ -190,6 +190,11 @@ void VRRenderer::DrawHand(int leftRight) {
 	// something something
 	// m_pGame->GetSystem()->GetIConsole()->GetCVar("g_LeftHanded")
 	if (leftRight == 1) {  // use the right hand for aiming for now
+		
+		CWeaponClass* pSelectedWeapon = m_pGame->GetLocalPlayer()->GetSelectedWeapon();
+		if (pSelectedWeapon) {
+			pSelectedWeapon->SetFirstPersonWeaponPos(rotatedHands, Vec3(0.0f, 0.0f, 0.0f));
+		}
 		// TODO update 1st person player model
 		// TODO update CPlayer::UpdateWeapon based on hand position
 	}
