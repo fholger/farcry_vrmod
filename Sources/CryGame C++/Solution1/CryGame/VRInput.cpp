@@ -1,6 +1,7 @@
 #include "StdAfx.h"
 #include "VRInput.h"
 
+#include "VRManager.h"
 #include "XPlayer.h"
 
 std::string GetDLLPath()
@@ -37,6 +38,8 @@ bool VRInput::Init(CXGame* game)
 	vr::VRInput()->GetActionSetHandle("/actions/move", &m_moveSet);
 	vr::VRInput()->GetActionSetHandle("/actions/weapons", &m_weaponsSet);
 
+	vr::VRInput()->GetActionHandle("/actions/default/in/HandPoseLeft", &m_handPoses[0]);
+	vr::VRInput()->GetActionHandle("/actions/default/in/HandPoseRight", &m_handPoses[1]);
 	vr::VRInput()->GetActionHandle("/actions/default/in/menu", &m_defaultMenu);
 	vr::VRInput()->GetActionHandle("/actions/default/in/use", &m_defaultUse);
 	vr::VRInput()->GetActionHandle("/actions/default/in/binoculars", &m_defaultBinoculars);
@@ -85,6 +88,18 @@ void VRInput::ProcessInput()
 	HandleBooleanAction(m_weaponsPrevWeapon, &CXClient::TriggerPrevWeapon, false);
 	HandleBooleanAction(m_weaponsFireMode, &CXClient::TriggerFireMode, false);
 	HandleBooleanAction(m_weaponsAim, &CXClient::TriggerZoomToggle, false);
+}
+
+Matrix34 VRInput::GetControllerTransform(int hand)
+{
+	hand = clamp_tpl(hand, 0, 1);
+
+	vr::InputPoseActionData_t data;
+	vr::VRInput()->GetPoseActionDataForNextFrame(m_handPoses[hand], vr::TrackingUniverseSeated, &data, sizeof(data), vr::k_ulInvalidInputValueHandle);
+
+	// the grip pose has a peculiar orientation that we need to fix
+	Matrix33 correction = Matrix33::CreateRotationXYZ(Ang3(gf_PI, gf_PI / 2, 0));
+	return OpenVRToFarCry(data.pose.mDeviceToAbsoluteTracking) * correction;
 }
 
 void VRInput::HandleBooleanAction(vr::VRActionHandle_t actionHandle, TriggerFn trigger, bool continuous)

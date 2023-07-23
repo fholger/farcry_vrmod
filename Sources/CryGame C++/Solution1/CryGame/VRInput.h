@@ -8,6 +8,7 @@ public:
 	bool Init(CXGame* game);
 
 	void ProcessInput();
+	Matrix34 GetControllerTransform(int hand);
 
 private:
 	CXGame* m_pGame = nullptr;
@@ -16,6 +17,7 @@ private:
 	vr::VRActionSetHandle_t m_moveSet = vr::k_ulInvalidActionSetHandle;
 	vr::VRActionSetHandle_t m_weaponsSet = vr::k_ulInvalidActionSetHandle;
 
+	vr::VRActionHandle_t m_handPoses[2] = { vr::k_ulInvalidInputValueHandle };
 	vr::VRActionHandle_t m_defaultUse = vr::k_ulInvalidInputValueHandle;
 	vr::VRActionHandle_t m_defaultMenu = vr::k_ulInvalidInputValueHandle;
 	vr::VRActionHandle_t m_defaultBinoculars = vr::k_ulInvalidInputValueHandle;

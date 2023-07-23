@@ -7,6 +7,8 @@
 class CXGame;
 class IDirect3DDevice9Ex;
 
+Matrix34 OpenVRToFarCry(const vr::HmdMatrix34_t& mat);
+
 class VRManager
 {
 public:
@@ -32,6 +34,7 @@ public:
 
 	void ProcessInput();
 	bool UseMotionControllers() const;
+	Matrix34 GetControllerTransform(int hand);
 
 private:
 	struct D3DResources;

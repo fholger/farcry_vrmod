@@ -396,6 +396,17 @@ bool VRManager::UseMotionControllers() const
 	return (m_inputReady && vr_enable_motion_controllers && !m_pGame->IsMultiplayer());
 }
 
+Matrix34 VRManager::GetControllerTransform(int hand)
+{
+	Ang3 refAngles(0, 0, m_referenceYaw);
+	Matrix33 refTransform;
+	refTransform.SetRotationXYZ(refAngles);
+	refTransform.Transpose();
+	Matrix34 rawControllerTransform = m_input.GetControllerTransform(hand);
+	rawControllerTransform.SetTranslation(rawControllerTransform.GetTranslation() - m_referencePosition);
+	return refTransform * rawControllerTransform;
+}
+
 void VRManager::ProcessRoomscale()
 {
 	CPlayer* player = m_pGame->GetLocalPlayer();

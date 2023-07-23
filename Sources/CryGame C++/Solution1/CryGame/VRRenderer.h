@@ -34,6 +34,7 @@ private:
 	bool m_binocularsActive = false;
 	bool m_ignoreWindowSizeChanges = false;
 
+	void DrawDebugHands();
 	void RenderSingleEye(int eye, ISystem* pSystem);
 	void DrawCrosshair();
 };

@@ -138,6 +138,29 @@ bool VRRenderer::ShouldRenderVR() const
 	return true;
 }
 
+void VRRenderer::DrawDebugHands()
+{
+	const CCamera& cam = m_originalViewCamera;
+	Ang3 angles = cam.GetAngles();
+	Vec3 position = cam.GetPos();
+
+	angles = Deg2Rad(angles);
+	// eliminate pitch and roll
+	angles.y = 0;
+	angles.x = 0;
+
+	Matrix34 viewMat;
+	viewMat.SetRotationXYZ(angles, position);
+
+	for (int i = 0; i < 2; ++i)
+	{
+		Matrix34 handTransform = gVR->GetControllerTransform(i);
+		Matrix34 worldHand = viewMat * handTransform;
+		m_pGame->m_pRenderer->SetState(GS_NODEPTHTEST);
+		m_pGame->m_pRenderer->DrawBall(worldHand.GetTranslation(), 0.1f);
+	}
+}
+
 void VRRenderer::RenderSingleEye(int eye, ISystem* pSystem)
 {
 	CCamera eyeCam = m_originalViewCamera;
@@ -148,13 +171,12 @@ void VRRenderer::RenderSingleEye(int eye, ISystem* pSystem)
 
 	m_pGame->m_pRenderer->ClearColorBuffer(Vec3(0, 0, 0));
 
-	//CFlashMenuObject* menu = static_cast<CGame*>(gEnv->pGame)->GetMenu();
-	// do not render while in menu, as it shows a rotating game world that is disorienting
-	if (/*!menu->IsMenuActive() &&*/ ShouldRenderVR())
+	if (ShouldRenderVR())
 	{
 		pSystem->RenderBegin();
 		pSystem->Render();
 		DrawCrosshair();
+		DrawDebugHands();
 	}
 
 	pSystem->SetViewCamera(m_originalViewCamera);
