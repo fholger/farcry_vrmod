@@ -13,6 +13,7 @@ cd %DIR%\FCData
 
 copy %DIR%\ModDesc.txt %DIST%\Mods\CryVR
 copy %DIR%\FarCryVR.bat %DIST%
+copy %DIR%\FarCryVR_dev.bat %DIST%
 copy %DIR%\README.md %DIST%\Mods\CryVR
 copy %DIR%\LICENSE.md %DIST%\Mods\CryVR
 copy %DIR%\EULA.txt %DIST%\Mods\CryVR

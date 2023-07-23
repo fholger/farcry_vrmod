@@ -36,7 +36,7 @@ Section ""
 	File .\assembly\Bin32\*
 
 	SetOutPath $INSTDIR
-	File .\assembly\FarCryVR.bat
+	File .\assembly\FarCryVR*.bat
 SectionEnd
 
 Function .onInit
