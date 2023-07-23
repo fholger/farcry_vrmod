@@ -31,7 +31,7 @@ public:
 	void GetEffectiveRenderLimits(int eye, float* left, float* right, float* top, float* bottom);
 
 	void ProcessInput();
-	bool UseMotionControllers() const { return vr_enable_motion_controllers; }
+	bool UseMotionControllers() const;
 
 private:
 	struct D3DResources;

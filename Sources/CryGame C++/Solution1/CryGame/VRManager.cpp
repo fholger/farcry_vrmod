@@ -384,11 +384,16 @@ void VRManager::GetEffectiveRenderLimits(int eye, float* left, float* right, flo
 
 void VRManager::ProcessInput()
 {
-	if (!m_inputReady || !vr_enable_motion_controllers)
+	if (!UseMotionControllers())
 		return;
 
 	m_input.ProcessInput();
 	ProcessRoomscale();
+}
+
+bool VRManager::UseMotionControllers() const
+{
+	return (m_inputReady && vr_enable_motion_controllers && !m_pGame->IsMultiplayer());
 }
 
 void VRManager::ProcessRoomscale()
