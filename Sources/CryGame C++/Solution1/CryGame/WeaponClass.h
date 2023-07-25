@@ -207,6 +207,11 @@ public:
 	const Vec3& GetAngles() const	{	return m_vAngles;	}
 	const Vec3& GetPos() const	{	return m_vPos;	}
 
+	Vec3 GetBonePos(const char* name);
+	void HideLeftArm();
+
+	Matrix34 GetGripTransform();
+
 	IScriptObject* GetScriptObject() {	return m_soWeaponClass;	}
 
 	bool	IsLoaded() const	{	return m_bIsLoaded;	}

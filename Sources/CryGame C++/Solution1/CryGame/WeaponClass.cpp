@@ -24,6 +24,8 @@
 #include <CryCharAnimationParams.h>
 #include <IAISystem.h>
 
+#include "VRManager.h"
+
 //////////////////////////////////////////////////////////////////////
 #define SCRIPT_BEGINCALL(host, func)\
 	if (m_rWeaponSystem.GetGame()->Is##host() && m_h##host##Funcs[WeaponFunc_##func]){\
@@ -402,6 +404,56 @@ void CWeaponClass::MoveToFirstPersonPos(IEntity *pIEntity)
 
 	m_vPos = m.TransformPointOLD(pos);
 	m_vAngles = pIEntity->GetCamera()->GetAngles()+m_fpvAngleOffset;
+
+	gVR->ModifyWeaponPosition(this, pIEntity->GetCamera(), m_vAngles, m_vPos);
+}
+
+Vec3 CWeaponClass::GetBonePos(const char* name)
+{
+	ICryCharInstance * cmodel = GetCharacter();
+
+	if (!cmodel)
+		return Vec3(0, 0, 0);
+
+	ICryBone * pBone = cmodel->GetBoneByName(name);
+	if(!pBone)
+	{
+		return Vec3(0, 0, 0);
+	}
+
+	Vec3d vBonePos = pBone->GetBonePosition();
+	Matrix34 mx=Matrix34::CreateRotationXYZ( Deg2Rad(GetAngles()), GetPos() );
+	return mx * vBonePos;
+}
+
+void CWeaponClass::HideLeftArm()
+{
+	const char* boneName = nullptr;
+	GetScriptObject()->GetValue("BoneLeftArm", boneName);
+	ICryBone* bone = GetCharacter()->GetBoneByName(boneName);
+	if (!bone)
+	{
+		CryLogAlways("Could not find left arm bone");
+		return;
+	}
+
+	Matrix44 zeroScale (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1);
+	bone->DoNotCalculateBoneRelativeMatrix(true);
+	Matrix44& boneMatrix = const_cast<Matrix44&>(bone->GetRelativeMatrix());
+	boneMatrix = zeroScale;
+}
+
+Matrix34 CWeaponClass::GetGripTransform()
+{
+	const char* boneName = nullptr;
+	GetScriptObject()->GetValue("BoneRightHand", boneName);
+	ICryBone* bone = GetCharacter()->GetBoneByName(boneName);
+	if (!bone)
+	{
+		return Matrix34::CreateIdentity();
+	}
+
+	return (Matrix34)GetTransposed44(bone->GetAbsoluteMatrix());
 }
 
 //////////////////////////////////////////////////////////////////////

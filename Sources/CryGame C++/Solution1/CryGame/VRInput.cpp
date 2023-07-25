@@ -98,7 +98,7 @@ Matrix34 VRInput::GetControllerTransform(int hand)
 	vr::VRInput()->GetPoseActionDataForNextFrame(m_handPoses[hand], vr::TrackingUniverseSeated, &data, sizeof(data), vr::k_ulInvalidInputValueHandle);
 
 	// the grip pose has a peculiar orientation that we need to fix
-	Matrix33 correction = Matrix33::CreateRotationXYZ(Ang3(gf_PI, gf_PI / 2, 0));
+	Matrix33 correction = Matrix33::CreateRotationXYZ(Ang3(0, 0, -gf_PI/2)) * Matrix33::CreateRotationXYZ(Ang3(gf_PI/2, 0, 0));
 	return OpenVRToFarCry(data.pose.mDeviceToAbsoluteTracking) * correction;
 }
 

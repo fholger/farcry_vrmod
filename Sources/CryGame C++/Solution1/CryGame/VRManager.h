@@ -4,6 +4,7 @@
 
 #undef GetUserName
 
+class CWeaponClass;
 class CXGame;
 class IDirect3DDevice9Ex;
 
@@ -35,6 +36,8 @@ public:
 	void ProcessInput();
 	bool UseMotionControllers() const;
 	Matrix34 GetControllerTransform(int hand);
+
+	void ModifyWeaponPosition(CWeaponClass* weapon, IEntityCamera* playerCam, Vec3& weaponAngles, Vec3& weaponPosition);
 
 private:
 	struct D3DResources;
