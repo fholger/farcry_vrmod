@@ -175,6 +175,9 @@ void VRRenderer::DrawCrosshair()
 	Vec3 crosshairPos = cam.GetPos();
 	Matrix33 transform;
 	transform.SetRotationXYZ(Deg2Rad(cam.GetAngles()));
+	Vec3 crosshairAngles;
+	pPlayer->GetFirePosAngles(crosshairPos, crosshairAngles);
+	transform.SetRotationXYZ(Deg2Rad(crosshairAngles));
 	Vec3 dir = -transform.GetColumn(1);
 	dir.Normalize();
 	float maxDistance = 16.f;

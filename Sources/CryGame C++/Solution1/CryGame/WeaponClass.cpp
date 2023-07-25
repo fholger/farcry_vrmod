@@ -387,6 +387,20 @@ Vec3	CWeaponClass::GetFirePos( IEntity *pIEntity ) const
 	return firepos;
 }
 
+void CWeaponClass::GetMuzzlePosAngles(Vec3& muzzlePos, Vec3& muzzleAngles)
+{
+	ICryBone* bone = GetCharacter()->GetBoneByName("spitfire");
+	if (!bone)
+		return;
+
+	Matrix34 m = Matrix34::CreateRotationXYZ(Deg2Rad(m_vAngles), m_vPos);
+	Matrix34 muzzleTransform = m * (Matrix34)GetTransposed44(bone->GetAbsoluteMatrix());
+	Ang3 angles;
+	angles.SetAnglesXYZ((Matrix33)muzzleTransform);
+	muzzleAngles = RAD2DEG(angles);
+	muzzlePos = muzzleTransform.GetTranslation();
+}
+
 //////////////////////////////////////////////////////////////////////
 void CWeaponClass::SetFirstPersonOffset( const Vec3 &posOfs,const Vec3 &angOfs )
 {

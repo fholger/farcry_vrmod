@@ -2547,6 +2547,15 @@ void CPlayer::GetFirePosAngles(Vec3d& firePos, Vec3d& fireAngles)
 		//fireAngles = m_pEntity->GetAngles()+m_vShake;
 		firePos = m_vEyePos;
 
+		if (IsMyPlayer() && gVR->UseMotionControllers())
+		{
+			CWeaponClass* weapon = GetSelectedWeapon();
+			if (weapon)
+			{
+				weapon->GetMuzzlePosAngles(firePos, fireAngles);
+			}
+		}
+
 		if (m_pVehicle)
 		{
 			// if we are in vehicle, the cam offset seems to be wrong -

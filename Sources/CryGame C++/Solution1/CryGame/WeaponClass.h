@@ -199,6 +199,8 @@ public:
 	//! Find position of fire for this player.
 	Vec3	GetFirePos(IEntity *pIEntity) const;
 
+	void GetMuzzlePosAngles(Vec3& muzzlePos, Vec3& muzzleAngles);
+
 	//! Set offset of weapon for first person view.
 	void SetFirstPersonOffset(const Vec3d &posOfs, const Vec3d &angOfs);
 	Vec3 GetFirstPersonOffset() { return m_fpvPosOffset; };
