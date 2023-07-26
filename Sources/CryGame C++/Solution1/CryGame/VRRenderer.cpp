@@ -36,6 +36,18 @@ HRESULT __stdcall Hook_D3D9Present(IDirect3DDevice9Ex* pSelf, const RECT* pSourc
 	return result;
 }
 
+void __fastcall Hook_Renderer_SetCamera(IRenderer* pSelf, void* notUsed, const CCamera& cam)
+{
+	CCamera cc = cam;
+	const CCamera& vc = pSelf->GetCamera();
+	// try to detect if this is the DRAW_NEAR camera, and if so, restore proper FOV as the FOV reduction does not work in VR
+	if (cc.GetZMin() == 0.01f && cc.GetZMax() == 40.0f)
+	{
+		cc.SetFov(vc.GetFov());
+	}
+	hooks::CallOriginal(Hook_Renderer_SetCamera)(pSelf, notUsed, cc);
+}
+
 extern "C" {
   __declspec(dllimport) IDirect3DDevice9Ex* dxvkGetCreatedDevice();
 }
@@ -54,6 +66,7 @@ void VRRenderer::Init(CXGame *game)
 	CryLogAlways("Initializing rendering function hooks");
 	hooks::InstallHook("SetWindowPos", &SetWindowPos, &Hook_SetWindowPos);
 	hooks::InstallVirtualFunctionHook("IDirect3DDevice9Ex::Present", device, 17, &Hook_D3D9Present);
+	hooks::InstallVirtualFunctionHook("IRenderer::SetCamera", m_pGame->m_pRenderer, 36, &Hook_Renderer_SetCamera);
 }
 
 void VRRenderer::Shutdown()

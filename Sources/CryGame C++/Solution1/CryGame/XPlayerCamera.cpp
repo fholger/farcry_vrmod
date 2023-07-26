@@ -515,7 +515,7 @@ void CPlayer::UpdateFirstPersonView()
 			ICryCharInstance *pChar = GetEntity()->GetCharInterface()->GetCharacter(1);
 			if (pChar)
 			{
-				GetEntity()->DrawCharacter(1, CS_FLAG_DRAW_MODEL);
+				GetEntity()->DrawCharacter(1, CS_FLAG_DRAW_NEAR);
 
 				/* PLEASE LEAVE THIS CODE IN HERE
 				// adjust first person bounding box
