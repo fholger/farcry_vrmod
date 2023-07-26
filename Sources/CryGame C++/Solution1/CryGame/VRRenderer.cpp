@@ -18,11 +18,11 @@ namespace
 
 VRRenderer* gVRRenderer = &g_vrRendererImpl;
 
-BOOL Hook_SetWindowPos(HWND hWnd, HWND hWndInsertAfter, int  X, int  Y, int  cx, int  cy, UINT uFlags)
+BOOL __stdcall Hook_SetWindowPos(HWND hWnd, HWND hWndInsertAfter, int  X, int  Y, int  cx, int  cy, UINT uFlags)
 {
 	if (!gVRRenderer->ShouldIgnoreWindowSizeChanges())
 	{
-		return hooks::CallOriginal(Hook_SetWindowPos)(hWnd, hWndInsertAfter, 0, 0, cx, cy, uFlags);
+		return hooks::CallOriginal(Hook_SetWindowPos)(hWnd, hWndInsertAfter, X, Y, cx, cy, uFlags);
 	}
 
 	return TRUE;
@@ -44,7 +44,7 @@ void VRRenderer::Init(CXGame *game)
 	}
 
 	CryLogAlways("Initializing rendering function hooks");
-	//hooks::InstallHook("SetWindowPos", &SetWindowPos, &Hook_SetWindowPos);
+	hooks::InstallHook("SetWindowPos", &SetWindowPos, &Hook_SetWindowPos);
 }
 
 void VRRenderer::Shutdown()
