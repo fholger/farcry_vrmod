@@ -9,6 +9,7 @@
 #include <d3d9.h>
 #include <openvr.h>
 
+#include "UISystem.h"
 #include "VRRenderer.h"
 #include "WeaponClass.h"
 
@@ -81,6 +82,7 @@ bool VRManager::Init(CXGame *game)
 
 	vr::VROverlay()->CreateOverlay("CrysisHud", "Crysis HUD", &m_hudOverlay);
 	vr::VROverlay()->SetOverlayWidthInMeters(m_hudOverlay, 2.f);
+
 	vr::HmdMatrix34_t transform;
 	memset(&transform, 0, sizeof(vr::HmdMatrix34_t));
 	transform.m[0][0] = transform.m[1][1] = transform.m[2][2] = 1;
@@ -258,6 +260,12 @@ void VRManager::FinishFrame()
 	texInfo.handle = (void*)&vkTexData[2];
 	vr::VROverlay()->SetOverlayTexture(m_hudOverlay, &texInfo);
 
+	// apparently we need to set the overlay mouse scale to some values with the proper aspect ratio, otherwise it just won't work
+	vr::HmdVector2_t mouseScale;
+	mouseScale.v[0] = m_pGame->m_pRenderer->GetWidth();
+	mouseScale.v[1] = m_pGame->m_pRenderer->GetHeight();
+	vr::VROverlay()->SetOverlayMouseScale(m_hudOverlay, &mouseScale);
+
 	vr::VRCompositor()->PostPresentHandoff();
 	dxvkReleaseSubmissionQueue(m_d3d->device.Get());
 
@@ -387,11 +395,45 @@ void VRManager::GetEffectiveRenderLimits(int eye, float* left, float* right, flo
 
 void VRManager::ProcessInput()
 {
+	if (m_pGame->IsInMenu() && UseMotionControllers())
+	{
+		if (!m_wasInMenu)
+		{
+			m_wasInMenu = true;
+			vr::VROverlay()->SetOverlayInputMethod(m_hudOverlay, vr::VROverlayInputMethod_Mouse);
+			vr::VROverlay()->SetOverlayFlag(m_hudOverlay, vr::VROverlayFlags_MakeOverlaysInteractiveIfVisible, true);
+			vr::VROverlay()->SetOverlayFlag(m_hudOverlay, vr::VROverlayFlags_HideLaserIntersection, true);
+		}
+		ProcessMenuInput();
+		return;
+	}
+
+	if (m_wasInMenu)
+	{
+		m_wasInMenu = false;
+		vr::VROverlay()->SetOverlayInputMethod(m_hudOverlay, vr::VROverlayInputMethod_None);
+		vr::VROverlay()->SetOverlayFlag(m_hudOverlay, vr::VROverlayFlags_MakeOverlaysInteractiveIfVisible, false);
+	}
+
 	if (!UseMotionControllers())
 		return;
 
 	m_input.ProcessInput();
 	ProcessRoomscale();
+}
+
+void VRManager::ProcessMenuInput()
+{
+	vr::VREvent_t event;
+	while (vr::VROverlay()->PollNextOverlayEvent(m_hudOverlay, &event, sizeof(vr::VREvent_t)))
+	{
+		if (event.eventType == vr::VREvent_MouseMove)
+		{
+			IMouse* mouse = m_pGame->GetSystem()->GetIInput()->GetIMouse();
+			mouse->SetVScreenX(800.f * event.data.mouse.x / m_pGame->m_pRenderer->GetWidth());
+			mouse->SetVScreenY(600.f * (1.f - event.data.mouse.y / m_pGame->m_pRenderer->GetHeight()));
+		}
+	}
 }
 
 bool VRManager::UseMotionControllers() const

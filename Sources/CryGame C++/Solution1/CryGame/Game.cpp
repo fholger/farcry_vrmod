@@ -904,6 +904,9 @@ bool CXGame::Update()
 	if (!bPause)
 		RetriggerAreas();
 
+	gVR->ProcessInput();
+
+
 	if (!bPause || (m_pClient && !m_pClient->IsConnected()))
 	{	
 		// network start
@@ -912,8 +915,6 @@ bool CXGame::Update()
 		// update client
 		if (m_pClient)
 		{
-			gVR->ProcessInput();
-
 			m_pClient->UpdateClientNetwork();
 			pTimer->MeasureTime("Net");
 

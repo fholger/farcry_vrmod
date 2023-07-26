@@ -34,6 +34,8 @@ public:
 	void GetEffectiveRenderLimits(int eye, float* left, float* right, float* top, float* bottom);
 
 	void ProcessInput();
+	void ProcessMenuInput();
+
 	bool UseMotionControllers() const;
 	Matrix34 GetControllerTransform(int hand);
 
@@ -72,6 +74,7 @@ private:
 	float m_referenceYaw = 0;
 	Matrix34 m_hmdTransform;
 	bool m_skippedRoomscaleMovement = false;
+	bool m_wasInMenu = false;
 
 	void UpdateHmdTransform();
 	void ProcessRoomscale();
