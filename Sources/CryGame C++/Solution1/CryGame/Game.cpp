@@ -739,9 +739,6 @@ bool CXGame::Init(struct ISystem *pSystem,bool bDedicatedSrv,bool bInEditor,cons
 	if (!gVR->Init(this))
 		return false;
 
-	// TODO: make window size in VR configurable
-	m_pRenderer->ChangeResolution(1280, 720, 32, 0, false);
-
 	return (true);
 }
 

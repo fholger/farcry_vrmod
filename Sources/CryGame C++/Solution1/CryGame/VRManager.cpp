@@ -107,6 +107,8 @@ bool VRManager::Init(CXGame *game)
 	m_referencePosition = Vec3(0, 0, 0);
 	m_referenceYaw = 0;
 
+	m_pGame->m_pRenderer->ChangeResolution(vr_window_width, vr_window_height, 32, 0, false);
+
 	m_initialized = true;
 	return true;
 }
@@ -511,11 +513,15 @@ void VRManager::RegisterCVars()
 	console->Register("vr_yaw_deadzone_angle", &vr_yaw_deadzone_angle, 30, VF_DUMPTODISK, "Controls the deadzone angle in front of the player where weapon aim does not rotate the camera");
 	console->Register("vr_enable_motion_controllers", &vr_enable_motion_controllers, 0, VF_DUMPTODISK, "Enable this to use VR motion controllers instead of keyboard+mouse");
 	console->Register("vr_render_force_max_terrain_detail", &vr_render_force_max_terrain_detail, 1, VF_DUMPTODISK, "If enabled, will force terrain to render at max detail even in the distance");
+	console->Register("vr_window_width", &vr_window_width, 1280, VF_DUMPTODISK, "Configures the Far Cry desktop window width");
+	console->Register("vr_window_height", &vr_window_height, 720, VF_DUMPTODISK, "Configures the Far Cry desktop window height");
 
 	e_terrain_lod_ratio = console->GetCVar("e_terrain_lod_ratio");
 
 	// disable motion blur, as it does not work properly in VR
 	console->GetCVar("r_MotionBlur")->ForceSet("0");
+
+	console->Update();
 }
 
 void VRManager::UpdateHmdTransform()
