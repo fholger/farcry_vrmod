@@ -424,6 +424,9 @@ void VRManager::ProcessInput()
 
 void VRManager::ProcessMenuInput()
 {
+	m_mousePressed = false;
+	m_mouseReleased = false;
+
 	vr::VREvent_t event;
 	while (vr::VROverlay()->PollNextOverlayEvent(m_hudOverlay, &event, sizeof(vr::VREvent_t)))
 	{
@@ -432,6 +435,16 @@ void VRManager::ProcessMenuInput()
 			IMouse* mouse = m_pGame->GetSystem()->GetIInput()->GetIMouse();
 			mouse->SetVScreenX(800.f * event.data.mouse.x / m_pGame->m_pRenderer->GetWidth());
 			mouse->SetVScreenY(600.f * (1.f - event.data.mouse.y / m_pGame->m_pRenderer->GetHeight()));
+		}
+		if (event.eventType == vr::VREvent_MouseButtonDown)
+		{
+			if (event.data.mouse.button == vr::VRMouseButton_Left)
+				m_mousePressed = true;
+		}
+		if (event.eventType == vr::VREvent_MouseButtonUp)
+		{
+			if (event.data.mouse.button == vr::VRMouseButton_Left)
+				m_mouseReleased = true;
 		}
 	}
 }

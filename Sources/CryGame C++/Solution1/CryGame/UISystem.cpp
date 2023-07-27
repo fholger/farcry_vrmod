@@ -26,6 +26,7 @@
 #include "UIVideoPanel.h"
 #include "UIScreen.h"
 #include "ScriptObjectUI.h"
+#include "VRManager.h"
 
 //////////////////////////////////////////////////////////////////////
 #define UI_MOUSE_VISIBLE				(1 << 0)
@@ -403,10 +404,10 @@ void CUISystem::Update()
 	unsigned int	dwPackedOldMouseXY = UIM_PACK_COORD(m_vMouseXY.x, m_vMouseXY.y);
 	CUIWidget		*pMouseOver = FindWidgetAt(vMouseXY.x, vMouseXY.y);
 	bool			bMouseMoved = dwPackedMouseXY != dwPackedOldMouseXY;
-	bool			bLMouseDown = pMouse->MouseDown(XKEY_MOUSE1);
+	bool			bLMouseDown = pMouse->MouseDown(XKEY_MOUSE1) || gVR->MousePressed();
 	bool			bRMouseDown = pMouse->MouseDown(XKEY_MOUSE2);
 	bool			bMouseDown = (bLMouseDown || bRMouseDown);
-	bool			bLMouseUp = pMouse->MouseReleased(XKEY_MOUSE1);
+	bool			bLMouseUp = pMouse->MouseReleased(XKEY_MOUSE1) || gVR->MouseReleased();
 	bool			bRMouseUp = pMouse->MouseReleased(XKEY_MOUSE2);
 	bool			bMouseUp = (bLMouseUp || bRMouseUp);
 	bool			bLMouseDblClick = m_pInput->MouseDblClick(XKEY_MOUSE1);

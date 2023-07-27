@@ -36,6 +36,9 @@ public:
 	void ProcessInput();
 	void ProcessMenuInput();
 
+	bool MousePressed() const { return m_mousePressed; }
+	bool MouseReleased() const { return m_mouseReleased; }
+
 	bool UseMotionControllers() const;
 	Matrix34 GetControllerTransform(int hand);
 
@@ -75,6 +78,8 @@ private:
 	Matrix34 m_hmdTransform;
 	bool m_skippedRoomscaleMovement = false;
 	bool m_wasInMenu = false;
+	bool m_mousePressed = false;
+	bool m_mouseReleased = false;
 
 	void UpdateHmdTransform();
 	void ProcessRoomscale();
