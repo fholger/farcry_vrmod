@@ -209,6 +209,62 @@ void VRManager::CaptureHUD()
 	}
 }
 
+void VRManager::MirrorEyeToBackBuffer()
+{
+	if (!m_d3d->device || !m_d3d->eyeTextures[1] || m_pGame->IsInMenu())
+		return;
+
+	// figure out aspect ratio correction
+	float windowAspect = (float)vr_window_width / vr_window_height;
+	float vrAspect = (float)m_pGame->m_pRenderer->GetWidth() / m_pGame->m_pRenderer->GetHeight();
+	float scale = vrAspect / windowAspect;
+	CryLogAlways("Aspect: window - %.2f  vr - %.2f   scale - %.2f", windowAspect, vrAspect, scale);
+
+	Vec2 size;
+	if (scale < 1.f)
+	{
+		// mirror view is wider than rendered eye
+		size.x = 1.f;
+		size.y = scale;
+	} else
+	{
+		// rendered eye is wider than mirror view
+		size.x = scale;
+		size.y = 1.f;
+	}
+	Vec2 offset(.5f - .5f * size.x, .5f - .5f * size.y);
+	CryLogAlways("UV coords: (%.2f, %.2f) - (%.2f, %.2f)", offset.x, offset.y, size.x, size.y);
+
+	struct Vertex
+	{
+		float x, y, z, w;
+		float u, v;
+	};
+	Vertex vertices[4] =
+	{
+		{ -0.5f, -0.5f, 0.0f, 1.0f, offset.x, offset.y },
+		{ m_pGame->m_pRenderer->GetWidth() - 0.5f, -0.5f, 0.0f, 1.0f, offset.x + size.x, offset.y },
+		{ m_pGame->m_pRenderer->GetWidth() - 0.5f, m_pGame->m_pRenderer->GetHeight() - 0.5f, 0.0f, 1.0f, offset.x + size.x, offset.y + size.y },
+		{ -0.5f, m_pGame->m_pRenderer->GetHeight() - 0.5f, 0.0f, 1.0f, offset.x, offset.y + size.y },
+	};
+
+	m_d3d->device->SetRenderState(D3DRS_LIGHTING, FALSE);
+	m_d3d->device->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+	m_d3d->device->SetRenderState(D3DRS_ZENABLE, D3DZB_FALSE);
+	m_d3d->device->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
+	m_d3d->device->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_INVDESTALPHA);
+	m_d3d->device->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_DESTALPHA);
+	m_d3d->device->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_SELECTARG1);
+	m_d3d->device->SetSamplerState(0, D3DSAMP_MAGFILTER, D3DTEXF_LINEAR);
+	m_d3d->device->SetSamplerState(0, D3DSAMP_MINFILTER, D3DTEXF_LINEAR);
+	m_d3d->device->SetTexture(0, m_d3d->eyeTextures[1].Get());
+	m_d3d->device->SetFVF(D3DFVF_XYZRHW | D3DFVF_TEX1);
+	m_d3d->device->SetVertexShader(nullptr);
+	m_d3d->device->SetPixelShader(nullptr);
+
+	m_d3d->device->DrawPrimitiveUP(D3DPT_TRIANGLEFAN, 2, vertices, sizeof(Vertex));
+}
+
 void VRManager::SetDevice(IDirect3DDevice9Ex *device)
 {
 	if (device != m_d3d->device.Get())

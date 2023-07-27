@@ -24,6 +24,8 @@ public:
 	void CaptureEye(int eye);
 	void CaptureHUD();
 
+	void MirrorEyeToBackBuffer();
+
 	void SetDevice(IDirect3DDevice9Ex *device);
 	void FinishFrame();
 

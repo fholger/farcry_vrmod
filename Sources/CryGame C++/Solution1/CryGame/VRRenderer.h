@@ -23,8 +23,6 @@ public:
 
 	bool ShouldRenderVR() const;
 
-	//void OnBinoculars(bool bShown) override { m_binocularsActive = bShown; }
-
 	bool ShouldIgnoreWindowSizeChanges() const { return m_ignoreWindowSizeChanges; }
 
 private:

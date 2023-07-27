@@ -1046,6 +1046,7 @@ bool CXGame::Update()
 			m_pTimeDemoRecorder->RenderInfo();
 
 		gVR->CaptureHUD();
+		gVR->MirrorEyeToBackBuffer();
 		m_pSystem->RenderEnd();
 		gVR->FinishFrame();
 	}
