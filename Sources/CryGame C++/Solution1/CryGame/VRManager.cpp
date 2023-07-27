@@ -211,7 +211,9 @@ void VRManager::CaptureHUD()
 
 void VRManager::MirrorEyeToBackBuffer()
 {
-	if (!m_d3d->device || !m_d3d->eyeTextures[1] || m_pGame->IsInMenu())
+	int eye = clamp_tpl(vr_mirrored_eye, 0, 1);
+
+	if (!m_d3d->device || !m_d3d->eyeTextures[eye] || m_pGame->IsInMenu())
 		return;
 
 	// figure out aspect ratio correction
@@ -257,7 +259,7 @@ void VRManager::MirrorEyeToBackBuffer()
 	m_d3d->device->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_SELECTARG1);
 	m_d3d->device->SetSamplerState(0, D3DSAMP_MAGFILTER, D3DTEXF_LINEAR);
 	m_d3d->device->SetSamplerState(0, D3DSAMP_MINFILTER, D3DTEXF_LINEAR);
-	m_d3d->device->SetTexture(0, m_d3d->eyeTextures[1].Get());
+	m_d3d->device->SetTexture(0, m_d3d->eyeTextures[eye].Get());
 	m_d3d->device->SetFVF(D3DFVF_XYZRHW | D3DFVF_TEX1);
 	m_d3d->device->SetVertexShader(nullptr);
 	m_d3d->device->SetPixelShader(nullptr);
@@ -626,6 +628,7 @@ void VRManager::RegisterCVars()
 	console->Register("vr_render_force_max_terrain_detail", &vr_render_force_max_terrain_detail, 1, VF_DUMPTODISK, "If enabled, will force terrain to render at max detail even in the distance");
 	console->Register("vr_window_width", &vr_window_width, 1280, VF_DUMPTODISK, "Configures the Far Cry desktop window width");
 	console->Register("vr_window_height", &vr_window_height, 720, VF_DUMPTODISK, "Configures the Far Cry desktop window height");
+	console->Register("vr_mirrored_eye", &vr_mirrored_eye, 1, VF_DUMPTODISK, "Which eye view is mirrored to the desktop window. 0 - left, 1 - right");
 
 	e_terrain_lod_ratio = console->GetCVar("e_terrain_lod_ratio");
 

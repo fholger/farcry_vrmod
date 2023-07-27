@@ -70,6 +70,7 @@ private:
 	int vr_enable_motion_controllers;
 	int vr_window_width;
 	int vr_window_height;
+	int vr_mirrored_eye;
 	ICVar* e_terrain_lod_ratio = nullptr;
 	void RegisterCVars();
 
