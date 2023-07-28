@@ -1045,10 +1045,7 @@ bool CXGame::Update()
 		if (m_pTimeDemoRecorder)
 			m_pTimeDemoRecorder->RenderInfo();
 
-		gVR->CaptureHUD();
-		gVR->MirrorEyeToBackBuffer();
 		m_pSystem->RenderEnd();
-		gVR->FinishFrame();
 	}
   pTimer->MeasureTime("3Rend Up");
 	
