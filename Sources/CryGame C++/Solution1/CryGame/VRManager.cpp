@@ -316,7 +316,7 @@ void VRManager::FinishFrame()
 		vrTexData.handle = &vkTexData[eye];
 
 		auto error = vr::VRCompositor()->Submit(eye == 0 ? vr::Eye_Left : vr::Eye_Right, &vrTexData, &bounds);
-		if (error != vr::VRCompositorError_None)
+		if (error != vr::VRCompositorError_None && error != vr::VRCompositorError_AlreadySubmitted)
 		{
 			CryLogAlways("Submitting eye texture failed: %i", error);
 		}

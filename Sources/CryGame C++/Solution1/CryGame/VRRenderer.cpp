@@ -224,6 +224,13 @@ void VRRenderer::DrawCrosshair()
 		crosshairPos += dir * maxDistance;
 	}
 
+	// for some reason, if we do not draw the crosshair ball, the menu gets completely messed up; probably some render state corruption
+	// for now, just move the crosshair out of sight while in the menu
+	if (m_pGame->IsInMenu())
+	{
+		crosshairPos += Vec3(0, 0, -1000.f);
+	}
+
 	// for the moment, draw something primitive with the debug tools. Maybe later we can find something more elegant...
 	m_pGame->m_pRenderer->SetState(GS_NODEPTHTEST);
 	m_pGame->m_pRenderer->DrawBall(crosshairPos - dir * 0.06f, 0.06f);
