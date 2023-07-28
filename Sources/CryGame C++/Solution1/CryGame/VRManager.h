@@ -61,6 +61,10 @@ private:
 	float m_horzRenderScale;
 	float m_prevViewYaw = 0;
 
+	void SetHudAttachedToHead();
+	void SetHudInFrontOfPlayer();
+	void SetHudFixed();
+
 	void InitDevice(IDirect3DDevice9Ex* device);
 	void CreateEyeTexture(int eye);
 	void CreateHUDTexture();
