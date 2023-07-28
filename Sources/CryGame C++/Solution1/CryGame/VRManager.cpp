@@ -232,7 +232,6 @@ void VRManager::MirrorEyeToBackBuffer()
 	float windowAspect = (float)vr_window_width / vr_window_height;
 	float vrAspect = (float)m_pGame->m_pRenderer->GetWidth() / m_pGame->m_pRenderer->GetHeight();
 	float scale = vrAspect / windowAspect;
-	CryLogAlways("Aspect: window - %.2f  vr - %.2f   scale - %.2f", windowAspect, vrAspect, scale);
 
 	Vec2 size;
 	if (scale < 1.f)
@@ -247,7 +246,6 @@ void VRManager::MirrorEyeToBackBuffer()
 		size.y = 1.f;
 	}
 	Vec2 offset(.5f - .5f * size.x, .5f - .5f * size.y);
-	CryLogAlways("UV coords: (%.2f, %.2f) - (%.2f, %.2f)", offset.x, offset.y, size.x, size.y);
 
 	struct Vertex
 	{

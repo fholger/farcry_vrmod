@@ -467,7 +467,9 @@ Matrix34 CWeaponClass::GetGripTransform()
 		return Matrix34::CreateIdentity();
 	}
 
-	return (Matrix34)GetTransposed44(bone->GetAbsoluteMatrix());
+	Matrix34 offset = Matrix34::CreateIdentity();
+	offset.SetTranslation(Vec3(0.02f, -0.1f, -0.018f));
+	return ((Matrix34)GetTransposed44(bone->GetAbsoluteMatrix())) * offset;
 }
 
 //////////////////////////////////////////////////////////////////////
