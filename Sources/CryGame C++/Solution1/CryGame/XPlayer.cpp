@@ -1237,7 +1237,7 @@ void CPlayer::ProcessAngles(CXEntityProcessingCmd &ProcessingCmd)
 		}
 		Vec3d vA=Angles;
 		
-		if((m_fRecoilXUp==0 && (m_fRecoilZUp==0)) && (m_fRecoilXDelta!=0)  )//blend back recoil 
+		if((m_fRecoilXUp==0 && (m_fRecoilZUp==0)) && (m_fRecoilXDelta!=0) && !gVR->UseMotionControllers() )//blend back recoil 
 		{
 			float multiplier=m_stats.firing?m_pGame->w_recoil_speed_down*0.2f:m_pGame->w_recoil_speed_down;
 			float m=min(1,m_pTimer->GetFrameTime()*multiplier);
@@ -1255,7 +1255,7 @@ void CPlayer::ProcessAngles(CXEntityProcessingCmd &ProcessingCmd)
 		}
 
 		//APPLY RECOIL
-		if((m_fRecoilXUp!=0 || m_fRecoilZUp!=0) )//apply recoil
+		if((m_fRecoilXUp!=0 || m_fRecoilZUp!=0) && !gVR->UseMotionControllers())//apply recoil
 		{			
 			float deltatime=m_pTimer->GetFrameTime()*m_pGame->w_recoil_speed_up;		
 			float dx=m_fRecoilXUp>0?min(m_fRecoilXUp,m_fRecoilX*deltatime):max(m_fRecoilXUp,m_fRecoilX*deltatime);
@@ -2553,6 +2553,7 @@ void CPlayer::GetFirePosAngles(Vec3d& firePos, Vec3d& fireAngles)
 			if (weapon)
 			{
 				weapon->GetMuzzlePosAngles(firePos, fireAngles);
+				fireAngles += m_vShake;
 			}
 		}
 
