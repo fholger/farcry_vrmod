@@ -441,23 +441,6 @@ Vec3 CWeaponClass::GetBonePos(const char* name)
 	return mx * vBonePos;
 }
 
-void CWeaponClass::HideLeftArm()
-{
-	const char* boneName = "";
-	GetScriptObject()->GetValue("BoneLeftHand", boneName);
-	ICryBone* bone = GetCharacter()->GetBoneByName(boneName);
-	if (!bone)
-	{
-		CryLogAlways("Could not find left arm bone");
-		return;
-	}
-
-	Matrix44 zeroScale (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1);
-	bone->DoNotCalculateBoneRelativeMatrix(true);
-	Matrix44& boneMatrix = const_cast<Matrix44&>(bone->GetRelativeMatrix());
-	boneMatrix = zeroScale;
-}
-
 void CWeaponClass::InitGripTransform()
 {
 	m_gripTransform.SetIdentity();
@@ -821,12 +804,15 @@ void CWeaponClass::Update(CPlayer *pPlayer)
 	if (pPlayer->IsMyPlayer() && m_pCharacter && pChar)
 	{
 		FRAME_PROFILER( "CWeaponClass::UpdateCharacter",GetISystem(),PROFILE_GAME );
+		if (gVR->UseMotionControllers())
+			UpdateLeftHandVisibility(pPlayer);
+
 		pChar->Update(GetPos());
 
 		if (gVR->UseMotionControllers())
 		{
-			HideArmBones("BoneRightHand");
-			HideArmBones("BoneLeftHand");
+			HideUpperArms("BoneRightHand");
+			HideUpperArms("BoneLeftHand");
 		}
 	}
 }
@@ -1486,7 +1472,7 @@ void CWeaponClass::CalculateWeaponAngles(BYTE random_seed, Vec3d* pVector, float
 	}
 }
 
-void CWeaponClass::HideArmBones(const char* fieldName)
+void CWeaponClass::HideUpperArms(const char* fieldName)
 {
 	const char* boneName = "";
 	GetScriptObject()->GetValue(fieldName, boneName);
@@ -1506,6 +1492,30 @@ void CWeaponClass::HideArmBones(const char* fieldName)
 		m = Matrix44(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1);
 		m.SetTranslationOLD(pos);
 		bone = bone->GetParent();
+	}
+}
+
+void CWeaponClass::UpdateLeftHandVisibility(CPlayer* player)
+{
+	const char* boneName = "";
+	GetScriptObject()->GetValue("BoneLeftHand", boneName);
+	ICryBone* bone = GetCharacter()->GetBoneByName(boneName);
+	if (!bone || !bone->GetParent())
+		return;
+	bone = bone->GetParent()->GetParent();
+	if (!bone)
+		return;
+
+	if (m_leftHandHidden && !player->m_stats.reloading)
+	{
+		Matrix44 zeroScale(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1);
+		bone->DoNotCalculateBoneRelativeMatrix(true);
+		Matrix44& boneMatrix = const_cast<Matrix44&>(bone->GetRelativeMatrix());
+		boneMatrix = zeroScale;
+	}
+	else
+	{
+		bone->UnfixBoneMatrix();
 	}
 }
 

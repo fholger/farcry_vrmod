@@ -210,7 +210,6 @@ public:
 	const Vec3& GetPos() const	{	return m_vPos;	}
 
 	Vec3 GetBonePos(const char* name);
-	void HideLeftArm();
 
 	Matrix34 GetGripTransform() const { return m_gripTransform; }
 
@@ -315,7 +314,9 @@ public:
 	CScriptObjectVector m_ssoBulletPlayerPos;
 
 private:
-	void HideArmBones(const char* fieldName);
+	bool m_leftHandHidden = true;
+	void HideUpperArms(const char* fieldName);
+	void UpdateLeftHandVisibility(CPlayer* player);
 };
 
 #endif //WEAPONCLASS_H__
