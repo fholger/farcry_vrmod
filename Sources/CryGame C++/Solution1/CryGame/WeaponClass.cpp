@@ -460,8 +460,12 @@ void CWeaponClass::HideLeftArm()
 Matrix34 CWeaponClass::GetGripTransform()
 {
 	const char* boneName = nullptr;
-	GetScriptObject()->GetValue("BoneRightHand", boneName);
-	ICryBone* bone = GetCharacter()->GetBoneByName(boneName);
+	ICryBone* bone = nullptr;
+	if (GetScriptObject() && GetScriptObject()->GetValue("BoneRightHand", boneName))
+	{
+		bone = GetCharacter()->GetBoneByName(boneName);
+	}
+
 	if (!bone)
 	{
 		return Matrix34::CreateIdentity();
