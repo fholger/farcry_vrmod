@@ -4,7 +4,7 @@ Wrench = {
 	character	= "Objects/Weapons/wrench/wrench.cgf",
 	
 	BoneRightHand = "Bone03",
-	BoneLeftArm = "Bone25",
+	BoneLeftHand = "Bone19",
 	
 	-- factor to slow down the player when he holds that weapon
 	PlayerSlowDown = 0.9,	

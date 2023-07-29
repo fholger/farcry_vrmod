@@ -4,7 +4,7 @@ M249 = {
 	character	= "Objects/Weapons/M249/M249.cgf",
 	
 	BoneRightHand = "Bone67",
-	BoneLeftArm = "Bone25",
+	BoneLeftHand = "Bone19",
 	
 	MaxZoomSteps =  1,
 	ZoomSteps = { 1.4 },

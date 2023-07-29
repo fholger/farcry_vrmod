@@ -4,7 +4,7 @@ P90 = {
 	character	= "Objects/Weapons/P90/P90.cgf",
 	
 	BoneRightHand = "Bone67",
-	BoneLeftArm = "Bone25",
+	BoneLeftHand = "Bone19",
 
 	---------------------------------------------------
 	PlayerSlowDown = 0.88,									-- factor to slow down the player when he holds that weapon

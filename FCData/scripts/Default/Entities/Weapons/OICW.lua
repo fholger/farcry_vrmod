@@ -13,7 +13,7 @@ OICWSP = {
 	character	= "Objects/Weapons/oicw/oicw.cgf",
 	
 	BoneRightHand = "Bone67",
-	BoneLeftArm = "Bone25",
+	BoneLeftHand = "Bone19",
 
 	-- if the weapon supports zooming then add this...
 	ZoomActive = 0,												-- initially always 0

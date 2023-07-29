@@ -10,7 +10,7 @@ M4 = {
 	character	= "Objects/Weapons/M4/M4.cgf",
 	
 	BoneRightHand = "Bone20",
-	BoneLeftArm = "Bone01",
+	BoneLeftHand = "Bone03",
 	
 	PlayerSlowDown = 0.9,		-- factor to slow down the player when he holds that weapon
 	---------------------------------------------------

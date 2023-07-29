@@ -4,7 +4,7 @@ RLSP = {
 	character	= "Objects/Weapons/RL/RL.cgf",
 	
 	BoneRightHand = "Bone20",
-	BoneLeftArm = "Bone01",
+	BoneLeftHand = "Bone03",
 
 	-- if the weapon supports zooming then add this...
 	ZoomActive = 0,												-- initially always 0

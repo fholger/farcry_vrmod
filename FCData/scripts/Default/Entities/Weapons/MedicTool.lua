@@ -4,7 +4,7 @@ MedicTool = {
 	character	= "Objects/Weapons/health_pack/health_pack.cgf",
 	
 	BoneRightHand = "Bone03",
-	BoneLeftArm = "Bone25",
+	BoneLeftHand = "Bone19",
 	
 	PlayerSlowDown = 1.0,	
 		-- factor to slow down the player when he holds that weapon
