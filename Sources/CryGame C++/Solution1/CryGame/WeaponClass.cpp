@@ -457,23 +457,23 @@ void CWeaponClass::HideLeftArm()
 	boneMatrix = zeroScale;
 }
 
-Matrix34 CWeaponClass::GetGripTransform()
+void CWeaponClass::InitGripTransform()
 {
+	m_gripTransform.SetIdentity();
+
 	const char* boneName = nullptr;
 	ICryBone* bone = nullptr;
-	if (GetScriptObject() && GetScriptObject()->GetValue("BoneRightHand", boneName))
+	if (GetScriptObject() && GetCharacter() && GetScriptObject()->GetValue("BoneRightHand", boneName))
 	{
 		bone = GetCharacter()->GetBoneByName(boneName);
 	}
 
 	if (!bone)
-	{
-		return Matrix34::CreateIdentity();
-	}
+		return;
 
 	Matrix34 offset = Matrix34::CreateIdentity();
 	offset.SetTranslation(Vec3(0.02f, -0.1f, -0.018f));
-	return ((Matrix34)GetTransposed44(bone->GetAbsoluteMatrix())) * offset;
+	m_gripTransform = ((Matrix34)GetTransposed44(bone->GetAbsoluteMatrix())) * offset;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -656,6 +656,8 @@ bool CWeaponClass::InitScripts()
 	// make sure models are loaded before calling OnInit()
 	if (!InitModels())
 		return false;
+
+	InitGripTransform();
 
 	// call onInit
 	ScriptOnInit();
