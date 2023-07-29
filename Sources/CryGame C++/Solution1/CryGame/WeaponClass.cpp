@@ -472,7 +472,7 @@ void CWeaponClass::InitGripTransform()
 		return;
 
 	Matrix34 offset = Matrix34::CreateIdentity();
-	offset.SetTranslation(Vec3(0.02f, -0.1f, -0.018f));
+	offset.SetTranslation(Vec3(0.0f, -0.1f, -0.018f));
 	m_gripTransform = ((Matrix34)GetTransposed44(bone->GetAbsoluteMatrix())) * offset;
 }
 
