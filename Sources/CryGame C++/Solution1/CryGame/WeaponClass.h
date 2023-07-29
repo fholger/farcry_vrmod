@@ -313,6 +313,9 @@ public:
 	CScriptObjectVector m_ssoHitNormVec;
 	CScriptObjectVector m_ssoHitPt;
 	CScriptObjectVector m_ssoBulletPlayerPos;
+
+private:
+	void HideArmBones(const char* fieldName);
 };
 
 #endif //WEAPONCLASS_H__

@@ -443,8 +443,8 @@ Vec3 CWeaponClass::GetBonePos(const char* name)
 
 void CWeaponClass::HideLeftArm()
 {
-	const char* boneName = nullptr;
-	GetScriptObject()->GetValue("BoneLeftArm", boneName);
+	const char* boneName = "";
+	GetScriptObject()->GetValue("BoneLeftHand", boneName);
 	ICryBone* bone = GetCharacter()->GetBoneByName(boneName);
 	if (!bone)
 	{
@@ -822,6 +822,12 @@ void CWeaponClass::Update(CPlayer *pPlayer)
 	{
 		FRAME_PROFILER( "CWeaponClass::UpdateCharacter",GetISystem(),PROFILE_GAME );
 		pChar->Update(GetPos());
+
+		if (gVR->UseMotionControllers())
+		{
+			HideArmBones("BoneRightHand");
+			HideArmBones("BoneLeftHand");
+		}
 	}
 }
 
@@ -1477,6 +1483,29 @@ void CWeaponClass::CalculateWeaponAngles(BYTE random_seed, Vec3d* pVector, float
 
 		pVector->x += r1 * fAccuracy;
 		pVector->z += r2 * fAccuracy;
+	}
+}
+
+void CWeaponClass::HideArmBones(const char* fieldName)
+{
+	const char* boneName = "";
+	GetScriptObject()->GetValue(fieldName, boneName);
+	ICryBone* bone = GetCharacter()->GetBoneByName(boneName);
+
+	if (!bone)
+		return;
+
+	Vec3 pos = bone->GetAbsoluteMatrix().GetTranslationOLD();
+
+	// scale the parent bones to zero to effectively hide those parts of the arms - we only want to see the hands in VR
+	// this will create some weird cut off at the hands, but it is the best we can do in code, without editing all the models
+	bone = bone->GetParent();
+	for (int i = 0; i < 3 && bone != nullptr; ++i)
+	{
+		Matrix44& m = const_cast<Matrix44&>(bone->GetAbsoluteMatrix());
+		m = Matrix44(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1);
+		m.SetTranslationOLD(pos);
+		bone = bone->GetParent();
 	}
 }
 
