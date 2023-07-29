@@ -507,7 +507,7 @@ void CPlayer::UpdateFirstPersonView()
 			//weaponOffset.z = cry_sinf(f*gf_PI*4.0f) * m_walkParams.weaponCycle*m_walkParams.speed;
 		}
 
-		pSelectedWeapon->SetFirstPersonOffset( weaponOffset, m_vWeaponAngles);
+		pSelectedWeapon->SetFirstPersonOffset( weaponOffset, m_vWeaponAngles + RAD2DEG(m_weaponRecoilAngles));
 		pSelectedWeapon->MoveToFirstPersonPos(m_pEntity);
 
 		if(m_stats.drawfpweapon)

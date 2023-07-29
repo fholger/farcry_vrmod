@@ -87,7 +87,7 @@ void VRInput::ProcessInput()
 	HandleBooleanAction(m_weaponsNextWeapon, &CXClient::TriggerNextWeapon, false);
 	HandleBooleanAction(m_weaponsPrevWeapon, &CXClient::TriggerPrevWeapon, false);
 	HandleBooleanAction(m_weaponsFireMode, &CXClient::TriggerFireMode, false);
-	HandleBooleanAction(m_weaponsAim, &CXClient::TriggerZoomToggle, false);
+	//HandleBooleanAction(m_weaponsAim, &CXClient::TriggerZoomToggle, false);
 }
 
 Matrix34 VRInput::GetControllerTransform(int hand)

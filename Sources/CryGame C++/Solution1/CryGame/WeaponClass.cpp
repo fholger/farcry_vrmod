@@ -417,9 +417,10 @@ void CWeaponClass::MoveToFirstPersonPos(IEntity *pIEntity)
 	m	=	GetTransposed44(m); //TODO: remove this after E3 and use Matrix34 instead of Matrix44
 
 	m_vPos = m.TransformPointOLD(pos);
-	m_vAngles = pIEntity->GetCamera()->GetAngles()+m_fpvAngleOffset;
+	m_vAngles = pIEntity->GetCamera()->GetAngles();
 
 	gVR->ModifyWeaponPosition(this, pIEntity->GetCamera(), m_vAngles, m_vPos);
+	m_vAngles += m_fpvAngleOffset;
 }
 
 Vec3 CWeaponClass::GetBonePos(const char* name)

@@ -258,6 +258,8 @@ enum eInVehiclestate
 	float m_fRecoilZUp;
 	float m_fRecoilX;
 	float m_fRecoilZ;
+
+	Ang3 m_weaponRecoilAngles;
 	
 	typedef std::map<int, WeaponInfo> PlayerWeapons;
 	typedef PlayerWeapons::iterator PlayerWeaponsItor;

@@ -1236,8 +1236,10 @@ void CPlayer::ProcessAngles(CXEntityProcessingCmd &ProcessingCmd)
 			}
 		}
 		Vec3d vA=Angles;
+
+		m_weaponRecoilAngles.zero();
 		
-		if((m_fRecoilXUp==0 && (m_fRecoilZUp==0)) && (m_fRecoilXDelta!=0) && !gVR->UseMotionControllers() )//blend back recoil 
+		if((m_fRecoilXUp==0 && (m_fRecoilZUp==0)) && (m_fRecoilXDelta!=0))//blend back recoil 
 		{
 			float multiplier=m_stats.firing?m_pGame->w_recoil_speed_down*0.2f:m_pGame->w_recoil_speed_down;
 			float m=min(1,m_pTimer->GetFrameTime()*multiplier);
@@ -1248,14 +1250,17 @@ void CPlayer::ProcessAngles(CXEntityProcessingCmd &ProcessingCmd)
 			if(m_fRecoilXDelta-xdiff<=0){
 				xdiff=m_fRecoilXDelta;
 			}
-			vA.x+=xdiff;
 			m_fRecoilXDelta-=xdiff;
-						
-			ProcessingCmd.SetDeltaAngles(vA);			
+
+			if (!gVR->UseMotionControllers())
+			{
+				vA.x += xdiff;
+				ProcessingCmd.SetDeltaAngles(vA);
+			}
 		}
 
 		//APPLY RECOIL
-		if((m_fRecoilXUp!=0 || m_fRecoilZUp!=0) && !gVR->UseMotionControllers())//apply recoil
+		if((m_fRecoilXUp!=0 || m_fRecoilZUp!=0))//apply recoil
 		{			
 			float deltatime=m_pTimer->GetFrameTime()*m_pGame->w_recoil_speed_up;		
 			float dx=m_fRecoilXUp>0?min(m_fRecoilXUp,m_fRecoilX*deltatime):max(m_fRecoilXUp,m_fRecoilX*deltatime);
@@ -1268,18 +1273,26 @@ void CPlayer::ProcessAngles(CXEntityProcessingCmd &ProcessingCmd)
 			m_fRecoilXUp-=dx;
 			if(m_fRecoilXUp<0)m_fRecoilXUp=0;
 			m_fRecoilZUp-=dz;
+			m_fRecoilXDelta+=dx;
 
 			dx *= stanceRecoilModifier;
 			dz *= stanceRecoilModifier;
 
-			vA.x-=dx;
-			if(!m_pGame->w_recoil_vertical_only)
+			if (gVR->UseMotionControllers())
 			{
-				vA.z-=dz;
+				m_weaponRecoilAngles.x -= dx;
+				if (!m_pGame->w_recoil_vertical_only)
+					m_weaponRecoilAngles.z -= dz;
 			}
-			
-			m_fRecoilXDelta+=dx;
-			ProcessingCmd.SetDeltaAngles(vA);			
+			else
+			{
+				vA.x -= dx;
+				if (!m_pGame->w_recoil_vertical_only)
+				{
+					vA.z -= dz;
+				}
+				ProcessingCmd.SetDeltaAngles(vA);
+			}
 		}
 
 		//////////////////////////////////////////////////////////////////////////
