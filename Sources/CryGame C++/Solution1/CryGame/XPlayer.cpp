@@ -1415,7 +1415,11 @@ void CPlayer::ProcessMovements(CXEntityProcessingCmd &cmd, bool bScheduled)
 	if(!pPhysEnt)
 		return;
 
-	ProcessRoomscaleMovement(cmd);
+	if (!m_pGame->IsMultiplayer())
+	{
+		// fixme: does not work well in multiplayer, probably needs some massaging with prediction
+		ProcessRoomscaleMovement(cmd);
+	}
 
 	bool bMoveB=false,bMoveF=false,bMoveL=false,bMoveR=false;
 	
