@@ -2408,7 +2408,7 @@ void CPlayer::ModifyWeaponPosition(CWeaponClass* weapon, Vec3& weaponAngles, Vec
 	Matrix34 playerTransform = Matrix34::CreateRotationXYZ(angles, m_pEntity->GetCamera()->GetPos());
 	Matrix34 weaponWorldTransform = Matrix34::CreateRotationXYZ(weaponAngles, weaponPosition);
 	Matrix34 controllerTransform = m_controllerTransform[m_mainHand];
-	Matrix34 localGripTransform = weapon->GetGripTransform();
+	Matrix34 localGripTransform = weapon->GetRHGripTransform();
 	Matrix34 inverseGripTransform = weaponWorldTransform * localGripTransform;
 	inverseGripTransform.Invert();
 	Matrix34 worldControllerTransform = playerTransform * controllerTransform;

@@ -448,6 +448,9 @@ void CWeaponClass::InitGripTransforms()
 	m_rhGripTransform.SetIdentity();
 	m_lhGripTransform.SetIdentity();
 
+	if (!GetCharacter())
+		return;
+
 	const char* boneName = "";
 	GetScriptObject()->GetValue("BoneRightHand", boneName);
 	ICryBone* bone = GetCharacter()->GetBoneByName(boneName);
@@ -543,6 +546,15 @@ unsigned CWeaponClass::MemStats() const
 	memSize += m_vFireModes.capacity() * sizeof(void*) + m_vFireModes.size() * sizeof(WeaponParams);
 
 	return memSize;
+}
+
+void CWeaponClass::DebugDrawGripPositions(IRenderer* renderer)
+{
+	Matrix34 worldTransform = Matrix34::CreateRotationXYZ(Deg2Rad(m_vAngles), m_vPos);
+	Matrix34 worldRHGrip = worldTransform * GetRHGripTransform();
+	renderer->DrawBall(worldRHGrip.GetTranslation(), 0.02f);
+	Matrix34 worldLHGrip = worldTransform * GetLHGripTransform();
+	renderer->DrawBall(worldLHGrip.GetTranslation(), 0.02f);
 }
 
 //////////////////////////////////////////////////////////////////////

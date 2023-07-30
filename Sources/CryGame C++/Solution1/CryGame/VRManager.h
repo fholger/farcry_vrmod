@@ -70,13 +70,18 @@ private:
 	void CreateEyeTexture(int eye);
 	void CreateHUDTexture();
 
+public:
+	// VR-specific cvars
 	float vr_yaw_deadzone_angle;
 	int vr_render_force_max_terrain_detail;
 	int vr_enable_motion_controllers;
 	int vr_window_width;
 	int vr_window_height;
 	int vr_mirrored_eye;
+	int vr_debug_draw_grip;
 	ICVar* e_terrain_lod_ratio = nullptr;
+
+private:
 	void RegisterCVars();
 
 	VRInput m_input;

@@ -174,6 +174,14 @@ void VRRenderer::RenderSingleEye(int eye, ISystem* pSystem)
 		pSystem->RenderBegin();
 		pSystem->Render();
 		DrawCrosshair();
+		if (gVR->vr_debug_draw_grip)
+		{
+			if (CPlayer* player = m_pGame->GetLocalPlayer())
+			{
+				if (CWeaponClass* weapon = player->GetSelectedWeapon())
+					weapon->DebugDrawGripPositions(m_pGame->m_pRenderer);
+			}
+		}
 	}
 
 	pSystem->SetViewCamera(m_originalViewCamera);

@@ -211,7 +211,8 @@ public:
 
 	Vec3 GetBonePos(const char* name);
 
-	Matrix34 GetGripTransform() const { return m_rhGripTransform; }
+	Matrix34 GetRHGripTransform() const { return m_rhGripTransform; }
+	Matrix34 GetLHGripTransform() const { return m_lhGripTransform; }
 
 	IScriptObject* GetScriptObject() {	return m_soWeaponClass;	}
 
@@ -241,6 +242,8 @@ public:
 	//! memory statistics
 	//! @return number of bytes used
 	unsigned	MemStats() const;
+
+	void DebugDrawGripPositions(IRenderer* renderer);
 
 private:
 	bool InitWeaponClassVariables();
