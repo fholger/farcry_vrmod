@@ -443,23 +443,30 @@ Vec3 CWeaponClass::GetBonePos(const char* name)
 	return mx * vBonePos;
 }
 
-void CWeaponClass::InitGripTransform()
+void CWeaponClass::InitGripTransforms()
 {
-	m_gripTransform.SetIdentity();
+	m_rhGripTransform.SetIdentity();
+	m_lhGripTransform.SetIdentity();
 
-	const char* boneName = nullptr;
-	ICryBone* bone = nullptr;
-	if (GetScriptObject() && GetCharacter() && GetScriptObject()->GetValue("BoneRightHand", boneName))
+	const char* boneName = "";
+	GetScriptObject()->GetValue("BoneRightHand", boneName);
+	ICryBone* bone = GetCharacter()->GetBoneByName(boneName);
+	if (bone)
 	{
-		bone = GetCharacter()->GetBoneByName(boneName);
+		Matrix34 offset = Matrix34::CreateIdentity();
+		offset.SetTranslation(Vec3(0.0f, -0.1f, -0.018f));
+		m_rhGripTransform = ((Matrix34)GetTransposed44(bone->GetAbsoluteMatrix())) * offset;
 	}
 
-	if (!bone)
-		return;
-
-	Matrix34 offset = Matrix34::CreateIdentity();
-	offset.SetTranslation(Vec3(0.0f, -0.1f, -0.018f));
-	m_gripTransform = ((Matrix34)GetTransposed44(bone->GetAbsoluteMatrix())) * offset;
+	boneName = "";
+	GetScriptObject()->GetValue("BoneLeftHand", boneName);
+	bone = GetCharacter()->GetBoneByName(boneName);
+	if (bone)
+	{
+		Matrix34 offset = Matrix34::CreateIdentity();
+		offset.SetTranslation(Vec3(0.0f, -0.1f, -0.018f));
+		m_lhGripTransform = ((Matrix34)GetTransposed44(bone->GetAbsoluteMatrix())) * offset;
+	}
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -643,7 +650,7 @@ bool CWeaponClass::InitScripts()
 	if (!InitModels())
 		return false;
 
-	InitGripTransform();
+	InitGripTransforms();
 
 	// call onInit
 	ScriptOnInit();

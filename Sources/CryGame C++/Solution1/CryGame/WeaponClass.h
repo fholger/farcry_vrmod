@@ -211,7 +211,7 @@ public:
 
 	Vec3 GetBonePos(const char* name);
 
-	Matrix34 GetGripTransform() const { return m_gripTransform; }
+	Matrix34 GetGripTransform() const { return m_rhGripTransform; }
 
 	IScriptObject* GetScriptObject() {	return m_soWeaponClass;	}
 
@@ -246,7 +246,7 @@ private:
 	bool InitWeaponClassVariables();
 	bool InitScripts();
 	bool InitModels();
-	void InitGripTransform();
+	void InitGripTransforms();
 	void ProcessHitTarget(const SWeaponHit &hit);
 
 	// the actual weapon class variables
@@ -268,7 +268,8 @@ private:
 	Vec3								m_fpvPosOffset;
 	Vec3								m_fpvAngleOffset;
 
-	Matrix34 m_gripTransform;
+	Matrix34 m_rhGripTransform;
+	Matrix34 m_lhGripTransform;
 
 	// script function callback tables
 	HSCRIPTFUNCTION			m_hClientFuncs[WeaponFunc_Count];
