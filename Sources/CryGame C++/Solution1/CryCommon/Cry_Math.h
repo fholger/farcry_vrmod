@@ -567,4 +567,12 @@ inline float FSWAP32(float f)
 	return l32.FLOAT;
 }
 
+inline Ang3 ToAnglesDeg(const Matrix34& m)
+{
+	Ang3 angles;
+	angles.SetAnglesXYZ((Matrix33)m);
+	angles.Rad2Deg();
+	return angles;
+}
+
 #endif //math

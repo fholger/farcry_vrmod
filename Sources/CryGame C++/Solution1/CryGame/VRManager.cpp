@@ -521,7 +521,7 @@ void VRManager::ProcessMenuInput()
 
 bool VRManager::UseMotionControllers() const
 {
-	return (m_inputReady && vr_enable_motion_controllers && !m_pGame->IsMultiplayer());
+	return (m_inputReady && vr_enable_motion_controllers);
 }
 
 Matrix34 VRManager::GetControllerTransform(int hand)
@@ -567,6 +567,22 @@ void VRManager::ProcessRoomscale()
 	{
 		m_skippedRoomscaleMovement = true;
 		return;
+	}
+
+	if (m_pGame->GetClient())
+	{
+		m_pGame->GetClient()->EnableMotionControls(m_pGame->g_LeftHanded->GetIVal() == 0);
+		Vec3 hmdPos = m_hmdTransform.GetTranslation();
+		Ang3 hmdAngles = ToAnglesDeg(m_hmdTransform);
+		m_pGame->GetClient()->UpdateHmdTransform(hmdPos, hmdAngles);
+
+		for (int i = 0; i < 2; ++i)
+		{
+			Matrix34 controllerTransform = GetControllerTransform(i);
+			Vec3 controllerPos = controllerTransform.GetTranslation();
+			Ang3 controllerAngles = ToAnglesDeg(controllerTransform);
+			m_pGame->GetClient()->UpdateControllerTransform(i, controllerPos, controllerAngles);
+		}
 	}
 
 	Matrix34 rawHmdTransform = OpenVRToFarCry(m_headPose.mDeviceToAbsoluteTracking);

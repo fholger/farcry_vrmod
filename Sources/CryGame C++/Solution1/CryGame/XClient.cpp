@@ -3268,3 +3268,18 @@ bool CXClient::GetLazyChannelState()
 {
 	return m_bLazyChannelState;
 }
+
+void CXClient::EnableMotionControls(bool rightHandDominant)
+{
+	m_PlayerProcessingCmd.SetMotionControls(true, rightHandDominant);
+}
+
+void CXClient::UpdateHmdTransform(const Vec3& pos, const Ang3& anglesDeg)
+{
+	m_PlayerProcessingCmd.SetHmdTransform(pos, anglesDeg);
+}
+
+void CXClient::UpdateControllerTransform(int controller, const Vec3& pos, const Ang3& anglesDeg)
+{
+	m_PlayerProcessingCmd.SetControllerTransform(controller, pos, anglesDeg);
+}

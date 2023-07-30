@@ -185,6 +185,11 @@ public:
 	//!
 	bool GetLazyChannelState();
 
+	// VR motion controls
+	void EnableMotionControls(bool rightHandDominant);
+	void UpdateHmdTransform(const Vec3& pos, const Ang3& anglesDeg);
+	void UpdateControllerTransform(int controller, const Vec3& pos, const Ang3& anglesDeg);
+
 	// Triggers function
 	void TriggerMoveLeft(float fValue,XActivationEvent ae);
 	void TriggerMoveRight(float fValue,XActivationEvent ae);

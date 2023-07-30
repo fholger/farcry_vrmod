@@ -66,6 +66,8 @@ void CXEntityProcessingCmd::Reset()
 	m_nActionFlags[2] = 0;
 	m_iPhysicalTime = 0;
 	m_nTimeSlices = 0;
+	m_motionControlsEnabled = false;
+	m_rightHandDominant = true;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -126,6 +128,27 @@ bool CXEntityProcessingCmd::Write( CStream &stm, IBitStream *pBitStream, bool bW
 
 		if(!pBitStream->WriteBitStream(stm,m_fLeaning,eSignedUnitValueLQ))
 			return false;
+
+		stm.Write(m_motionControlsEnabled);
+
+		if (m_motionControlsEnabled)
+		{
+			stm.Write(m_rightHandDominant);
+
+			if (!pBitStream->WriteBitStream(stm, m_hmdPosition, eWorldPos))
+				return false;
+
+			if (!pBitStream->WriteBitStream(stm, m_hmdAnglesDeg, eEulerAnglesHQ))
+				return false;
+
+			for (int i = 0; i < 2; ++i)
+			{
+				if (!pBitStream->WriteBitStream(stm, m_controllerPosition[i], eWorldPos))
+					return false;
+				if (!pBitStream->WriteBitStream(stm, m_controllerAnglesDeg[i], eEulerAnglesHQ))
+					return false;
+			}
+		}
 	}
 	else
 		stm.Write(false);
@@ -185,6 +208,29 @@ bool CXEntityProcessingCmd::Read( CStream &stm, IBitStream *pBitStream )
 
 		if(!pBitStream->ReadBitStream(stm,m_fLeaning,eSignedUnitValueLQ))
 			return false;
+
+		if(!stm.Read(m_motionControlsEnabled))
+			return false;
+
+		if (m_motionControlsEnabled)
+		{
+			if (!stm.Read(m_rightHandDominant))
+				return false;
+
+			if (!pBitStream->ReadBitStream(stm, m_hmdPosition, eWorldPos))
+				return false;
+
+			if (!pBitStream->ReadBitStream(stm, m_hmdAnglesDeg, eEulerAnglesHQ))
+				return false;
+
+			for (int i = 0; i < 2; ++i)
+			{
+				if (!pBitStream->ReadBitStream(stm, m_controllerPosition[i], eWorldPos))
+					return false;
+				if (!pBitStream->ReadBitStream(stm, m_controllerAnglesDeg[i], eEulerAnglesHQ))
+					return false;
+			}
+		}
 	}
 
 	float fCurSlice;

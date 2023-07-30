@@ -92,6 +92,44 @@ public:
 	float GetMoveBack()           { return m_fMoveBack; }
 	float GetMoveLeft()           { return m_fMoveLeft; }
 	float GetMoveRight()          { return m_fMoveRight;}
+
+	void SetMotionControls(bool enabled, bool rightHandDominant)
+	{
+		m_motionControlsEnabled = enabled;
+		m_rightHandDominant = rightHandDominant;
+	}
+
+	void SetHmdTransform(const Vec3& pos, const Ang3& anglesDeg)
+	{
+		m_hmdPosition = pos;
+		m_hmdAnglesDeg = anglesDeg;
+	}
+
+	void SetControllerTransform(int controller, const Vec3& pos, const Ang3& anglesDeg)
+	{
+		m_controllerPosition[controller] = pos;
+		m_controllerAnglesDeg[controller] = anglesDeg;
+	}
+
+	bool UseMotionControls() const { return m_motionControlsEnabled; }
+	const Vec3& GetHmdPos() const { return m_hmdPosition; }
+	const Ang3& GetHmdAnglesDeg() const { return m_hmdAnglesDeg; }
+	const Vec3& GetControllerPos(int controller) const { return m_controllerPosition[controller]; }
+	const Ang3& GetControllerAnglesDeg(int controller) const { return m_controllerAnglesDeg[controller]; }
+
+	Matrix34 GetHmdTransform() const
+	{
+		Matrix34 m = Matrix34::CreateRotationXYZ(Deg2Rad(m_hmdAnglesDeg));
+		m.SetTranslation(m_hmdPosition);
+		return m;
+	}
+
+	Matrix34 GetControllerTransform(int controller) const
+	{
+		Matrix34 m = Matrix34::CreateRotationXYZ(Deg2Rad(m_controllerAnglesDeg[controller]));
+		m.SetTranslation(m_controllerPosition[controller]);
+		return m;
+	}
 	 
 public: 
 
@@ -108,6 +146,14 @@ private:
 	float             m_fMoveBack;
 	float             m_fMoveLeft;
 	float             m_fMoveRight;
+
+	bool m_motionControlsEnabled;
+	bool m_rightHandDominant;
+	// transforms for HMD and controllers, relative to player
+	Vec3 m_hmdPosition;
+	Ang3 m_hmdAnglesDeg;
+	Vec3 m_controllerPosition[2];
+	Ang3 m_controllerAnglesDeg[2];
 
 	// non serialized variables 
 

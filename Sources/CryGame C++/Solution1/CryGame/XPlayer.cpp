@@ -1252,7 +1252,7 @@ void CPlayer::ProcessAngles(CXEntityProcessingCmd &ProcessingCmd)
 			}
 			m_fRecoilXDelta-=xdiff;
 
-			if (!gVR->UseMotionControllers())
+			if (!ProcessingCmd.UseMotionControls())
 			{
 				vA.x += xdiff;
 				ProcessingCmd.SetDeltaAngles(vA);
@@ -1278,7 +1278,7 @@ void CPlayer::ProcessAngles(CXEntityProcessingCmd &ProcessingCmd)
 			dx *= stanceRecoilModifier;
 			dz *= stanceRecoilModifier;
 
-			if (gVR->UseMotionControllers())
+			if (ProcessingCmd.UseMotionControls())
 			{
 				m_weaponRecoilAngles.x -= dx;
 				if (!m_pGame->w_recoil_vertical_only)
@@ -1745,7 +1745,7 @@ void CPlayer::ProcessMovements(CXEntityProcessingCmd &cmd, bool bScheduled)
 
 		bMoveF=true;
 		float fFwd=1.0f;
-		if (m_pGame->cl_use_joypad->GetIVal() || gVR->UseMotionControllers())
+		if (m_pGame->cl_use_joypad->GetIVal() || cmd.UseMotionControls())
 			fFwd=cmd.GetMoveFwd();
 
 		if(m_stats.onLadder)	// when on ladder - move mostly UP/DOWN
@@ -1788,7 +1788,7 @@ void CPlayer::ProcessMovements(CXEntityProcessingCmd &cmd, bool bScheduled)
 
 		bMoveB=true;
 		float fBack=1.0f;
-		if (m_pGame->cl_use_joypad->GetIVal() || gVR->UseMotionControllers())
+		if (m_pGame->cl_use_joypad->GetIVal() || cmd.UseMotionControls())
 			fBack=cmd.GetMoveBack();
 
 		//FIXME: would be nice if backward key detach us from the ladder when we approach the ground (instead use the jump button), but for this
@@ -1828,7 +1828,7 @@ void CPlayer::ProcessMovements(CXEntityProcessingCmd &cmd, bool bScheduled)
 	{	
 		bMoveL=true;
 		float fLR=1.0f;
-		if (m_pGame->cl_use_joypad->GetIVal() || gVR->UseMotionControllers())
+		if (m_pGame->cl_use_joypad->GetIVal() || cmd.UseMotionControls())
 			fLR=cmd.GetMoveLeft();		
 
 		{
@@ -1842,7 +1842,7 @@ void CPlayer::ProcessMovements(CXEntityProcessingCmd &cmd, bool bScheduled)
 	{			
 		bMoveR=true;
 		float fLR=1.0f;
-		if (m_pGame->cl_use_joypad->GetIVal() || gVR->UseMotionControllers())
+		if (m_pGame->cl_use_joypad->GetIVal() || cmd.UseMotionControls())
 			fLR=cmd.GetMoveRight();		
 
 		{
@@ -1948,7 +1948,7 @@ void CPlayer::ProcessMovements(CXEntityProcessingCmd &cmd, bool bScheduled)
 		inputspeed *= fSpeedScale;
 
 		// Resolve analog movement magnitudes
-		if (m_pGame->cl_use_joypad->GetIVal() || gVR->UseMotionControllers())
+		if (m_pGame->cl_use_joypad->GetIVal() || cmd.UseMotionControls())
 		{		
 			float fMoveMag=0;
 			{
