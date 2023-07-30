@@ -104,16 +104,16 @@ private:
 	float							m_fTimeSlices[32];	//!<
 	unsigned char			m_nTimeSlices;			//!<
 
+	float             m_fMoveFwd;         // 
+	float             m_fMoveBack;
+	float             m_fMoveLeft;
+	float             m_fMoveRight;
+
 	// non serialized variables 
 
 	float							m_fServerDelta;			//!<
 	float							m_fClientDelta;			//!<
 	float							m_fLeaning;					//!<
-
-	float             m_fMoveFwd;         // 
-	float             m_fMoveBack;
-	float             m_fMoveLeft;
-	float             m_fMoveRight;
 };
 
 #endif // GAME_XENTITYPROCESSINGCMD_H

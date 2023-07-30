@@ -105,6 +105,18 @@ bool CXEntityProcessingCmd::Write( CStream &stm, IBitStream *pBitStream, bool bW
 	if(!stm.WritePacked(m_nActionFlags[2]))
 		return false;
 
+	if (!pBitStream->WriteBitStream(stm, m_fMoveFwd, eSignedUnitValueLQ))
+		return false;
+
+	if (!pBitStream->WriteBitStream(stm, m_fMoveBack, eSignedUnitValueLQ))
+		return false;
+
+	if (!pBitStream->WriteBitStream(stm, m_fMoveLeft, eSignedUnitValueLQ))
+		return false;
+
+	if (!pBitStream->WriteBitStream(stm, m_fMoveRight, eSignedUnitValueLQ))
+		return false;
+
 	if (bWriteAngles)
 	{
 		stm.Write(true);
@@ -148,6 +160,18 @@ bool CXEntityProcessingCmd::Read( CStream &stm, IBitStream *pBitStream )
 		return false;
 
 	if(!stm.ReadPacked(m_nActionFlags[2]))
+		return false;
+
+	if (!pBitStream->ReadBitStream(stm, m_fMoveFwd, eSignedUnitValueLQ))
+		return false;
+
+	if (!pBitStream->ReadBitStream(stm, m_fMoveBack, eSignedUnitValueLQ))
+		return false;
+
+	if (!pBitStream->ReadBitStream(stm, m_fMoveLeft, eSignedUnitValueLQ))
+		return false;
+
+	if (!pBitStream->ReadBitStream(stm, m_fMoveRight, eSignedUnitValueLQ))
 		return false;
 
 	bool bReadAngles;
