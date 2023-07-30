@@ -282,7 +282,8 @@ public:
 	virtual void ProcessAngles(CXEntityProcessingCmd &ProcessingCmd);
 	virtual void ProcessMovements(CXEntityProcessingCmd &ProcessingCmd, bool bScheduled=false);
 	virtual void ProcessWeapons(CXEntityProcessingCmd &ProcessingCmd);
-	void ProcessRoomscaleMovement(const Vec3& offset);
+	void ProcessRoomscaleTurn(CXEntityProcessingCmd& ProcessingCmd);
+	void ProcessRoomscaleMovement(CXEntityProcessingCmd& ProcessingCmd);
 
 	virtual void FireGrenade(const Vec3 &origin, const Vec3 &angles, IEntity *pIShooter);
 	void SetFiring(bool bIsFiring);
@@ -1132,6 +1133,12 @@ private:
 	Ang3 m_vHeadAngles; //!< the actual player head bone angle , used for smooth the head rotation.
 
 	float m_fLastProneTime; //!< needed to cap the prone-standing position spamming
+
+	bool m_usesMotionControls;
+	int m_mainHand;
+	int m_offHand;
+	Matrix34 m_hmdTransform;
+	Matrix34 m_controllerTransform[2];
 }; 
 
 #endif // __GAME_PLAYER_H__

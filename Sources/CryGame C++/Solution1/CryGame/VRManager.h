@@ -46,6 +46,9 @@ public:
 
 	void ModifyWeaponPosition(CWeaponClass* weapon, IEntityCamera* playerCam, Vec3& weaponAngles, Vec3& weaponPosition);
 
+	void UpdatePlayerTurnOffset(float yawDeltaDeg);
+	void UpdatePlayerMoveOffset(const Vec3& offset, const Ang3& hmdAnglesDeg);
+
 private:
 	struct D3DResources;
 

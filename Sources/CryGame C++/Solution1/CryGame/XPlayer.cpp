@@ -1155,6 +1155,15 @@ void CPlayer::ProcessAngles(CXEntityProcessingCmd &ProcessingCmd)
 
 	FUNCTION_PROFILER( GetISystem(),PROFILE_GAME );
 
+	ProcessRoomscaleTurn(ProcessingCmd);
+	// copy VR motion controller data here
+	m_usesMotionControls = ProcessingCmd.UseMotionControls();
+	m_mainHand = ProcessingCmd.IsRightHandDominant() ? 1 : 0;
+	m_offHand = ProcessingCmd.IsRightHandDominant() ? 0 : 1;
+	m_hmdTransform = ProcessingCmd.GetHmdTransform();
+	m_controllerTransform[0] = ProcessingCmd.GetControllerTransform(0);
+	m_controllerTransform[1] = ProcessingCmd.GetControllerTransform(1);
+
 	Vec3d Angles=ProcessingCmd.GetDeltaAngles();
 
 	if (IsMyPlayer() && m_pVehicle && !m_bFirstPerson && !m_pMountedWeapon)
@@ -1405,6 +1414,8 @@ void CPlayer::ProcessMovements(CXEntityProcessingCmd &cmd, bool bScheduled)
 
 	if(!pPhysEnt)
 		return;
+
+	ProcessRoomscaleMovement(cmd);
 
 	bool bMoveB=false,bMoveF=false,bMoveL=false,bMoveR=false;
 	
@@ -2327,14 +2338,41 @@ void CPlayer::ProcessWeapons(CXEntityProcessingCmd &cmd)
 	if (m_bWriteOccured) m_bWriteOccured = false;
 }
 
-void CPlayer::ProcessRoomscaleMovement(const Vec3& offset)
+void CPlayer::ProcessRoomscaleTurn(CXEntityProcessingCmd& ProcessingCmd)
 {
-	Ang3 angles = Deg2Rad(m_pEntity->GetAngles());
+	if (!ProcessingCmd.UseMotionControls())
+		return;
+
+	Vec3 angles = ProcessingCmd.GetDeltaAngles();
+	Ang3 hmdAngles = ProcessingCmd.GetHmdAnglesDeg();
+
+	// add HMD angles to input rotation
+	angles.z += hmdAngles.z;
+	angles.x = hmdAngles.x;
+
+	if (IsMyPlayer())
+	{
+		// inform VR manager that we rotated the player as requested
+		gVR->UpdatePlayerTurnOffset(hmdAngles.z);
+	}
+
+	ProcessingCmd.SetDeltaAngles(angles);
+}
+
+void CPlayer::ProcessRoomscaleMovement(CXEntityProcessingCmd& ProcessingCmd)
+{
+	if (!ProcessingCmd.UseMotionControls())
+		return;
+
+	Ang3 angles = m_pEntity->GetAngles();
 	angles.x = angles.y = 0;
-	Matrix33 playerTransform;
-	playerTransform.SetRotationXYZ(angles);
+	// we already processed the rotation, so need to factor it out here
+	angles.z -= ProcessingCmd.GetHmdAnglesDeg().z;
+
+	Matrix33 playerTransform = Matrix33::CreateRotationXYZ(Deg2Rad(angles));
 
 	Vec3 playerPos = m_pEntity->GetPos();
+	Vec3 offset = ProcessingCmd.GetHmdPos();
 	Vec3 worldOffset = playerTransform * offset;
 	worldOffset.z = 0;
 	Vec3 desiredPos = playerPos + worldOffset;
@@ -2343,6 +2381,11 @@ void CPlayer::ProcessRoomscaleMovement(const Vec3& offset)
 	// still, would be better if we could explicitly check if the position is free, but there is no easily accessible way for us to do
 	// so...
 	m_pEntity->SetPos(desiredPos);
+
+	if (IsMyPlayer())
+	{
+		gVR->UpdatePlayerMoveOffset(offset, ProcessingCmd.GetHmdAnglesDeg());
+	}
 }
 
 //////////////////////////////////////////////////////////////////////////

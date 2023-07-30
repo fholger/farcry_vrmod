@@ -112,6 +112,7 @@ public:
 	}
 
 	bool UseMotionControls() const { return m_motionControlsEnabled; }
+	bool IsRightHandDominant() const { return m_rightHandDominant; }
 	const Vec3& GetHmdPos() const { return m_hmdPosition; }
 	const Ang3& GetHmdAnglesDeg() const { return m_hmdAnglesDeg; }
 	const Vec3& GetControllerPos(int controller) const { return m_controllerPosition[controller]; }

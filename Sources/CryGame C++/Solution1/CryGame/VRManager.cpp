@@ -560,6 +560,23 @@ void VRManager::ModifyWeaponPosition(CWeaponClass* weapon, IEntityCamera* player
 	weaponAngles = RAD2DEG(angles);
 }
 
+void VRManager::UpdatePlayerTurnOffset(float yawDeltaDeg)
+{
+	m_referenceYaw += DEG2RAD(yawDeltaDeg);
+	UpdateHmdTransform();
+}
+
+void VRManager::UpdatePlayerMoveOffset(const Vec3& offset, const Ang3& hmdAnglesDeg)
+{
+	// transform offset back into raw HMD space
+	Ang3 refAngles(0, 0, m_referenceYaw - DEG2RAD(hmdAnglesDeg.z));
+	Matrix33 refTransform = Matrix33::CreateRotationXYZ(refAngles);
+
+	Vec3 rawOffset = refTransform * offset;
+	m_referencePosition += rawOffset;
+	UpdateHmdTransform();
+}
+
 void VRManager::ProcessRoomscale()
 {
 	CPlayer* player = m_pGame->GetLocalPlayer();
@@ -567,6 +584,18 @@ void VRManager::ProcessRoomscale()
 	{
 		m_skippedRoomscaleMovement = true;
 		return;
+	}
+
+	if (m_skippedRoomscaleMovement)
+	{
+		// if we previously skipped roomscale movement, reset our offsets to not accidentally move way too much
+		Matrix34 rawHmdTransform = OpenVRToFarCry(m_headPose.mDeviceToAbsoluteTracking);
+		Ang3 rawAngles;
+		rawAngles.SetAnglesXYZ((Matrix33)rawHmdTransform);
+		m_referencePosition = rawHmdTransform.GetTranslation();
+		m_referenceYaw = rawAngles.z;
+		UpdateHmdTransform();
+		m_skippedRoomscaleMovement = false;
 	}
 
 	if (m_pGame->GetClient())
@@ -584,33 +613,6 @@ void VRManager::ProcessRoomscale()
 			m_pGame->GetClient()->UpdateControllerTransform(i, controllerPos, controllerAngles);
 		}
 	}
-
-	Matrix34 rawHmdTransform = OpenVRToFarCry(m_headPose.mDeviceToAbsoluteTracking);
-	Ang3 rawAngles;
-	rawAngles.SetAnglesXYZ((Matrix33)rawHmdTransform);
-
-	if (m_skippedRoomscaleMovement)
-	{
-		// if we previously skipped roomscale movement, reset our offsets to not accidentally move way too much
-		m_referencePosition = rawHmdTransform.GetTranslation();
-		m_referenceYaw = rawAngles.z;
-		UpdateHmdTransform();
-		m_skippedRoomscaleMovement = false;
-	}
-
-	if (!player->GetVehicle())
-	{
-		Vec3 offset = m_hmdTransform.GetTranslation();
-		player->ProcessRoomscaleMovement(offset);
-		m_referencePosition = rawHmdTransform.GetTranslation();
-	}
-
-	Ang3 angles;
-	angles.SetAnglesXYZ((Matrix33)m_hmdTransform);
-	m_pGame->GetClient()->TriggerRoomscaleTurn(RAD2DEG(angles.z), RAD2DEG(angles.x));
-	m_referenceYaw = rawAngles.z;
-
-	UpdateHmdTransform();
 }
 
 
