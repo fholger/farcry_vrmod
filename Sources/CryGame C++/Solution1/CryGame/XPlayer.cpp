@@ -2368,6 +2368,9 @@ void CPlayer::ProcessRoomscaleMovement(CXEntityProcessingCmd& ProcessingCmd)
 	if (!ProcessingCmd.UseMotionControls())
 		return;
 
+	if (GetVehicle())
+		return;
+
 	Ang3 angles = m_pEntity->GetAngles();
 	angles.x = angles.y = 0;
 	// we already processed the rotation, so need to factor it out here
