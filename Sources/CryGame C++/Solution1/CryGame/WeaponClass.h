@@ -204,7 +204,7 @@ public:
 	//! Set offset of weapon for first person view.
 	void SetFirstPersonOffset(const Vec3d &posOfs, const Vec3d &angOfs);
 	Vec3 GetFirstPersonOffset() { return m_fpvPosOffset; };
-	void MoveToFirstPersonPos(IEntity *pIEntity);
+	void MoveToFirstPersonPos(CPlayer* player);
 
 	const Vec3& GetAngles() const	{	return m_vAngles;	}
 	const Vec3& GetPos() const	{	return m_vPos;	}

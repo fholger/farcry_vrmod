@@ -535,31 +535,6 @@ Matrix34 VRManager::GetControllerTransform(int hand)
 	return refTransform * rawControllerTransform;
 }
 
-void VRManager::ModifyWeaponPosition(CWeaponClass* weapon, IEntityCamera* playerCam, Vec3& weaponAngles, Vec3& weaponPosition)
-{
-	if (!vr_enable_motion_controllers)
-		return;
-
-	// locate our reference bone and determine its current position in the world
-	// then figure out the transform to take it to our controller position and apply that to the weapon coordinates
-
-	Ang3 angles = Deg2Rad(playerCam->GetAngles());
-	angles.x = angles.y = 0;
-	Matrix34 playerTransform = Matrix34::CreateRotationXYZ(angles, playerCam->GetPos());
-	Matrix34 weaponWorldTransform = Matrix34::CreateRotationXYZ(weaponAngles, weaponPosition);
-	Matrix34 controllerTransform = GetControllerTransform(1);
-	Matrix34 localGripTransform = weapon->GetGripTransform();
-	Matrix34 inverseGripTransform = weaponWorldTransform * localGripTransform;
-	inverseGripTransform.Invert();
-	Matrix34 worldControllerTransform = playerTransform * controllerTransform;
-
-	Matrix34 trackedTransform = worldControllerTransform * inverseGripTransform * weaponWorldTransform;
-
-	weaponPosition = trackedTransform.GetTranslation();
-	angles.SetAnglesXYZ((Matrix33)trackedTransform);
-	weaponAngles = RAD2DEG(angles);
-}
-
 void VRManager::UpdatePlayerTurnOffset(float yawDeltaDeg)
 {
 	m_referenceYaw += DEG2RAD(yawDeltaDeg);

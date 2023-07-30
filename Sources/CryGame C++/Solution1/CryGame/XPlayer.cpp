@@ -2392,6 +2392,31 @@ void CPlayer::ProcessRoomscaleMovement(CXEntityProcessingCmd& ProcessingCmd)
 	}
 }
 
+void CPlayer::ModifyWeaponPosition(CWeaponClass* weapon, Vec3& weaponAngles, Vec3& weaponPosition)
+{
+	if (!m_usesMotionControls)
+		return;
+
+	// locate our reference bone and determine its current position in the world
+	// then figure out the transform to take it to our controller position and apply that to the weapon coordinates
+
+	Ang3 angles = Deg2Rad(m_pEntity->GetCamera()->GetAngles());
+	angles.x = angles.y = 0;
+	Matrix34 playerTransform = Matrix34::CreateRotationXYZ(angles, m_pEntity->GetCamera()->GetPos());
+	Matrix34 weaponWorldTransform = Matrix34::CreateRotationXYZ(weaponAngles, weaponPosition);
+	Matrix34 controllerTransform = m_controllerTransform[m_mainHand];
+	Matrix34 localGripTransform = weapon->GetGripTransform();
+	Matrix34 inverseGripTransform = weaponWorldTransform * localGripTransform;
+	inverseGripTransform.Invert();
+	Matrix34 worldControllerTransform = playerTransform * controllerTransform;
+
+	Matrix34 trackedTransform = worldControllerTransform * inverseGripTransform * weaponWorldTransform;
+
+	weaponPosition = trackedTransform.GetTranslation();
+	angles.SetAnglesXYZ((Matrix33)trackedTransform);
+	weaponAngles = RAD2DEG(angles);
+}
+
 //////////////////////////////////////////////////////////////////////////
 void CPlayer::FireGrenade(const Vec3d &origin, const Vec3d &angles, IEntity *pIShooter)
 {
@@ -2607,13 +2632,13 @@ void CPlayer::GetFirePosAngles(Vec3d& firePos, Vec3d& fireAngles)
 		//fireAngles = m_pEntity->GetAngles()+m_vShake;
 		firePos = m_vEyePos;
 
-		if (IsMyPlayer() && gVR->UseMotionControllers())
+		if (m_usesMotionControls)
 		{
 			CWeaponClass* weapon = GetSelectedWeapon();
 			if (weapon)
 			{
 				weapon->GetMuzzlePosAngles(firePos, fireAngles);
-				fireAngles += m_vShake;
+				//fireAngles += m_vShake;
 			}
 		}
 

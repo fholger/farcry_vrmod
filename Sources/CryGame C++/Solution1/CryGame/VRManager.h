@@ -44,8 +44,6 @@ public:
 	bool UseMotionControllers() const;
 	Matrix34 GetControllerTransform(int hand);
 
-	void ModifyWeaponPosition(CWeaponClass* weapon, IEntityCamera* playerCam, Vec3& weaponAngles, Vec3& weaponPosition);
-
 	void UpdatePlayerTurnOffset(float yawDeltaDeg);
 	void UpdatePlayerMoveOffset(const Vec3& offset, const Ang3& hmdAnglesDeg);
 

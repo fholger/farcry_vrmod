@@ -285,6 +285,8 @@ public:
 	void ProcessRoomscaleTurn(CXEntityProcessingCmd& ProcessingCmd);
 	void ProcessRoomscaleMovement(CXEntityProcessingCmd& ProcessingCmd);
 
+	void ModifyWeaponPosition(CWeaponClass* weapon, Vec3& weaponAngles, Vec3& weaponPosition);
+
 	virtual void FireGrenade(const Vec3 &origin, const Vec3 &angles, IEntity *pIShooter);
 	void SetFiring(bool bIsFiring);
 

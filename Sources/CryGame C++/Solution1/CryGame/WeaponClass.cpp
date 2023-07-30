@@ -409,8 +409,10 @@ void CWeaponClass::SetFirstPersonOffset( const Vec3 &posOfs,const Vec3 &angOfs )
 }
 
 //////////////////////////////////////////////////////////////////////
-void CWeaponClass::MoveToFirstPersonPos(IEntity *pIEntity)
+void CWeaponClass::MoveToFirstPersonPos(CPlayer* player)
 {
+	IEntity* pIEntity = player->GetEntity();
+
 	Vec3 pos = m_fpvPos+m_fpvPosOffset;
 
 	Matrix44 m=Matrix34::CreateRotationXYZ( Deg2Rad(pIEntity->GetCamera()->GetAngles()), pIEntity->GetCamera()->GetPos() );	//set rotation and translation in one function call
@@ -419,7 +421,7 @@ void CWeaponClass::MoveToFirstPersonPos(IEntity *pIEntity)
 	m_vPos = m.TransformPointOLD(pos);
 	m_vAngles = pIEntity->GetCamera()->GetAngles();
 
-	gVR->ModifyWeaponPosition(this, pIEntity->GetCamera(), m_vAngles, m_vPos);
+	player->ModifyWeaponPosition(this, m_vAngles, m_vPos);
 	m_vAngles += m_fpvAngleOffset;
 }
 
