@@ -56,6 +56,7 @@ bool VRInput::Init(CXGame* game)
 	vr::VRInput()->GetActionHandle("/actions/weapons/in/firemode", &m_weaponsFireMode);
 	vr::VRInput()->GetActionHandle("/actions/weapons/in/next", &m_weaponsNextWeapon);
 	vr::VRInput()->GetActionHandle("/actions/weapons/in/prev", &m_weaponsPrevWeapon);
+	vr::VRInput()->GetActionHandle("/actions/weapons/in/grip", &m_weaponsGrip);
 
 	m_pGame = game;
 	return true;
@@ -88,6 +89,7 @@ void VRInput::ProcessInput()
 	HandleBooleanAction(m_weaponsPrevWeapon, &CXClient::TriggerPrevWeapon, false);
 	HandleBooleanAction(m_weaponsFireMode, &CXClient::TriggerFireMode, false);
 	//HandleBooleanAction(m_weaponsAim, &CXClient::TriggerZoomToggle, false);
+	HandleBooleanAction(m_weaponsGrip, &CXClient::TriggerTwoHandedGrip);
 }
 
 Matrix34 VRInput::GetControllerTransform(int hand)

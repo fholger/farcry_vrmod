@@ -1155,6 +1155,8 @@ void CPlayer::ProcessAngles(CXEntityProcessingCmd &ProcessingCmd)
 
 	FUNCTION_PROFILER( GetISystem(),PROFILE_GAME );
 
+	m_refPlayerTransform = Matrix34::CreateRotationXYZ(Deg2Rad(m_pEntity->GetCamera()->GetAngles()), m_pEntity->GetCamera()->GetPos());
+
 	ProcessRoomscaleTurn(ProcessingCmd);
 	// copy VR motion controller data here
 	m_usesMotionControls = ProcessingCmd.UseMotionControls();
@@ -2190,6 +2192,17 @@ void CPlayer::ProcessWeapons(CXEntityProcessingCmd &cmd)
 	// do not allow to use weapons and move when underwater or in a water volume, and 
 	// he is actively swimming			
 
+	bool twoHandGrip = cmd.CheckAction(ACTION_TWOHAND_GRIP);
+	if (m_wasTwoHandGrip != twoHandGrip && twoHandGrip)
+	{
+		TryEnableTwoHandedWeaponMode();
+	}
+	if (m_twoHandWeaponMode && !twoHandGrip)
+	{
+		DisableTwoHandedWeaponMode();
+	}
+	m_wasTwoHandGrip = twoHandGrip;
+
 	if(!IsMyPlayer())
 		m_walkParams.fCurrLean=cmd.GetLeaning();
 
@@ -2259,6 +2272,10 @@ void CPlayer::ProcessWeapons(CXEntityProcessingCmd &cmd)
 	//uses this flag to affect the accuracy
 	if(!m_bFirstPerson)
 		m_stats.aiming=cmd.CheckAction(ACTION_ZOOM_TOGGLE);
+
+	// for motion controls, use two handed grip for accuracy
+	if (m_usesMotionControls)
+		m_stats.aiming = m_twoHandWeaponMode;
 
 	if (cmd.CheckAction(ACTION_CYCLE_GRENADE))
 	{
@@ -2406,18 +2423,43 @@ void CPlayer::ModifyWeaponPosition(CWeaponClass* weapon, Vec3& weaponAngles, Vec
 	Ang3 angles = Deg2Rad(m_pEntity->GetCamera()->GetAngles());
 	angles.x = angles.y = 0;
 	Matrix34 playerTransform = Matrix34::CreateRotationXYZ(angles, m_pEntity->GetCamera()->GetPos());
-	Matrix34 weaponWorldTransform = Matrix34::CreateRotationXYZ(weaponAngles, weaponPosition);
 	Matrix34 controllerTransform = m_controllerTransform[m_mainHand];
-	Matrix34 localGripTransform = weapon->GetRHGripTransform();
-	Matrix34 inverseGripTransform = weaponWorldTransform * localGripTransform;
-	inverseGripTransform.Invert();
+	Matrix34 inverseGripTransform = weapon->GetRHGripTransform().GetInverted();
 	Matrix34 worldControllerTransform = playerTransform * controllerTransform;
 
-	Matrix34 trackedTransform = worldControllerTransform * inverseGripTransform * weaponWorldTransform;
+	Matrix34 trackedTransform = worldControllerTransform * inverseGripTransform;
 
 	weaponPosition = trackedTransform.GetTranslation();
 	angles.SetAnglesXYZ((Matrix33)trackedTransform);
 	weaponAngles = RAD2DEG(angles);
+}
+
+void CPlayer::TryEnableTwoHandedWeaponMode()
+{
+	CWeaponClass* weapon = GetSelectedWeapon();
+	if (!weapon)
+		return;
+
+	// check if the off hand controller is near the off hand grip position
+	Vec3 controllerPos = GetWorldControllerTransform(m_offHand).GetTranslation();
+	Vec3 gripPos = weapon->GetLHGripWorldTransform().GetTranslation();
+	float dist = (gripPos - controllerPos).Length();
+
+	if (dist < 0.3f)
+	{
+		m_twoHandWeaponMode = true;
+		weapon->SetLeftHandHidden(false);
+	}
+}
+
+void CPlayer::DisableTwoHandedWeaponMode()
+{
+	m_twoHandWeaponMode = false;
+	CWeaponClass* weapon = GetSelectedWeapon();
+	if (weapon)
+	{
+		weapon->SetLeftHandHidden(true);
+	}
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -2619,6 +2661,9 @@ void CPlayer::SetWeapon(int iClsID)
 		m_stats.fSpeedScale = 1.0f;
 		m_nSelectedWeaponID = -1;
 	}
+
+	// release two handed weapon grip, if held
+	DisableTwoHandedWeaponMode();
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -6674,6 +6719,11 @@ void CPlayer::LoadAIState_PATCH_1(CStream & stm)
 		m_pScriptSystem->PushFuncParam(m_pEntity->GetScriptObject());
 		m_pScriptSystem->EndCall();
 	}
+}
+
+Matrix34 CPlayer::GetWorldControllerTransform(int controller) const
+{
+	return m_refPlayerTransform * m_controllerTransform[controller];
 }
 
 //////////////////////////////////////////////////////////////////////

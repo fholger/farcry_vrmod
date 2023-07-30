@@ -443,6 +443,18 @@ Vec3 CWeaponClass::GetBonePos(const char* name)
 	return mx * vBonePos;
 }
 
+Matrix34 CWeaponClass::GetRHGripWorldTransform() const
+{
+	Matrix34 worldTransform = Matrix34::CreateRotationXYZ(Deg2Rad(m_vAngles), m_vPos);
+	return worldTransform * GetRHGripTransform();
+}
+
+Matrix34 CWeaponClass::GetLHGripWorldTransform() const
+{
+	Matrix34 worldTransform = Matrix34::CreateRotationXYZ(Deg2Rad(m_vAngles), m_vPos);
+	return worldTransform * GetLHGripTransform();
+}
+
 void CWeaponClass::InitGripTransforms()
 {
 	m_rhGripTransform.SetIdentity();

@@ -286,6 +286,8 @@ public:
 	void ProcessRoomscaleMovement(CXEntityProcessingCmd& ProcessingCmd);
 
 	void ModifyWeaponPosition(CWeaponClass* weapon, Vec3& weaponAngles, Vec3& weaponPosition);
+	void TryEnableTwoHandedWeaponMode();
+	void DisableTwoHandedWeaponMode();
 
 	virtual void FireGrenade(const Vec3 &origin, const Vec3 &angles, IEntity *pIShooter);
 	void SetFiring(bool bIsFiring);
@@ -1136,11 +1138,17 @@ private:
 
 	float m_fLastProneTime; //!< needed to cap the prone-standing position spamming
 
-	bool m_usesMotionControls;
-	int m_mainHand;
-	int m_offHand;
+	bool m_usesMotionControls = false;
+	int m_mainHand = 1;
+	int m_offHand = 0;
+	Matrix34 m_refPlayerTransform;
 	Matrix34 m_hmdTransform;
 	Matrix34 m_controllerTransform[2];
+
+	Matrix34 GetWorldControllerTransform(int controller) const;
+
+	bool m_wasTwoHandGrip = false;
+	bool m_twoHandWeaponMode = false;
 }; 
 
 #endif // __GAME_PLAYER_H__

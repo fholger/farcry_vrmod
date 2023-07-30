@@ -1965,6 +1965,12 @@ void CXClient::CycleGrenade(float fValue,XActivationEvent ae)
 {
 	m_PlayerProcessingCmd.AddAction( ACTION_CYCLE_GRENADE );
 }
+
+void CXClient::TriggerTwoHandedGrip(float fValue, XActivationEvent ae)
+{
+	m_PlayerProcessingCmd.AddAction(ACTION_TWOHAND_GRIP);
+}
+
 //////////////////////////////////////////////////////////////////////
 void CXClient::TriggerDropWeapon(float fValue,XActivationEvent ae)
 {

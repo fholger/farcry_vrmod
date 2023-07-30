@@ -102,6 +102,10 @@
     {
       "name": "/actions/weapons/in/Prev",
       "type": "boolean"
+    },
+    {
+      "name": "/actions/weapons/in/Grip",
+      "type": "boolean"
     }
   ],
   "localization_files": {

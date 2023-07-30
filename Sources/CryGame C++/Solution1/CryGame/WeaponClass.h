@@ -213,6 +213,10 @@ public:
 
 	Matrix34 GetRHGripTransform() const { return m_rhGripTransform; }
 	Matrix34 GetLHGripTransform() const { return m_lhGripTransform; }
+	Matrix34 GetRHGripWorldTransform() const;
+	Matrix34 GetLHGripWorldTransform() const;
+
+	void SetLeftHandHidden(bool hidden) { m_leftHandHidden = hidden; }
 
 	IScriptObject* GetScriptObject() {	return m_soWeaponClass;	}
 
