@@ -455,6 +455,14 @@ Matrix34 CWeaponClass::GetLHGripWorldTransform() const
 	return worldTransform * GetLHGripTransform();
 }
 
+void CWeaponClass::DisableIdleAnimations(bool disable)
+{
+	if (disable)
+		GetScriptObject()->SetValue("bDisableIdle", 1);
+	else
+		GetScriptObject()->SetToNull("bDisableIdle");
+}
+
 void CWeaponClass::InitGripTransforms()
 {
 	m_rhGripTransform.SetIdentity();

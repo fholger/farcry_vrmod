@@ -218,6 +218,8 @@ public:
 
 	void SetLeftHandHidden(bool hidden) { m_leftHandHidden = hidden; }
 
+	void DisableIdleAnimations(bool disable);
+
 	IScriptObject* GetScriptObject() {	return m_soWeaponClass;	}
 
 	bool	IsLoaded() const	{	return m_bIsLoaded;	}

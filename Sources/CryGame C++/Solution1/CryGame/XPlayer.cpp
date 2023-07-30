@@ -2449,6 +2449,7 @@ void CPlayer::TryEnableTwoHandedWeaponMode()
 	{
 		m_twoHandWeaponMode = true;
 		weapon->SetLeftHandHidden(false);
+		weapon->DisableIdleAnimations(true);
 	}
 }
 
@@ -2459,6 +2460,7 @@ void CPlayer::DisableTwoHandedWeaponMode()
 	if (weapon)
 	{
 		weapon->SetLeftHandHidden(true);
+		weapon->DisableIdleAnimations(false);
 	}
 }
 
