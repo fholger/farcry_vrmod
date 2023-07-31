@@ -147,6 +147,16 @@ typedef struct WeaponParams
 	string	sProjectileClass;
 } WeaponParams;
 
+enum WeaponTwoHandedMode
+{
+	// disables grabbing the weapon with the off hand entirely
+	TWOHAND_DISABLED = 0,
+	// off-hand can grab and stabilize the weapon, but the main hand controls position and orientation of the weapon
+	TWOHAND_SINGLE = 1,
+	// the axis between the two hands determines the weapon orientation
+	TWOHAND_FULL = 2,
+};
+
 //////////////////////////////////////////////////////////////////////
 class CWeaponClass : public ICharInstanceSink
 {
@@ -251,6 +261,8 @@ public:
 
 	void DebugDrawGripPositions(IRenderer* renderer);
 
+	int GetTwoHandedMode() const { return m_twoHandedMode; }
+
 private:
 	bool InitWeaponClassVariables();
 	bool InitScripts();
@@ -279,6 +291,8 @@ private:
 
 	Matrix34 m_rhGripTransform;
 	Matrix34 m_lhGripTransform;
+
+	int m_twoHandedMode;
 
 	// script function callback tables
 	HSCRIPTFUNCTION			m_hClientFuncs[WeaponFunc_Count];
@@ -323,10 +337,10 @@ public:
 	CScriptObjectVector m_ssoHitPt;
 	CScriptObjectVector m_ssoBulletPlayerPos;
 
+	void UpdateLeftHandVisibility(CPlayer* player);
 private:
 	bool m_leftHandHidden = true;
 	void HideUpperArms(const char* fieldName);
-	void UpdateLeftHandVisibility(CPlayer* player);
 };
 
 #endif //WEAPONCLASS_H__

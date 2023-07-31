@@ -1155,7 +1155,9 @@ void CPlayer::ProcessAngles(CXEntityProcessingCmd &ProcessingCmd)
 
 	FUNCTION_PROFILER( GetISystem(),PROFILE_GAME );
 
-	m_refPlayerTransform = Matrix34::CreateRotationXYZ(Deg2Rad(m_pEntity->GetCamera()->GetAngles()), m_pEntity->GetCamera()->GetPos());
+	Ang3 refAngles = Deg2Rad(m_pEntity->GetCamera()->GetAngles());
+	refAngles.x = refAngles.y = 0;
+	m_refPlayerTransform = Matrix34::CreateRotationXYZ(refAngles, m_pEntity->GetCamera()->GetPos());
 
 	ProcessRoomscaleTurn(ProcessingCmd);
 	// copy VR motion controller data here
@@ -2422,10 +2424,19 @@ void CPlayer::ModifyWeaponPosition(CWeaponClass* weapon, Vec3& weaponAngles, Vec
 
 	Ang3 angles = Deg2Rad(m_pEntity->GetCamera()->GetAngles());
 	angles.x = angles.y = 0;
-	Matrix34 playerTransform = Matrix34::CreateRotationXYZ(angles, m_pEntity->GetCamera()->GetPos());
-	Matrix34 controllerTransform = m_controllerTransform[m_mainHand];
 	Matrix34 inverseGripTransform = weapon->GetRHGripTransform().GetInverted();
-	Matrix34 worldControllerTransform = playerTransform * controllerTransform;
+	Matrix34 worldControllerTransform = GetWorldControllerTransform(m_mainHand);
+
+	if (m_twoHandWeaponMode && weapon->GetTwoHandedMode() == TWOHAND_FULL)
+	{
+		Matrix34 worldOffHandTransform = GetWorldControllerTransform(m_offHand);
+		Vec3 forward = worldOffHandTransform.GetTranslation() - worldControllerTransform.GetTranslation();
+		forward.Normalize();
+		Vec3 left = ((Matrix33)worldControllerTransform).GetColumn(0);
+		Vec3 up = left.Cross(-forward);
+		left = -forward.Cross(up);
+		worldControllerTransform.SetMatFromVectors(left, -forward, up, worldControllerTransform.GetTranslation());
+	}
 
 	Matrix34 trackedTransform = worldControllerTransform * inverseGripTransform;
 
@@ -2437,7 +2448,7 @@ void CPlayer::ModifyWeaponPosition(CWeaponClass* weapon, Vec3& weaponAngles, Vec
 void CPlayer::TryEnableTwoHandedWeaponMode()
 {
 	CWeaponClass* weapon = GetSelectedWeapon();
-	if (!weapon)
+	if (!weapon || weapon->GetTwoHandedMode() == TWOHAND_DISABLED)
 		return;
 
 	// check if the off hand controller is near the off hand grip position
@@ -2449,6 +2460,7 @@ void CPlayer::TryEnableTwoHandedWeaponMode()
 	{
 		m_twoHandWeaponMode = true;
 		weapon->SetLeftHandHidden(false);
+		weapon->UpdateLeftHandVisibility(this);
 		weapon->DisableIdleAnimations(true);
 	}
 }

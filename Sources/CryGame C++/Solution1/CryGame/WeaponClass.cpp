@@ -458,9 +458,18 @@ Matrix34 CWeaponClass::GetLHGripWorldTransform() const
 void CWeaponClass::DisableIdleAnimations(bool disable)
 {
 	if (disable)
+	{
 		GetScriptObject()->SetValue("bDisableIdle", 1);
+		if (GetCharacter())
+		{
+			GetCharacter()->ForceUpdate();
+			GetCharacter()->ResetAnimations();
+		}
+	}
 	else
+	{
 		GetScriptObject()->SetToNull("bDisableIdle");
+	}
 }
 
 void CWeaponClass::InitGripTransforms()
@@ -683,6 +692,9 @@ bool CWeaponClass::InitScripts()
 		return false;
 
 	InitGripTransforms();
+
+	if (!m_soWeaponClass->GetValue("TwoHandedMode", m_twoHandedMode))
+		m_twoHandedMode = TWOHAND_FULL;
 
 	// call onInit
 	ScriptOnInit();

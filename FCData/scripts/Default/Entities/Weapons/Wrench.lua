@@ -5,6 +5,7 @@ Wrench = {
 	
 	BoneRightHand = "Bone03",
 	BoneLeftHand = "Bone19",
+	TwoHandedMode = 0,
 	
 	-- factor to slow down the player when he holds that weapon
 	PlayerSlowDown = 0.9,	
