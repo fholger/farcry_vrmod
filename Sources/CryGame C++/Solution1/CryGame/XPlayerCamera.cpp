@@ -507,6 +507,9 @@ void CPlayer::UpdateFirstPersonView()
 			//weaponOffset.z = cry_sinf(f*gf_PI*4.0f) * m_walkParams.weaponCycle*m_walkParams.speed;
 		}
 
+		if (m_usesMotionControls)
+			m_vWeaponAngles.Set(0, 0, 0);
+
 		pSelectedWeapon->SetFirstPersonOffset( weaponOffset, m_vWeaponAngles + RAD2DEG(m_weaponRecoilAngles));
 		pSelectedWeapon->MoveToFirstPersonPos(this);
 
@@ -598,6 +601,14 @@ void CPlayer::UpdateThirdPersonView( )
 		GetEntity()->ResetAnimations(1);
 	}
 
+	if (m_nSelectedWeaponID != -1 && m_usesMotionControls)
+	{
+		CWeaponClass* pSelectedWeapon = GetSelectedWeapon();
+		pSelectedWeapon->SetFirstPersonOffset( Vec3(0, 0, 0), RAD2DEG(m_weaponRecoilAngles));
+		pSelectedWeapon->MoveToFirstPersonPos(this);
+		if (pSelectedWeapon->GetCharacter())
+			pSelectedWeapon->GetCharacter()->ForceUpdate();
+	}
 
 	m_pEntity->SetRndFlags(ERF_RECVSHADOWMAPS|ERF_RECVSHADOWMAPS_ACTIVE, false);
 	m_pEntity->SetRndFlags(ERF_FIRST_PERSON_CAMERA_OWNER, false);
