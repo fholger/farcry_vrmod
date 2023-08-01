@@ -548,6 +548,7 @@ void VRManager::UpdatePlayerMoveOffset(const Vec3& offset, const Ang3& hmdAngles
 	Matrix33 refTransform = Matrix33::CreateRotationXYZ(refAngles);
 
 	Vec3 rawOffset = refTransform * offset;
+	rawOffset.z = 0;
 	m_referencePosition += rawOffset;
 	UpdateHmdTransform();
 }

@@ -462,6 +462,7 @@ void CWeaponClass::DisableIdleAnimations(bool disable)
 		GetScriptObject()->SetValue("bDisableIdle", 1);
 		if (GetCharacter())
 		{
+			// make sure the hands were updated and displayed before resetting animations
 			GetCharacter()->ForceUpdate();
 			GetCharacter()->ResetAnimations();
 		}
