@@ -144,11 +144,32 @@ void VRManager::AwaitFrame()
 	if (!m_initialized || !m_d3d->device)
 		return;
 
+	HandleEvents();
+
 	dxvkLockSubmissionQueue(m_d3d->device.Get(), false);
 	vr::VRCompositor()->WaitGetPoses(&m_headPose, 1, nullptr, 0);
 	dxvkReleaseSubmissionQueue(m_d3d->device.Get());
 
 	UpdateHmdTransform();
+}
+
+void VRManager::HandleEvents()
+{
+	vr::VREvent_t event;
+	while (vr::VRSystem()->PollNextEvent(&event, sizeof(vr::VREvent_t)))
+	{
+		if (event.eventType == vr::VREvent_SeatedZeroPoseReset)
+		{
+			m_referencePosition.Set(0, 0, 0);
+			m_referenceYaw = 0;
+			UpdateHmdTransform();
+		}
+		if (event.eventType == vr::VREvent_Quit)
+		{
+			vr::VRSystem()->AcknowledgeQuit_Exiting();
+			m_pGame->GetSystem()->Quit();
+		}
+	}
 }
 
 void VRManager::CaptureEye(int eye)

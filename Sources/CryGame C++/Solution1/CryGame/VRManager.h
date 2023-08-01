@@ -20,6 +20,7 @@ public:
 	void Shutdown();
 
 	void AwaitFrame();
+	void HandleEvents();
 
 	void CaptureEye(int eye);
 	void CaptureHUD();
