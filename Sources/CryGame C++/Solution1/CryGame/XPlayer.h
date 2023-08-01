@@ -1149,6 +1149,9 @@ private:
 
 	bool m_wasTwoHandGrip = false;
 	bool m_twoHandWeaponMode = false;
+
+	void CheckMeleeWeaponSwing();
+	Vec3 m_prevHandPos;
 }; 
 
 #endif // __GAME_PLAYER_H__

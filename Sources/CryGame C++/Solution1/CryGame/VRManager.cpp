@@ -694,6 +694,7 @@ void VRManager::RegisterCVars()
 	console->Register("vr_window_height", &vr_window_height, 720, VF_DUMPTODISK, "Configures the Far Cry desktop window height");
 	console->Register("vr_mirrored_eye", &vr_mirrored_eye, 1, VF_DUMPTODISK, "Which eye view is mirrored to the desktop window. 0 - left, 1 - right");
 	console->Register("vr_debug_draw_grip", &vr_debug_draw_grip, 0, 0, "If enabled, highlights the position of the current weapon's grip positions");
+	console->Register("vr_melee_swing_threshold", &vr_melee_swing_threshold, 2.f, VF_CHEAT, "Configures speed threshold for physical swings to register as melee attacks");
 
 	e_terrain_lod_ratio = console->GetCVar("e_terrain_lod_ratio");
 

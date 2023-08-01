@@ -2341,6 +2341,8 @@ void CPlayer::ProcessWeapons(CXEntityProcessingCmd &cmd)
 	else
 		m_stats.firing = false;
 
+	CheckMeleeWeaponSwing();
+
 
 	if(cmd.CheckAction(ACTION_FIRECANCEL))
 		m_stats.cancelFireFlag = true;
@@ -6738,6 +6740,30 @@ void CPlayer::LoadAIState_PATCH_1(CStream & stm)
 Matrix34 CPlayer::GetWorldControllerTransform(int controller) const
 {
 	return m_refPlayerTransform * m_controllerTransform[controller];
+}
+
+void CPlayer::CheckMeleeWeaponSwing()
+{
+	if (!GetSelectedWeapon() || !m_usesMotionControls)
+		return;
+
+	WeaponParams wp;
+	GetCurrentWeaponParams(wp);
+	if (wp.iFireModeType != FireMode_Melee)
+		return;
+
+	m_stats.firing = false;
+	Vec3 handPos = m_controllerTransform[m_mainHand].GetTranslation();
+	Vec3 motion = handPos - m_prevHandPos;
+	float time = m_pGame->GetSystem()->GetITimer()->GetFrameTime();
+	float speed = motion.GetLength() / time;
+	m_stats.firing = speed >= gVR->vr_melee_swing_threshold;
+	if (m_stats.firing)
+	{
+		CryLogAlways("Registered swing with speed %.2f", speed);
+	}
+
+	m_prevHandPos = handPos;
 }
 
 //////////////////////////////////////////////////////////////////////

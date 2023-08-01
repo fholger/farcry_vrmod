@@ -80,6 +80,7 @@ public:
 	int vr_window_height;
 	int vr_mirrored_eye;
 	int vr_debug_draw_grip;
+	float vr_melee_swing_threshold;
 	ICVar* e_terrain_lod_ratio = nullptr;
 
 private:
