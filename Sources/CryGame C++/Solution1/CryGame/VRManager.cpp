@@ -281,6 +281,22 @@ void VRManager::MirrorEyeToBackBuffer()
 		{ -0.5f, m_pGame->m_pRenderer->GetHeight() - 0.5f, 0.0f, 1.0f, offset.x, offset.y + size.y },
 	};
 
+	// save current render state
+	DWORD rsLighting;	m_d3d->device->GetRenderState(D3DRS_LIGHTING, &rsLighting);
+	DWORD rsCullMode;	m_d3d->device->GetRenderState(D3DRS_CULLMODE, &rsCullMode);
+	DWORD rsZEnable;	m_d3d->device->GetRenderState(D3DRS_ZENABLE, &rsZEnable);
+	DWORD rsAlphaBlend;	m_d3d->device->GetRenderState(D3DRS_ALPHABLENDENABLE, &rsAlphaBlend);
+	DWORD rsSrcBlend;	m_d3d->device->GetRenderState(D3DRS_SRCBLEND, &rsSrcBlend);
+	DWORD rsDstBlend;	m_d3d->device->GetRenderState(D3DRS_DESTBLEND, &rsDstBlend);
+	DWORD texStage;		m_d3d->device->GetTextureStageState(0, D3DTSS_COLOROP, &texStage);
+	DWORD magFilter;	m_d3d->device->GetSamplerState(0, D3DSAMP_MAGFILTER, &magFilter);
+	DWORD minFilter;	m_d3d->device->GetSamplerState(0, D3DSAMP_MINFILTER, &minFilter);
+	IDirect3DBaseTexture9* texture = nullptr;	m_d3d->device->GetTexture(0, &texture);
+	DWORD fvf;			m_d3d->device->GetFVF(&fvf);
+	IDirect3DVertexShader9* vs = nullptr;	m_d3d->device->GetVertexShader(&vs);
+	IDirect3DPixelShader9* ps = nullptr;	m_d3d->device->GetPixelShader(&ps);
+
+	// set state for fullscreen quad
 	m_d3d->device->SetRenderState(D3DRS_LIGHTING, FALSE);
 	m_d3d->device->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 	m_d3d->device->SetRenderState(D3DRS_ZENABLE, D3DZB_FALSE);
@@ -295,7 +311,30 @@ void VRManager::MirrorEyeToBackBuffer()
 	m_d3d->device->SetVertexShader(nullptr);
 	m_d3d->device->SetPixelShader(nullptr);
 
+	// draw quad
 	m_d3d->device->DrawPrimitiveUP(D3DPT_TRIANGLEFAN, 2, vertices, sizeof(Vertex));
+
+	// restore state
+	m_d3d->device->SetRenderState(D3DRS_LIGHTING, rsLighting);
+	m_d3d->device->SetRenderState(D3DRS_CULLMODE, rsCullMode);
+	m_d3d->device->SetRenderState(D3DRS_ZENABLE, rsZEnable);
+	m_d3d->device->SetRenderState(D3DRS_ALPHABLENDENABLE, rsAlphaBlend);
+	m_d3d->device->SetRenderState(D3DRS_SRCBLEND, rsSrcBlend);
+	m_d3d->device->SetRenderState(D3DRS_DESTBLEND, rsDstBlend);
+	m_d3d->device->SetTextureStageState(0, D3DTSS_COLOROP, texStage);
+	m_d3d->device->SetSamplerState(0, D3DSAMP_MAGFILTER, magFilter);
+	m_d3d->device->SetSamplerState(0, D3DSAMP_MINFILTER, minFilter);
+	m_d3d->device->SetTexture(0, texture);
+	m_d3d->device->SetFVF(fvf);
+	m_d3d->device->SetVertexShader(vs);
+	m_d3d->device->SetPixelShader(ps);
+
+	if (texture)
+		texture->Release();
+	if (ps)
+		ps->Release();
+	if (vs)
+		vs->Release();
 }
 
 void VRManager::SetDevice(IDirect3DDevice9Ex *device)
