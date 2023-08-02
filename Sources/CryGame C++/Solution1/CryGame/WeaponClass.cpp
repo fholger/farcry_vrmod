@@ -585,6 +585,14 @@ void CWeaponClass::DebugDrawGripPositions(IRenderer* renderer)
 	renderer->DrawBall(worldRHGrip.GetTranslation(), 0.02f);
 	Matrix34 worldLHGrip = worldTransform * GetLHGripTransform();
 	renderer->DrawBall(worldLHGrip.GetTranslation(), 0.02f);
+
+	int numBones = GetCharacter()->GetModel()->NumBones();
+	for (int i = 0; i < numBones; ++i)
+	{
+		Vec3 bonePos = GetBonePos(GetCharacter()->GetModel()->GetBoneName(i));
+		renderer->DrawBall(bonePos, 0.005f);
+		renderer->DrawLabel(bonePos, 2, "  %s", GetCharacter()->GetModel()->GetBoneName(i));
+	}
 }
 
 //////////////////////////////////////////////////////////////////////
