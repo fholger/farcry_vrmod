@@ -389,7 +389,7 @@ Vec3	CWeaponClass::GetFirePos( IEntity *pIEntity ) const
 
 void CWeaponClass::GetMuzzlePosAngles(Vec3& muzzlePos, Vec3& muzzleAngles)
 {
-	ICryBone* bone = GetCharacter()->GetBoneByName("spitfire");
+	ICryBone* bone = GetCharacter() ? GetCharacter()->GetBoneByName(m_spitFireBoneName) : nullptr;
 	if (!bone)
 		return;
 
@@ -704,6 +704,8 @@ bool CWeaponClass::InitScripts()
 
 	if (!m_soWeaponClass->GetValue("TwoHandedMode", m_twoHandedMode))
 		m_twoHandedMode = TWOHAND_FULL;
+	if (!m_soWeaponClass->GetValue("SpitFireBone", m_spitFireBoneName))
+		m_spitFireBoneName = "spitfire";
 
 	// call onInit
 	ScriptOnInit();

@@ -1151,7 +1151,10 @@ private:
 	bool m_twoHandWeaponMode = false;
 
 	void CheckMeleeWeaponSwing();
+	bool m_wasSwinging = false;
 	Vec3 m_prevHandPos;
+	Vec3 m_prevMeleePos;
+	Vec3 m_swingDir;
 }; 
 
 #endif // __GAME_PLAYER_H__

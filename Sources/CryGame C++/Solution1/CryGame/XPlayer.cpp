@@ -2703,6 +2703,19 @@ void CPlayer::GetFirePosAngles(Vec3d& firePos, Vec3d& fireAngles)
 			{
 				weapon->GetMuzzlePosAngles(firePos, fireAngles);
 				//fireAngles += m_vShake;
+
+				WeaponParams wp;
+				GetCurrentWeaponParams(wp);
+				if (wp.iFireModeType == FireMode_Melee)
+				{
+					Vec3 up(0, 0, 1);
+					Vec3 left = m_swingDir.Cross(up);
+					up = m_swingDir.Cross(left);
+					Matrix33 swingDir = Matrix33::CreateMatFromVectors(left, -m_swingDir, up);
+					Ang3 angles;
+					angles.SetAnglesXYZ(swingDir);
+					fireAngles = RAD2DEG(angles);
+				}
 			}
 		}
 
@@ -3048,6 +3061,12 @@ void CPlayer::UpdateWeapon()
 						{
 								//m_fRecoilXUp=0;
 						}
+					}
+					if (m_usesMotionControls && IsMyPlayer() && wp.iFireModeType == FireMode_Melee)
+					{
+						// we don't actually want a melee swing animation playing, but we need to allow the script to start it
+						// since otherwise swinging sounds are not playing
+						pSelectedWeapon->GetCharacter()->StopAnimation(0);
 					}
 				}
 			}			
@@ -6753,15 +6772,59 @@ void CPlayer::CheckMeleeWeaponSwing()
 		return;
 
 	m_stats.firing = false;
+
+	// determine which direction the weapon tip is moving
+	Vec3 meleePos, meleeAngles;
+	GetSelectedWeapon()->GetMuzzlePosAngles(meleePos, meleeAngles);
+	m_swingDir = (meleePos - m_prevMeleePos).GetNormalized();
+	m_prevMeleePos = meleePos;
+
+	// check current controller swing speed
 	Vec3 handPos = m_controllerTransform[m_mainHand].GetTranslation();
 	Vec3 motion = handPos - m_prevHandPos;
 	float time = m_pGame->GetSystem()->GetITimer()->GetFrameTime();
 	float speed = motion.GetLength() / time;
-	m_stats.firing = speed >= gVR->vr_melee_swing_threshold;
-	if (m_stats.firing)
+
+	if (speed >= gVR->vr_melee_swing_threshold && !m_wasSwinging)
 	{
-		CryLogAlways("Registered swing with speed %.2f", speed);
+		// test if we can possibly hit something
+		Vec3 boxCenter = meleePos;
+		Vec3 offset(0.2f, 0.2f, 0.2f);
+		IPhysicalEntity **pList;
+
+		// get all entities in the hit box
+		IPhysicalWorld* pPhysicalWorld = m_pGame->GetSystem()->GetIPhysicalWorld();
+		int num = pPhysicalWorld->GetEntitiesInBox(boxCenter-offset, boxCenter+offset, pList, ent_all);
+
+		bool hitSomething = false;
+		ray_hit hit;
+		// check each entity in the box
+		for (int i = 0; i < num; ++i)
+		{
+			IEntity* pEntity = ((IEntity*)pList[i]->GetForeignData(OT_ENTITY));
+			// skip player
+			if (pEntity && pEntity == m_pEntity)
+				continue;
+
+			if (pPhysicalWorld->CollideEntityWithBeam(pList[i], meleePos, m_swingDir * 0.2f, 0.3f, &hit))
+			{
+				hitSomething = true;
+				break;
+			}
+		}
+
+		// try a normal raycast, too, as some entities may not be detected in the box
+		if (!hitSomething)
+			hitSomething = pPhysicalWorld->RayWorldIntersection(meleePos, m_swingDir * 0.2f, ent_all, rwi_separate_important_hits, &hit, 1, m_pEntity->GetPhysics(), nullptr);
+
+		if (hitSomething)
+		{
+			m_stats.firing = true;
+			m_wasSwinging = true;
+		}
 	}
+	else if (speed < gVR->vr_melee_swing_threshold)
+		m_wasSwinging = false;
 
 	m_prevHandPos = handPos;
 }

@@ -291,6 +291,7 @@ private:
 
 	Matrix34 m_rhGripTransform;
 	Matrix34 m_lhGripTransform;
+	const char* m_spitFireBoneName;
 
 	int m_twoHandedMode;
 

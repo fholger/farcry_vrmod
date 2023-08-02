@@ -8,6 +8,7 @@
 #include <d3d9.h>
 
 #include "WeaponClass.h"
+#include "WeaponSystemEx.h"
 #include "xplayer.h"
 #include "XVehicle.h"
 
@@ -197,7 +198,12 @@ void VRRenderer::DrawCrosshair()
 		return;
 
 	CPlayer* pPlayer = m_pGame->GetLocalPlayer();
-	if (!pPlayer)
+	if (!pPlayer || !pPlayer->GetSelectedWeapon())
+		return;
+
+	WeaponParams wp;
+	pPlayer->GetCurrentWeaponParams(wp);
+	if (wp.iFireModeType == FireMode_Melee)
 		return;
 
 	const CCamera& cam = m_originalViewCamera;
