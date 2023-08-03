@@ -22,6 +22,10 @@
     {
       "name": "/actions/move",
 	  "usage": "leftright"
+	},
+    {
+      "name": "/actions/vehicles",
+	  "usage": "leftright"
 	}
   ],
   "actions": [
@@ -78,6 +82,38 @@
     {
       "name" : "/actions/move/in/Crouch",
       "type" : "boolean"
+    },
+    {
+      "name" : "/actions/vehicles/in/Steer",
+      "type": "vector2"
+    },
+    {
+      "name" : "/actions/vehicles/in/Accelerate",
+      "type": "vector1"
+    },
+    {
+      "name" : "/actions/vehicles/in/Brake",
+      "type": "vector1"
+    },
+    {
+      "name": "/actions/vehicles/in/Attack",
+      "type": "boolean"
+    },
+    {
+      "name": "/actions/vehicles/in/Leave",
+      "type": "boolean"
+    },
+    {
+      "name": "/actions/vehicles/in/Lights",
+      "type": "boolean"
+    },
+    {
+      "name": "/actions/vehicles/in/ChangeSeat",
+      "type": "boolean"
+    },
+    {
+      "name": "/actions/vehicles/in/ChangeView",
+      "type": "boolean"
     },
     {
       "name": "/actions/weapons/in/Fire",

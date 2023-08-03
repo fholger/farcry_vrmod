@@ -40,6 +40,15 @@
           }
         },
         {
+          "path": "/user/hand/left/input/trigger",
+          "mode": "button",
+          "inputs": {
+            "click": {
+              "output": "/actions/default/in/use"
+            }
+          }
+        },
+        {
           "path": "/user/hand/left/input/a",
           "mode": "button",
           "inputs": {
@@ -128,6 +137,91 @@
         }
       ]
     },
+    "/actions/vehicles" : {
+      "sources" : [
+        {
+          "inputs" : {
+            "position" : {
+              "output" : "/actions/vehicles/in/steer"
+            }
+          },
+          "mode" : "joystick",
+          "parameters" : {
+            "exponent" : "2"
+          },
+          "path" : "/user/hand/left/input/thumbstick"
+        },
+        {
+          "inputs" : {
+            "pull" : {
+              "output" : "/actions/vehicles/in/accelerate"
+            }
+          },
+          "mode" : "trigger",
+          "path" : "/user/hand/right/input/trigger"
+        },
+        {
+          "inputs" : {
+            "pull" : {
+              "output" : "/actions/vehicles/in/brake"
+            }
+          },
+          "mode" : "trigger",
+          "path" : "/user/hand/left/input/trigger"
+        },
+        {
+          "inputs" : {
+            "click" : {
+              "output" : "/actions/vehicles/in/leave"
+            }
+          },
+          "mode" : "button",
+          "path" : "/user/hand/left/input/a"
+        },
+        {
+          "inputs" : {
+            "click" : {
+              "output" : "/actions/vehicles/in/changeseat"
+            }
+          },
+          "mode" : "button",
+          "path" : "/user/hand/right/input/b"
+        },
+        {
+          "inputs" : {
+            "click" : {
+              "output" : "/actions/vehicles/in/attack"
+            }
+          },
+          "mode" : "button",
+          "path" : "/user/hand/right/input/a"
+        },
+        {
+          "inputs" : {
+            "click" : {
+              "output" : "/actions/vehicles/in/changeview"
+            }
+          },
+          "mode" : "button",
+          "parameters" : {
+            "touchy_click" : "false"
+          },
+          "path" : "/user/hand/left/input/trackpad"
+        },
+        {
+          "inputs" : {
+            "click" : {
+              "output" : "/actions/vehicles/in/lights"
+            }
+          },
+          "mode" : "button",
+          "parameters" : {
+            "touchy_click" : "false"
+          },
+          "path" : "/user/hand/right/input/thumbstick"
+        }
+	  ]
+	},
     "/actions/weapons": {
       "sources": [
         {

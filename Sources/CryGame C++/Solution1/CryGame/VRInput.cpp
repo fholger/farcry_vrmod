@@ -3,6 +3,7 @@
 
 #include "VRManager.h"
 #include "XPlayer.h"
+#include "XVehicle.h"
 
 std::string GetDLLPath()
 {
@@ -36,6 +37,7 @@ bool VRInput::Init(CXGame* game)
 
 	vr::VRInput()->GetActionSetHandle("/actions/default", &m_defaultSet);
 	vr::VRInput()->GetActionSetHandle("/actions/move", &m_moveSet);
+	vr::VRInput()->GetActionSetHandle("/actions/vehicles", &m_vehiclesSet);
 	vr::VRInput()->GetActionSetHandle("/actions/weapons", &m_weaponsSet);
 
 	vr::VRInput()->GetActionHandle("/actions/default/in/HandPoseLeft", &m_handPoses[0]);
@@ -49,6 +51,15 @@ bool VRInput::Init(CXGame* game)
 	vr::VRInput()->GetActionHandle("/actions/move/in/sprint", &m_moveSprint);
 	vr::VRInput()->GetActionHandle("/actions/move/in/jump", &m_moveJump);
 	vr::VRInput()->GetActionHandle("/actions/move/in/crouch", &m_moveCrouch);
+
+	vr::VRInput()->GetActionHandle("/actions/vehicles/in/steer", &m_vehiclesSteer);
+	vr::VRInput()->GetActionHandle("/actions/vehicles/in/accelerate", &m_vehiclesAccelerate);
+	vr::VRInput()->GetActionHandle("/actions/vehicles/in/brake", &m_vehiclesBrake);
+	vr::VRInput()->GetActionHandle("/actions/vehicles/in/attack", &m_vehiclesAttack);
+	vr::VRInput()->GetActionHandle("/actions/vehicles/in/changeview", &m_vehiclesChangeView);
+	vr::VRInput()->GetActionHandle("/actions/vehicles/in/changeseat", &m_vehiclesChangeSeat);
+	vr::VRInput()->GetActionHandle("/actions/vehicles/in/leave", &m_vehiclesLeave);
+	vr::VRInput()->GetActionHandle("/actions/vehicles/in/lights", &m_vehiclesLights);
 
 	vr::VRInput()->GetActionHandle("/actions/weapons/in/fire", &m_weaponsFire);
 	vr::VRInput()->GetActionHandle("/actions/weapons/in/reload", &m_weaponsReload);
@@ -68,6 +79,7 @@ void VRInput::ProcessInput()
 	activeSets.push_back({ m_defaultSet, vr::k_ulInvalidInputValueHandle });
 	activeSets.push_back({ m_moveSet, vr::k_ulInvalidInputValueHandle });
 	activeSets.push_back({ m_weaponsSet, vr::k_ulInvalidInputValueHandle });
+	activeSets.push_back({ m_vehiclesSet, vr::k_ulInvalidInputValueHandle });
 
 	vr::VRInput()->UpdateActionState(&activeSets[0], sizeof(vr::VRActiveActionSet_t), activeSets.size());
 
@@ -75,11 +87,21 @@ void VRInput::ProcessInput()
 		return;
 
 	HandleBooleanAction(m_defaultMenu, &CXClient::TriggerMenu, false);
+	HandleAnalogAction(m_moveTurn, 0, &CXClient::TriggerTurnLR);
+
+	CPlayer* player = m_pGame->GetLocalPlayer();
+	if (player && player->GetVehicle())
+		ProcessInputInVehicles();
+	else
+		ProcessInputOnFoot();
+}
+
+void VRInput::ProcessInputOnFoot()
+{
 	HandleBooleanAction(m_defaultUse, &CXClient::TriggerUse, false);
 	HandleBooleanAction(m_defaultBinoculars, &CXClient::TriggerItem0, false);
 	HandleAnalogAction(m_moveMove, 0, &CXClient::TriggerMoveLR);
 	HandleAnalogAction(m_moveMove, 1, &CXClient::TriggerMoveFB);
-	HandleAnalogAction(m_moveTurn, 0, &CXClient::TriggerTurnLR);
 	HandleBooleanAction(m_moveSprint, &CXClient::TriggerRunSprint);
 	HandleBooleanAction(m_moveCrouch, &CXClient::TriggerMoveModeSwitch, false);
 	HandleBooleanAction(m_moveJump, &CXClient::TriggerJump, false);
@@ -90,6 +112,37 @@ void VRInput::ProcessInput()
 	HandleBooleanAction(m_weaponsFireMode, &CXClient::TriggerFireMode, false);
 	//HandleBooleanAction(m_weaponsAim, &CXClient::TriggerZoomToggle, false);
 	HandleBooleanAction(m_weaponsGrip, &CXClient::TriggerTwoHandedGrip);
+}
+
+void VRInput::ProcessInputInVehicles()
+{
+	CPlayer* player = m_pGame->GetLocalPlayer();
+	CVehicle* vehicle = player->GetVehicle();
+	if (vehicle->GetUserInState(CPlayer::PVS_DRIVER) == player)
+	{
+		HandleAnalogAction(m_vehiclesSteer, 0, &CXClient::TriggerMoveLR);
+		HandleBooleanAction(m_vehiclesLights, &CXClient::TriggerFlashlight, false);
+		HandleBooleanAction(m_vehiclesAttack, &CXClient::TriggerFire0);
+
+		// combine accelerate/brake to movement value
+		float accel = GetFloatValue(m_vehiclesAccelerate);
+		float brake = GetFloatValue(m_vehiclesBrake);
+		float move = accel - brake;
+		m_pGame->GetClient()->TriggerMoveFB(move, XActivationEvent());
+	}
+	else
+	{
+		HandleBooleanAction(m_weaponsFire, &CXClient::TriggerFire0);
+		HandleBooleanAction(m_weaponsReload, &CXClient::TriggerReload, false);
+		HandleBooleanAction(m_weaponsNextWeapon, &CXClient::TriggerNextWeapon, false);
+		HandleBooleanAction(m_weaponsPrevWeapon, &CXClient::TriggerPrevWeapon, false);
+		HandleBooleanAction(m_weaponsFireMode, &CXClient::TriggerFireMode, false);
+		HandleBooleanAction(m_weaponsGrip, &CXClient::TriggerTwoHandedGrip);
+	}
+
+	HandleBooleanAction(m_vehiclesLeave, &CXClient::TriggerUse, false);
+	HandleBooleanAction(m_vehiclesChangeView, &CXClient::TriggerChangeView, false);
+	HandleBooleanAction(m_vehiclesChangeSeat, &CXClient::TriggerRunSprint, false); // yep, really...
 }
 
 Matrix34 VRInput::GetControllerTransform(int hand)
@@ -123,4 +176,15 @@ void VRInput::HandleAnalogAction(vr::VRActionHandle_t actionHandle, int axis, Tr
 
 	float value = axis == 0 ? actionData.x : (axis == 1 ? actionData.y : actionData.z);
 	(m_pGame->GetClient()->*trigger)(value, XActivationEvent());
+}
+
+float VRInput::GetFloatValue(vr::VRActionHandle_t actionHandle, int axis)
+{
+	vr::InputAnalogActionData_t actionData;
+	vr::VRInput()->GetAnalogActionData(actionHandle, &actionData, sizeof(vr::InputAnalogActionData_t), vr::k_ulInvalidInputValueHandle);
+	if (!actionData.bActive)
+		return 0.f;
+
+	float value = axis == 0 ? actionData.x : (axis == 1 ? actionData.y : actionData.z);
+	return value;
 }

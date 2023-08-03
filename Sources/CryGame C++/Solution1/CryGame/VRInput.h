@@ -8,6 +8,9 @@ public:
 	bool Init(CXGame* game);
 
 	void ProcessInput();
+	void ProcessInputOnFoot();
+	void ProcessInputInVehicles();
+
 	Matrix34 GetControllerTransform(int hand);
 
 private:
@@ -16,6 +19,7 @@ private:
 	vr::VRActionSetHandle_t m_defaultSet = vr::k_ulInvalidActionSetHandle;
 	vr::VRActionSetHandle_t m_moveSet = vr::k_ulInvalidActionSetHandle;
 	vr::VRActionSetHandle_t m_weaponsSet = vr::k_ulInvalidActionSetHandle;
+	vr::VRActionSetHandle_t m_vehiclesSet = vr::k_ulInvalidActionSetHandle;
 
 	vr::VRActionHandle_t m_handPoses[2] = { vr::k_ulInvalidInputValueHandle };
 	vr::VRActionHandle_t m_defaultUse = vr::k_ulInvalidInputValueHandle;
@@ -27,6 +31,15 @@ private:
 	vr::VRActionHandle_t m_moveSprint = vr::k_ulInvalidActionHandle;
 	vr::VRActionHandle_t m_moveJump = vr::k_ulInvalidActionHandle;
 	vr::VRActionHandle_t m_moveCrouch = vr::k_ulInvalidActionHandle;
+
+	vr::VRActionHandle_t m_vehiclesSteer = vr::k_ulInvalidActionHandle;
+	vr::VRActionHandle_t m_vehiclesAccelerate = vr::k_ulInvalidActionHandle;
+	vr::VRActionHandle_t m_vehiclesBrake = vr::k_ulInvalidActionHandle;
+	vr::VRActionHandle_t m_vehiclesLeave = vr::k_ulInvalidActionHandle;
+	vr::VRActionHandle_t m_vehiclesAttack = vr::k_ulInvalidActionHandle;
+	vr::VRActionHandle_t m_vehiclesChangeView = vr::k_ulInvalidActionHandle;
+	vr::VRActionHandle_t m_vehiclesChangeSeat = vr::k_ulInvalidActionHandle;
+	vr::VRActionHandle_t m_vehiclesLights = vr::k_ulInvalidActionHandle;
 
 	vr::VRActionHandle_t m_weaponsFire = vr::k_ulInvalidActionHandle;
 	vr::VRActionHandle_t m_weaponsReload = vr::k_ulInvalidActionHandle;
@@ -40,4 +53,5 @@ private:
 
 	void HandleBooleanAction(vr::VRActionHandle_t actionHandle, TriggerFn trigger, bool continuous = true);
 	void HandleAnalogAction(vr::VRActionHandle_t actionHandle, int axis, TriggerFn trigger);
+	float GetFloatValue(vr::VRActionHandle_t actionHandle, int axis = 0);
 };
