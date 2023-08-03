@@ -1034,6 +1034,8 @@ void CVehicle::UpdateWeaponPosAngl( )
 				shooterAng = camera->GetAngles();//shooter->GetEntity()->GetAngles();
 				shooterPos = camera->GetPos();//shooter->GetEntity()->GetPos();
 			}
+
+			shooter->ModifyVehicleWeaponAim(shooterPos, shooterAng);
 		}
 		else
 		{

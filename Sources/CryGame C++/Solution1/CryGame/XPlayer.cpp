@@ -2368,6 +2368,9 @@ void CPlayer::ProcessRoomscaleTurn(CXEntityProcessingCmd& ProcessingCmd)
 	if (!ProcessingCmd.UseMotionControls())
 		return;
 
+	if (IsMyPlayer() && !m_bFirstPerson)
+		return;
+
 	Vec3 angles = ProcessingCmd.GetDeltaAngles();
 	Ang3 hmdAngles = ProcessingCmd.GetHmdAnglesDeg();
 
@@ -2476,6 +2479,16 @@ void CPlayer::DisableTwoHandedWeaponMode()
 		weapon->SetLeftHandHidden(true);
 		weapon->DisableIdleAnimations(false);
 	}
+}
+
+void CPlayer::ModifyVehicleWeaponAim(Vec3& aimPos, Vec3& aimAngles)
+{
+	if (!m_usesMotionControls)
+		return;
+
+	Matrix34 controllerTransform = GetWorldControllerTransform(m_mainHand);
+	aimPos = controllerTransform.GetTranslation();
+	aimAngles = ToAnglesDeg(controllerTransform);
 }
 
 //////////////////////////////////////////////////////////////////////////
