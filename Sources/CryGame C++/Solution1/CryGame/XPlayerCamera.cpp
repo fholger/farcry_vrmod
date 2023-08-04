@@ -143,7 +143,7 @@ Vec3d CPlayer::CalcLeanOffset(float leanAngle)
 	}
 
 	// if using mounted weapon - try to get camera position from "eyes" bone of weapon
-	if(m_pMountedWeapon)
+	if(!m_usesMotionControls && m_pMountedWeapon)
 	{
 		ICryCharInstance *pChar = m_pMountedWeapon->GetCharInterface()->GetCharacter(0);
 		if(pChar)

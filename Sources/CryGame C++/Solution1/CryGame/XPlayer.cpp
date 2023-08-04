@@ -1400,9 +1400,22 @@ void CPlayer::ProcessAngles(CXEntityProcessingCmd &ProcessingCmd)
 	else 
 	{
 		ProcessingCmd.SetDeltaAngles(Angles);
-		if (m_pRedirected)	// [marco] Kirill does this check make sense? - 
-												// this should never happen but it crashes with the helicopter
-			m_pRedirected->SetAngles(Angles);	
+		if (m_pRedirected == m_pMountedWeapon && m_usesMotionControls)
+		{
+			// do set angles directly on the player, as we will aim the mounted gun separately by pointing with the main hand
+			m_pEntity->SetAngles( Angles,false, false );
+			m_pMountedWeapon->GetScriptObject()->SetValue("usesMotionControls", true);
+		}
+		else
+		{
+			if (m_pMountedWeapon)
+			{
+				m_pMountedWeapon->GetScriptObject()->SetValue("usesMotionControls", false);
+			}
+			if (m_pRedirected)	// [marco] Kirill does this check make sense? -
+													// this should never happen but it crashes with the helicopter
+				m_pRedirected->SetAngles(Angles);
+		}
 	}
 }
 
@@ -2368,7 +2381,7 @@ void CPlayer::ProcessRoomscaleTurn(CXEntityProcessingCmd& ProcessingCmd)
 	if (!ProcessingCmd.UseMotionControls())
 		return;
 
-	if (IsMyPlayer() && !m_bFirstPerson)
+	if (GetVehicle())
 		return;
 
 	Vec3 angles = ProcessingCmd.GetDeltaAngles();
@@ -2392,7 +2405,7 @@ void CPlayer::ProcessRoomscaleMovement(CXEntityProcessingCmd& ProcessingCmd)
 	if (!ProcessingCmd.UseMotionControls())
 		return;
 
-	if (GetVehicle())
+	if (GetVehicle() || m_pMountedWeapon)
 		return;
 
 	Ang3 angles = m_pEntity->GetAngles();
@@ -3554,7 +3567,7 @@ void CPlayer::UpdateCharacterAnimations( SPlayerUpdateContext &ctx )
 	if(!IsAlive())	// if dead - deadBodyPhysics takes over
 		return;
 
-	if(m_pMountedWeapon)
+	if(!m_usesMotionControls && m_pMountedWeapon)
 	{
 		UpdateCharacterAnimationsMounted( ctx );
 		return;
@@ -6171,7 +6184,7 @@ void	CPlayer::OnDrawMountedWeapon( const SRendParams & RendParams )
 		GetFirePosAngles( apos, aang );
 
 		apos = m_pMountedWeapon->GetAngles(1);	
-		m_pMountedWeapon->SetAngles( aang, false, false, true );
+		//m_pMountedWeapon->SetAngles( aang, false, false, true );
 
 		m_pMountedWeapon->ForceCharacterUpdate(0);
 		m_pMountedWeapon->DrawEntity(RendParams);
