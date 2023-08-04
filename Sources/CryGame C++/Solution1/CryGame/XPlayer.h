@@ -290,6 +290,7 @@ public:
 	void DisableTwoHandedWeaponMode();
 
 	void ModifyVehicleWeaponAim(Vec3& aimPos, Vec3& aimAngles);
+	void UpdateMountedGunAnglesFromController();
 
 	virtual void FireGrenade(const Vec3 &origin, const Vec3 &angles, IEntity *pIShooter);
 	void SetFiring(bool bIsFiring);

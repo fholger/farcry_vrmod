@@ -1405,6 +1405,7 @@ void CPlayer::ProcessAngles(CXEntityProcessingCmd &ProcessingCmd)
 			// do set angles directly on the player, as we will aim the mounted gun separately by pointing with the main hand
 			m_pEntity->SetAngles( Angles,false, false );
 			m_pMountedWeapon->GetScriptObject()->SetValue("usesMotionControls", true);
+			UpdateMountedGunAnglesFromController();
 		}
 		else
 		{
@@ -2504,6 +2505,63 @@ void CPlayer::ModifyVehicleWeaponAim(Vec3& aimPos, Vec3& aimAngles)
 	aimAngles = ToAnglesDeg(controllerTransform);
 }
 
+void CPlayer::UpdateMountedGunAnglesFromController()
+{
+	if (!m_pMountedWeapon || !m_usesMotionControls)
+		return;
+
+	Matrix34 controllerTransform = GetWorldControllerTransform(m_mainHand);
+	// find aim target
+	Vec3 dir = -((Matrix33)controllerTransform).GetColumn(1);
+	Vec3 distance = dir * 150.f;
+	Vec3 aimTarget = controllerTransform.GetTranslation() + distance;
+
+	ray_hit hits[1];
+	int	hit=m_pGame->GetSystem()->GetIPhysicalWorld()->RayWorldIntersection(controllerTransform.GetTranslation(), distance, ent_all&~ent_living, rwi_stop_at_pierceable,
+																			hits,1, GetEntity()->GetPhysics(), m_pMountedWeapon->GetPhysics() );
+	if(hit != 0)
+		aimTarget = hits[0].pt;
+
+	Matrix33 gunMat = Matrix33::CreateRotationXYZ(Deg2Rad(m_pMountedWeapon->GetAngles()));
+ 	Vec3 gunViewDirection = GetNormalized(gunMat.GetTransposed() * (aimTarget - m_pMountedWeapon->GetPos()));
+
+	float l = GetLength( Vec3(gunViewDirection.x, gunViewDirection.y, 0.0f ) );
+	assert(l); //throw assert if length=0
+	m_AngleLimitBase = Vec3(0,0,180);
+
+	//calculate the sine&cosine and matrix for rotation around the X-axis
+	float angleX = atan2_tpl(-gunViewDirection.z,l); //angle for up-down movement
+	Matrix33 UpDownMat=Matrix33::CreateRotationX(angleX); 
+
+	//calculate the sine&cosine and matrix for rotation around the Z-axis
+	float angleZ = atan2_tpl(gunViewDirection.x/l,-gunViewDirection.y/l);	//angle for left-right movement
+	Matrix33 LeftRightMat=Matrix33::CreateRotationZ(angleZ);;
+
+	//we concatenate all 3 matrices to get the final gun-matrix in world-space
+	Matrix33 FinalGunMat=gunMat*LeftRightMat*UpDownMat;
+	Ang3 angles = RAD2DEG(Ang3::GetAnglesXYZ(FinalGunMat));
+	angles.y = 0;
+
+	if(m_AngleLimitVFlag)
+	//check vertical limits	
+	{
+		angles.x = ClampAngle(	Snap_s360(m_AngleLimitBase.x + m_MinVAngle),
+								Snap_s360(m_AngleLimitBase.x + m_MaxVAngle),
+								Snap_s360(angles.x));
+		angles.x = Snap_s180(angles.x);
+	}
+	if(m_AngleLimitHFlag)
+	{
+		//check horizontal limits
+		angles.z = ClampAngle(	Snap_s360(m_AngleLimitBase.z + m_MinHAngle),
+								Snap_s360(m_AngleLimitBase.z + m_MaxHAngle),
+								Snap_s360(angles.z));
+		angles.z = Snap_s180(angles.z);
+	}
+
+	m_pMountedWeapon->SetAngles(angles);
+}
+
 //////////////////////////////////////////////////////////////////////////
 void CPlayer::FireGrenade(const Vec3d &origin, const Vec3d &angles, IEntity *pIShooter)
 {
@@ -2742,6 +2800,14 @@ void CPlayer::GetFirePosAngles(Vec3d& firePos, Vec3d& fireAngles)
 					angles.SetAnglesXYZ(swingDir);
 					fireAngles = RAD2DEG(angles);
 				}
+			}
+
+			if (m_pMountedWeapon)
+			{
+				fireAngles = m_pMountedWeapon->GetAngles();
+				firePos = m_pMountedWeapon->GetPos();
+				Vec3 dir = -Matrix33::CreateRotationXYZ(Deg2Rad(fireAngles)).GetColumn(1);
+				firePos += dir * 1.f;
 			}
 		}
 
