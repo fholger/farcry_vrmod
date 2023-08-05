@@ -583,6 +583,7 @@ void CWeaponClass::DebugDrawGripPositions(IRenderer* renderer)
 	Matrix34 worldTransform = Matrix34::CreateRotationXYZ(Deg2Rad(m_vAngles), m_vPos);
 	Matrix34 worldRHGrip = worldTransform * GetRHGripTransform();
 	renderer->DrawBall(worldRHGrip.GetTranslation(), 0.02f);
+	renderer->DrawLine(worldRHGrip.GetTranslation(), worldRHGrip.GetTranslation() + worldRHGrip.GetForward());
 	Matrix34 worldLHGrip = worldTransform * GetLHGripTransform();
 	renderer->DrawBall(worldLHGrip.GetTranslation(), 0.02f);
 

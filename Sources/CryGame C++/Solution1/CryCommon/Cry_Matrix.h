@@ -867,6 +867,11 @@ template <typename F> struct Matrix34_tpl
 			v.z = m20*p.x + m21*p.y + m22*p.z + m23;
 			return v;
 		}
+
+		ILINE Vec3 GetForward() const
+		{
+			return TransformVector(Vec3(0, -1, 0));
+		}
 };
 
 
