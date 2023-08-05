@@ -263,11 +263,12 @@ public:
 
 	int GetTwoHandedMode() const { return m_twoHandedMode; }
 
+	void InitGripTransforms();
+
 private:
 	bool InitWeaponClassVariables();
 	bool InitScripts();
 	bool InitModels();
-	void InitGripTransforms();
 	void ProcessHitTarget(const SWeaponHit &hit);
 
 	// the actual weapon class variables
@@ -289,6 +290,9 @@ private:
 	Vec3								m_fpvPosOffset;
 	Vec3								m_fpvAngleOffset;
 
+	Vec3 m_rhGripOffset;
+	Vec3 m_lhGripOffset;
+	Ang3 m_rhGripOffsetAngles;
 	Matrix34 m_rhGripTransform;
 	Matrix34 m_lhGripTransform;
 	const char* m_spitFireBoneName;

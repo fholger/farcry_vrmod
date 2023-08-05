@@ -2441,6 +2441,9 @@ void CPlayer::ModifyWeaponPosition(CWeaponClass* weapon, Vec3& weaponAngles, Vec
 	// locate our reference bone and determine its current position in the world
 	// then figure out the transform to take it to our controller position and apply that to the weapon coordinates
 
+	if (gVR->vr_debug_override_grip)
+		weapon->InitGripTransforms();
+
 	Ang3 angles = Deg2Rad(m_pEntity->GetCamera()->GetAngles());
 	angles.x = angles.y = 0;
 	Matrix34 inverseGripTransform = weapon->GetRHGripTransform().GetInverted();

@@ -7,7 +7,7 @@ Machete = {
 	BoneLeftHand = "Bone19",
 	SpitFireBone = "Bone13",
 	TwoHandedMode = 0,
-	
+
 	-- factor to slow down the player when he holds that weapon
 	PlayerSlowDown = 1.0,	
 	---------------------------------------------------

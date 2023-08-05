@@ -6,6 +6,8 @@ P90 = {
 	BoneRightHand = "Bone67",
 	BoneLeftHand = "Bone19",
 
+	RHOffsetAngles = { -30, 0, 0 },
+
 	---------------------------------------------------
 	PlayerSlowDown = 0.88,									-- factor to slow down the player when he holds that weapon
 	---------------------------------------------------

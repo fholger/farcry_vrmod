@@ -473,6 +473,13 @@ void CWeaponClass::DisableIdleAnimations(bool disable)
 	}
 }
 
+Vec3 VecFromCVar(ICVar* cvar)
+{
+	Vec3 result;
+	sscanf(cvar->GetString(), "%f %f %f", &result.x, &result.y, &result.z);
+	return result;
+}
+
 void CWeaponClass::InitGripTransforms()
 {
 	m_rhGripTransform.SetIdentity();
@@ -481,23 +488,55 @@ void CWeaponClass::InitGripTransforms()
 	if (!GetCharacter())
 		return;
 
+	_SmartScriptObject values(m_pScriptSystem, true);
+	m_rhGripOffset = Vec3(0, -0.1f, -0.018f);
+	if (GetScriptObject()->GetValue("RHOffset", values))
+	{
+		values->GetAt(1, m_rhGripOffset.x);
+		values->GetAt(2, m_rhGripOffset.y);
+		values->GetAt(3, m_rhGripOffset.z);
+	}
+	m_rhGripOffsetAngles = Ang3(0, 0, 0);
+	if (GetScriptObject()->GetValue("RHOffsetAngles", values))
+	{
+		values->GetAt(1, m_rhGripOffsetAngles.x);
+		values->GetAt(2, m_rhGripOffsetAngles.y);
+		values->GetAt(3, m_rhGripOffsetAngles.z);
+	}
+	m_lhGripOffset = Vec3(0, -0.1f, -0.018f);
+	if (GetScriptObject()->GetValue("LHOffset", values))
+	{
+		values->GetAt(1, m_lhGripOffset.x);
+		values->GetAt(2, m_lhGripOffset.y);
+		values->GetAt(3, m_lhGripOffset.z);
+	}
+
+	if (gVR->vr_debug_override_grip)
+	{
+		m_rhGripOffset = VecFromCVar(gVR->vr_debug_override_rh_offset);
+		m_rhGripOffsetAngles = VecFromCVar(gVR->vr_debug_override_rh_angles);
+		m_lhGripOffset = VecFromCVar(gVR->vr_debug_override_lh_offset);
+	}
+
 	const char* boneName = "";
 	GetScriptObject()->GetValue("BoneRightHand", boneName);
+
 	ICryBone* bone = GetCharacter()->GetBoneByName(boneName);
 	if (bone)
 	{
-		Matrix34 offset = Matrix34::CreateIdentity();
-		offset.SetTranslation(Vec3(0.0f, -0.1f, -0.018f));
+		Matrix34 offset = Matrix34::CreateRotationXYZ(Deg2Rad(m_rhGripOffsetAngles));
+		offset.SetTranslation(m_rhGripOffset);
 		m_rhGripTransform = ((Matrix34)GetTransposed44(bone->GetAbsoluteMatrix())) * offset;
 	}
 
 	boneName = "";
 	GetScriptObject()->GetValue("BoneLeftHand", boneName);
+
 	bone = GetCharacter()->GetBoneByName(boneName);
 	if (bone)
 	{
 		Matrix34 offset = Matrix34::CreateIdentity();
-		offset.SetTranslation(Vec3(0.0f, -0.1f, -0.018f));
+		offset.SetTranslation(m_lhGripOffset);
 		m_lhGripTransform = ((Matrix34)GetTransposed44(bone->GetAbsoluteMatrix())) * offset;
 	}
 }

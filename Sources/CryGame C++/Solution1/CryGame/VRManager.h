@@ -81,6 +81,10 @@ public:
 	int vr_mirrored_eye;
 	int vr_debug_draw_grip;
 	float vr_melee_swing_threshold;
+	int vr_debug_override_grip;
+	ICVar* vr_debug_override_rh_offset = nullptr;
+	ICVar* vr_debug_override_rh_angles = nullptr;
+	ICVar* vr_debug_override_lh_offset = nullptr;
 	ICVar* e_terrain_lod_ratio = nullptr;
 
 private:
