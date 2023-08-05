@@ -510,7 +510,7 @@ void CPlayer::UpdateFirstPersonView()
 		if (m_usesMotionControls)
 			m_vWeaponAngles.Set(0, 0, 0);
 
-		pSelectedWeapon->SetFirstPersonOffset( weaponOffset, m_vWeaponAngles + RAD2DEG(m_weaponRecoilAngles));
+		pSelectedWeapon->SetFirstPersonOffset( weaponOffset, m_vWeaponAngles + 20 * m_weaponRecoilAngles);
 		pSelectedWeapon->MoveToFirstPersonPos(this);
 
 		if(m_stats.drawfpweapon)

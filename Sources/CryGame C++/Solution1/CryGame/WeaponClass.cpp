@@ -389,16 +389,10 @@ Vec3	CWeaponClass::GetFirePos( IEntity *pIEntity ) const
 
 void CWeaponClass::GetMuzzlePosAngles(Vec3& muzzlePos, Vec3& muzzleAngles)
 {
-	ICryBone* bone = GetCharacter() ? GetCharacter()->GetBoneByName(m_spitFireBoneName) : nullptr;
-	if (!bone)
-		return;
-
 	Matrix34 m = Matrix34::CreateRotationXYZ(Deg2Rad(m_vAngles), m_vPos);
-	Matrix34 muzzleTransform = m * (Matrix34)GetTransposed44(bone->GetAbsoluteMatrix());
-	Ang3 angles;
-	angles.SetAnglesXYZ((Matrix33)muzzleTransform);
-	muzzleAngles = RAD2DEG(angles);
-	muzzlePos = muzzleTransform.GetTranslation();
+	Matrix34 worldMuzzleTransform = m * m_muzzleTransform;
+	muzzleAngles = ToAnglesDeg(worldMuzzleTransform);
+	muzzlePos = worldMuzzleTransform.GetTranslation();
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -480,10 +474,11 @@ Vec3 VecFromCVar(ICVar* cvar)
 	return result;
 }
 
-void CWeaponClass::InitGripTransforms()
+void CWeaponClass::InitStaticTransforms()
 {
 	m_rhGripTransform.SetIdentity();
 	m_lhGripTransform.SetIdentity();
+	m_muzzleTransform.SetIdentity();
 
 	if (!GetCharacter())
 		return;
@@ -538,6 +533,14 @@ void CWeaponClass::InitGripTransforms()
 		Matrix34 offset = Matrix34::CreateIdentity();
 		offset.SetTranslation(m_lhGripOffset);
 		m_lhGripTransform = ((Matrix34)GetTransposed44(bone->GetAbsoluteMatrix())) * offset;
+	}
+
+	boneName = "spitfire";
+	GetScriptObject()->GetValue("SpitFireBone", boneName);
+	bone = GetCharacter()->GetBoneByName(boneName);
+	if (bone)
+	{
+		m_muzzleTransform = (Matrix34)GetTransposed44(bone->GetAbsoluteMatrix());
 	}
 }
 
@@ -740,12 +743,10 @@ bool CWeaponClass::InitScripts()
 	if (!InitModels())
 		return false;
 
-	InitGripTransforms();
+	InitStaticTransforms();
 
 	if (!m_soWeaponClass->GetValue("TwoHandedMode", m_twoHandedMode))
 		m_twoHandedMode = TWOHAND_FULL;
-	if (!m_soWeaponClass->GetValue("SpitFireBone", m_spitFireBoneName))
-		m_spitFireBoneName = "spitfire";
 
 	// call onInit
 	ScriptOnInit();
@@ -793,8 +794,6 @@ bool CWeaponClass::InitModels()
 			m_pCharacter->StartAnimation("Idle11",ccap);
 			m_pCharacter->Update();
 			m_pCharacter->ForceUpdate(); 
-			//m_pCharacter->SetAnimationFrame("idle",1);			
-			//m_pCharacter->StopAnimation(0);
 		}
 	}
 

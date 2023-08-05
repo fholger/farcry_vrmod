@@ -263,7 +263,7 @@ public:
 
 	int GetTwoHandedMode() const { return m_twoHandedMode; }
 
-	void InitGripTransforms();
+	void InitStaticTransforms();
 
 private:
 	bool InitWeaponClassVariables();
@@ -295,7 +295,7 @@ private:
 	Ang3 m_rhGripOffsetAngles;
 	Matrix34 m_rhGripTransform;
 	Matrix34 m_lhGripTransform;
-	const char* m_spitFireBoneName;
+	Matrix34 m_muzzleTransform;
 
 	int m_twoHandedMode;
 

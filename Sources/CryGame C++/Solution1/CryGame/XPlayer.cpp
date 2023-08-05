@@ -1270,6 +1270,10 @@ void CPlayer::ProcessAngles(CXEntityProcessingCmd &ProcessingCmd)
 				vA.x += xdiff;
 				ProcessingCmd.SetDeltaAngles(vA);
 			}
+			else
+			{
+				m_weaponRecoilAngles.x += xdiff;
+			}
 		}
 
 		//APPLY RECOIL
@@ -2442,7 +2446,7 @@ void CPlayer::ModifyWeaponPosition(CWeaponClass* weapon, Vec3& weaponAngles, Vec
 	// then figure out the transform to take it to our controller position and apply that to the weapon coordinates
 
 	if (gVR->vr_debug_override_grip)
-		weapon->InitGripTransforms();
+		weapon->InitStaticTransforms();
 
 	Ang3 angles = Deg2Rad(m_pEntity->GetCamera()->GetAngles());
 	angles.x = angles.y = 0;
