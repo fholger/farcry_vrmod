@@ -100,7 +100,7 @@ public:
 	void OnBind(EntityId id,EntityId child,unsigned char param){}
 	void OnUnbind(EntityId id,EntityId child,unsigned char param){}
 
-	IClient* GetNetworkClient() const { return m_pIClient; };
+	IClient* GetNetworkClient() const { return m_pIClient; }
 
 	// console variables
 	bool CreateConsoleVariables();
@@ -211,6 +211,8 @@ public:
 	void TriggerReload(float fValue,XActivationEvent ae);
 	void TriggerUse(float fValue,XActivationEvent ae);
 	void TriggerTurnLR(float fValue,XActivationEvent ae);
+	void TriggerSnapTurnLeft(float value, XActivationEvent ae);
+	void TriggerSnapTurnRight(float value, XActivationEvent ae);
 	void TriggerRoomscaleTurn(float fYaw, float fPitch);
 	void TriggerTurnUD(float fValue,XActivationEvent ae);
 	void TriggerWalk(float fValue,XActivationEvent ae);

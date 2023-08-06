@@ -1588,19 +1588,12 @@ void CXClient::TriggerMoveFB(float fValue,XActivationEvent ae)
 ///////////////////////////////////////////////
 void CXClient::TriggerTurnLR(float fValue,XActivationEvent ae)
 { 
-	if (m_pGame->cl_use_joypad->GetIVal() || gVR->UseMotionControllers())
+	if (gVR->UseMotionControllers())
 	{	
-		float fFovMul = 1.0f;
 		float fVal=fValue;
 		IEntity *pPlayerEnt = m_pISystem->GetEntity( m_wPlayerID );
 		if (pPlayerEnt)
 		{
-
-			IEntityCamera *pCam = pPlayerEnt->GetCamera();
-			if (pCam)
-			{
-				fFovMul = (float) (pCam->GetFov() / 1.5707963267948966192313216916398);
-			}
 			//--- NickH: Dead Zone handling.
 			//  if fVal within deadzone then fVal = 0
 			//  else normalise fVal back into the +/- 0..1 range.
@@ -1608,13 +1601,6 @@ void CXClient::TriggerTurnLR(float fValue,XActivationEvent ae)
 			float fSensGainLR=2.1f;      // sensitivity : will come from a console var.
 			float fSensScaleLR=1.0f;
 			float fDeadZoneTurnLR=0.4f;
-
-			IInput *pInput=m_pGame->GetSystem()->GetIInput();
-			if(pInput)
-			{
-				fSensGainLR=pInput->GetJoySensitivityHGain(pInput->JoyGetDefaultControllerId());
-				fSensScaleLR=pInput->GetJoySensitivityHScale(pInput->JoyGetDefaultControllerId());
-			}
 
 			//--- DeadZone
 			if(fabs(fVal)<fDeadZoneTurnLR)
@@ -1646,7 +1632,7 @@ void CXClient::TriggerTurnLR(float fValue,XActivationEvent ae)
 			}
 		}
 
-		m_PlayerProcessingCmd.GetDeltaAngles()[ROLL] -= fVal*fFovMul; //fValue*fFovMul;
+		m_PlayerProcessingCmd.GetDeltaAngles()[ROLL] -= fVal*gVR->vr_smooth_turn_speed; //fValue*fFovMul;
 		m_PlayerProcessingCmd.AddAction(ACTION_TURNLR);	
 	}
 	else
@@ -1665,6 +1651,18 @@ void CXClient::TriggerTurnLR(float fValue,XActivationEvent ae)
 		m_PlayerProcessingCmd.GetDeltaAngles()[ROLL] -= fValue*fFovMul;
 		m_PlayerProcessingCmd.AddAction(ACTION_TURNLR);
 	}
+}
+
+void CXClient::TriggerSnapTurnLeft(float value, XActivationEvent ae)
+{
+	m_PlayerProcessingCmd.GetDeltaAngles()[ROLL] += gVR->vr_snap_turn_amount;
+	m_PlayerProcessingCmd.AddAction(ACTION_TURNLR);
+}
+
+void CXClient::TriggerSnapTurnRight(float value, XActivationEvent ae)
+{
+	m_PlayerProcessingCmd.GetDeltaAngles()[ROLL] -= gVR->vr_snap_turn_amount;
+	m_PlayerProcessingCmd.AddAction(ACTION_TURNLR);
 }
 
 void CXClient::TriggerRoomscaleTurn(float fYaw, float fPitch)

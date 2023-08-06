@@ -80,8 +80,10 @@ public:
 	int vr_window_height;
 	int vr_mirrored_eye;
 	int vr_debug_draw_grip;
-	float vr_melee_swing_threshold;
 	int vr_debug_override_grip;
+	float vr_melee_swing_threshold;
+	int vr_snap_turn_amount;
+	float vr_smooth_turn_speed;
 	ICVar* vr_debug_override_rh_offset = nullptr;
 	ICVar* vr_debug_override_rh_angles = nullptr;
 	ICVar* vr_debug_override_lh_offset = nullptr;

@@ -48,6 +48,8 @@ bool VRInput::Init(CXGame* game)
 
 	vr::VRInput()->GetActionHandle("/actions/move/in/move", &m_moveMove);
 	vr::VRInput()->GetActionHandle("/actions/move/in/continuousturn", &m_moveTurn);
+	vr::VRInput()->GetActionHandle("/actions/move/in/turnleft", &m_moveSnapTurnLeft);
+	vr::VRInput()->GetActionHandle("/actions/move/in/turnright", &m_moveSnapTurnRight);
 	vr::VRInput()->GetActionHandle("/actions/move/in/sprint", &m_moveSprint);
 	vr::VRInput()->GetActionHandle("/actions/move/in/jump", &m_moveJump);
 	vr::VRInput()->GetActionHandle("/actions/move/in/crouch", &m_moveCrouch);
@@ -94,7 +96,15 @@ void VRInput::ProcessInput()
 		return;
 
 	HandleBooleanAction(m_defaultMenu, &CXClient::TriggerMenu, false);
-	HandleAnalogAction(m_moveTurn, 0, &CXClient::TriggerTurnLR);
+	if (gVR->vr_snap_turn_amount == 0)
+	{
+		HandleAnalogAction(m_moveTurn, 0, &CXClient::TriggerTurnLR);
+	}
+	else
+	{
+		HandleBooleanAction(m_moveSnapTurnLeft, &CXClient::TriggerSnapTurnLeft, false);
+		HandleBooleanAction(m_moveSnapTurnRight, &CXClient::TriggerSnapTurnRight, false);
+	}
 
 	CPlayer* player = m_pGame->GetLocalPlayer();
 	if (player && player->GetVehicle())
