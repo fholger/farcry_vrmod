@@ -513,6 +513,16 @@ void CWeaponClass::InitStaticTransforms()
 		m_lhGripOffset = VecFromCVar(gVR->vr_debug_override_lh_offset);
 	}
 
+	Matrix33 leftHandCorrection;
+	leftHandCorrection.SetIdentity();
+
+	if (m_rWeaponSystem.IsLeftHanded())
+	{
+		// we need to correct for the inversion of the model in the poses we extract
+		leftHandCorrection.SetScale(Vec3(-1, 1, 1));
+		leftHandCorrection *= Matrix33::CreateRotationY(gf_PI);
+	}
+
 	const char* boneName = "";
 	GetScriptObject()->GetValue("BoneRightHand", boneName);
 
@@ -521,8 +531,12 @@ void CWeaponClass::InitStaticTransforms()
 	{
 		Matrix34 offset = Matrix34::CreateRotationXYZ(Deg2Rad(m_rhGripOffsetAngles));
 		offset.SetTranslation(m_rhGripOffset);
-		m_rhGripTransform = ((Matrix34)GetTransposed44(bone->GetAbsoluteMatrix())) * offset;
+		m_rhGripTransform = ((Matrix34)GetTransposed44(bone->GetAbsoluteMatrix())) * offset * leftHandCorrection;
 	}
+
+	Vec3 ofs = m_rhGripTransform.GetTranslation();
+	Vec3 fwd = m_rhGripTransform.GetForward();
+	CryLogAlways("Grip for %s: offset (%.3f, %.3f, %.3f) - forward (%.3f, %.3f, %.3f)", m_sName.c_str(), ofs.x, ofs.y, ofs.z, fwd.x, fwd.y, fwd.z);
 
 	boneName = "";
 	GetScriptObject()->GetValue("BoneLeftHand", boneName);
@@ -532,7 +546,7 @@ void CWeaponClass::InitStaticTransforms()
 	{
 		Matrix34 offset = Matrix34::CreateIdentity();
 		offset.SetTranslation(m_lhGripOffset);
-		m_lhGripTransform = ((Matrix34)GetTransposed44(bone->GetAbsoluteMatrix())) * offset;
+		m_lhGripTransform = ((Matrix34)GetTransposed44(bone->GetAbsoluteMatrix())) * offset * leftHandCorrection;
 	}
 
 	boneName = "spitfire";
@@ -540,7 +554,7 @@ void CWeaponClass::InitStaticTransforms()
 	bone = GetCharacter()->GetBoneByName(boneName);
 	if (bone)
 	{
-		m_muzzleTransform = (Matrix34)GetTransposed44(bone->GetAbsoluteMatrix());
+		m_muzzleTransform = (Matrix34)GetTransposed44(bone->GetAbsoluteMatrix()) * leftHandCorrection;
 	}
 }
 
