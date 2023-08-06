@@ -6,6 +6,7 @@ Shotgun = {
 	-- fixme: no right hand bone?
 	BoneRightHand = "weapon",
 	BoneLeftHand = "Bone19",
+	RHOffset = {-0.13, -0.34, 0.0},
 	
 	PlayerSlowDown = 0.75,									-- factor to slow down the player when he holds that weapon
 	---------------------------------------------------

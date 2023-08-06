@@ -15,6 +15,7 @@ AG36SP = {
 	
 	BoneRightHand = "Bone67",
 	BoneLeftHand = "Bone19",
+	RHOffsetAngles = {-8.0, -5.0, -18.0},
 
 	-- if the weapon supports zooming then add this...
 	ZoomActive = 0,												-- initially always 0

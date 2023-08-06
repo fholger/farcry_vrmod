@@ -5,6 +5,8 @@ RLSP = {
 	
 	BoneRightHand = "Bone20",
 	BoneLeftHand = "Bone03",
+	RHOffset = {0.02, -0.03, 0.01},
+	RHOffsetAngles = {-10.0, 0.0, 10},
 
 	-- if the weapon supports zooming then add this...
 	ZoomActive = 0,												-- initially always 0
