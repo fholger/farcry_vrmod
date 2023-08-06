@@ -75,6 +75,13 @@ bool VRInput::Init(CXGame* game)
 
 void VRInput::ProcessInput()
 {
+	vr::ETrackedControllerRole hand = vr::TrackedControllerRole_RightHand;
+	vr::VRInput()->GetDominantHand(&hand);
+	if (hand == vr::TrackedControllerRole_RightHand && m_pGame->g_LeftHanded->GetIVal() != 0)
+		vr::VRInput()->SetDominantHand(vr::TrackedControllerRole_LeftHand);
+	if (hand == vr::TrackedControllerRole_LeftHand && m_pGame->g_LeftHanded->GetIVal() == 0)
+		vr::VRInput()->SetDominantHand(vr::TrackedControllerRole_RightHand);
+
 	std::vector<vr::VRActiveActionSet_t> activeSets;
 	activeSets.push_back({ m_defaultSet, vr::k_ulInvalidInputValueHandle });
 	activeSets.push_back({ m_moveSet, vr::k_ulInvalidInputValueHandle });

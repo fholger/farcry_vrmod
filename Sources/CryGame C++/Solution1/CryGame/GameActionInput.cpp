@@ -585,7 +585,7 @@ void CXGame::InitConsoleVars()
 		"Sets the game type.\n"
 		"Usage: g_GameType [Default/FFA/TDM/ASSAULT]\n"
 		"Default game type is 'default'.");	
-	g_LeftHanded = pConsole->CreateVariable("g_LeftHanded", "0", 0, "Sets left-handed 1st person weapons");
+	g_LeftHanded = pConsole->CreateVariable("g_LeftHanded", "0", VF_DUMPTODISK, "Sets left-handed 1st person weapons");
 
 	cl_ThirdPersonRange=pConsole->CreateVariable("ThirdPersonRange","7",VF_CHEAT,
 		"Sets the range of the third person camera.\n"
