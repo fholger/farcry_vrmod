@@ -14,6 +14,8 @@ OICWSP = {
 	
 	BoneRightHand = "Bone67",
 	BoneLeftHand = "Bone19",
+	RHOffset = {0.0, -0.08, 0.01},
+	RHOffsetAngles = {-33.0, 0.0, -15.0},
 
 	-- if the weapon supports zooming then add this...
 	ZoomActive = 0,												-- initially always 0

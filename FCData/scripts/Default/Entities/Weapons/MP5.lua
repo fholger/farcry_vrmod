@@ -10,6 +10,7 @@ MP5 = {
 	-- fixme: no right hand bone?
 	BoneRightHand = "weapon",
 	BoneLeftHand = "Bone19",
+	RHOffset = {-0.1, -0.1, -0.018},
 
 	---------------------------------------------------
 	PlayerSlowDown = 0.85,			-- factor to slow down the player when he holds that weapon
