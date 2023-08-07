@@ -3,10 +3,9 @@ RLSP = {
 	object		= "Objects/Weapons/RL/RL_bind.cgf",
 	character	= "Objects/Weapons/RL/RL.cgf",
 	
-	BoneRightHand = "Bone20",
+	BoneRightHand = "weapon",
 	BoneLeftHand = "Bone03",
-	RHOffset = {0.02, -0.03, 0.01},
-	RHOffsetAngles = {-10.0, 0.0, 10},
+	RHOffset = { -0.1, -0.07, 0 },
 
 	-- if the weapon supports zooming then add this...
 	ZoomActive = 0,												-- initially always 0
