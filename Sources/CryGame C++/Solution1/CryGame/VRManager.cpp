@@ -533,7 +533,7 @@ void VRManager::GetEffectiveRenderLimits(int eye, float* left, float* right, flo
 
 void VRManager::ProcessInput()
 {
-	if (m_pGame->IsInMenu() && UseMotionControllers())
+	if ((m_pGame->IsInMenu() || m_pGame->GetSystem()->GetIConsole()->IsOpened()) && UseMotionControllers())
 	{
 		if (!m_wasInMenu)
 		{
