@@ -596,7 +596,7 @@ void VRManager::UpdatePlayerMoveOffset(const Vec3& offset, const Ang3& hmdAngles
 void VRManager::ProcessRoomscale()
 {
 	CPlayer* player = m_pGame->GetLocalPlayer();
-	if (!player || m_pGame->IsCutSceneActive() || !gVRRenderer->ShouldRenderVR() || m_pGame->IsInMenu())
+	if (!player || m_pGame->IsCutSceneActive() || m_pGame->IsInMenu())
 	{
 		m_skippedRoomscaleMovement = true;
 		return;
