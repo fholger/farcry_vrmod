@@ -33,6 +33,7 @@ public:
 	vector2di GetRenderSize() const;
 
 	void ModifyViewCamera(int eye, CCamera& cam);
+	void Modify2DCamera(CCamera& cam);
 
 	void GetEffectiveRenderLimits(int eye, float* left, float* right, float* top, float* bottom);
 

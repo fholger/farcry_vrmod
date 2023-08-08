@@ -491,6 +491,36 @@ void VRManager::ModifyViewCamera(int eye, CCamera& cam)
 	//cam.UpdateFrustumFromVRRaw(tanl, tanr, -tanb, -tant);
 }
 
+void VRManager::Modify2DCamera(CCamera& cam)
+{
+	// in some instances (e.g. binoculars, weapon zoom) we still want to include head movements in the camera orientation
+
+	if (IsEquivalent(cam.GetPos(), Vec3(0, 0, 0), VEC_EPSILON))
+	{
+		// no valid camera set, leave it
+		return;
+	}
+
+	Ang3 angles = cam.GetAngles();
+	Vec3 position = cam.GetPos();
+
+	angles = Deg2Rad(angles);
+	// eliminate pitch and roll
+	angles.y = 0;
+	angles.x = 0;
+
+	Matrix34 viewMat = Matrix34::CreateRotationXYZ(angles, position);
+
+	Matrix34 headMat = m_hmdTransform;
+	viewMat = viewMat * headMat;
+
+	position = viewMat.GetTranslation();
+	cam.SetPos(position);
+	angles.SetAnglesXYZ(Matrix33(viewMat));
+	angles.Rad2Deg();
+	cam.SetAngle(angles);
+}
+
 void VRManager::GetEffectiveRenderLimits(int eye, float* left, float* right, float* top, float* bottom)
 {
 	float l, r, t, b;

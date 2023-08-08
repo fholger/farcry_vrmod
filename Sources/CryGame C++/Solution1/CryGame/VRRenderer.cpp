@@ -94,8 +94,19 @@ void VRRenderer::Render(ISystem* pSystem)
 	if (!ShouldRenderVR())
 	{
 		// for things like the binoculars, we skip the stereo rendering and instead render to the 2D screen
+		if (m_pGame->AreBinocularsActive() && gVR->UseMotionControllers())
+		{
+			// still want to incorporate head movements
+			CCamera cam = m_originalViewCamera;
+			gVR->Modify2DCamera(cam);
+			pSystem->SetViewCamera(cam);
+			m_viewCamOverridden = true;
+		}
 		pSystem->RenderBegin();
 		pSystem->Render();
+
+		pSystem->SetViewCamera(m_originalViewCamera);
+		m_viewCamOverridden = false;
 	}
 }
 
