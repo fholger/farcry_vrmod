@@ -10,6 +10,7 @@ public:
 	void ProcessInput();
 	void ProcessInputOnFoot();
 	void ProcessInputInVehicles();
+	void ProcessInputBinoculars();
 
 	Matrix34 GetControllerTransform(int hand);
 
@@ -25,6 +26,8 @@ private:
 	vr::VRActionHandle_t m_defaultUse = vr::k_ulInvalidInputValueHandle;
 	vr::VRActionHandle_t m_defaultMenu = vr::k_ulInvalidInputValueHandle;
 	vr::VRActionHandle_t m_defaultBinoculars = vr::k_ulInvalidInputValueHandle;
+	vr::VRActionHandle_t m_defaultZoomIn = vr::k_ulInvalidInputValueHandle;
+	vr::VRActionHandle_t m_defaultZoomOut = vr::k_ulInvalidInputValueHandle;
 
 	vr::VRActionHandle_t m_moveMove = vr::k_ulInvalidActionHandle;
 	vr::VRActionHandle_t m_moveTurn = vr::k_ulInvalidActionHandle;

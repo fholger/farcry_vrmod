@@ -56,6 +56,24 @@
               "output": "/actions/default/in/binoculars"
             }
           }
+        },
+        {
+          "inputs" : {
+            "north" : {
+              "output" : "/actions/default/in/zoomin"
+            },
+            "south" : {
+              "output" : "/actions/default/in/zoomout"
+            }
+          },
+          "mode" : "dpad",
+          "parameters" : {
+            "deadzone_pct" : "80",
+            "overlap_pct" : "0",
+            "sub_mode" : "touch",
+            "sticky": "true"
+          },
+          "path" : "/user/hand/right/input/thumbstick"
         }
       ]
     },

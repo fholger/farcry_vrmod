@@ -45,6 +45,8 @@ bool VRInput::Init(CXGame* game)
 	vr::VRInput()->GetActionHandle("/actions/default/in/menu", &m_defaultMenu);
 	vr::VRInput()->GetActionHandle("/actions/default/in/use", &m_defaultUse);
 	vr::VRInput()->GetActionHandle("/actions/default/in/binoculars", &m_defaultBinoculars);
+	vr::VRInput()->GetActionHandle("/actions/default/in/zoomin", &m_defaultZoomIn);
+	vr::VRInput()->GetActionHandle("/actions/default/in/zoomout", &m_defaultZoomOut);
 
 	vr::VRInput()->GetActionHandle("/actions/move/in/move", &m_moveMove);
 	vr::VRInput()->GetActionHandle("/actions/move/in/continuousturn", &m_moveTurn);
@@ -107,7 +109,9 @@ void VRInput::ProcessInput()
 	}
 
 	CPlayer* player = m_pGame->GetLocalPlayer();
-	if (player && player->GetVehicle())
+	if (m_pGame->AreBinocularsActive())
+		ProcessInputBinoculars();
+	else if (player && player->GetVehicle())
 		ProcessInputInVehicles();
 	else
 		ProcessInputOnFoot();
@@ -167,6 +171,16 @@ void VRInput::ProcessInputInVehicles()
 	HandleBooleanAction(m_moveCrouch, &CXClient::NoOp, false);
 	HandleBooleanAction(m_moveJump, &CXClient::NoOp, false);
 	HandleBooleanAction(m_moveSprint, &CXClient::NoOp, false);
+}
+
+void VRInput::ProcessInputBinoculars()
+{
+	HandleBooleanAction(m_defaultUse, &CXClient::TriggerUse, false);
+	HandleBooleanAction(m_defaultBinoculars, &CXClient::TriggerItem0, false);
+	HandleBooleanAction(m_defaultZoomIn, &CXClient::TriggerZoomIn, false);
+	HandleBooleanAction(m_defaultZoomOut, &CXClient::TriggerZoomOut, false);
+	HandleAnalogAction(m_moveMove, 0, &CXClient::TriggerMoveLR);
+	HandleAnalogAction(m_moveMove, 1, &CXClient::TriggerMoveFB);
 }
 
 Matrix34 VRInput::GetControllerTransform(int hand)
