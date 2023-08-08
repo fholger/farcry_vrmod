@@ -160,6 +160,13 @@ void VRInput::ProcessInputInVehicles()
 	HandleBooleanAction(m_vehiclesLeave, &CXClient::TriggerUse, false);
 	HandleBooleanAction(m_vehiclesChangeView, &CXClient::TriggerChangeView, false);
 	HandleBooleanAction(m_vehiclesChangeSeat, &CXClient::TriggerRunSprint, false); // yep, really...
+
+	// process some of the default actions to prevent them from immediately triggering when exiting the vehicle
+	HandleBooleanAction(m_defaultBinoculars, &CXClient::NoOp, false);
+	HandleBooleanAction(m_defaultUse, &CXClient::NoOp, false);
+	HandleBooleanAction(m_moveCrouch, &CXClient::NoOp, false);
+	HandleBooleanAction(m_moveJump, &CXClient::NoOp, false);
+	HandleBooleanAction(m_moveSprint, &CXClient::NoOp, false);
 }
 
 Matrix34 VRInput::GetControllerTransform(int hand)

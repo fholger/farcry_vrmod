@@ -262,6 +262,8 @@ public:
 	void TriggerMoveModeSwitch(float fValue, XActivationEvent ae);
 	void TriggerAimToggle(float fValue, XActivationEvent ae);
 
+	void NoOp(float fValue, XActivationEvent ae) {}
+
 	BEGIN_INPUTACTIONMAP()
 		REGISTER_INPUTACTIONMAP(ACTION_MOVE_LEFT, TriggerMoveLeft)
 		REGISTER_INPUTACTIONMAP(ACTION_MOVE_RIGHT, TriggerMoveRight)
