@@ -54,11 +54,8 @@ private:
 	vr::VRActionHandle_t m_vehiclesLights = vr::k_ulInvalidActionHandle;
 
 	vr::VRActionHandle_t m_weaponsFire = vr::k_ulInvalidActionHandle;
-	vr::VRActionHandle_t m_weaponsReload = vr::k_ulInvalidActionHandle;
-	vr::VRActionHandle_t m_weaponsFireMode = vr::k_ulInvalidActionHandle;
-	vr::VRActionHandle_t m_weaponsNextWeapon = vr::k_ulInvalidActionHandle;
-	vr::VRActionHandle_t m_weaponsPrevWeapon = vr::k_ulInvalidActionHandle;
-	vr::VRActionHandle_t m_weaponsAim = vr::k_ulInvalidActionHandle;
+	DoubleBindAction m_weaponsReloadFireMode;
+	DoubleBindAction m_weaponsNextDrop;
 	vr::VRActionHandle_t m_weaponsGrip = vr::k_ulInvalidActionHandle;
 
 	using TriggerFn = void (CXClient::*)(float value, XActivationEvent ae);

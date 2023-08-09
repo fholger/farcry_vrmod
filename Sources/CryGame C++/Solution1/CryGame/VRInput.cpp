@@ -66,11 +66,8 @@ bool VRInput::Init(CXGame* game)
 	vr::VRInput()->GetActionHandle("/actions/vehicles/in/lights", &m_vehiclesLights);
 
 	vr::VRInput()->GetActionHandle("/actions/weapons/in/fire", &m_weaponsFire);
-	vr::VRInput()->GetActionHandle("/actions/weapons/in/reload", &m_weaponsReload);
-	vr::VRInput()->GetActionHandle("/actions/weapons/in/aim", &m_weaponsAim);
-	vr::VRInput()->GetActionHandle("/actions/weapons/in/firemode", &m_weaponsFireMode);
-	vr::VRInput()->GetActionHandle("/actions/weapons/in/next", &m_weaponsNextWeapon);
-	vr::VRInput()->GetActionHandle("/actions/weapons/in/prev", &m_weaponsPrevWeapon);
+	InitDoubleBindAction(m_weaponsReloadFireMode, "/actions/weapons/in/reload");
+	InitDoubleBindAction(m_weaponsNextDrop, "/actions/weapons/in/next");
 	vr::VRInput()->GetActionHandle("/actions/weapons/in/grip", &m_weaponsGrip);
 
 	m_pGame = game;
@@ -127,11 +124,8 @@ void VRInput::ProcessInputOnFoot()
 	HandleBooleanAction(m_moveCrouch, &CXClient::TriggerMoveModeSwitch, false);
 	HandleBooleanAction(m_moveJump, &CXClient::TriggerJump, false);
 	HandleBooleanAction(m_weaponsFire, &CXClient::TriggerFire0);
-	HandleBooleanAction(m_weaponsReload, &CXClient::TriggerReload, false);
-	HandleBooleanAction(m_weaponsNextWeapon, &CXClient::TriggerNextWeapon, false);
-	HandleBooleanAction(m_weaponsPrevWeapon, &CXClient::TriggerPrevWeapon, false);
-	HandleBooleanAction(m_weaponsFireMode, &CXClient::TriggerFireMode, false);
-	//HandleBooleanAction(m_weaponsAim, &CXClient::TriggerZoomToggle, false);
+	HandleDoubleBindAction(m_weaponsReloadFireMode, &CXClient::TriggerReload, &CXClient::TriggerFireMode, false);
+	HandleDoubleBindAction(m_weaponsNextDrop, &CXClient::TriggerNextWeapon, &CXClient::TriggerDropWeapon, false);
 	HandleBooleanAction(m_weaponsGrip, &CXClient::TriggerTwoHandedGrip);
 }
 
@@ -154,10 +148,8 @@ void VRInput::ProcessInputInVehicles()
 	else
 	{
 		HandleBooleanAction(m_weaponsFire, &CXClient::TriggerFire0);
-		HandleBooleanAction(m_weaponsReload, &CXClient::TriggerReload, false);
-		HandleBooleanAction(m_weaponsNextWeapon, &CXClient::TriggerNextWeapon, false);
-		HandleBooleanAction(m_weaponsPrevWeapon, &CXClient::TriggerPrevWeapon, false);
-		HandleBooleanAction(m_weaponsFireMode, &CXClient::TriggerFireMode, false);
+		HandleDoubleBindAction(m_weaponsReloadFireMode, &CXClient::TriggerReload, &CXClient::TriggerFireMode, false);
+		HandleDoubleBindAction(m_weaponsNextDrop, &CXClient::TriggerNextWeapon, &CXClient::TriggerDropWeapon, false);
 		HandleBooleanAction(m_weaponsGrip, &CXClient::TriggerTwoHandedGrip);
 	}
 
