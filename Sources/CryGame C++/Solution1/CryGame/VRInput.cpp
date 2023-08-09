@@ -69,6 +69,7 @@ bool VRInput::Init(CXGame* game)
 	InitDoubleBindAction(m_weaponsReloadFireMode, "/actions/weapons/in/reload");
 	InitDoubleBindAction(m_weaponsNextDrop, "/actions/weapons/in/next");
 	vr::VRInput()->GetActionHandle("/actions/weapons/in/grip", &m_weaponsGrip);
+	InitDoubleBindAction(m_weaponsGrenades, "/actions/weapons/in/grenades");
 
 	m_pGame = game;
 	return true;
@@ -127,6 +128,7 @@ void VRInput::ProcessInputOnFoot()
 	HandleDoubleBindAction(m_weaponsReloadFireMode, &CXClient::TriggerReload, &CXClient::TriggerFireMode, false);
 	HandleDoubleBindAction(m_weaponsNextDrop, &CXClient::TriggerNextWeapon, &CXClient::TriggerDropWeapon, false);
 	HandleBooleanAction(m_weaponsGrip, &CXClient::TriggerTwoHandedGrip);
+	HandleDoubleBindAction(m_weaponsGrenades, &CXClient::CycleGrenade, &CXClient::TriggerFireGrenade, false);
 }
 
 void VRInput::ProcessInputInVehicles()
@@ -151,6 +153,7 @@ void VRInput::ProcessInputInVehicles()
 		HandleDoubleBindAction(m_weaponsReloadFireMode, &CXClient::TriggerReload, &CXClient::TriggerFireMode, false);
 		HandleDoubleBindAction(m_weaponsNextDrop, &CXClient::TriggerNextWeapon, &CXClient::TriggerDropWeapon, false);
 		HandleBooleanAction(m_weaponsGrip, &CXClient::TriggerTwoHandedGrip);
+		HandleDoubleBindAction(m_weaponsGrenades, &CXClient::CycleGrenade, &CXClient::TriggerFireGrenade, false);
 	}
 
 	HandleBooleanAction(m_vehiclesLeave, &CXClient::TriggerUse, false);

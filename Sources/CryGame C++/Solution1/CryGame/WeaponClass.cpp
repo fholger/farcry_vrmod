@@ -390,7 +390,7 @@ Vec3	CWeaponClass::GetFirePos( IEntity *pIEntity ) const
 void CWeaponClass::GetMuzzlePosAngles(Vec3& muzzlePos, Vec3& muzzleAngles)
 {
 	Matrix34 m = Matrix34::CreateRotationXYZ(Deg2Rad(m_vAngles), m_vPos);
-	Matrix34 worldMuzzleTransform = m * m_muzzleTransform;
+	Matrix34 worldMuzzleTransform = m * m_muzzleTransform * Matrix33::CreateRotationY(gf_PI_DIV_2);
 	muzzleAngles = ToAnglesDeg(worldMuzzleTransform);
 	muzzlePos = worldMuzzleTransform.GetTranslation();
 }

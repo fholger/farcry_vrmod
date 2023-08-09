@@ -57,6 +57,7 @@ private:
 	DoubleBindAction m_weaponsReloadFireMode;
 	DoubleBindAction m_weaponsNextDrop;
 	vr::VRActionHandle_t m_weaponsGrip = vr::k_ulInvalidActionHandle;
+	DoubleBindAction m_weaponsGrenades;
 
 	using TriggerFn = void (CXClient::*)(float value, XActivationEvent ae);
 

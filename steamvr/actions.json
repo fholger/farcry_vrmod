@@ -132,23 +132,15 @@
       "type": "boolean"
     },
     {
-      "name": "/actions/weapons/in/Aim",
-      "type": "boolean"
-    },
-    {
-      "name": "/actions/weapons/in/FireMode",
-      "type": "boolean"
-    },
-    {
       "name": "/actions/weapons/in/Next",
       "type": "boolean"
     },
     {
-      "name": "/actions/weapons/in/Prev",
+      "name": "/actions/weapons/in/Grip",
       "type": "boolean"
     },
     {
-      "name": "/actions/weapons/in/Grip",
+      "name": "/actions/weapons/in/Grenades",
       "type": "boolean"
     }
   ],
