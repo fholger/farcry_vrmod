@@ -43,7 +43,7 @@ bool VRInput::Init(CXGame* game)
 	vr::VRInput()->GetActionHandle("/actions/default/in/HandPoseLeft", &m_handPoses[0]);
 	vr::VRInput()->GetActionHandle("/actions/default/in/HandPoseRight", &m_handPoses[1]);
 	InitDoubleBindAction(m_defaultMenu, "/actions/default/in/menu");
-	vr::VRInput()->GetActionHandle("/actions/default/in/use", &m_defaultUse);
+	InitDoubleBindAction(m_defaultUse, "/actions/default/in/use");
 	vr::VRInput()->GetActionHandle("/actions/default/in/binoculars", &m_defaultBinoculars);
 	vr::VRInput()->GetActionHandle("/actions/default/in/zoomin", &m_defaultZoomIn);
 	vr::VRInput()->GetActionHandle("/actions/default/in/zoomout", &m_defaultZoomOut);
@@ -117,7 +117,18 @@ void VRInput::ProcessInput()
 
 void VRInput::ProcessInputOnFoot()
 {
-	HandleBooleanAction(m_defaultUse, &CXClient::TriggerUse, false);
+	int offHand = m_pGame->g_LeftHanded->GetIVal() != 0 ? 1 : 0;
+	if (IsHandTouchingHead(offHand))
+	{
+		// if touching head, toggle flashlight or thermal vision
+		HandleDoubleBindAction(m_defaultUse, &CXClient::TriggerFlashlight, &CXClient::TriggerItem1, false);
+	}
+	else
+	{
+		// otherwise, normal use
+		HandleBooleanAction(m_defaultUse.handle, &CXClient::TriggerUse, false);
+		m_defaultUse.isPressed = false;
+	}
 	HandleBooleanAction(m_defaultBinoculars, &CXClient::TriggerItem0, false);
 	HandleAnalogAction(m_moveMove, 0, &CXClient::TriggerMoveLR);
 	HandleAnalogAction(m_moveMove, 1, &CXClient::TriggerMoveFB);
@@ -162,7 +173,7 @@ void VRInput::ProcessInputInVehicles()
 
 	// process some of the default actions to prevent them from immediately triggering when exiting the vehicle
 	HandleBooleanAction(m_defaultBinoculars, &CXClient::NoOp, false);
-	HandleBooleanAction(m_defaultUse, &CXClient::NoOp, false);
+	HandleBooleanAction(m_defaultUse.handle, &CXClient::NoOp, false);
 	HandleBooleanAction(m_moveCrouch, &CXClient::NoOp, false);
 	HandleBooleanAction(m_moveJump, &CXClient::NoOp, false);
 	HandleBooleanAction(m_moveSprint, &CXClient::NoOp, false);
@@ -170,7 +181,7 @@ void VRInput::ProcessInputInVehicles()
 
 void VRInput::ProcessInputBinoculars()
 {
-	HandleBooleanAction(m_defaultUse, &CXClient::TriggerUse, false);
+	HandleBooleanAction(m_defaultUse.handle, &CXClient::TriggerUse, false);
 	HandleBooleanAction(m_defaultBinoculars, &CXClient::TriggerItem0, false);
 	HandleBooleanAction(m_defaultZoomIn, &CXClient::TriggerZoomIn, false);
 	HandleBooleanAction(m_defaultZoomOut, &CXClient::TriggerZoomOut, false);
@@ -274,4 +285,14 @@ void VRInput::HandleDoubleBindAction(DoubleBindAction& action, TriggerFn shortPr
 		action.isPressed = false;
 		action.timeFirstPressed = 0;
 	}
+}
+
+bool VRInput::IsHandTouchingHead(int hand)
+{
+	Matrix34 hmdTransform = gVR->GetHmdTransform();
+	Vec3 hmdPos = hmdTransform.GetTranslation();
+	hmdPos -= hmdTransform.GetForward() * 0.1f; // get a bit closer to the player head's centre
+	Matrix34 controllerTransform = gVR->GetControllerTransform(hand);
+	Vec3 controllerPos = controllerTransform.GetTranslation();
+	return controllerPos.GetDistance(hmdPos) <= 0.3f;
 }

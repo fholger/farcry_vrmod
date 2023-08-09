@@ -30,7 +30,7 @@ private:
 	vr::VRActionSetHandle_t m_vehiclesSet = vr::k_ulInvalidActionSetHandle;
 
 	vr::VRActionHandle_t m_handPoses[2] = { vr::k_ulInvalidInputValueHandle };
-	vr::VRActionHandle_t m_defaultUse = vr::k_ulInvalidInputValueHandle;
+	DoubleBindAction m_defaultUse;
 	DoubleBindAction m_defaultMenu;
 	vr::VRActionHandle_t m_defaultBinoculars = vr::k_ulInvalidInputValueHandle;
 	vr::VRActionHandle_t m_defaultZoomIn = vr::k_ulInvalidInputValueHandle;
@@ -67,4 +67,6 @@ private:
 
 	void InitDoubleBindAction(DoubleBindAction& action, const char* actionName);
 	void HandleDoubleBindAction(DoubleBindAction& action, TriggerFn shortPressTrigger, TriggerFn longPressTrigger, bool longContinuous = true);
+
+	bool IsHandTouchingHead(int hand);
 };

@@ -45,6 +45,7 @@ public:
 
 	bool UseMotionControllers() const;
 	Matrix34 GetControllerTransform(int hand);
+	Matrix34 GetHmdTransform() { return m_hmdTransform; }
 
 	void UpdatePlayerTurnOffset(float yawDeltaDeg);
 	void UpdatePlayerMoveOffset(const Vec3& offset, const Ang3& hmdAnglesDeg);
