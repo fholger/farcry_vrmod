@@ -15,6 +15,13 @@ public:
 	Matrix34 GetControllerTransform(int hand);
 
 private:
+	struct DoubleBindAction
+	{
+		vr::VRActionHandle_t handle = vr::k_ulInvalidActionHandle;
+		bool isPressed = false;
+		float timeFirstPressed = 0;
+	};
+
 	CXGame* m_pGame = nullptr;
 
 	vr::VRActionSetHandle_t m_defaultSet = vr::k_ulInvalidActionSetHandle;
@@ -24,7 +31,7 @@ private:
 
 	vr::VRActionHandle_t m_handPoses[2] = { vr::k_ulInvalidInputValueHandle };
 	vr::VRActionHandle_t m_defaultUse = vr::k_ulInvalidInputValueHandle;
-	vr::VRActionHandle_t m_defaultMenu = vr::k_ulInvalidInputValueHandle;
+	DoubleBindAction m_defaultMenu;
 	vr::VRActionHandle_t m_defaultBinoculars = vr::k_ulInvalidInputValueHandle;
 	vr::VRActionHandle_t m_defaultZoomIn = vr::k_ulInvalidInputValueHandle;
 	vr::VRActionHandle_t m_defaultZoomOut = vr::k_ulInvalidInputValueHandle;
@@ -59,4 +66,7 @@ private:
 	void HandleBooleanAction(vr::VRActionHandle_t actionHandle, TriggerFn trigger, bool continuous = true);
 	void HandleAnalogAction(vr::VRActionHandle_t actionHandle, int axis, TriggerFn trigger);
 	float GetFloatValue(vr::VRActionHandle_t actionHandle, int axis = 0);
+
+	void InitDoubleBindAction(DoubleBindAction& action, const char* actionName);
+	void HandleDoubleBindAction(DoubleBindAction& action, TriggerFn shortPressTrigger, TriggerFn longPressTrigger, bool longContinuous = true);
 };

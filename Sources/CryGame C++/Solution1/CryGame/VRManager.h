@@ -85,6 +85,7 @@ public:
 	float vr_melee_swing_threshold;
 	int vr_snap_turn_amount;
 	float vr_smooth_turn_speed;
+	float vr_button_long_press_time;
 	ICVar* vr_debug_override_rh_offset = nullptr;
 	ICVar* vr_debug_override_rh_angles = nullptr;
 	ICVar* vr_debug_override_lh_offset = nullptr;

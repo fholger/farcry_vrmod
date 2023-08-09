@@ -240,6 +240,7 @@ public:
 	void TriggerDropWeapon(float fValue,XActivationEvent ae);
 	void CycleGrenade(float fValue,XActivationEvent ae);
 	void TriggerTwoHandedGrip(float fValue, XActivationEvent ae);
+	void TriggerScoreBoard(float fValue, XActivationEvent ae);
 	
 	//client side
 

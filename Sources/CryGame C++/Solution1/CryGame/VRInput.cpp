@@ -42,7 +42,7 @@ bool VRInput::Init(CXGame* game)
 
 	vr::VRInput()->GetActionHandle("/actions/default/in/HandPoseLeft", &m_handPoses[0]);
 	vr::VRInput()->GetActionHandle("/actions/default/in/HandPoseRight", &m_handPoses[1]);
-	vr::VRInput()->GetActionHandle("/actions/default/in/menu", &m_defaultMenu);
+	InitDoubleBindAction(m_defaultMenu, "/actions/default/in/menu");
 	vr::VRInput()->GetActionHandle("/actions/default/in/use", &m_defaultUse);
 	vr::VRInput()->GetActionHandle("/actions/default/in/binoculars", &m_defaultBinoculars);
 	vr::VRInput()->GetActionHandle("/actions/default/in/zoomin", &m_defaultZoomIn);
@@ -97,7 +97,7 @@ void VRInput::ProcessInput()
 	if (!m_pGame->GetClient())
 		return;
 
-	HandleBooleanAction(m_defaultMenu, &CXClient::TriggerMenu, false);
+	HandleDoubleBindAction(m_defaultMenu, &CXClient::TriggerMenu, &CXClient::TriggerScoreBoard);
 	if (gVR->vr_snap_turn_amount == 0)
 	{
 		HandleAnalogAction(m_moveTurn, 0, &CXClient::TriggerTurnLR);
@@ -225,4 +225,58 @@ float VRInput::GetFloatValue(vr::VRActionHandle_t actionHandle, int axis)
 
 	float value = axis == 0 ? actionData.x : (axis == 1 ? actionData.y : actionData.z);
 	return value;
+}
+
+void VRInput::InitDoubleBindAction(DoubleBindAction& action, const char* actionName)
+{
+	vr::VRInput()->GetActionHandle(actionName, &action.handle);
+}
+
+void VRInput::HandleDoubleBindAction(DoubleBindAction& action, TriggerFn shortPressTrigger, TriggerFn longPressTrigger, bool longContinuous)
+{
+	vr::InputDigitalActionData_t actionData;
+	vr::VRInput()->GetDigitalActionData(action.handle, &actionData, sizeof(vr::InputDigitalActionData_t), vr::k_ulInvalidInputValueHandle);
+	if (!actionData.bActive)
+	{
+		action.isPressed = false;
+		action.timeFirstPressed = 0;
+		return;
+	}
+
+	if (actionData.bState && actionData.bChanged)
+	{
+		action.isPressed = true;
+		action.timeFirstPressed = m_pGame->GetSystem()->GetITimer()->GetAsyncCurTime();
+	}
+
+	if (actionData.bState && action.isPressed)
+	{
+		if (action.timeFirstPressed == 0)
+		{
+			// long press already active
+			if (longContinuous)
+				(m_pGame->GetClient()->*longPressTrigger)(1.f, XActivationEvent());
+		}
+		else
+		{
+			float delta = m_pGame->GetSystem()->GetITimer()->GetAsyncCurTime() - action.timeFirstPressed;
+			if (delta >= gVR->vr_button_long_press_time)
+			{
+				action.timeFirstPressed = 0;  // mark long press active
+				(m_pGame->GetClient()->*longPressTrigger)(1.f, XActivationEvent());
+			}
+		}
+	}
+
+	if (!actionData.bState && action.isPressed)
+	{
+		if (action.timeFirstPressed != 0)
+		{
+			// enable short press action on release since long press was not active
+			(m_pGame->GetClient()->*shortPressTrigger)(1.f, XActivationEvent());
+		}
+
+		action.isPressed = false;
+		action.timeFirstPressed = 0;
+	}
 }

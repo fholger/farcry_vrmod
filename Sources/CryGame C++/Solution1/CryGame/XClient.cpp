@@ -1969,6 +1969,11 @@ void CXClient::TriggerTwoHandedGrip(float fValue, XActivationEvent ae)
 	m_PlayerProcessingCmd.AddAction(ACTION_TWOHAND_GRIP);
 }
 
+void CXClient::TriggerScoreBoard(float fValue, XActivationEvent ae)
+{
+	m_PlayerProcessingCmd.AddAction(ACTION_SCORE_BOARD);
+}
+
 //////////////////////////////////////////////////////////////////////
 void CXClient::TriggerDropWeapon(float fValue,XActivationEvent ae)
 {
