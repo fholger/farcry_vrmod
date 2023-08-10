@@ -253,6 +253,31 @@ UI.PageOptionsVR=
 			end,
 		},
 
+		mirroreye_text=
+		{
+			skin = UI.skins.Label,
+
+			left = 488, top = 219,
+			width = 112,
+
+			text="Mirror eye",
+		},
+
+		mirroreye=
+		{
+			left = 608, top = 219,
+			width = 162, height = 28,
+
+			skin = UI.skins.ComboBox,
+
+			tabstop = 7,
+
+			OnChanged = function( Sender )
+				local eye = tonumber( UI.PageOptionsVR.GUI.mirroreye:GetSelectionIndex() ) - 1;
+				setglobal( "vr_mirrored_eye", eye );
+			end,
+		},
+
 		OnActivate= function(Sender)
 			UI.PageOptionsVR.GUI.motioncontrols:SetChecked(vr_enable_motion_controllers);
 			UI.PageOptionsVR.GUI.terrainlod:SetChecked(vr_render_force_max_terrain_detail);
@@ -278,6 +303,13 @@ UI.PageOptionsVR=
 			UI.PageOptionsVR.GUI.turnspeed:SetValue( ( getglobal( "vr_smooth_turn_speed" ) - 0.5) / 1.5 );
 			UI.PageOptionsVR.GUI.yawdeadzone:SetValue( getglobal( "vr_yaw_deadzone_angle" ) / 60.0 );
 			UI.PageOptionsVR.GUI.vegetationdist:SetValue( getglobal( "e_vegetation_sprites_distance_ratio" ) / 100.0 );
+
+			UI.PageOptionsVR.GUI.mirroreye:Clear();
+			UI.PageOptionsVR.GUI.mirroreye:AddItem( "Left" );
+			UI.PageOptionsVR.GUI.mirroreye:AddItem( "Right" );
+			
+			local cur_eye = tonumber( getglobal( "vr_mirrored_eye" ) );
+			UI.PageOptionsVR.GUI.mirroreye:SelectIndex( cur_eye + 1 );
 		end,
 
 		OnDeactivate = function(Sender)
@@ -293,6 +325,7 @@ UI.PageOptionsVR=
 		UI.PageOptionsVR.GUI.yawdeadzone:SetValue( 0.5 );
 		UI.PageOptionsVR.GUI.terrainlod:SetChecked(1);
 		UI.PageOptionsVR.GUI.vegetationdist:SetValue( 1 );
+		UI.PageOptionsVR.GUI.mirroreye:SelectIndex( 1 );
 		UI.PageOptionsVR.GUI.motioncontrols:OnChanged();
 		UI.PageOptionsVR.GUI.mainhand:OnChanged();
 		UI.PageOptionsVR.GUI.turnmode:OnChanged();
@@ -300,6 +333,7 @@ UI.PageOptionsVR=
 		UI.PageOptionsVR.GUI.yawdeadzone:OnChanged();
 		UI.PageOptionsVR.GUI.terrainlod:OnChanged();
 		UI.PageOptionsVR.GUI.vegetationdist:OnChanged();
+		UI.PageOptionsVR.GUI.mirroreye:OnChanged();
 	end,
 }
 
