@@ -43,6 +43,8 @@
 #include <ISound.h>
 #include <IAgent.h>
 
+#include "VRManager.h"
+
 #if !defined(LINUX)
 #	include <dbghelp.h>
 #	pragma comment(lib, "dbghelp.lib")
@@ -1473,13 +1475,17 @@ public:
 		{
 			// will contain the VR render size, overwrite with a more sensible value so that playing flat
 			// will create a sensible window size
-			return "1280";
+			char value[8];
+			snprintf(value, sizeof(value), "%d", gVR->vr_window_width);
+			return value;
 		}
 		if (name == "r_Height")
 		{
 			// will contain the VR render size, overwrite with a more sensible value so that playing flat
 			// will create a sensible window size
-			return "720";
+			char value[8];
+			snprintf(value, sizeof(value), "%d", gVR->vr_window_height);
+			return value;
 		}
 		if (name == "r_MotionBlur")
 		{

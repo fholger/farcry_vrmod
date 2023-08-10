@@ -121,8 +121,6 @@ bool VRManager::Init(CXGame *game)
 	m_referencePosition = Vec3(0, 0, 0);
 	m_referenceYaw = 0;
 
-	m_pGame->m_pRenderer->ChangeResolution(vr_window_width, vr_window_height, 32, 0, false);
-
 	m_initialized = true;
 	return true;
 }
@@ -139,12 +137,24 @@ void VRManager::Shutdown()
 	m_initialized = false;
 }
 
+void VRManager::Update()
+{
+	if (!m_initialized)
+		return;
+
+	HandleEvents();
+	if (vr_window_width != m_curWindowWidth || vr_window_height != m_curWindowHeight)
+	{
+		m_pGame->m_pRenderer->ChangeResolution(vr_window_width, vr_window_height, 32, 0, false);
+		m_curWindowWidth = vr_window_width;
+		m_curWindowHeight = vr_window_height;
+	}
+}
+
 void VRManager::AwaitFrame()
 {
 	if (!m_initialized || !m_d3d->device)
 		return;
-
-	HandleEvents();
 
 	dxvkLockSubmissionQueue(m_d3d->device.Get(), false);
 	vr::VRCompositor()->WaitGetPoses(&m_headPose, 1, nullptr, 0);

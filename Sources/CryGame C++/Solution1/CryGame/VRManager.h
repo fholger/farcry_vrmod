@@ -19,6 +19,8 @@ public:
 	bool Init(CXGame *game);
 	void Shutdown();
 
+	void Update();
+
 	void AwaitFrame();
 	void HandleEvents();
 
@@ -64,6 +66,9 @@ private:
 	float m_vertRenderScale;
 	float m_horzRenderScale;
 	float m_prevViewYaw = 0;
+
+	int m_curWindowWidth = 0;
+	int m_curWindowHeight = 0;
 
 	void SetHudAttachedToHead();
 	void SetHudInFrontOfPlayer();

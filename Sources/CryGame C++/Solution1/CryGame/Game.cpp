@@ -963,6 +963,8 @@ bool CXGame::Update()
 
 	// network end
 
+	gVR->Update();
+
 	// system rendering
 	if (bRenderFrame)
 	{	
