@@ -445,7 +445,7 @@ bool CPlayer::Init()
 
 bool CPlayer::IsWeaponZoomActive() const
 {
-	if (!m_stats.aiming || !GetSelectedWeapon())
+	if (!m_stats.aiming || !GetSelectedWeapon() || m_usesMotionControls)
 		return false;
 
 	string weaponName = GetSelectedWeapon()->GetName();
