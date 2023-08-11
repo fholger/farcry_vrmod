@@ -28,8 +28,218 @@
           "output" : "/actions/default/in/handposeright",
           "path" : "/user/hand/right/pose/handgrip"
         }
+      ],
+      "sources": [
+        {
+          "path": "/user/hand/left/input/y",
+          "mode": "button",
+          "inputs": {
+            "click": {
+              "output": "/actions/default/in/menu"
+            }
+          }
+        },
+        {
+          "path": "/user/hand/left/input/trigger",
+          "mode": "button",
+          "inputs": {
+            "click": {
+              "output": "/actions/default/in/use"
+            }
+          }
+        },
+        {
+          "path": "/user/hand/left/input/x",
+          "mode": "button",
+          "inputs": {
+            "click": {
+              "output": "/actions/default/in/binoculars"
+            }
+          }
+        },
+        {
+          "inputs" : {
+            "north" : {
+              "output" : "/actions/default/in/zoomin"
+            },
+            "south" : {
+              "output" : "/actions/default/in/zoomout"
+            }
+          },
+          "mode" : "dpad",
+          "parameters" : {
+            "deadzone_pct" : "80",
+            "overlap_pct" : "0",
+            "sub_mode" : "touch",
+            "sticky": "true"
+          },
+          "path" : "/user/hand/right/input/joystick"
+        }
       ]
     },
+    "/actions/move": {
+      "sources": [
+        {
+          "inputs" : {
+            "position" : {
+              "output" : "/actions/move/in/move"
+            }
+          },
+          "mode" : "joystick",
+          "parameters" : {
+            "exponent" : "2"
+          },
+          "path" : "/user/hand/left/input/joystick"
+        },
+        {
+          "inputs" : {
+            "east" : {
+              "output" : "/actions/move/in/turnright"
+            },
+            "west" : {
+              "output" : "/actions/move/in/turnleft"
+            }
+          },
+          "mode" : "dpad",
+          "parameters" : {
+            "deadzone_pct" : "75",
+            "overlap_pct" : "0",
+            "sticky": "true",
+            "sub_mode" : "touch"
+          },
+          "path" : "/user/hand/right/input/joystick"
+        },
+        {
+          "inputs" : {
+            "position" : {
+              "output" : "/actions/move/in/continuousturn"
+            }
+          },
+          "mode" : "joystick",
+          "parameters" : {
+            "deadzone_pct" : "0",
+            "exponent" : "2",
+            "sticky_click" : "false"
+          },
+          "path" : "/user/hand/right/input/joystick"
+        },
+        {
+          "inputs" : {
+            "click" : {
+              "output" : "/actions/move/in/sprint"
+            }
+          },
+          "mode" : "joystick",
+          "parameters" : {
+            "sticky_click" : "true"
+          },
+          "path" : "/user/hand/left/input/joystick"
+        },
+        {
+          "inputs" : {
+            "north" : {
+              "output" : "/actions/move/in/jump"
+            },
+            "south" : {
+              "output" : "/actions/move/in/crouch"
+            }
+          },
+          "mode" : "dpad",
+          "parameters" : {
+            "deadzone_pct" : "80",
+            "overlap_pct" : "0",
+            "sub_mode" : "touch",
+            "sticky": "true"
+          },
+          "path" : "/user/hand/right/input/joystick"
+        }
+      ]
+    },
+    "/actions/vehicles" : {
+      "sources" : [
+        {
+          "inputs" : {
+            "position" : {
+              "output" : "/actions/vehicles/in/steer"
+            }
+          },
+          "mode" : "joystick",
+          "parameters" : {
+            "exponent" : "2"
+          },
+          "path" : "/user/hand/left/input/joystick"
+        },
+        {
+          "inputs" : {
+            "pull" : {
+              "output" : "/actions/vehicles/in/accelerate"
+            }
+          },
+          "mode" : "trigger",
+          "path" : "/user/hand/right/input/trigger"
+        },
+        {
+          "inputs" : {
+            "pull" : {
+              "output" : "/actions/vehicles/in/brake"
+            }
+          },
+          "mode" : "trigger",
+          "path" : "/user/hand/left/input/trigger"
+        },
+        {
+          "inputs" : {
+            "click" : {
+              "output" : "/actions/vehicles/in/leave"
+            }
+          },
+          "mode" : "button",
+          "path" : "/user/hand/left/input/x"
+        },
+        {
+          "inputs" : {
+            "click" : {
+              "output" : "/actions/vehicles/in/changeseat"
+            }
+          },
+          "mode" : "button",
+          "path" : "/user/hand/right/input/b"
+        },
+        {
+          "inputs" : {
+            "click" : {
+              "output" : "/actions/vehicles/in/attack"
+            }
+          },
+          "mode" : "button",
+          "path" : "/user/hand/right/input/a"
+        },
+        {
+          "inputs" : {
+            "click" : {
+              "output" : "/actions/vehicles/in/changeview"
+            }
+          },
+          "mode" : "button",
+          "parameters" : {
+            "touchy_click" : "false"
+          },
+          "path" : "/user/hand/left/input/joystick"
+        },
+        {
+          "inputs" : {
+            "click" : {
+              "output" : "/actions/vehicles/in/lights"
+            }
+          },
+          "mode" : "button",
+          "parameters" : {
+            "touchy_click" : "false"
+          },
+          "path" : "/user/hand/right/input/joystick"
+        }
+	  ]
+	},
     "/actions/weapons": {
       "sources": [
         {
@@ -38,6 +248,42 @@
           "inputs": {
             "click": {
               "output": "/actions/weapons/in/fire"
+            }
+          }
+        },
+        {
+          "path": "/user/hand/right/input/joystick",
+          "mode": "button",
+          "inputs": {
+            "click": {
+              "output": "/actions/weapons/in/next"
+            }
+          }
+        },
+        {
+          "path": "/user/hand/right/input/a",
+          "mode": "button",
+          "inputs": {
+            "click": {
+              "output": "/actions/weapons/in/reload"
+            }
+          }
+        },
+        {
+          "path": "/user/hand/left/input/grip",
+          "mode": "button",
+          "inputs": {
+            "click": {
+              "output": "/actions/weapons/in/grip"
+            }
+          }
+        },
+        {
+          "path": "/user/hand/right/input/b",
+          "mode": "button",
+          "inputs": {
+            "click": {
+              "output": "/actions/weapons/in/grenades"
             }
           }
         }
