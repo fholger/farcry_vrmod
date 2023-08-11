@@ -179,6 +179,10 @@ void VRManager::HandleEvents()
 			vr::VRSystem()->AcknowledgeQuit_Exiting();
 			m_pGame->GetSystem()->Quit();
 		}
+		if (event.eventType == vr::VREvent_DashboardActivated)
+		{
+			m_pGame->GotoMenu(false);
+		}
 	}
 }
 
