@@ -109,7 +109,7 @@ void VRInput::ProcessInput()
 	CPlayer* player = m_pGame->GetLocalPlayer();
 	if (m_pGame->AreBinocularsActive())
 		ProcessInputBinoculars();
-	else if (player && player->GetVehicle())
+	else if (player && player->GetVehicle() && player->GetVehicle()->GetType() != VHT_PARAGLIDER)  // paraglider works better with on-foot controls
 		ProcessInputInVehicles();
 	else
 		ProcessInputOnFoot();
