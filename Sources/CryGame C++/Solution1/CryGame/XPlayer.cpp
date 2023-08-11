@@ -2502,6 +2502,22 @@ void CPlayer::DisableTwoHandedWeaponMode()
 	}
 }
 
+void CPlayer::TriggerHapticEffectOnMainHand(const char* effectName, float amplitudeModifier)
+{
+	if (IsMyPlayer())
+	{
+		gVR->GetHaptics()->TriggerEffect(m_mainHand, effectName, amplitudeModifier);
+	}
+}
+
+void CPlayer::TriggerHapticEffectOnOffHand(const char* effectName, float amplitudeModifier)
+{
+	if (IsMyPlayer())
+	{
+		gVR->GetHaptics()->TriggerEffect(m_offHand, effectName, amplitudeModifier);
+	}
+}
+
 void CPlayer::ModifyVehicleWeaponAim(Vec3& aimPos, Vec3& aimAngles)
 {
 	if (!m_usesMotionControls)

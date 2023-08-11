@@ -1,5 +1,7 @@
 #pragma once
 #include <openvr.h>
+
+#include "VRHaptics.h"
 #include "VRInput.h"
 
 #undef GetUserName
@@ -52,6 +54,8 @@ public:
 	void UpdatePlayerTurnOffset(float yawDeltaDeg);
 	void UpdatePlayerMoveOffset(const Vec3& offset, const Ang3& hmdAnglesDeg);
 
+	VRHaptics* GetHaptics() { return &m_vrHaptics; }
+
 private:
 	struct D3DResources;
 
@@ -92,6 +96,7 @@ public:
 	int vr_snap_turn_amount;
 	float vr_smooth_turn_speed;
 	float vr_button_long_press_time;
+	float vr_haptics_effect_strength;
 	ICVar* vr_debug_override_rh_offset = nullptr;
 	ICVar* vr_debug_override_rh_angles = nullptr;
 	ICVar* vr_debug_override_lh_offset = nullptr;
@@ -101,6 +106,7 @@ private:
 	void RegisterCVars();
 
 	VRInput m_input;
+	VRHaptics m_vrHaptics;
 
 	Vec3 m_referencePosition;
 	float m_referenceYaw = 0;

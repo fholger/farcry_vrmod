@@ -998,6 +998,8 @@ int CWeaponClass::Fire(const Vec3d &origin, const Vec3d &angles, CPlayer *pPlaye
 			return 0;
 	}
 
+	// FIXME: move to weapon scripts
+	pPlayer->TriggerHapticEffectOnMainHand("pistol_fire");
 
 	UINT iNumShots = (UINT) floor_tpl((currTime - winfo.fireTime) * (1/fFireRate));
 	if ( ft==ePressing)

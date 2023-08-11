@@ -117,6 +117,7 @@ bool VRManager::Init(CXGame *game)
 	RegisterCVars();
 
 	m_inputReady = m_input.Init(game);
+	m_vrHaptics.Init(game, &m_input);
 
 	m_referencePosition = Vec3(0, 0, 0);
 	m_referenceYaw = 0;
@@ -142,6 +143,7 @@ void VRManager::Update()
 	if (!m_initialized)
 		return;
 
+	m_vrHaptics.Update();
 	HandleEvents();
 	if (vr_window_width != m_curWindowWidth || vr_window_height != m_curWindowHeight)
 	{
@@ -762,6 +764,7 @@ void VRManager::RegisterCVars()
 	console->Register("vr_snap_turn_amount", &vr_snap_turn_amount, 0, VF_DUMPTODISK, "The amount of degrees to snap turn (set to 0 to disable snap turn)");
 	console->Register("vr_smooth_turn_speed", &vr_smooth_turn_speed, 1.0f, VF_DUMPTODISK, "Determines speed of smooth turn.");
 	console->Register("vr_button_long_press_time", &vr_button_long_press_time, 0.35f, VF_DUMPTODISK, "How long you need to hold a button down to register as a long press");
+	console->Register("vr_haptics_effect_strength", &vr_haptics_effect_strength, 1.0f, VF_DUMPTODISK, "Modify the strength of controller haptic events. Set to 0 to disable haptics");
 	vr_debug_override_rh_offset = console->CreateVariable("vr_debug_override_rh_offset", "0.0 -0.1 -0.018", VF_CHEAT);
 	vr_debug_override_lh_offset = console->CreateVariable("vr_debug_override_lh_offset", "0.0 -0.1 -0.018", VF_CHEAT);
 	vr_debug_override_rh_angles = console->CreateVariable("vr_debug_override_rh_angles", "0.0 0.0 0.0", VF_CHEAT);

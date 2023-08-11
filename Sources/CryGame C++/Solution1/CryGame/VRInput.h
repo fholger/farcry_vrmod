@@ -1,5 +1,6 @@
 #pragma once
 #include <openvr.h>
+
 #undef GetUserName
 
 class VRInput
@@ -11,6 +12,8 @@ public:
 	void ProcessInputOnFoot();
 	void ProcessInputInVehicles();
 	void ProcessInputBinoculars();
+
+	void TriggerHaptics(int hand, float amplitude, float frequency, float duration);
 
 	Matrix34 GetControllerTransform(int hand);
 
@@ -27,14 +30,16 @@ private:
 	vr::VRActionSetHandle_t m_defaultSet = vr::k_ulInvalidActionSetHandle;
 	vr::VRActionSetHandle_t m_moveSet = vr::k_ulInvalidActionSetHandle;
 	vr::VRActionSetHandle_t m_weaponsSet = vr::k_ulInvalidActionSetHandle;
-	vr::VRActionSetHandle_t m_vehiclesSet = vr::k_ulInvalidActionSetHandle;
+	vr::VRActionSetHandle_t m_vehiclesSet = vr::k_ulInvalidActionHandle;
 
-	vr::VRActionHandle_t m_handPoses[2] = { vr::k_ulInvalidInputValueHandle };
+	vr::VRInputValueHandle_t m_handHandle[2] = { vr::k_ulInvalidInputValueHandle };
+	vr::VRActionHandle_t m_handPoses[2] = { vr::k_ulInvalidActionHandle };
+	vr::VRActionHandle_t m_haptics = vr::k_ulInvalidActionHandle;
 	DoubleBindAction m_defaultUse;
 	DoubleBindAction m_defaultMenu;
-	vr::VRActionHandle_t m_defaultBinoculars = vr::k_ulInvalidInputValueHandle;
-	vr::VRActionHandle_t m_defaultZoomIn = vr::k_ulInvalidInputValueHandle;
-	vr::VRActionHandle_t m_defaultZoomOut = vr::k_ulInvalidInputValueHandle;
+	vr::VRActionHandle_t m_defaultBinoculars = vr::k_ulInvalidActionHandle;
+	vr::VRActionHandle_t m_defaultZoomIn = vr::k_ulInvalidActionHandle;
+	vr::VRActionHandle_t m_defaultZoomOut = vr::k_ulInvalidActionHandle;
 
 	vr::VRActionHandle_t m_moveMove = vr::k_ulInvalidActionHandle;
 	vr::VRActionHandle_t m_moveTurn = vr::k_ulInvalidActionHandle;

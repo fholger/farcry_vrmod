@@ -289,6 +289,9 @@ public:
 	void TryEnableTwoHandedWeaponMode();
 	void DisableTwoHandedWeaponMode();
 
+	void TriggerHapticEffectOnMainHand(const char* effectName, float amplitudeModifier = 1.0f);
+	void TriggerHapticEffectOnOffHand(const char* effectName, float amplitudeModifier = 1.0f);
+
 	void ModifyVehicleWeaponAim(Vec3& aimPos, Vec3& aimAngles);
 	void UpdateMountedGunAnglesFromController();
 

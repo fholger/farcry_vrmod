@@ -35,11 +35,15 @@ bool VRInput::Init(CXGame* game)
 		return false;
 	}
 
+	vr::VRInput()->GetInputSourceHandle("/user/hand/left", &m_handHandle[0]);
+	vr::VRInput()->GetInputSourceHandle("/user/hand/right", &m_handHandle[1]);
+
 	vr::VRInput()->GetActionSetHandle("/actions/default", &m_defaultSet);
 	vr::VRInput()->GetActionSetHandle("/actions/move", &m_moveSet);
 	vr::VRInput()->GetActionSetHandle("/actions/vehicles", &m_vehiclesSet);
 	vr::VRInput()->GetActionSetHandle("/actions/weapons", &m_weaponsSet);
 
+	vr::VRInput()->GetActionHandle("/actions/default/in/hapticvibration", &m_haptics);
 	vr::VRInput()->GetActionHandle("/actions/default/in/HandPoseLeft", &m_handPoses[0]);
 	vr::VRInput()->GetActionHandle("/actions/default/in/HandPoseRight", &m_handPoses[1]);
 	InitDoubleBindAction(m_defaultMenu, "/actions/default/in/menu");
@@ -72,6 +76,7 @@ bool VRInput::Init(CXGame* game)
 	InitDoubleBindAction(m_weaponsGrenades, "/actions/weapons/in/grenades");
 
 	m_pGame = game;
+
 	return true;
 }
 
@@ -187,6 +192,11 @@ void VRInput::ProcessInputBinoculars()
 	HandleBooleanAction(m_defaultZoomOut, &CXClient::TriggerZoomOut, false);
 	HandleAnalogAction(m_moveMove, 0, &CXClient::TriggerMoveLR);
 	HandleAnalogAction(m_moveMove, 1, &CXClient::TriggerMoveFB);
+}
+
+void VRInput::TriggerHaptics(int hand, float amplitude, float frequency, float duration)
+{
+	vr::VRInput()->TriggerHapticVibrationAction(m_haptics, 0.f, duration, frequency, amplitude, m_handHandle[hand]);
 }
 
 Matrix34 VRInput::GetControllerTransform(int hand)
