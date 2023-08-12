@@ -2,6 +2,7 @@
 #include "VRInput.h"
 
 #include "VRManager.h"
+#include "WeaponClass.h"
 #include "XPlayer.h"
 #include "XVehicle.h"
 
@@ -122,29 +123,53 @@ void VRInput::ProcessInput()
 
 void VRInput::ProcessInputOnFoot()
 {
+	int mainHand = m_pGame->g_LeftHanded->GetIVal() != 0 ? 0 : 1;
 	int offHand = m_pGame->g_LeftHanded->GetIVal() != 0 ? 1 : 0;
-	if (IsHandTouchingHead(offHand))
+	CPlayer* player = m_pGame->GetLocalPlayer();
+	if (player && player->GetSelectedWeapon())
 	{
-		// if touching head, toggle flashlight or thermal vision
-		HandleDoubleBindAction(m_defaultUse, &CXClient::TriggerFlashlight, &CXClient::TriggerItem1, false);
+		CWeaponClass* weapon = player->GetSelectedWeapon();
+		if (weapon->IsZoomActive() && (!IsHandTouchingHead(mainHand) || !player->IsTwoHandedModeActive()))
+		{
+			player->GetEntity()->SendScriptEvent(ScriptEvent_ZoomToggle, 2);
+		}
+		else if (player->IsTwoHandedModeActive() && !weapon->IsZoomActive() && IsHandTouchingHead(mainHand) && weapon->HasActualScope())
+		{
+			player->GetEntity()->SendScriptEvent(ScriptEvent_ZoomToggle, 1);
+		}
+	}
+
+	if (player && player->IsWeaponZoomActive())
+	{
+		HandleBooleanAction(m_defaultZoomIn, &CXClient::TriggerZoomIn, false);
+		HandleBooleanAction(m_defaultZoomOut, &CXClient::TriggerZoomOut, false);
 	}
 	else
 	{
-		// otherwise, normal use
-		HandleBooleanAction(m_defaultUse.handle, &CXClient::TriggerUse, false);
-		m_defaultUse.isPressed = false;
+		if (IsHandTouchingHead(offHand))
+		{
+			// if touching head, toggle flashlight or thermal vision
+			HandleDoubleBindAction(m_defaultUse, &CXClient::TriggerFlashlight, &CXClient::TriggerItem1, false);
+		}
+		else
+		{
+			// otherwise, normal use
+			HandleBooleanAction(m_defaultUse.handle, &CXClient::TriggerUse, false);
+			m_defaultUse.isPressed = false;
+		}
+		HandleBooleanAction(m_defaultBinoculars, &CXClient::TriggerItem0, false);
+		HandleBooleanAction(m_moveCrouch, &CXClient::TriggerMoveModeSwitch, false);
+		HandleBooleanAction(m_moveJump, &CXClient::TriggerJump, false);
+		HandleDoubleBindAction(m_weaponsNextDrop, &CXClient::TriggerNextWeapon, &CXClient::TriggerDropWeapon, false);
+		HandleDoubleBindAction(m_weaponsGrenades, &CXClient::CycleGrenade, &CXClient::TriggerFireGrenade, false);
 	}
-	HandleBooleanAction(m_defaultBinoculars, &CXClient::TriggerItem0, false);
+
 	HandleAnalogAction(m_moveMove, 0, &CXClient::TriggerMoveLR);
 	HandleAnalogAction(m_moveMove, 1, &CXClient::TriggerMoveFB);
 	HandleBooleanAction(m_moveSprint, &CXClient::TriggerRunSprint);
-	HandleBooleanAction(m_moveCrouch, &CXClient::TriggerMoveModeSwitch, false);
-	HandleBooleanAction(m_moveJump, &CXClient::TriggerJump, false);
 	HandleBooleanAction(m_weaponsFire, &CXClient::TriggerFire0);
 	HandleDoubleBindAction(m_weaponsReloadFireMode, &CXClient::TriggerReload, &CXClient::TriggerFireMode, false);
-	HandleDoubleBindAction(m_weaponsNextDrop, &CXClient::TriggerNextWeapon, &CXClient::TriggerDropWeapon, false);
 	HandleBooleanAction(m_weaponsGrip, &CXClient::TriggerTwoHandedGrip);
-	HandleDoubleBindAction(m_weaponsGrenades, &CXClient::CycleGrenade, &CXClient::TriggerFireGrenade, false);
 }
 
 void VRInput::ProcessInputInVehicles()

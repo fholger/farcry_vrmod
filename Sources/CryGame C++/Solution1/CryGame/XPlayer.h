@@ -288,6 +288,7 @@ public:
 	void ModifyWeaponPosition(CWeaponClass* weapon, Vec3& weaponAngles, Vec3& weaponPosition);
 	void TryEnableTwoHandedWeaponMode();
 	void DisableTwoHandedWeaponMode();
+	bool IsTwoHandedModeActive() { return m_twoHandWeaponMode; }
 
 	void TriggerHapticEffectOnMainHand(const char* effectName, float amplitudeModifier = 1.0f);
 	void TriggerHapticEffectOnOffHand(const char* effectName, float amplitudeModifier = 1.0f);
@@ -1162,6 +1163,8 @@ private:
 	Vec3 m_prevHandPos;
 	Vec3 m_prevMeleePos;
 	Vec3 m_swingDir;
+
+	Vec3 m_prevFireAngles;
 }; 
 
 #endif // __GAME_PLAYER_H__

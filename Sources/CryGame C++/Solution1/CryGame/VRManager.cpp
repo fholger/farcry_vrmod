@@ -535,6 +535,16 @@ void VRManager::Modify2DCamera(CCamera& cam)
 	angles.SetAnglesXYZ(Matrix33(viewMat));
 	angles.Rad2Deg();
 	cam.SetAngle(angles);
+
+	CPlayer* player = m_pGame->GetLocalPlayer();
+	if (player && player->IsWeaponZoomActive())
+	{
+		// set camera to weapon firing pos, instead
+		Vec3 muzzlePos, muzzleAngles;
+		player->GetFirePosAngles(muzzlePos, muzzleAngles);
+		cam.SetPos(muzzlePos);
+		cam.SetAngle(muzzleAngles);
+	}
 }
 
 void VRManager::GetEffectiveRenderLimits(int eye, float* left, float* right, float* top, float* bottom)
