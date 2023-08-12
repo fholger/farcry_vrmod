@@ -22,13 +22,13 @@ description: >- # this means to ignore newlines until "baseurl:"
   in virtual reality.
 twitter_username: username
 github_username: fholger
-minimal_mistakes_skin: dark
+minimal_mistakes_skin: sunrise
 locale: en
 search: false
 
 url: "https://farcryvr.de"
 repository: "fholger/farcry_vrmod"
-logo: "/assets/images/hl2vr_logo.png"
+logo: "/assets/images/fc_logo.png"
 
 # Build settings
 markdown: kramdown

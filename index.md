@@ -13,7 +13,7 @@ header:
 
 intro:
   - excerpt: >-
-      *Rise and shine, Mr. Freeman. Rise... and shine.*
+      *Welcome to Cabatu!*
 
 feature_row:
   - image_path: /assets/images/feature_row/roomscale.jpg
