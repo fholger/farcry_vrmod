@@ -566,6 +566,28 @@ void CWeaponClass::InitStaticTransforms()
 	}
 }
 
+bool CWeaponClass::IsZoomActive()
+{
+	int zoomActive = 0;
+	GetScriptObject()->GetValue("ZoomActive", zoomActive);
+	return zoomActive != 0;
+}
+
+bool CWeaponClass::HasActualScope()
+{
+	// we consider an actual scope if it has more than one zoom steps,
+	// or if the single zoom step has at least 2x magnification
+	_SmartScriptObject zoomSteps(m_pScriptSystem);
+	if (!GetScriptObject()->GetValue("ZoomSteps", zoomSteps) || zoomSteps->Count() == 0)
+		return false;
+
+	if (zoomSteps->Count() > 1)
+		return true;
+	float zoom = 1.0f;
+	zoomSteps->GetAt(1, zoom);
+	return zoom >= 2.f;
+}
+
 //////////////////////////////////////////////////////////////////////
 void CWeaponClass::Unload()
 {

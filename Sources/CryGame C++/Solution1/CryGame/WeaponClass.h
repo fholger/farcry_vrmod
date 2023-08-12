@@ -265,6 +265,9 @@ public:
 
 	void InitStaticTransforms();
 
+	bool IsZoomActive();
+	bool HasActualScope();
+
 private:
 	bool InitWeaponClassVariables();
 	bool InitScripts();
