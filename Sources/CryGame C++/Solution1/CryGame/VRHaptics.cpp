@@ -5,17 +5,6 @@
 #include "VRManager.h"
 
 
-static void FlatEffect(HapticEffect& effect, float amplitude, float duration)
-{
-	uint32_t numSteps = duration * HAPTIC_STEPS_PER_SEC;
-	effect.numSteps = clamp_tpl<uint32_t>(numSteps, 0, MAX_HAPTIC_STEPS);
-	for (uint32_t i = 0; i < effect.numSteps; ++i)
-	{
-		effect.amplitudeSteps[i] = 255 * amplitude;
-	}
-}
-
-
 void VRHaptics::Init(CXGame* game, VRInput* vrInput)
 {
 	m_pGame = game;
@@ -77,7 +66,42 @@ void VRHaptics::StopEffects(int hand)
 	m_vrInput->TriggerHaptics(hand, 0, 0, 0);
 }
 
+void VRHaptics::CreateFlatEffect(const char* effectName, float duration, float amplitude, float easeInTime, float easeOutTime)
+{
+	HapticEffect& effect = m_effects[effectName];
+
+	uint32_t numSteps = duration * HAPTIC_STEPS_PER_SEC;
+	effect.numSteps = clamp_tpl<uint32_t>(numSteps, 0, MAX_HAPTIC_STEPS);
+	for (uint32_t i = 0; i < effect.numSteps; ++i)
+	{
+		effect.amplitudeSteps[i] = 255 * amplitude;
+	}
+
+	uint32_t easeInSteps = clamp_tpl<uint32_t>(easeInTime * HAPTIC_STEPS_PER_SEC, 0, effect.numSteps);
+	for (uint32_t i = 0; i < easeInSteps; ++i)
+	{
+		effect.amplitudeSteps[i] *= i * 1.0f / easeInSteps;
+	}
+
+	uint32_t easeOutSteps = clamp_tpl<uint32_t>(easeOutTime * HAPTIC_STEPS_PER_SEC, 0, effect.numSteps);
+	for (uint32_t i = 0; i < easeOutSteps; ++i)
+	{
+		uint32_t idx = effect.numSteps - 1 - i;
+		effect.amplitudeSteps[idx] *= i * 1.0f / easeOutSteps;
+	}
+}
+
+void VRHaptics::CreateCustomEffect(const char* effectName, float* amplitudes, int count)
+{
+	HapticEffect& effect = m_effects[effectName];
+	effect.numSteps = clamp_tpl<uint32_t>(count, 0, MAX_HAPTIC_STEPS);
+
+	for (int i = 0; i < count; ++i)
+	{
+		effect.amplitudeSteps[i] = 255 * amplitudes[i];
+	}
+}
+
 void VRHaptics::InitEffects()
 {
-	FlatEffect(m_effects["pistol_fire"], 0.3f, 0.1f);
 }

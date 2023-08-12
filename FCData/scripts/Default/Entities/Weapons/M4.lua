@@ -1,3 +1,5 @@
+Game:CreateHapticsEffectFlat("m4_fire", 0.1, 0.3);
+
 M4 = {
 	-- DESCRIPTION:
 	-- Single shot is powerful, with a more recoil
@@ -64,6 +66,7 @@ M4 = {
 		TrailOffStereo="Sounds/Weapons/m4/FINAL_M4_STEREO_TAIL.wav",
 		
 		DrySound = "Sounds/Weapons/DE/dryfire.wav",
+		HapticFireEffect = "m4_fire",
 		
 		LightFlash = {
 			fRadius = 3.0,
@@ -207,6 +210,7 @@ M4 = {
 		--TrailOff="Sounds/Weapons/m4/m4tail.wav",
 		
 		DrySound = "Sounds/Weapons/DE/dryfire.wav",
+		HapticFireEffect = "pistol_fire",
 		
 		ShellCases = {
 			geometry=System:LoadObject("Objects/Weapons/shells/rifleshell.cgf"),

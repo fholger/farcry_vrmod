@@ -48,6 +48,7 @@
 #include <ICryPak.h>
 
 #include "GameMods.h"
+#include "VRManager.h"
 
 #if !defined(LINUX)
 #	include <direct.h>
@@ -318,6 +319,8 @@ void CScriptObjectGame::InitializeTemplate(IScriptSystem *pSS)
 	REG_FUNC(CScriptObjectGame,AddCommand);
 	REG_FUNC(CScriptObjectGame,EnableQuicksave);
 	REG_FUNC(CScriptObjectGame,GetServerIP);
+	REG_FUNC(CScriptObjectGame, CreateHapticsEffectFlat);
+	REG_FUNC(CScriptObjectGame, CreateHapticsEffectCustom);
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -3797,6 +3800,52 @@ int CScriptObjectGame::GetCurrentModName(IFunctionHandler * pH)
 	assert(pMods->GetCurrentMod());
 
 	return pH->EndFunction(pMods->GetCurrentMod());
+}
+
+int CScriptObjectGame::CreateHapticsEffectFlat(IFunctionHandler* pH)
+{
+	if (pH->GetParamCount() < 3)
+		CHECK_PARAMETERS(3);
+
+	const char* effectName = nullptr;
+	float duration = 0.0f;
+	float amplitude = 0.0f;
+	float easeInTime = 0.0f;
+	float easeOutTime = 0.0f;
+	pH->GetParam(1, effectName);
+	pH->GetParam(2, duration);
+	pH->GetParam(3, amplitude);
+	if (pH->GetParamCount() >= 4)
+		pH->GetParam(4, easeInTime);
+	if (pH->GetParamCount() >= 5)
+		pH->GetParam(5, easeOutTime);
+
+	if (effectName != nullptr)
+		gVR->GetHaptics()->CreateFlatEffect(effectName, duration, amplitude, easeInTime, easeOutTime);
+
+	return pH->EndFunction();
+}
+
+int CScriptObjectGame::CreateHapticsEffectCustom(IFunctionHandler* pH)
+{
+	CHECK_PARAMETERS(2);
+	const char* effectName = nullptr;
+	_SmartScriptObject amplitudesParam(m_pScriptSystem);	
+	pH->GetParam(1, effectName);
+	pH->GetParam(2, amplitudesParam);
+
+	std::vector<float> amplitudes;
+	for (int i = 1; i <= amplitudesParam->Count(); ++i)
+	{
+		float amp = 0;
+		amplitudesParam->GetAt(i, amp);
+		amplitudes.push_back(amp);
+	}
+
+	if (effectName != nullptr)
+		gVR->GetHaptics()->CreateCustomEffect(effectName, &amplitudes[0], amplitudes.size());
+
+	return pH->EndFunction();
 }
 
 //////////////////////////////////////////////////////////////////////////

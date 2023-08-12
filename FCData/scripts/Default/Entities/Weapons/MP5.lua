@@ -1,3 +1,6 @@
+Game:CreateHapticsEffectFlat("mp5_fire", 0.05, 0.1);
+Game:CreateHapticsEffectFlat("mp5_fire_single", 0.1, 0.2);
+
 MP5 = {
 	-- DESCRIPTION:
 	-- No Single shot
@@ -68,6 +71,7 @@ MP5 = {
 		TrailOff="Sounds/Weapons/mp5/FINAL_MP5_MONO_TAIL.wav",
 		TrailOffStereo="Sounds/Weapons/mp5/FINAL_MP5_STEREO_TAIL.wav",
 		DrySound ="Sounds/Weapons/MP5/DryFire.wav",
+		HapticFireEffect = "mp5_fire",
 
 		SmokeEffect = {
 			size = {0.15,0.07,0.035,0.01},
@@ -167,6 +171,7 @@ MP5 = {
 		FireSounds = {"Sounds/Weapons/mp5/FINAL_MP5_MONO_SINGLE.wav"},
 		FireSoundsStereo = {"Sounds/Weapons/mp5/FINAL_MP5_STEREO_SINGLE.wav"},
 		DrySound = "Sounds/Weapons/DE/dryfire.wav",
+		HapticFireEffect = "mp5_fire_single",
 		
 		LightFlash = {
 			fRadius = 3.0,

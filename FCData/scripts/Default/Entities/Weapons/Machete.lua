@@ -1,3 +1,5 @@
+Game:CreateHapticsEffectFlat("machete_swing", 0.3, 0.35, 0, 0.2);
+
 Machete = {
 	name			= "Machete",
 	object		= "objects/weapons/machete/machete_bind.cgf",
@@ -35,6 +37,7 @@ Machete = {
 			"sounds/weapons/machete/fire2.wav",
 			"sounds/weapons/machete/fire3.wav",
 		},
+		HapticFireEffect="machete_swing",
 		
 		no_ammo=1,
 		SoundMinMaxVol = { 205, 1, 20 },

@@ -182,6 +182,7 @@ void CScriptObjectPlayer::InitializeTemplate(IScriptSystem *pSS)
 	REG_FUNC(CScriptObjectPlayer,ResetRotateHead);
 	REG_FUNC(CScriptObjectPlayer,CanStand);
 	REG_FUNC(CScriptObjectPlayer,SetSmoothInput);
+	REG_FUNC(CScriptObjectPlayer, TriggerWeaponHapticEffect);
 
 	pSS->SetGlobalValue("BITMASK_PLAYER",BITMASK_PLAYER);
 	pSS->SetGlobalValue("BITMASK_WEAPON",BITMASK_WEAPON);	
@@ -2111,6 +2112,21 @@ int CScriptObjectPlayer::LoadPlayerElements(IFunctionHandler *pH)
 	}
 
 	return pH->EndFunction();	
+}
+
+int CScriptObjectPlayer::TriggerWeaponHapticEffect(IFunctionHandler* pH)
+{
+	const char* effectName = nullptr;
+	float amplitudeModifier = 1.0f;
+	if (pH->GetParamCount() >= 1)
+		pH->GetParam(1, effectName);
+	if (pH->GetParamCount() >= 2)
+		pH->GetParam(2, amplitudeModifier);
+
+	if (effectName != nullptr)
+		m_pPlayer->TriggerWeaponHapticEffect(effectName, amplitudeModifier);
+
+	return pH->EndFunction();
 }
 
 //////////////////////////////////////////////////////////////////////

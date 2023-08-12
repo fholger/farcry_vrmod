@@ -65,6 +65,7 @@ AG36SP = {
 		TrailOffStereo="Sounds/Weapons/ag36/FINAL_AG36_STEREO_TAIL.wav",
 
 		DrySound = "Sounds/Weapons/AG36/DryFire.wav",
+		HapticFireEffect = "oicw_fire",
 
 		ScopeTexId = GetScopeTex(),
 
@@ -188,6 +189,7 @@ AG36SP = {
 
 		},
 		DrySound = "Sounds/Weapons/AG36/DryFire.wav",
+		HapticFireEffect = "oicw_grenade",
 
 		SoundMinMaxVol = { 255, 4, 2600 },
 

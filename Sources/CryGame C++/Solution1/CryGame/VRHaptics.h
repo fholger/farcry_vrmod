@@ -27,6 +27,9 @@ public:
 	void TriggerEffect(int hand, const char* effectName, float amplitudeModifier = 1.0f);
 	void StopEffects(int hand);
 
+	void CreateFlatEffect(const char* effectName, float duration, float amplitude, float easeInTime = 0.0f, float easeOutTime = 0.0f);
+	void CreateCustomEffect(const char* effectName, float* amplitudes, int count);
+
 private:
 	void InitEffects();
 

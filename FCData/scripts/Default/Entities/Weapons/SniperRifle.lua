@@ -1,3 +1,5 @@
+Game:CreateHapticsEffectFlat("sniper_fire", 0.5, 0.6, 0, 0.3);
+
 SniperRifle = {
 	-- DESCRIPTION:
 	-- Non zoom mode has no crosshair, its like a rail gun with one
@@ -68,6 +70,7 @@ SniperRifle = {
 			"Sounds/Weapons/aw50/FINAL_AW50_STEREO_FIRE3.wav",
 		},
 		DrySound = "Sounds/Weapons/AW50/DryFire.wav",
+		HapticFireEffect = "sniper_fire",
 
 		LightFlash = {
 			fRadius = 3.0,
@@ -180,6 +183,7 @@ SniperRifle = {
 			"Sounds/Weapons/aw50/aw50fire3.wav",
 		},
 		DrySound = "Sounds/Weapons/AW50/DryFire.wav",
+		HapticFireEffect = "sniper_fire",
 
 		LightFlash = {
 			fRadius = 3.0,

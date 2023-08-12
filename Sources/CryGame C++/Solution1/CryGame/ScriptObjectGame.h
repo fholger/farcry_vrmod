@@ -35,6 +35,8 @@
 #include <_ScriptableEx.h>
 #include <ScriptObjectVector.h>
 
+#undef GetUserName
+
 class CXGame;
 
 #define PICK_SELONLY		0x00000001
@@ -203,6 +205,10 @@ public:
 	int GetModsList(IFunctionHandler * pH);
 	int LoadMOD(IFunctionHandler * pH);
 	int GetCurrentModName(IFunctionHandler * pH);
+
+	// Controller haptics
+	int CreateHapticsEffectFlat(IFunctionHandler* pH);
+	int CreateHapticsEffectCustom(IFunctionHandler* pH);
 
 private: 
 

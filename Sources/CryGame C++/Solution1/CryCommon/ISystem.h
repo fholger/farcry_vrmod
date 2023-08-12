@@ -36,6 +36,8 @@
 #include <IValidator.h>
 #include <ILog.h>
 
+#undef GetUserName
+
 struct ISystem;
 struct ILog;
 struct IEntitySystem;

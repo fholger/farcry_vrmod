@@ -181,6 +181,9 @@ public:
 	int SavePlayerElements(IFunctionHandler *pH);
 	int LoadPlayerElements(IFunctionHandler *pH);
 
+	// controller haptics
+	int TriggerWeaponHapticEffect(IFunctionHandler* pH);
+
 private:
 
 	CPlayer *m_pPlayer;

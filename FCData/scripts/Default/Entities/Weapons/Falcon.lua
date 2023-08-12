@@ -1,3 +1,5 @@
+Game:CreateHapticsEffectFlat("pistol_fire", 0.2, 0.5);
+
 Falcon = {
 	-- DESCRIPTION
 	-- Default weapon, loud and does not travel far but does the job
@@ -66,6 +68,8 @@ Falcon = {
 		},
 
 		DrySound = "Sounds/Weapons/DE/dryfire.wav",
+		
+		HapticFireEffect = "pistol_fire",
 		
 		ShellCases = {
 			geometry=System:LoadObject("Objects/Weapons/shells/smgshell.cgf"),

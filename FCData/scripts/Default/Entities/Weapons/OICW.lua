@@ -1,3 +1,6 @@
+Game:CreateHapticsEffectFlat("oicw_fire", 0.1, 0.25);
+Game:CreateHapticsEffectFlat("oicw_grenade", 0.4, 0.4, 0, 0.2);
+
 function GetScopeTex()
 	local cur_r_TexResolution = tonumber( getglobal( "r_TexResolution" ) );
 	if( cur_r_TexResolution >= 2 ) then -- lower res texture for low texture quality setting
@@ -66,6 +69,7 @@ OICWSP = {
 		TrailOff="Sounds/Weapons/oicw/FINAL_OICW_MONO_TAIL.wav",
 		TrailOffStereo="Sounds/Weapons/oicw/FINAL_OICW_STEREO_TAIL.wav",
 		DrySound = "Sounds/Weapons/oicw/DryFire.wav",
+		HapticFireEffect = "oicw_fire",
 
 		ScopeTexId = GetScopeTex(),
 
@@ -186,6 +190,7 @@ OICWSP = {
 			"Sounds/Weapons/OICW/FINAL_OICW_STEREO_GRENADE.wav",
 		},
 		DrySound = "Sounds/Weapons/AG36/DryFire.wav",
+		HapticFireEffect = "oicw_grenade",
 
 		LightFlash = {
 			fRadius = 3.0,

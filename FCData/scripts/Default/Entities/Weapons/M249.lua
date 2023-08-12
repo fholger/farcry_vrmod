@@ -51,6 +51,7 @@ M249 = {
 		TrailOffStereo="Sounds/Weapons/mounted/FINAL_M249_STEREO_TAIL.wav",
 		
 		DrySound = "Sounds/Weapons/DE/dryfire.wav",
+		HapticFireEffect = "m4_fire",
 		
 		LightFlash = {
 			fRadius = 3.0,

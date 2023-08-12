@@ -1,3 +1,5 @@
+Game:CreateHapticsEffectFlat("rl_fire", 0.8, 0.5, 0.35, 0.35);
+
 RLSP = {
 	name			= "RL",
 	object		= "Objects/Weapons/RL/RL_bind.cgf",
@@ -45,6 +47,7 @@ RLSP = {
 	
 			},
 			DrySound = "Sounds/Weapons/AG36/DryFire.wav",
+			HapticFireEffect = "rl_fire",
 	
 	-- Light from flying rocket is enough so this light is not needed
 	--		LightFlash = {

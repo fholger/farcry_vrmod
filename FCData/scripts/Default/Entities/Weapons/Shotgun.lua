@@ -1,3 +1,5 @@
+Game:CreateHapticsEffectFlat("shotgun_fire", 0.3, 0.8);
+
 Shotgun = {
 	name			= "Shotgun",
 	object		= "Objects/Weapons/pancor/pancor_bind.cgf",
@@ -62,6 +64,7 @@ Shotgun = {
 		},
 		DrySound = "Sounds/Weapons/Pancor/DryFire.wav",
 		ReloadSound = "Sounds/Weapons/Pancor/jackrload.wav",
+		HapticFireEffect = "shotgun_fire",
 
 		LightFlash = {
 			fRadius = 5.0,

@@ -2518,6 +2518,22 @@ void CPlayer::TriggerHapticEffectOnOffHand(const char* effectName, float amplitu
 	}
 }
 
+void CPlayer::TriggerWeaponHapticEffect(const char* effectName, float amplitudeModifier)
+{
+	if (IsMyPlayer())
+	{
+		if (m_twoHandWeaponMode)
+		{
+			TriggerHapticEffectOnMainHand(effectName, amplitudeModifier * 0.7f);
+			TriggerHapticEffectOnOffHand(effectName, amplitudeModifier * 0.7f);
+		}
+		else
+		{
+			TriggerHapticEffectOnMainHand(effectName, amplitudeModifier);
+		}
+	}
+}
+
 void CPlayer::ModifyVehicleWeaponAim(Vec3& aimPos, Vec3& aimAngles)
 {
 	if (!m_usesMotionControls)

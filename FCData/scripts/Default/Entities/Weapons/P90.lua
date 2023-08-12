@@ -1,3 +1,5 @@
+Game:CreateHapticsEffectFlat("p90_fire", 0.05, 0.15);
+
 P90 = {
 	name			= "P90",
 	object		= "Objects/Weapons/P90/P90_bind.cgf",
@@ -58,6 +60,7 @@ P90 = {
 		TrailOff="Sounds/Weapons/p90/FINAL_P90_MONO_TAIL.wav",
 		TrailOffStereo="Sounds/Weapons/p90/FINAL_P90_STEREO_TAIL.wav",
 		DrySound = "Sounds/Weapons/P90/DryFire.wav",
+		HapticFireEffect = "p90_fire",
 		
 		LightFlash = {
 			fRadius = 3.0,
