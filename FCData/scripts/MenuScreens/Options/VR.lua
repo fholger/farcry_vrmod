@@ -125,7 +125,7 @@ UI.PageOptionsVR=
 			left = 200, top = 254,
 			width = 112,
 
-			text="Turn mode",
+			text="Turn speed",
 		},
 
 		turnspeed =
