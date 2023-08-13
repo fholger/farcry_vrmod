@@ -1,5 +1,5 @@
 !include "MUI2.nsh"
-!define VERSION '0.4.0a'
+!define VERSION '0.5.0'
 
 Name "FarCry VR Mod"
 
@@ -19,7 +19,9 @@ It is a seated-only experience for now without any motion controller support.'
 
 !define MUI_FINISHPAGE_TITLE 'Installation complete.'
 !define MUI_FINISHPAGE_TEXT 'You can launch the VR Mod by running FarCryVR.bat from your FarCry install directory.'
-
+!define MUI_FINISHPAGE_SHOWREADME 'https://farcryvr.de/manual/'
+!define MUI_FINISHPAGE_SHOWREADME_TEXT 'Show Far Cry VR manual'
+!define MUI_FINISHPAGE_NOREBOOTSUPPORT
 
 !insertmacro MUI_PAGE_WELCOME
 !insertmacro MUI_PAGE_DIRECTORY
@@ -40,5 +42,21 @@ Section ""
 SectionEnd
 
 Function .onInit
-	StrCpy $INSTDIR "C:\Program Files (x86)\Steam\steamapps\common\FarCry"
+	; try to look up install directory for the GOG.com version of Far Cry
+	SetRegView 32
+	ReadRegStr $R0 HKLM "Software\GOG.com\Games\1207658750" "path"
+	IfErrors lbl_checksteam 0
+	StrCpy $INSTDIR $R0
+	Return
+	
+	lbl_checksteam:
+	; try to look up install directory for the Steam version of Far Cry
+	SetRegView 64
+	ReadRegStr $R0 HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Steam App 13520" "InstallLocation"
+	IfErrors lbl_fallback 0
+	StrCpy $INSTDIR $R0
+	Return
+	
+	lbl_fallback:
+	StrCpy $INSTDIR "$PROGRAMFILES32\Steam\steamapps\common\FarCry"
 FunctionEnd
