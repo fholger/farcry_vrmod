@@ -2,6 +2,8 @@
 !define VERSION '0.5.0'
 
 Name "FarCry VR Mod"
+; should not need admin privileges as the install folder should be user writable, anyway
+RequestExecutionLevel user
 
 OutFile ".\farcry-vrmod-${VERSION}.exe"
 
