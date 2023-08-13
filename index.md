@@ -60,27 +60,22 @@ release:
 
 {% include feature_row id="intro" type="center" %}
 
-Half-Life 2: VR Mod is a third-party mod for the 2004 PC gaming classic by Valve Software. It allows players to experience the world of Half Life 2 in virtual reality.
+Far Cry VR is a third-party mod for the 2004 PC gaming classic by CryTek. It allows players to experience the world of Far Cry in virtual reality.
 
-It is now available on Steam, free for all owners of Half-Life 2! Check it out:
+The mod is completely free. Simply download [the latest release](https://github.com/fholger/farcry_vrmod/releases/tag/v0.5.0)
+and install it to your local Far Cry folder. If you do not own Far Cry, you can get it from
+[Steam](https://store.steampowered.com/app/13520/Far_Cry/) or
+[gog.com](https://www.gog.com/en/game/far_cry).
 
-[Half-Life 2: VR Mod on Steam](https://store.steampowered.com/app/658920/HalfLife_2_VR_Mod/)
+### Installation instructions
 
-Episode One VR is also available on its own dedicated Steam page. Check it out:
+- Download and install Far Cry, if you haven't already. The game needs to be patched to v1.4; this is already the case for the Steam and gog versions.
+- Download the Far Cry VR installer from the link above and run it. Note: the installer is not signed, so your browser and/or Windows will likely complain about not trusting the installer. You will have to tell Windows to run the installer, anyway.
+- Make sure to select the right path to your Far Cry installation. If you are not sure where it resides, in Steam you can right-click on the game and select "Manage -> Browse local files" to find the path on your machine. Similarly, in GOG Galaxy you can right-click on the game and go to "Manage installation -> Show folder".
+- Finish the installer.
 
-[Half-Life 2: VR Mod - Episode One on Steam](https://store.steampowered.com/app/2177750/HalfLife_2_VR_Mod__Episode_One/)
+You can now launch Far Cry VR by executing the `FarCryVR.bat` in your Far Cry install folder. Far Cry VR requires SteamVR; if you have trouble starting the game, make sure that SteamVR is running first and working with your VR headset.
 
-Episode Two VR is in the works and will be released on April 6th. Go ahead and wishlist it now:
+### Update instructions
 
-[Half-Life 2: VR Mod - Episode Two on Steam](https://store.steampowered.com/app/2177760/HalfLife_2_VR_Mod__Episode_Two/)
-
-Are you enjoying *Half-Life 2* in VR and want to thank us? Buy us a coffee:
-[Donate to Source VR Mod Team on Ko-Fi](https://ko-fi.com/sourcevrmodteam)
-
----
-
-{% include feature_row %}
-
-{% include feature_row id="about" type="left" %}
-
-{% include feature_row id="release" type="right" %}
+Simply download the installer for the new release and repeat the installation instructions. The installer will automatically replace the mod files with the latest version, and afterwards you are ready to go. You should not lose any saves or settings in the process.
