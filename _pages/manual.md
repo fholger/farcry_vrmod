@@ -15,7 +15,7 @@ Valve Index controllers
 ![Index controllers](/assets/images/controls/OnFoot-Index.png)
 
 Touch-like controllers 
-![Touch controllers](/assets/images/controls/OnFoot-Oculus.png)
+![Touch controllers](/assets/images/controls/OnFoot-Touch.png)
 
 Use the left stick to move around or click it to activate sprint. Sprint will remain active until you release the stick back to neutral. You can also physically walk around.
 
@@ -34,10 +34,10 @@ If the current weapon has a scope, you can activate it by grabbing it with both 
 ### Vehicles
 
 Valve Index controllers
-![Index controllers](/assets/images/controls/OnFoot-Index.png)
+![Index controllers](/assets/images/controls/Vehicles-Index.png)
 
 Touch-like controllers 
-![Touch controllers](/assets/images/controls/OnFoot-Oculus.png)
+![Touch controllers](/assets/images/controls/Vehicles-Touch.png)
 
 Press your off-hand trigger to enter a vehicle. Press your off-hand A/X button to leave the vehicle.
 
