@@ -1,4 +1,6 @@
 main:
+  - title: "Download"
+    url: "https://github.com/fholger/farcry_vrmod/releases/"
   - title: "News"
     url: /news/
   - title: "Manual"
