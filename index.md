@@ -25,6 +25,7 @@ Far Cry VR is a third-party mod for the 2004 PC gaming classic by CryTek. It all
 - aim your guns naturally with your hands; use two hands to stabilize the guns further
 - physically swing the machete
 - aim mounted and vehicle guns by pointing with your main hand
+- left-handed support
 
 The mod is completely free. Simply download [the latest release](https://github.com/fholger/farcry_vrmod/releases/tag/v0.5.0)
 and install it to your local Far Cry folder. If you do not own Far Cry, you can get it from
@@ -44,6 +45,10 @@ If you would like to see the mod in action, here are some impressions:
 - Finish the installer.
 
 You can now launch Far Cry VR by executing the `FarCryVR.bat` in your Far Cry install folder. Far Cry VR requires SteamVR; if you have trouble starting the game, make sure that SteamVR is running first and working with your VR headset.
+
+NOTE: by default, the installer runs without admin privileges as the Far Cry game folder should be user-writeable.
+If you run into issues, you may need to explicitly run the installer as an administrator.
+To do so, right-click on it and select "Run as administrator".
 
 ### Update instructions
 

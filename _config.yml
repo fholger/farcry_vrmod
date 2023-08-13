@@ -94,7 +94,7 @@ defaults:
       share: true
       related: true
       header:
-        image: /assets/images/title.png
+        image: /assets/images/title.jpg
   # _pages
   - scope:
       path: "_pages"
@@ -103,7 +103,7 @@ defaults:
       layout: single
       author_profile: false
       header:
-        image: /assets/images/title.png
+        image: /assets/images/title.jpg
 
 category_archive:
   type: liquid
