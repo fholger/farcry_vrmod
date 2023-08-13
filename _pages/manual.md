@@ -3,7 +3,11 @@ permalink: /manual/
 title: "Manual"
 ---
 
-# Controls
+## Calibrating your view
+
+Important: you need to recenter your view in SteamVR once you have assumed your seated or standing position. To do so, bring up the SteamVR dashboard and hit the "Recenter view" icon. The game will place the player's head at the calibrated height; your floor level may not necessarily match the ingame floor height.
+
+## Controls
 
 Controls can be customized through the SteamVR controller bindings. The mod includes default bindings for Index and Oculus Touch controllers. Other controllers which are Touch-like (including Reverb G2 and Pico) should work out of the box with the Touch profile. Other controllers might need custom bindings.
 
