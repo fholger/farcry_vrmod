@@ -1,4 +1,8 @@
 cd bin32
-rename d3d9.vr.dll d3d9.dll
+copy /Y d3d9.vr.dll d3d9.dll
+
+set DXVK_ASYNC=1
+set DXVK_GPLASYNCCACHE=1
 start /B /WAIT FarCry.exe "-MOD:CryVR" -DEVMODE
-rename d3d9.dll d3d9.vr.dll
+
+erase d3d9.dll
