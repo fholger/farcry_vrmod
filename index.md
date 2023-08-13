@@ -14,58 +14,27 @@ header:
 intro:
   - excerpt: >-
       *Welcome to Cabatu!*
-
-feature_row:
-  - image_path: /assets/images/feature_row/roomscale.jpg
-    alt: "Features"
-    title: "Roomscale VR"
-    excerpt: Move around freely, pick up and throw stuff with your hands, *be* Gordon Freeman.
-    url: "/features/#full-roomscale-vr"
-    btn_class: "btn--primary"
-  - image_path: /assets/images/feature_row/interface.jpg
-    alt: "Intuitive weapons"
-    title: "Intuitive weapons"
-    excerpt: All weapons have been adapted to VR. Cycle through them in an intuitive Alyx-inspired weapon selection wheel.
-    url: "/features/#weapon-handling"
-    btn_class: "btn--primary"
-  - image_path: /assets/images/feature_row/vehicles.jpg
-    alt: "Vehicle rides"
-    title: "Vehicle rides"
-    excerpt: The vehicle sections in the game can be jarring in VR. We are doing our best to make them accessible to as many people as possible.
-    url: "/features/#vehicle-rides"
-    btn_class: "btn--primary"
-
-about:
-  - image_path: /assets/images/capsule_616x353.jpg
-    alt: "About"
-    title: "About Half-Life 2: VR Mod"
-    excerpt: >-
-      *Half-Life 2: VR Mod* is a third-party mod for the 2004 PC gaming classic by Valve Software.
-      It is being developed by the Source VR Mod Team and is available free of charge on
-      Steam to owners of Half-Life 2.
-    url: "/about/"
-    btn_class: "btn--primary"
-
-release:
-  - image_path: /assets/images/feature_row/ep1_logo.jpg
-    alt: "Release announcement"
-    title: "Episode One VR is now available"
-    excerpt: >-
-      Great news - *Half-Life 2: VR Mod - Episode One* is now available on Steam, free to any owners of the original *Half-Life 2: Episode One*.
-      Check out the Steam page right now to download it! :)
-    url: "https://store.steampowered.com/app/2177750/HalfLife_2_VR_Mod__Episode_One/"
-    btn_class: "btn--primary"
-    btn_label: "Steam page"
 ---
 
 {% include feature_row id="intro" type="center" %}
 
-Far Cry VR is a third-party mod for the 2004 PC gaming classic by CryTek. It allows players to experience the world of Far Cry in virtual reality.
+Far Cry VR is a third-party mod for the 2004 PC gaming classic by CryTek. It allows players to experience the world of Far Cry in virtual reality. Features:
+
+- full 6DoF roomscale VR experience: play seated or standing with VR motion controllers
+  - (or play seated with keyboard and mouse)
+- aim your guns naturally with your hands; use two hands to stabilize the guns further
+- physically swing the machete
+- aim mounted and vehicle guns by pointing with your main hand
 
 The mod is completely free. Simply download [the latest release](https://github.com/fholger/farcry_vrmod/releases/tag/v0.5.0)
 and install it to your local Far Cry folder. If you do not own Far Cry, you can get it from
 [Steam](https://store.steampowered.com/app/13520/Far_Cry/) or
 [gog.com](https://www.gog.com/en/game/far_cry).
+
+If you would like to see the mod in action, here are some impressions:
+
+{% include video provider="youtube" id="TSNd7s_x-4g" %}
+
 
 ### Installation instructions
 
