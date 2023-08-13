@@ -15,7 +15,7 @@ OutFile ".\farcry-vrmod-${VERSION}.exe"
 !define MUI_WELCOMEPAGE_TITLE 'FarCry VR Mod v${VERSION}'
 !define MUI_WELCOMEPAGE_TEXT 'This will install the FarCry VR Mod on your computer. \
 Please be aware that this is an early development version, and bugs are to be expected. \
-It is a seated-only experience for now without any motion controller support.'
+It features a full roomscale VR experience with motion controller support.'
 
 !define MUI_DIRECTORYPAGE_TEXT 'Please enter the location of your FarCry installation.'
 
