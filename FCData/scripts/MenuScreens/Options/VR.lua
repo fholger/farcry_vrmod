@@ -150,11 +150,43 @@ UI.PageOptionsVR=
 			end,
 		},
 
+		weaponangle_text=
+		{
+			skin = UI.skins.Label,
+
+			left = 200, top = 289,
+			width = 112,
+
+			text="Weapon angle",
+		},
+
+		weaponangle =
+		{
+			skin = UI.skins.HScrollBar,
+
+			left = 320, top = 289,
+			width = 162, height = 24,
+
+			tabstop = 5,
+
+			OnChanged = function( sender )
+				local newValue = tonumber( UI.PageOptionsVR.GUI.weaponangle:GetValue() );
+				if( newValue < 0.0 ) then
+					newValue = 0.0;
+				elseif( newValue > 1.0 ) then
+					newValue = 1.0;
+				end;
+				-- map to value range [-90, 90]
+				newValue = (newValue - 0.5) * 180;
+				setglobal( "vr_weapon_pitch_offset", newValue );
+			end,
+		},
+
 		sep_h0 =
 		{
 			skin = UI.skins.MenuBorder,
 
-			left = 200, top = 306,
+			left = 200, top = 341,
 			width = 290, height = 2,
 			bordersides = "t",
 
@@ -165,7 +197,7 @@ UI.PageOptionsVR=
 		{
 			skin = UI.skins.Label,
 
-			left = 200, top = 324,
+			left = 200, top = 359,
 			width = 112,
 
 			text="Mouse yaw deadzone",
@@ -175,7 +207,7 @@ UI.PageOptionsVR=
 		{
 			skin = UI.skins.HScrollBar,
 
-			left = 320, top = 324,
+			left = 320, top = 359,
 			width = 162, height = 24,
 
 			tabstop = 5,
@@ -303,6 +335,7 @@ UI.PageOptionsVR=
 			UI.PageOptionsVR.GUI.turnspeed:SetValue( ( getglobal( "vr_smooth_turn_speed" ) - 0.5) / 1.5 );
 			UI.PageOptionsVR.GUI.yawdeadzone:SetValue( getglobal( "vr_yaw_deadzone_angle" ) / 60.0 );
 			UI.PageOptionsVR.GUI.vegetationdist:SetValue( getglobal( "e_vegetation_sprites_distance_ratio" ) / 100.0 );
+			UI.PageOptionsVR.GUI.weaponangle:SetValue( getglobal( "vr_weapon_pitch_offset" ) / 90 + 0.5 );
 
 			UI.PageOptionsVR.GUI.mirroreye:Clear();
 			UI.PageOptionsVR.GUI.mirroreye:AddItem( "Left" );
@@ -322,6 +355,7 @@ UI.PageOptionsVR=
 		UI.PageOptionsVR.GUI.mainhand:SelectIndex( 1 );
 		UI.PageOptionsVR.GUI.turnmode:SelectIndex( 1 );
 		UI.PageOptionsVR.GUI.turnspeed:SetValue( 0.5 );
+		UI.PageOptionsVR.GUI.weaponangle:SetValue( 0.667 );
 		UI.PageOptionsVR.GUI.yawdeadzone:SetValue( 0.5 );
 		UI.PageOptionsVR.GUI.terrainlod:SetChecked(1);
 		UI.PageOptionsVR.GUI.vegetationdist:SetValue( 1 );
@@ -330,6 +364,7 @@ UI.PageOptionsVR=
 		UI.PageOptionsVR.GUI.mainhand:OnChanged();
 		UI.PageOptionsVR.GUI.turnmode:OnChanged();
 		UI.PageOptionsVR.GUI.turnspeed:OnChanged();
+		UI.PageOptionsVR.GUI.weaponangle:OnChanged();
 		UI.PageOptionsVR.GUI.yawdeadzone:OnChanged();
 		UI.PageOptionsVR.GUI.terrainlod:OnChanged();
 		UI.PageOptionsVR.GUI.vegetationdist:OnChanged();

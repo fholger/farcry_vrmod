@@ -97,6 +97,8 @@ public:
 	float vr_smooth_turn_speed;
 	float vr_button_long_press_time;
 	float vr_haptics_effect_strength;
+	float vr_weapon_pitch_offset;
+	float vr_weapon_yaw_offset;
 	ICVar* vr_debug_override_rh_offset = nullptr;
 	ICVar* vr_debug_override_rh_angles = nullptr;
 	ICVar* vr_debug_override_lh_offset = nullptr;
