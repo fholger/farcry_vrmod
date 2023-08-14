@@ -15,6 +15,7 @@ It is being developed by Holger Frydrych and is available free of charge.
 ## Additional contributors
 
 * [devsnd](https://github.com/devsnd)
+* [praydog](https://github.com/praydog)
 
 ## Special thanks
 
