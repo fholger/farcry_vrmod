@@ -644,7 +644,7 @@ void VRManager::UpdatePlayerTurnOffset(float yawDeltaDeg)
 void VRManager::UpdatePlayerMoveOffset(const Vec3& offset, const Ang3& hmdAnglesDeg)
 {
 	// transform offset back into raw HMD space
-	Ang3 refAngles(0, 0, m_referenceYaw - DEG2RAD(hmdAnglesDeg.z));
+	Ang3 refAngles(0, 0, m_uncommittedReferenceYaw - DEG2RAD(hmdAnglesDeg.z));
 	Matrix33 refTransform = Matrix33::CreateRotationXYZ(refAngles);
 
 	Vec3 rawOffset = refTransform * offset;
