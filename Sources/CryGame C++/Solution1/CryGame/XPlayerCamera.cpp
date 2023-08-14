@@ -22,6 +22,8 @@
 #include "WeaponSystemEx.h"
 #include <float.h>
 
+#include "VRManager.h"
+
 //////////////////////////////////////////////////////////////////////////
 /*! Updates the lean angles 
 */
@@ -308,6 +310,10 @@ void CPlayer::UpdateCamera()
 
 	if (camera)
 		camera->Update();
+
+	// Must be done here to reduce latency.
+	if (IsMyPlayer())
+		gVR->OnPostPlayerCameraUpdate();
 }
 
 //////////////////////////////////////////////////////////////////////////

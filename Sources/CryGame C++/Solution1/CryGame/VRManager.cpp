@@ -70,6 +70,7 @@ struct VRManager::D3DResources
 VRManager::VRManager()
 {
 	m_d3d = new D3DResources;
+	m_hmdTransform = Matrix34::CreateIdentity();
 }
 
 
@@ -119,8 +120,11 @@ bool VRManager::Init(CXGame *game)
 	m_inputReady = m_input.Init(game);
 	m_vrHaptics.Init(game, &m_input);
 
+	m_hmdTransform = Matrix34::CreateIdentity();
 	m_referencePosition = Vec3(0, 0, 0);
 	m_referenceYaw = 0;
+	m_uncommittedReferenceYaw = 0;
+	m_uncommittedReferencePosition = Vec3(0, 0, 0);
 
 	m_initialized = true;
 	return true;
@@ -633,19 +637,31 @@ Matrix34 VRManager::GetControllerTransform(int hand)
 
 void VRManager::UpdatePlayerTurnOffset(float yawDeltaDeg)
 {
-	m_referenceYaw += DEG2RAD(yawDeltaDeg);
-	UpdateHmdTransform();
+	m_uncommittedReferenceYaw += DEG2RAD(yawDeltaDeg);
+	//UpdateHmdTransform();
 }
 
 void VRManager::UpdatePlayerMoveOffset(const Vec3& offset, const Ang3& hmdAnglesDeg)
 {
 	// transform offset back into raw HMD space
-	Ang3 refAngles(0, 0, m_referenceYaw - DEG2RAD(hmdAnglesDeg.z));
+	Ang3 refAngles(0, 0, m_uncommittedReferenceYaw - DEG2RAD(hmdAnglesDeg.z));
 	Matrix33 refTransform = Matrix33::CreateRotationXYZ(refAngles);
 
 	Vec3 rawOffset = refTransform * offset;
 	rawOffset.z = 0;
-	m_referencePosition += rawOffset;
+	m_uncommittedReferencePosition += rawOffset;
+	UpdateHmdTransform();
+}
+
+void VRManager::OnPostPlayerCameraUpdate() 
+{
+	CommitYawAndOffsetChanges();
+}
+
+void VRManager::CommitYawAndOffsetChanges() 
+{
+	m_referenceYaw = m_uncommittedReferenceYaw;
+	m_referencePosition = m_uncommittedReferencePosition;
 	UpdateHmdTransform();
 }
 

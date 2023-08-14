@@ -54,6 +54,9 @@ public:
 	void UpdatePlayerTurnOffset(float yawDeltaDeg);
 	void UpdatePlayerMoveOffset(const Vec3& offset, const Ang3& hmdAnglesDeg);
 
+	void OnPostPlayerCameraUpdate();
+	void CommitYawAndOffsetChanges();
+
 	VRHaptics* GetHaptics() { return &m_vrHaptics; }
 
 private:
@@ -111,7 +114,9 @@ private:
 	VRHaptics m_vrHaptics;
 
 	Vec3 m_referencePosition;
+	Vec3 m_uncommittedReferencePosition;
 	float m_referenceYaw = 0;
+	float m_uncommittedReferenceYaw = 0;
 	Matrix34 m_hmdTransform;
 	bool m_skippedRoomscaleMovement = false;
 	bool m_wasInMenu = false;
