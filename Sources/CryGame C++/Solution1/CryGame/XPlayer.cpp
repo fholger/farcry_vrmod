@@ -53,6 +53,24 @@ bool CheckIfNAN( const Vec3d& vPos )
 	return false;
 }
 
+float CPlayer::GetWeaponSpeedScale()
+{
+	if (GetSelectedWeapon() && !m_twoHandWeaponMode)
+	{
+		// check if the weapon is mostly pointed downwards
+		// if so, allow full speed
+		Vec3 pos, ang;
+		GetFirePosAngles(pos, ang);
+		Matrix34 transform = Matrix34::CreateRotationXYZ(Deg2Rad(ang), pos);
+		Vec3 forward = transform.GetForward();
+
+		float downwards = forward.Dot(Vec3(0, 0, -1));
+		if (downwards >= 0.71f) // about 45 DEG
+			return 1.0f;
+	}
+	return m_stats.fSpeedScale;
+}
+
 //////////////////////////////////////////////////////////////////////
 //! CPlayer implementation.
 CPlayer::CPlayer(CXGame *pGame) :
@@ -1888,7 +1906,7 @@ void CPlayer::ProcessMovements(CXEntityProcessingCmd &cmd, bool bScheduled)
 
 	if (GetLengthSquared(speedxyz)>0)
 	{
-	float fSpeedScale = m_stats.fSpeedScale*m_stats.dmgSpeedCoeff/100.0f;
+	float fSpeedScale = GetWeaponSpeedScale()*m_stats.dmgSpeedCoeff/100.0f;
 	float inputspeed;
 
 		if(m_stats.back_pressed && !m_stats.onLadder)
