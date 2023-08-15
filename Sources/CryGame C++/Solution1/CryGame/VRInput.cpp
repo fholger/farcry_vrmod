@@ -66,7 +66,7 @@ bool VRInput::Init(CXGame* game)
 	vr::VRInput()->GetActionHandle("/actions/vehicles/in/brake", &m_vehiclesBrake);
 	vr::VRInput()->GetActionHandle("/actions/vehicles/in/attack", &m_vehiclesAttack);
 	vr::VRInput()->GetActionHandle("/actions/vehicles/in/changeview", &m_vehiclesChangeView);
-	vr::VRInput()->GetActionHandle("/actions/vehicles/in/changeseat", &m_vehiclesChangeSeat);
+	InitDoubleBindAction(m_vehiclesChangeSeat, "/actions/vehicles/in/changeseat");
 	vr::VRInput()->GetActionHandle("/actions/vehicles/in/leave", &m_vehiclesLeave);
 	vr::VRInput()->GetActionHandle("/actions/vehicles/in/lights", &m_vehiclesLights);
 
@@ -199,7 +199,7 @@ void VRInput::ProcessInputInVehicles()
 
 	HandleBooleanAction(m_vehiclesLeave, &CXClient::TriggerUse, false);
 	HandleBooleanAction(m_vehiclesChangeView, &CXClient::TriggerChangeView, false);
-	HandleBooleanAction(m_vehiclesChangeSeat, &CXClient::TriggerRunSprint, false); // yep, really...
+	HandleDoubleBindAction(m_vehiclesChangeSeat, &CXClient::TriggerRunSprint, &CXClient::TriggerFireMode, false);
 
 	// process some of the default actions to prevent them from immediately triggering when exiting the vehicle
 	HandleBooleanAction(m_defaultBinoculars, &CXClient::NoOp, false);
