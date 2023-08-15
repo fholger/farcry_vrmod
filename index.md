@@ -7,7 +7,7 @@ header:
   overlay_filter: 0.5
   actions:
     - label: "Download"
-      url: "https://github.com/fholger/farcry_vrmod/releases/tag/v0.5.1"
+      url: "https://github.com/fholger/farcry_vrmod/releases/latest"
     - label: "Discord"
       url: "http://flat2vr.com"
 
@@ -27,7 +27,7 @@ Far Cry VR is a third-party mod for the 2004 PC gaming classic by CryTek. It all
 - aim mounted and vehicle guns by pointing with your main hand
 - left-handed support
 
-The mod is completely free. Simply download [the latest release](https://github.com/fholger/farcry_vrmod/releases/tag/v0.5.1)
+The mod is completely free. Simply download [the latest release](https://github.com/fholger/farcry_vrmod/releases/latest)
 and install it to your local Far Cry folder. If you do not own Far Cry, you can get it from
 [Steam](https://store.steampowered.com/app/13520/Far_Cry/) or
 [gog.com](https://www.gog.com/en/game/far_cry).
