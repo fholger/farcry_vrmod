@@ -180,6 +180,8 @@ public:
 	int GetEntityClassIDByClassName(IFunctionHandler *pH);
 	int SetCameraFov(IFunctionHandler *pH);
 	int GetCameraFov(IFunctionHandler *pH);
+	int GetCameraPos(IFunctionHandler* pH);
+	int GetCameraAngles(IFunctionHandler* pH);
 	int ApplyStormToEnvironment(IFunctionHandler * pH);
 	int CreateExplosion(IFunctionHandler *pH);
 	int DrawLabel(IFunctionHandler *pH);

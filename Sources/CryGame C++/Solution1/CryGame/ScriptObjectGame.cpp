@@ -291,6 +291,8 @@ void CScriptObjectGame::InitializeTemplate(IScriptSystem *pSS)
 	REG_FUNC(CScriptObjectGame,GetEntityClassIDByClassName);
 	REG_FUNC(CScriptObjectGame,SetCameraFov);
 	REG_FUNC(CScriptObjectGame,GetCameraFov);
+	REG_FUNC(CScriptObjectGame,GetCameraPos);
+	REG_FUNC(CScriptObjectGame,GetCameraAngles);
 	REG_FUNC(CScriptObjectGame,ApplyStormToEnvironment);
 	REG_FUNC(CScriptObjectGame,CreateExplosion);
 	REG_FUNC(CScriptObjectGame,DrawLabel);
@@ -2918,6 +2920,48 @@ int CScriptObjectGame::GetCameraFov(IFunctionHandler *pH)
 
 			IEntityCamera *pCamera=pEntity->GetCamera();
 			return pH->EndFunction(pCamera->GetFov());
+		}
+	}
+	return pH->EndFunctionNull();
+}
+
+int CScriptObjectGame::GetCameraPos(IFunctionHandler* pH)
+{
+	CHECK_PARAMETERS(0);
+	IEntity *pEntity;
+	CXClient *pClient=m_pGame->GetClient();
+	pEntity=pClient->m_pISystem->GetLocalPlayer();
+	
+	if(pEntity)
+	{
+		if(pEntity->GetCamera())
+		{
+
+			IEntityCamera *pCamera=pEntity->GetCamera();
+			CScriptObjectVector vec(m_pScriptSystem);
+			vec = pCamera->GetPos();
+			return pH->EndFunction(vec);
+		}
+	}
+	return pH->EndFunctionNull();
+}
+
+int CScriptObjectGame::GetCameraAngles(IFunctionHandler* pH)
+{
+	CHECK_PARAMETERS(0);
+	IEntity *pEntity;
+	CXClient *pClient=m_pGame->GetClient();
+	pEntity=pClient->m_pISystem->GetLocalPlayer();
+	
+	if(pEntity)
+	{
+		if(pEntity->GetCamera())
+		{
+
+			IEntityCamera *pCamera=pEntity->GetCamera();
+			CScriptObjectVector vec(m_pScriptSystem);
+			vec = pCamera->GetAngles();
+			return pH->EndFunction(vec);
 		}
 	}
 	return pH->EndFunctionNull();
