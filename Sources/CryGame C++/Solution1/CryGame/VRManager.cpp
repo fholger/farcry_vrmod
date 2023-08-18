@@ -523,6 +523,12 @@ void VRManager::Modify2DCamera(CCamera& cam)
 		return;
 	}
 
+	if (m_pGame->AreBinocularsActive())
+	{
+		// already corrected in player cam by necessity - otherwise, the motion tracking markers just don't display at the right position
+		return;
+	}
+
 	Ang3 angles = cam.GetAngles();
 	Vec3 position = cam.GetPos();
 
@@ -551,27 +557,39 @@ void VRManager::Modify2DCamera(CCamera& cam)
 		cam.SetPos(muzzlePos);
 		cam.SetAngle(muzzleAngles);
 	}
+}
 
-	if (m_pGame->AreBinocularsActive())
-	{
-		// set camera to off hand position, instead
-		Matrix34 offset = Matrix34::CreateTranslationMat(Vec3(-BinocularWidth / 2, 0, BinocularWidth / 2));
-		Matrix34 controllerTransform = GetControllerTransform(m_pGame->g_LeftHanded->GetIVal() == 1 ? 1 : 0);
-		modifiedViewMat = viewMat * controllerTransform * offset;
-		cam.SetPos(modifiedViewMat.GetTranslation());
-		angles.SetAnglesXYZ(Matrix33(modifiedViewMat));
-		angles.Rad2Deg();
+void VRManager::ModifyBinocularCamera(IEntityCamera* cam)
+{
+	if (!cam || !UseMotionControllers() || !m_pGame->AreBinocularsActive())
+		return;
 
-		// smooth rotation for a more stable zoom
-		Vec3 smoothedAngles = angles;
-		float factor = 0.025 * (DEFAULT_FOV / cam.GetFov());
-		float yawPitchDecay = powf(2.f, -m_pGame->GetSystem()->GetITimer()->GetFrameTime() / factor);
-		smoothedAngles.z = angles.z + GetAngleDifference360(m_prevBinocularAngles.z, angles.z) * yawPitchDecay;
-		smoothedAngles.x = angles.x + GetAngleDifference360(m_prevBinocularAngles.x, angles.x) * yawPitchDecay;
-		m_prevBinocularAngles = smoothedAngles;
+	Ang3 angles = cam->GetAngles();
+	Vec3 position = cam->GetPos();
+	angles = Deg2Rad(angles);
+	// eliminate pitch and roll
+	angles.y = 0;
+	angles.x = 0;
+	Matrix34 viewMat = Matrix34::CreateRotationXYZ(angles, position);
 
-		cam.SetAngle(smoothedAngles);
-	}
+	// set camera to off hand position, instead
+	Matrix34 offset = Matrix34::CreateTranslationMat(Vec3(-BinocularWidth / 2, 0, BinocularWidth / 2));
+	Matrix34 controllerTransform = GetControllerTransform(m_pGame->g_LeftHanded->GetIVal() == 1 ? 1 : 0);
+	Matrix34 modifiedViewMat = viewMat * controllerTransform * offset;
+	m_curBinocularPos = modifiedViewMat.GetTranslation();
+	cam->SetPos(m_curBinocularPos);
+	angles.SetAnglesXYZ(Matrix33(modifiedViewMat));
+	angles.Rad2Deg();
+
+	// smooth rotation for a more stable zoom
+	Vec3 smoothedAngles = angles;
+	float factor = 0.025 * (DEFAULT_FOV / cam->GetFov());
+	float yawPitchDecay = powf(2.f, -m_pGame->GetSystem()->GetITimer()->GetFrameTime() / factor);
+	smoothedAngles.z = angles.z + GetAngleDifference360(m_curBinocularAngles.z, angles.z) * yawPitchDecay;
+	smoothedAngles.x = angles.x + GetAngleDifference360(m_curBinocularAngles.x, angles.x) * yawPitchDecay;
+	m_curBinocularAngles = smoothedAngles;
+
+	cam->SetAngles(smoothedAngles);
 }
 
 void VRManager::GetEffectiveRenderLimits(int eye, float* left, float* right, float* top, float* bottom)

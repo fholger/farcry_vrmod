@@ -308,6 +308,11 @@ void CPlayer::UpdateCamera()
 		}
 	}
 
+	if (IsMyPlayer())
+	{
+		gVR->ModifyBinocularCamera(camera);
+	}
+
 	if (camera)
 		camera->Update();
 

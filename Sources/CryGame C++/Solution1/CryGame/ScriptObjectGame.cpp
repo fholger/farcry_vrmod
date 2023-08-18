@@ -1828,6 +1828,7 @@ int CScriptObjectGame::GetEntitiesScreenSpace(IFunctionHandler *pH)
 	IEntityItPtr It=m_pSystem->GetIEntitySystem()->GetEntityInFrustrumIterator();
 	CCamera Cam=m_pSystem->GetViewCamera();
 	Vec3 CamVec=Cam.GetAngles();
+	Vec3 CamPos = Cam.GetPos();
 	CamVec=ConvertToRadAngles(CamVec);
 	int i=1;
 	IEntity *pEnt;
@@ -1896,11 +1897,11 @@ int CScriptObjectGame::GetEntitiesScreenSpace(IFunctionHandler *pH)
 			}
 		}
 
-		Vec3 diff(Center-Cam.GetPos());
+		Vec3 diff(Center-CamPos);
 
 		if(GetLengthSquared(diff)>700*700)
 			continue;
-		if (m_pSystem->GetIPhysicalWorld()->RayWorldIntersection(vectorf(Cam.GetPos()), diff, 
+		if (m_pSystem->GetIPhysicalWorld()->RayWorldIntersection(vectorf(CamPos), diff, 
 			ent_terrain|ent_static,0, &RayHit, 1,pPE))
 			continue;
 		m_pSystem->GetIRenderer()->ProjectToScreen(Center.x, Center.y, Center.z, &px, &py, &pz);
@@ -1934,6 +1935,7 @@ int CScriptObjectGame::GetEntitiesScreenSpace(IFunctionHandler *pH)
 			i++;
 		}		
 	}
+
 	return pH->EndFunction(*pTable);
 }
 

@@ -38,6 +38,7 @@ public:
 
 	void ModifyViewCamera(int eye, CCamera& cam);
 	void Modify2DCamera(CCamera& cam);
+	void ModifyBinocularCamera(IEntityCamera* cam);
 
 	void GetEffectiveRenderLimits(int eye, float* left, float* right, float* top, float* bottom);
 
@@ -58,6 +59,9 @@ public:
 	void CommitYawAndOffsetChanges();
 
 	VRHaptics* GetHaptics() { return &m_vrHaptics; }
+
+	const Vec3& GetBinocularAngles() const { return m_curBinocularAngles; }
+	const Vec3& GetBinocularPos() const { return m_curBinocularPos; }
 
 private:
 	struct D3DResources;
@@ -126,7 +130,8 @@ private:
 
 	Matrix34 m_fixedHudTransform;
 
-	Ang3 m_prevBinocularAngles;
+	Ang3 m_curBinocularAngles;
+	Vec3 m_curBinocularPos;
 
 	void UpdateHmdTransform();
 	void ProcessRoomscale();
