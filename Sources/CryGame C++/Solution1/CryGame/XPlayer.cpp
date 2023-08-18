@@ -2465,7 +2465,7 @@ void CPlayer::ModifyWeaponPosition(CWeaponClass* weapon, Vec3& weaponAngles, Vec
 	Ang3 angles = Deg2Rad(m_pEntity->GetCamera()->GetAngles());
 	angles.x = angles.y = 0;
 	Matrix34 inverseGripTransform = weapon->GetRHGripTransform().GetInverted();
-	Matrix34 worldControllerTransform = GetWorldControllerTransform(m_mainHand);
+	Matrix34 worldControllerTransform = GetWorldControllerTransform(m_mainHand) * Matrix33::CreateRotationY(-gf_PI_DIV_2);
 
 	Matrix33 gripOffset = Matrix33::CreateRotationZ(DEG2RAD(gVR->vr_weapon_pitch_offset)) * Matrix33::CreateRotationX(DEG2RAD(gVR->vr_weapon_yaw_offset));
 	worldControllerTransform = worldControllerTransform * gripOffset;

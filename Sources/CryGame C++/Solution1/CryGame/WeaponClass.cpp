@@ -544,7 +544,6 @@ void CWeaponClass::InitStaticTransforms()
 
 	Vec3 ofs = m_rhGripTransform.GetTranslation();
 	Vec3 fwd = m_rhGripTransform.GetForward();
-	CryLogAlways("Grip for %s: offset (%.3f, %.3f, %.3f) - forward (%.3f, %.3f, %.3f)", m_sName.c_str(), ofs.x, ofs.y, ofs.z, fwd.x, fwd.y, fwd.z);
 
 	boneName = "";
 	GetScriptObject()->GetValue("BoneLeftHand", boneName);
