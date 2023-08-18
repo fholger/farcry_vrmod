@@ -561,7 +561,16 @@ void VRManager::Modify2DCamera(CCamera& cam)
 		cam.SetPos(modifiedViewMat.GetTranslation());
 		angles.SetAnglesXYZ(Matrix33(modifiedViewMat));
 		angles.Rad2Deg();
-		cam.SetAngle(angles);
+
+		// smooth rotation for a more stable zoom
+		Vec3 smoothedAngles = angles;
+		float factor = 0.025 * (DEFAULT_FOV / cam.GetFov());
+		float yawPitchDecay = powf(2.f, -m_pGame->GetSystem()->GetITimer()->GetFrameTime() / factor);
+		smoothedAngles.z = angles.z + GetAngleDifference360(m_prevBinocularAngles.z, angles.z) * yawPitchDecay;
+		smoothedAngles.x = angles.x + GetAngleDifference360(m_prevBinocularAngles.x, angles.x) * yawPitchDecay;
+		m_prevBinocularAngles = smoothedAngles;
+
+		cam.SetAngle(smoothedAngles);
 	}
 }
 

@@ -126,6 +126,8 @@ private:
 
 	Matrix34 m_fixedHudTransform;
 
+	Ang3 m_prevBinocularAngles;
+
 	void UpdateHmdTransform();
 	void ProcessRoomscale();
 };
