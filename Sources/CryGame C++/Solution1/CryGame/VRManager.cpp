@@ -22,6 +22,8 @@ extern "C" void dxvkReleaseSubmissionQueue(IDirect3DDevice9Ex * device);
 extern "C" HRESULT dxvkFillVulkanTextureInfo(IDirect3DDevice9Ex * device, IDirect3DTexture9 * texture, vr::VRVulkanTextureData_t & data, VkImageLayout & layout);
 extern "C" void dxvkTransitionImageLayout(IDirect3DDevice9Ex * device, IDirect3DTexture9 * texture, VkImageLayout from, VkImageLayout to);
 
+const float BinocularWidth = 0.5f;
+
 // OpenVR: x = right, y = up, -z = forward
 // FarCry: x = left, -y = forward, z = up
 Matrix34 OpenVRToFarCry(const vr::HmdMatrix34_t &mat)
@@ -532,11 +534,11 @@ void VRManager::Modify2DCamera(CCamera& cam)
 	Matrix34 viewMat = Matrix34::CreateRotationXYZ(angles, position);
 
 	Matrix34 headMat = m_hmdTransform;
-	viewMat = viewMat * headMat;
+	Matrix34 modifiedViewMat = viewMat * headMat;
 
-	position = viewMat.GetTranslation();
+	position = modifiedViewMat.GetTranslation();
 	cam.SetPos(position);
-	angles.SetAnglesXYZ(Matrix33(viewMat));
+	angles.SetAnglesXYZ(Matrix33(modifiedViewMat));
 	angles.Rad2Deg();
 	cam.SetAngle(angles);
 
@@ -548,6 +550,18 @@ void VRManager::Modify2DCamera(CCamera& cam)
 		player->GetFirePosAngles(muzzlePos, muzzleAngles);
 		cam.SetPos(muzzlePos);
 		cam.SetAngle(muzzleAngles);
+	}
+
+	if (m_pGame->AreBinocularsActive())
+	{
+		// set camera to off hand position, instead
+		Matrix34 offset = Matrix34::CreateTranslationMat(Vec3(-BinocularWidth / 2, 0, BinocularWidth / 2));
+		Matrix34 controllerTransform = GetControllerTransform(m_pGame->g_LeftHanded->GetIVal() == 1 ? 1 : 0);
+		modifiedViewMat = viewMat * controllerTransform * offset;
+		cam.SetPos(modifiedViewMat.GetTranslation());
+		angles.SetAnglesXYZ(Matrix33(modifiedViewMat));
+		angles.Rad2Deg();
+		cam.SetAngle(angles);
 	}
 }
 
@@ -571,8 +585,16 @@ void VRManager::ProcessInput()
 			vr::VROverlay()->SetOverlayInputMethod(m_hudOverlay, vr::VROverlayInputMethod_Mouse);
 			vr::VROverlay()->SetOverlayFlag(m_hudOverlay, vr::VROverlayFlags_MakeOverlaysInteractiveIfVisible, true);
 			vr::VROverlay()->SetOverlayFlag(m_hudOverlay, vr::VROverlayFlags_HideLaserIntersection, true);
-			SetHudInFrontOfPlayer();
+			m_fixedHudTransform = OpenVRToFarCry(m_headPose.mDeviceToAbsoluteTracking);
+			// erase pitch and roll
+			Ang3 angles;
+			angles.SetAnglesXYZ((Matrix33)m_fixedHudTransform);
+			angles.x = angles.y = 0;
+			m_fixedHudTransform.SetRotationXYZ(angles, m_fixedHudTransform.GetTranslation());
+			Vec3 dir = -((Matrix33)m_fixedHudTransform).GetColumn(1);
+			m_fixedHudTransform.SetTranslation(m_fixedHudTransform.GetTranslation() + 2.f * dir);
 		}
+		SetHudInFrontOfPlayer();
 		ProcessMenuInput();
 		return;
 	}
@@ -582,11 +604,15 @@ void VRManager::ProcessInput()
 		m_wasInMenu = false;
 		vr::VROverlay()->SetOverlayInputMethod(m_hudOverlay, vr::VROverlayInputMethod_None);
 		vr::VROverlay()->SetOverlayFlag(m_hudOverlay, vr::VROverlayFlags_MakeOverlaysInteractiveIfVisible, false);
-		SetHudAttachedToHead();
 	}
 
 	if (!UseMotionControllers())
 		return;
+
+	if (m_pGame->AreBinocularsActive())
+		SetHudAsBinoculars();
+	else
+		SetHudAttachedToHead();
 
 	m_input.ProcessInput();
 	ProcessRoomscale();
@@ -709,24 +735,15 @@ void VRManager::SetHudAttachedToHead()
 	vr::HmdMatrix34_t hudTransform;
 	memset(&hudTransform, 0, sizeof(vr::HmdMatrix34_t));
 	hudTransform.m[0][0] = hudTransform.m[1][1] = hudTransform.m[2][2] = 1;
-	hudTransform.m[0][3] = 0;
-	hudTransform.m[1][3] = 0;
 	hudTransform.m[2][3] = -2.5f;
+	vr::VROverlay()->SetOverlayWidthInMeters(m_hudOverlay, 2.f);
 	vr::VROverlay()->SetOverlayTransformTrackedDeviceRelative(m_hudOverlay, vr::k_unTrackedDeviceIndex_Hmd, &hudTransform);
 }
 
 void VRManager::SetHudInFrontOfPlayer()
 {
-	Matrix34 hmdTransform = OpenVRToFarCry(m_headPose.mDeviceToAbsoluteTracking);
-	// erase pitch and roll
-	Ang3 angles;
-	angles.SetAnglesXYZ((Matrix33)hmdTransform);
-	angles.x = angles.y = 0;
-	hmdTransform.SetRotationXYZ(angles, hmdTransform.GetTranslation());
-	Vec3 dir = -((Matrix33)hmdTransform).GetColumn(1);
-	hmdTransform.SetTranslation(hmdTransform.GetTranslation() + 2.f * dir);
-
-	vr::HmdMatrix34_t hudTransform = FarCryToOpenVR(hmdTransform);
+	vr::HmdMatrix34_t hudTransform = FarCryToOpenVR(m_fixedHudTransform);
+	vr::VROverlay()->SetOverlayWidthInMeters(m_hudOverlay, 2.f);
 	vr::VROverlay()->SetOverlayTransformAbsolute(m_hudOverlay, vr::TrackingUniverseSeated, &hudTransform);
 }
 
@@ -735,9 +752,17 @@ void VRManager::SetHudFixed()
 	vr::HmdMatrix34_t hudTransform;
 	memset(&hudTransform, 0, sizeof(vr::HmdMatrix34_t));
 	hudTransform.m[0][0] = hudTransform.m[1][1] = hudTransform.m[2][2] = 1;
-	hudTransform.m[0][3] = 0;
-	hudTransform.m[1][3] = 0;
 	hudTransform.m[2][3] = -2.f;
+	vr::VROverlay()->SetOverlayWidthInMeters(m_hudOverlay, 2.f);
+	vr::VROverlay()->SetOverlayTransformAbsolute(m_hudOverlay, vr::TrackingUniverseSeated, &hudTransform);
+}
+
+void VRManager::SetHudAsBinoculars()
+{
+	Matrix34 transform = m_input.GetControllerTransform(m_pGame->g_LeftHanded->GetIVal() == 1 ? 1 : 0);
+	transform = transform * Matrix34::CreateTranslationMat(Vec3(-BinocularWidth / 2, 0, BinocularWidth / 2));
+	vr::HmdMatrix34_t hudTransform = FarCryToOpenVR(transform);
+	vr::VROverlay()->SetOverlayWidthInMeters(m_hudOverlay, BinocularWidth);
 	vr::VROverlay()->SetOverlayTransformAbsolute(m_hudOverlay, vr::TrackingUniverseSeated, &hudTransform);
 }
 

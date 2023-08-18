@@ -80,6 +80,7 @@ private:
 	void SetHudAttachedToHead();
 	void SetHudInFrontOfPlayer();
 	void SetHudFixed();
+	void SetHudAsBinoculars();
 
 	void InitDevice(IDirect3DDevice9Ex* device);
 	void CreateEyeTexture(int eye);
@@ -122,6 +123,8 @@ private:
 	bool m_wasInMenu = false;
 	bool m_mousePressed = false;
 	bool m_mouseReleased = false;
+
+	Matrix34 m_fixedHudTransform;
 
 	void UpdateHmdTransform();
 	void ProcessRoomscale();
