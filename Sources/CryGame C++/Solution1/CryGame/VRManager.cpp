@@ -66,6 +66,7 @@ struct VRManager::D3DResources
 {
 	ComPtr<IDirect3DDevice9Ex> device;
 	ComPtr<IDirect3DTexture9> hudTexture;
+	ComPtr<IDirect3DTexture9> stereoTexture;
 	ComPtr<IDirect3DTexture9> eyeTextures[2];
 };
 
@@ -101,7 +102,9 @@ bool VRManager::Init(CXGame *game)
 
 	vr::VRCompositor()->SetTrackingSpace(vr::TrackingUniverseSeated);
 
-	vr::VROverlay()->CreateOverlay("CrysisHud", "Crysis HUD", &m_hudOverlay);
+	vr::VROverlay()->CreateOverlay("FarCryHud", "FarCry HUD", &m_hudOverlay);
+	vr::VROverlay()->SetOverlaySortOrder(m_hudOverlay, 1);
+	vr::VROverlay()->CreateOverlay("FarCry3D", "FarCry 3D", &m_3DOverlay);
 	vr::VROverlay()->SetOverlayWidthInMeters(m_hudOverlay, 2.f);
 
 	SetHudFixed();
@@ -226,6 +229,55 @@ void VRManager::CaptureEye(int eye)
 	if (hr != S_OK)
 	{
 		CryLogAlways("ERROR: Capturing HUD failed: %i", hr);
+	}
+}
+
+void VRManager::CaptureStereo(int eye)
+{
+	if (!m_d3d->device)
+		return;
+
+	if (!m_d3d->stereoTexture)
+	{
+		CreateStereoTexture();
+		if (!m_d3d->stereoTexture)
+			return;
+	}
+
+	D3DSURFACE_DESC desc;
+	m_d3d->stereoTexture->GetLevelDesc(0, &desc);
+	vector2di expectedSize = GetRenderSize();
+	expectedSize.x *= 2;
+	if (desc.Width != expectedSize.x || desc.Height != expectedSize.y)
+	{
+		// recreate with new resolution
+		CreateStereoTexture();
+		if (!m_d3d->stereoTexture)
+			return;
+	}
+
+	// acquire and copy the current back buffer to the right part of the stereo texture
+	ComPtr<IDirect3DSurface9> backBuffer;
+	m_d3d->device->GetBackBuffer(0, 0, D3DBACKBUFFER_TYPE_MONO, backBuffer.GetAddressOf());
+	ComPtr<IDirect3DSurface9> texSurface;
+	m_d3d->stereoTexture->GetSurfaceLevel(0, texSurface.GetAddressOf());
+	RECT dst;
+	dst.top = 0;
+	dst.bottom = expectedSize.y;
+	if (eye == 0)
+	{
+		dst.left = 0;
+		dst.right = expectedSize.x / 2;
+	}
+	else
+	{
+		dst.left = expectedSize.x / 2;
+		dst.right = expectedSize.x;
+	}
+	HRESULT hr = m_d3d->device->StretchRect(backBuffer.Get(), nullptr, texSurface.Get(), &dst, D3DTEXF_POINT);
+	if (hr != S_OK)
+	{
+		CryLogAlways("ERROR: Capturing stereo failed: %i", hr);
 	}
 }
 
@@ -824,6 +876,18 @@ void VRManager::CreateHUDTexture()
 	vector2di size = GetRenderSize();
 	CryLogAlways("Creating HUD texture: %i x %i", size.x, size.y);
 	HRESULT hr = m_d3d->device->CreateTexture(size.x, size.y, 1, D3DUSAGE_RENDERTARGET, D3DFMT_A8R8G8B8, D3DPOOL_DEFAULT, m_d3d->hudTexture.ReleaseAndGetAddressOf(), nullptr);
+	CryLogAlways("CreateRenderTarget return code: %i", hr);
+}
+
+void VRManager::CreateStereoTexture()
+{
+	if (!m_d3d->device)
+		return;
+
+	vector2di size = GetRenderSize();
+	size.x *= 2;
+	CryLogAlways("Creating stereo texture: %i x %i", size.x, size.y);
+	HRESULT hr = m_d3d->device->CreateTexture(size.x, size.y, 1, D3DUSAGE_RENDERTARGET, D3DFMT_A8R8G8B8, D3DPOOL_DEFAULT, m_d3d->stereoTexture.ReleaseAndGetAddressOf(), nullptr);
 	CryLogAlways("CreateRenderTarget return code: %i", hr);
 }
 

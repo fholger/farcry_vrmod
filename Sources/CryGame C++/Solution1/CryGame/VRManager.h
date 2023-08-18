@@ -27,6 +27,7 @@ public:
 	void HandleEvents();
 
 	void CaptureEye(int eye);
+	void CaptureStereo(int eye);
 	void CaptureHUD();
 
 	void MirrorEyeToBackBuffer();
@@ -72,6 +73,7 @@ private:
 	D3DResources* m_d3d = nullptr;
 	vr::TrackedDevicePose_t m_headPose;
 	vr::VROverlayHandle_t m_hudOverlay;
+	vr::VROverlayHandle_t m_3DOverlay;
 	float m_verticalFov;
 	float m_horizontalFov;
 	float m_vertRenderScale;
@@ -89,6 +91,7 @@ private:
 	void InitDevice(IDirect3DDevice9Ex* device);
 	void CreateEyeTexture(int eye);
 	void CreateHUDTexture();
+	void CreateStereoTexture();
 
 public:
 	// VR-specific cvars
