@@ -1,5 +1,6 @@
 #pragma once
 #include <openvr.h>
+#include <vulkan/vulkan_core.h>
 
 #include "VRHaptics.h"
 #include "VRInput.h"
@@ -9,6 +10,7 @@
 class CWeaponClass;
 class CXGame;
 class IDirect3DDevice9Ex;
+class IDirect3DTexture9;
 
 Matrix34 OpenVRToFarCry(const vr::HmdMatrix34_t& mat);
 
@@ -27,6 +29,7 @@ public:
 	void HandleEvents();
 
 	void CaptureEye(int eye);
+	void CaptureStereo(int eye);
 	void CaptureHUD();
 
 	void MirrorEyeToBackBuffer();
@@ -38,6 +41,7 @@ public:
 
 	void ModifyViewCamera(int eye, CCamera& cam);
 	void Modify2DCamera(CCamera& cam);
+	void Modify3DCamera(int eye, CCamera& cam);
 	void ModifyBinocularCamera(IEntityCamera* cam);
 
 	void GetEffectiveRenderLimits(int eye, float* left, float* right, float* top, float* bottom);
@@ -72,6 +76,7 @@ private:
 	D3DResources* m_d3d = nullptr;
 	vr::TrackedDevicePose_t m_headPose;
 	vr::VROverlayHandle_t m_hudOverlay;
+	vr::VROverlayHandle_t m_3DOverlay;
 	float m_verticalFov;
 	float m_horizontalFov;
 	float m_vertRenderScale;
@@ -89,6 +94,10 @@ private:
 	void InitDevice(IDirect3DDevice9Ex* device);
 	void CreateEyeTexture(int eye);
 	void CreateHUDTexture();
+	void CreateStereoTexture();
+
+	void PrepareTextureForSubmission(IDirect3DTexture9* tex, vr::VRVulkanTextureData_t& vrTexData, VkImageLayout& origLayout);
+	void PostSubmissionTransitionTexture(IDirect3DTexture9* tex, VkImageLayout origLayout);
 
 public:
 	// VR-specific cvars

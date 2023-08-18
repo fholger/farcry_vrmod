@@ -23,6 +23,7 @@ public:
 
 	bool ShouldRenderVR() const;
 	bool ShouldRender2D() const;
+	bool ShouldRenderStereo() const;
 
 	bool ShouldIgnoreWindowSizeChanges() const { return m_ignoreWindowSizeChanges; }
 
