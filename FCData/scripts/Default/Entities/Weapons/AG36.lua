@@ -221,7 +221,8 @@ AG36MP = {
 	character	= "Objects/Weapons/ag36/ag36.cgf",
 	
 	BoneRightHand = "Bone67",
-	BoneLeftArm = "Bone25",
+	BoneLeftHand = "Bone19",
+	RHOffsetAngles = {-2.0, -8.0, 2.0},
 
 	fireCanceled = 0,
 

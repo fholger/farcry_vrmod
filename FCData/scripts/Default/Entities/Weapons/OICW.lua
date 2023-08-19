@@ -17,8 +17,8 @@ OICWSP = {
 	
 	BoneRightHand = "Bone67",
 	BoneLeftHand = "Bone19",
-	RHOffset = {0.0, -0.08, 0.01},
-	RHOffsetAngles = {-33.0, 0.0, -15.0},
+	RHOffsetAngles = {-34.5, 18.0, -2.0},
+	DefaultIdle = "Idle22",
 
 	-- if the weapon supports zooming then add this...
 	ZoomActive = 0,												-- initially always 0
@@ -221,7 +221,9 @@ OICWMP = {
 	character	= "Objects/Weapons/oicw/oicw.cgf",
 	
 	BoneRightHand = "Bone67",
-	BoneLeftArm = "Bone25",
+	BoneLeftHand = "Bone19",
+	RHOffsetAngles = {-34.5, 18.0, -2.0},
+	DefaultIdle = "Idle22",
 
 	fireCanceled = 0,
 

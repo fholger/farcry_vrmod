@@ -827,14 +827,16 @@ bool CWeaponClass::InitModels()
 			if (m_rWeaponSystem.IsLeftHanded())
 				m_pCharacter->SetScale(Vec3d(-1,1,1));
 
+			const char* defaultIdle = "Idle11";
+			m_soWeaponClass->GetValue("DefaultIdle", defaultIdle);
 			// set keyframe 1
 			CryCharAnimationParams ccap;
 			ccap.fBlendInTime = 0;
 			ccap.fBlendOutTime = 0;
 			ccap.nLayerID = 0;
 			m_pCharacter->SetAnimationSpeed(1.0f);
-			m_pCharacter->SetDefaultIdleAnimation(0,"Idle11");
-			m_pCharacter->StartAnimation("Idle11",ccap);
+			m_pCharacter->SetDefaultIdleAnimation(0,defaultIdle);
+			m_pCharacter->StartAnimation(defaultIdle,ccap);
 			m_pCharacter->Update();
 			m_pCharacter->ForceUpdate(); 
 		}
