@@ -767,6 +767,7 @@ void VRManager::SetHudAttachedToHead()
 	memset(&hudTransform, 0, sizeof(vr::HmdMatrix34_t));
 	hudTransform.m[0][0] = hudTransform.m[1][1] = hudTransform.m[2][2] = 1;
 	hudTransform.m[2][3] = -2.5f;
+	vr::VROverlay()->SetOverlayFlag(m_hudOverlay, vr::VROverlayFlags_IgnoreTextureAlpha, false);
 	vr::VROverlay()->SetOverlayWidthInMeters(m_hudOverlay, 2.f);
 	vr::VROverlay()->SetOverlayTransformTrackedDeviceRelative(m_hudOverlay, vr::k_unTrackedDeviceIndex_Hmd, &hudTransform);
 }
@@ -774,6 +775,7 @@ void VRManager::SetHudAttachedToHead()
 void VRManager::SetHudInFrontOfPlayer()
 {
 	vr::HmdMatrix34_t hudTransform = FarCryToOpenVR(m_fixedHudTransform);
+	vr::VROverlay()->SetOverlayFlag(m_hudOverlay, vr::VROverlayFlags_IgnoreTextureAlpha, false);
 	vr::VROverlay()->SetOverlayWidthInMeters(m_hudOverlay, 2.f);
 	vr::VROverlay()->SetOverlayTransformAbsolute(m_hudOverlay, vr::TrackingUniverseSeated, &hudTransform);
 }
@@ -784,6 +786,7 @@ void VRManager::SetHudFixed()
 	memset(&hudTransform, 0, sizeof(vr::HmdMatrix34_t));
 	hudTransform.m[0][0] = hudTransform.m[1][1] = hudTransform.m[2][2] = 1;
 	hudTransform.m[2][3] = -2.f;
+	vr::VROverlay()->SetOverlayFlag(m_hudOverlay, vr::VROverlayFlags_IgnoreTextureAlpha, false);
 	vr::VROverlay()->SetOverlayWidthInMeters(m_hudOverlay, 2.f);
 	vr::VROverlay()->SetOverlayTransformAbsolute(m_hudOverlay, vr::TrackingUniverseSeated, &hudTransform);
 }
@@ -793,6 +796,7 @@ void VRManager::SetHudAsBinoculars()
 	Matrix34 transform = m_input.GetControllerTransform(m_pGame->g_LeftHanded->GetIVal() == 1 ? 1 : 0);
 	transform = transform * Matrix34::CreateTranslationMat(Vec3(-BinocularWidth / 2, 0, BinocularWidth / 2));
 	vr::HmdMatrix34_t hudTransform = FarCryToOpenVR(transform);
+	vr::VROverlay()->SetOverlayFlag(m_hudOverlay, vr::VROverlayFlags_IgnoreTextureAlpha, true);
 	vr::VROverlay()->SetOverlayWidthInMeters(m_hudOverlay, BinocularWidth);
 	vr::VROverlay()->SetOverlayTransformAbsolute(m_hudOverlay, vr::TrackingUniverseSeated, &hudTransform);
 }
@@ -811,6 +815,7 @@ void VRManager::SetHudAsWeaponZoom()
 	transform.SetRotationXYZ(Deg2Rad(angles), transform.GetTranslation());
 	transform = transform * Matrix34::CreateTranslationMat(Vec3(0, 0, BinocularWidth / 2));
 	vr::HmdMatrix34_t hudTransform = FarCryToOpenVR(transform);
+	vr::VROverlay()->SetOverlayFlag(m_hudOverlay, vr::VROverlayFlags_IgnoreTextureAlpha, true);
 	vr::VROverlay()->SetOverlayWidthInMeters(m_hudOverlay, BinocularWidth);
 	vr::VROverlay()->SetOverlayTransformAbsolute(m_hudOverlay, vr::TrackingUniverseSeated, &hudTransform);
 }
