@@ -204,8 +204,11 @@ void VRRenderer::RenderSingleEye(int eye, ISystem* pSystem)
 
 void VRRenderer::DrawCrosshair()
 {
+	if (gVR->vr_crosshair == 0)
+		return;
+
 	// don't show crosshair if HUD is disabled (e.g. during cutscenes
-	if (m_pGame->cl_display_hud->GetIVal() == 0)
+	if (m_pGame->cl_display_hud->GetIVal() == 0 || m_pGame->IsInMenu())
 		return;
 
 	CPlayer* pPlayer = m_pGame->GetLocalPlayer();
@@ -218,11 +221,11 @@ void VRRenderer::DrawCrosshair()
 		return;
 
 	const CCamera& cam = m_originalViewCamera;
-	Vec3 crosshairPos = cam.GetPos();
+	Vec3 muzzlePos, crosshairPos;
 	Matrix33 transform;
 	transform.SetRotationXYZ(Deg2Rad(cam.GetAngles()));
 	Vec3 crosshairAngles;
-	pPlayer->GetFirePosAngles(crosshairPos, crosshairAngles);
+	pPlayer->GetFirePosAngles(muzzlePos, crosshairAngles);
 	transform.SetRotationXYZ(Deg2Rad(crosshairAngles));
 	Vec3 dir = -transform.GetColumn(1);
 	dir.Normalize();
@@ -235,28 +238,31 @@ void VRRenderer::DrawCrosshair()
 		skipVehicle = pPlayer->GetVehicle()->GetEntity()->GetPhysics();
 		maxDistance = 24.f;
 	}
+	else if (gVR->vr_crosshair == 2)
+		maxDistance = 100.f;
 	const int objects = ent_all;
 	const int flags = rwi_separate_important_hits;
 
 	ray_hit hit;
 	IPhysicalWorld *physicalWorld = m_pGame->GetSystem()->GetIPhysicalWorld();
-	if (physicalWorld->RayWorldIntersection(crosshairPos, dir*maxDistance, objects, flags, &hit, 1, skipPlayer, skipVehicle))
+	if (physicalWorld->RayWorldIntersection(muzzlePos, dir*maxDistance, objects, flags, &hit, 1, skipPlayer, skipVehicle))
 	{
 		crosshairPos = hit.pt;
 	}
 	else
 	{
-		crosshairPos += dir * maxDistance;
-	}
-
-	// for some reason, if we do not draw the crosshair ball, the menu gets completely messed up; probably some render state corruption
-	// for now, just move the crosshair out of sight while in the menu
-	if (m_pGame->IsInMenu())
-	{
-		crosshairPos += Vec3(0, 0, -1000.f);
+		crosshairPos = muzzlePos + dir * maxDistance;
 	}
 
 	// for the moment, draw something primitive with the debug tools. Maybe later we can find something more elegant...
-	m_pGame->m_pRenderer->SetState(GS_NODEPTHTEST);
-	m_pGame->m_pRenderer->DrawBall(crosshairPos - dir * 0.06f, 0.06f);
+	if (gVR->vr_crosshair == 1 || pPlayer->GetVehicle())
+	{
+		m_pGame->m_pRenderer->SetState(GS_NODEPTHTEST);
+		m_pGame->m_pRenderer->DrawBall(crosshairPos - dir * 0.06f, 0.03f);
+	}
+	else
+	{
+		CFColor laserColor(1, 0, 0, 0.5f);
+		m_pGame->m_pRenderer->DrawLineColor(muzzlePos, laserColor, crosshairPos, laserColor);
+	}
 }

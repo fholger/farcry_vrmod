@@ -108,6 +108,7 @@ public:
 	float vr_haptics_effect_strength;
 	float vr_weapon_pitch_offset;
 	float vr_weapon_yaw_offset;
+	int vr_crosshair;
 	ICVar* vr_debug_override_rh_offset = nullptr;
 	ICVar* vr_debug_override_rh_angles = nullptr;
 	ICVar* vr_debug_override_lh_offset = nullptr;
