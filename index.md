@@ -50,6 +50,8 @@ NOTE: by default, the installer runs without admin privileges as the Far Cry gam
 If you run into issues, you may need to explicitly run the installer as an administrator.
 To do so, right-click on it and select "Run as administrator".
 
+*Attention for owners of the Ubisoft version*: due to the way the Ubisoft game launch works, the mod currently does not run out of the box on this version. There is a fairly simple workaround, though: open the `FarCryVR.bat` in a text editor of your choice and delete the last line, `erase d3d9.dll`. Now running the bat should properly launch the mod and allow you to play in VR. This problem will be fixed in a future version of the mod.
+
 ### Update instructions
 
 Simply download the installer for the new release and repeat the installation instructions. The installer will automatically replace the mod files with the latest version, and afterwards you are ready to go. You should not lose any saves or settings in the process.
