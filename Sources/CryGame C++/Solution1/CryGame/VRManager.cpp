@@ -104,11 +104,12 @@ bool VRManager::Init(CXGame *game)
 
 	vr::VROverlay()->CreateOverlay("FarCryHud", "FarCry HUD", &m_hudOverlay);
 	vr::VROverlay()->SetOverlaySortOrder(m_hudOverlay, 1);
-	vr::VROverlay()->CreateOverlay("FarCry3D", "FarCry 3D", &m_3DOverlay);
-	vr::VROverlay()->SetOverlayWidthInMeters(m_hudOverlay, 2.f);
-
 	SetHudFixed();
 	vr::VROverlay()->ShowOverlay(m_hudOverlay);
+
+	vr::VROverlay()->CreateOverlay("FarCry3D", "FarCry 3D", &m_3DOverlay);
+	vr::VROverlay()->SetOverlayFlag(m_3DOverlay, vr::VROverlayFlags_SideBySide_Parallel, true);
+	vr::VROverlay()->HideOverlay(m_3DOverlay);
 
 	float ll, lr, lt, lb, rl, rr, rt, rb;
 	vr::VRSystem()->GetProjectionRaw(vr::Eye_Left, &ll, &lr, &lt, &lb);
@@ -402,20 +403,13 @@ void VRManager::FinishFrame()
 	if (!m_initialized || !m_d3d->device || !m_d3d->eyeTextures[0] || !m_d3d->eyeTextures[1])
 		return;
 
-	vr::VRVulkanTextureData_t vkTexData[3];
-	VkImageLayout origLayout[3];
+	vr::VRVulkanTextureData_t vkTexData[4];
+	VkImageLayout origLayout[4];
 
-	for (int eye = 0; eye < 3; ++eye)
-	{
-		IDirect3DTexture9 *tex = eye == 2 ? m_d3d->hudTexture.Get() : m_d3d->eyeTextures[eye].Get();
-		HRESULT hr = dxvkFillVulkanTextureInfo(m_d3d->device.Get(), tex, vkTexData[eye], origLayout[eye]);
-		if (hr != S_OK)
-		{
-			CryLogAlways("Fetching vulkan image info failed: %i", hr);
-		}
-		dxvkTransitionImageLayout(m_d3d->device.Get(), tex, origLayout[eye], VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL);
-	}
-
+	PrepareTextureForSubmission(m_d3d->eyeTextures[0].Get(), vkTexData[0], origLayout[0]);
+	PrepareTextureForSubmission(m_d3d->eyeTextures[1].Get(), vkTexData[1], origLayout[1]);
+	PrepareTextureForSubmission(m_d3d->hudTexture.Get(), vkTexData[2], origLayout[2]);
+	PrepareTextureForSubmission(m_d3d->stereoTexture.Get(), vkTexData[3], origLayout[3]);
 	dxvkLockSubmissionQueue(m_d3d->device.Get(), true);
 
 	for (int eye = 0; eye < 2; ++eye) 
@@ -442,6 +436,9 @@ void VRManager::FinishFrame()
 	texInfo.handle = (void*)&vkTexData[2];
 	vr::VROverlay()->SetOverlayTexture(m_hudOverlay, &texInfo);
 
+	texInfo.handle = (void*)&vkTexData[3];
+	vr::VROverlay()->SetOverlayTexture(m_3DOverlay, &texInfo);
+
 	// apparently we need to set the overlay mouse scale to some values with the proper aspect ratio, otherwise it just won't work
 	vr::HmdVector2_t mouseScale;
 	mouseScale.v[0] = m_pGame->m_pRenderer->GetWidth();
@@ -451,11 +448,10 @@ void VRManager::FinishFrame()
 	vr::VRCompositor()->PostPresentHandoff();
 	dxvkReleaseSubmissionQueue(m_d3d->device.Get());
 
-	for (int eye = 0; eye < 3; ++eye)
-	{
-		IDirect3DTexture9 *tex = eye == 2 ? m_d3d->hudTexture.Get() : m_d3d->eyeTextures[eye].Get();
-		dxvkTransitionImageLayout(m_d3d->device.Get(), tex, VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL, origLayout[eye]);
-	}
+	PostSubmissionTransitionTexture(m_d3d->eyeTextures[0].Get(), origLayout[0]);
+	PostSubmissionTransitionTexture(m_d3d->eyeTextures[1].Get(), origLayout[1]);
+	PostSubmissionTransitionTexture(m_d3d->hudTexture.Get(), origLayout[2]);
+	PostSubmissionTransitionTexture(m_d3d->stereoTexture.Get(), origLayout[3]);
 
 	if (vr_render_force_max_terrain_detail != 0)
 	{
@@ -611,6 +607,25 @@ void VRManager::Modify2DCamera(CCamera& cam)
 	}
 }
 
+void VRManager::Modify3DCamera(int eye, CCamera& cam)
+{
+	// set up a non-VR stereoscopic camera for rendering binoculars etc.
+	// start from the 2D camera setup
+	Modify2DCamera(cam);
+
+	float eyeShift = 0.03f * min(6, DEFAULT_FOV / cam.GetFov());
+	cam.SetZMin(2.f * DEFAULT_FOV / cam.GetFov());
+	cam.Update();
+
+	// shift position slightly based on eye
+	Matrix34 camTransform = Matrix34::CreateRotationXYZ(Deg2Rad(cam.GetAngles()), cam.GetPos());
+	Matrix34 shift = Matrix34::CreateTranslationMat(Vec3(eye == 0 ? eyeShift : -eyeShift, 0, 0));
+	camTransform = camTransform * shift;
+
+	cam.SetPos(camTransform.GetTranslation());
+	cam.SetAngle(ToAnglesDeg(camTransform));
+}
+
 void VRManager::ModifyBinocularCamera(IEntityCamera* cam)
 {
 	if (!cam || !UseMotionControllers() || !m_pGame->AreBinocularsActive())
@@ -656,6 +671,9 @@ void VRManager::GetEffectiveRenderLimits(int eye, float* left, float* right, flo
 
 void VRManager::ProcessInput()
 {
+	if (!gVRRenderer->ShouldRenderStereo())
+		vr::VROverlay()->HideOverlay(m_3DOverlay);
+
 	if ((m_pGame->IsInMenu() || m_pGame->GetSystem()->GetIConsole()->IsOpened()) && UseMotionControllers())
 	{
 		if (!m_wasInMenu)
@@ -843,6 +861,10 @@ void VRManager::SetHudAsBinoculars()
 	vr::HmdMatrix34_t hudTransform = FarCryToOpenVR(transform);
 	vr::VROverlay()->SetOverlayWidthInMeters(m_hudOverlay, BinocularWidth);
 	vr::VROverlay()->SetOverlayTransformAbsolute(m_hudOverlay, vr::TrackingUniverseSeated, &hudTransform);
+
+	vr::VROverlay()->SetOverlayWidthInMeters(m_3DOverlay, BinocularWidth);
+	vr::VROverlay()->SetOverlayTransformAbsolute(m_3DOverlay, vr::TrackingUniverseSeated, &hudTransform);
+	vr::VROverlay()->ShowOverlay(m_3DOverlay);
 }
 
 void VRManager::InitDevice(IDirect3DDevice9Ex* device)
@@ -889,6 +911,27 @@ void VRManager::CreateStereoTexture()
 	CryLogAlways("Creating stereo texture: %i x %i", size.x, size.y);
 	HRESULT hr = m_d3d->device->CreateTexture(size.x, size.y, 1, D3DUSAGE_RENDERTARGET, D3DFMT_A8R8G8B8, D3DPOOL_DEFAULT, m_d3d->stereoTexture.ReleaseAndGetAddressOf(), nullptr);
 	CryLogAlways("CreateRenderTarget return code: %i", hr);
+}
+
+void VRManager::PrepareTextureForSubmission(IDirect3DTexture9* tex, vr::VRVulkanTextureData_t& vkTexData, VkImageLayout& origLayout)
+{
+	if (!tex)
+		return;
+
+	HRESULT hr = dxvkFillVulkanTextureInfo(m_d3d->device.Get(), tex, vkTexData, origLayout);
+	if (hr != S_OK)
+	{
+		CryLogAlways("Fetching vulkan image info failed: %i", hr);
+	}
+	dxvkTransitionImageLayout(m_d3d->device.Get(), tex, origLayout, VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL);
+}
+
+void VRManager::PostSubmissionTransitionTexture(IDirect3DTexture9* tex, VkImageLayout origLayout)
+{
+	if (!tex)
+		return;
+
+	dxvkTransitionImageLayout(m_d3d->device.Get(), tex, VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL, origLayout);
 }
 
 void VRManager::RegisterCVars()

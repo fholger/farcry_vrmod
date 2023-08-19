@@ -22,6 +22,7 @@ public:
 	void ChangeRenderResolution(int width, int height);
 
 	bool ShouldRenderVR() const;
+	bool ShouldRenderStereo() const;
 
 	bool ShouldIgnoreWindowSizeChanges() const { return m_ignoreWindowSizeChanges; }
 

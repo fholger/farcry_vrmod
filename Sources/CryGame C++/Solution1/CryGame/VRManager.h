@@ -1,5 +1,6 @@
 #pragma once
 #include <openvr.h>
+#include <vulkan/vulkan_core.h>
 
 #include "VRHaptics.h"
 #include "VRInput.h"
@@ -9,6 +10,7 @@
 class CWeaponClass;
 class CXGame;
 class IDirect3DDevice9Ex;
+class IDirect3DTexture9;
 
 Matrix34 OpenVRToFarCry(const vr::HmdMatrix34_t& mat);
 
@@ -39,6 +41,7 @@ public:
 
 	void ModifyViewCamera(int eye, CCamera& cam);
 	void Modify2DCamera(CCamera& cam);
+	void Modify3DCamera(int eye, CCamera& cam);
 	void ModifyBinocularCamera(IEntityCamera* cam);
 
 	void GetEffectiveRenderLimits(int eye, float* left, float* right, float* top, float* bottom);
@@ -92,6 +95,9 @@ private:
 	void CreateEyeTexture(int eye);
 	void CreateHUDTexture();
 	void CreateStereoTexture();
+
+	void PrepareTextureForSubmission(IDirect3DTexture9* tex, vr::VRVulkanTextureData_t& vrTexData, VkImageLayout& origLayout);
+	void PostSubmissionTransitionTexture(IDirect3DTexture9* tex, VkImageLayout origLayout);
 
 public:
 	// VR-specific cvars

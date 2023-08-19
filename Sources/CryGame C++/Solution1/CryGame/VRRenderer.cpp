@@ -93,17 +93,41 @@ void VRRenderer::Render(ISystem* pSystem)
 
 	if (!ShouldRenderVR())
 	{
-		// for things like the binoculars, we skip the stereo rendering and instead render to the 2D screen
-		if (gVR->UseMotionControllers())
+		// some things just can't properly be rendered in VR, specifically anything that has to do with zoom (binoculars, scopes, ...)
+		// in such instances, we switch to putting the game on a plane in front of the player.
+		// depending on the setup, though, we might still want to do stereo 3D rendering for the plane, in particular for
+		// the binoculars in motion control mode.
+
+		if (ShouldRenderStereo())
 		{
-			// still want to incorporate head movements
-			CCamera cam = m_originalViewCamera;
-			gVR->Modify2DCamera(cam);
-			pSystem->SetViewCamera(cam);
-			m_viewCamOverridden = true;
+			for (int eye = 0; eye < 2; ++eye)
+			{
+				m_pGame->m_pRenderer->ClearColorBuffer(Vec3(0, 0, 0));
+				CCamera cam = m_originalViewCamera;
+				gVR->Modify3DCamera(eye, cam);
+				pSystem->SetViewCamera(cam);
+				m_viewCamOverridden = true;
+
+				pSystem->RenderBegin();
+				pSystem->Render();
+				gVR->CaptureStereo(eye);
+			}
+			// clear render target to fully transparent for HUD render
+			dxvkGetCreatedDevice()->Clear(0, nullptr, D3DCLEAR_TARGET, D3DCOLOR_ARGB(0, 0, 0, 0), 0, 0);
 		}
-		pSystem->RenderBegin();
-		pSystem->Render();
+		else
+		{
+			if (gVR->UseMotionControllers())
+			{
+				// still want to incorporate head or controller movements into camera
+				CCamera cam = m_originalViewCamera;
+				gVR->Modify2DCamera(cam);
+				pSystem->SetViewCamera(cam);
+				m_viewCamOverridden = true;
+			}
+			pSystem->RenderBegin();
+			pSystem->Render();
+		}
 
 		pSystem->SetViewCamera(m_originalViewCamera);
 		m_viewCamOverridden = false;
@@ -169,6 +193,11 @@ bool VRRenderer::ShouldRenderVR() const
 		return false;
 
 	return true;
+}
+
+bool VRRenderer::ShouldRenderStereo() const
+{
+	return gVR->UseMotionControllers() && m_pGame->AreBinocularsActive();
 }
 
 void VRRenderer::RenderSingleEye(int eye, ISystem* pSystem)
