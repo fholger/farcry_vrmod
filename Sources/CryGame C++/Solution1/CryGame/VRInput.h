@@ -73,5 +73,5 @@ private:
 	void InitDoubleBindAction(DoubleBindAction& action, const char* actionName);
 	void HandleDoubleBindAction(DoubleBindAction& action, TriggerFn shortPressTrigger, TriggerFn longPressTrigger, bool longContinuous = true);
 
-	bool IsHandTouchingHead(int hand);
+	bool IsHandTouchingHead(int hand, float radius = 0.3f);
 };

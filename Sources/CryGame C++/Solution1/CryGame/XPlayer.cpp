@@ -2860,13 +2860,11 @@ void CPlayer::GetFirePosAngles(Vec3d& firePos, Vec3d& fireAngles)
 				if (weapon->IsZoomActive())
 				{
 					// need to smooth the weapon orientation, or else zoom isn't really usable with motion controls
-
+					float factor = 0.025 * (DEFAULT_FOV / m_pEntity->GetCamera()->GetFov());
 					Vec3 smoothedAngles = fireAngles;
-					float yawPitchDecay = powf(2.f, -m_pGame->GetSystem()->GetITimer()->GetFrameTime() / 0.3f);
+					float yawPitchDecay = powf(2.f, -m_pGame->GetSystem()->GetITimer()->GetFrameTime() / factor);
 					smoothedAngles.z = fireAngles.z + GetAngleDifference360(m_prevFireAngles.z, fireAngles.z) * yawPitchDecay;
 					smoothedAngles.x = fireAngles.x + GetAngleDifference360(m_prevFireAngles.x, fireAngles.x) * yawPitchDecay;
-					float rollDecay = powf(2.f, -m_pGame->GetSystem()->GetITimer()->GetFrameTime() / 0.5f);
-					smoothedAngles.y = fireAngles.y + GetAngleDifference360(m_prevFireAngles.y, fireAngles.y) * rollDecay;
 					fireAngles = smoothedAngles;
 				}
 

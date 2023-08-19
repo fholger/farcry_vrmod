@@ -23,6 +23,7 @@ extern "C" HRESULT dxvkFillVulkanTextureInfo(IDirect3DDevice9Ex * device, IDirec
 extern "C" void dxvkTransitionImageLayout(IDirect3DDevice9Ex * device, IDirect3DTexture9 * texture, VkImageLayout from, VkImageLayout to);
 
 const float BinocularWidth = 0.5f;
+const float WeaponScopeWidth = 0.5f;
 
 // OpenVR: x = right, y = up, -z = forward
 // FarCry: x = left, -y = forward, z = up
@@ -636,7 +637,10 @@ void VRManager::ProcessInput()
 	if (!UseMotionControllers())
 		return;
 
-	if (m_pGame->AreBinocularsActive())
+	CPlayer* player = m_pGame->GetLocalPlayer();
+	if (player && player->IsWeaponZoomActive())
+		SetHudAsWeaponZoom();
+	else if (m_pGame->AreBinocularsActive())
 		SetHudAsBinoculars();
 	else
 		SetHudAttachedToHead();
@@ -788,6 +792,24 @@ void VRManager::SetHudAsBinoculars()
 {
 	Matrix34 transform = m_input.GetControllerTransform(m_pGame->g_LeftHanded->GetIVal() == 1 ? 1 : 0);
 	transform = transform * Matrix34::CreateTranslationMat(Vec3(-BinocularWidth / 2, 0, BinocularWidth / 2));
+	vr::HmdMatrix34_t hudTransform = FarCryToOpenVR(transform);
+	vr::VROverlay()->SetOverlayWidthInMeters(m_hudOverlay, BinocularWidth);
+	vr::VROverlay()->SetOverlayTransformAbsolute(m_hudOverlay, vr::TrackingUniverseSeated, &hudTransform);
+}
+
+void VRManager::SetHudAsWeaponZoom()
+{
+	Matrix34 mainTransform = m_input.GetControllerTransform(m_pGame->g_LeftHanded->GetIVal() == 1 ? 0 : 1);
+	Matrix34 transform = m_input.GetControllerTransform(m_pGame->g_LeftHanded->GetIVal() == 1 ? 1 : 0);
+	Vec3 fwd = transform.GetTranslation() - mainTransform.GetTranslation();
+	Vec3 up(0, 0, 1);
+	Vec3 left = -fwd.Cross(up);
+	up = left.Cross(-fwd);
+	transform.SetMatFromVectors(left, -fwd, up, transform.GetTranslation());
+	Ang3 angles = ToAnglesDeg(transform);
+	angles.x = angles.y = 0;
+	transform.SetRotationXYZ(Deg2Rad(angles), transform.GetTranslation());
+	transform = transform * Matrix34::CreateTranslationMat(Vec3(0, 0, BinocularWidth / 2));
 	vr::HmdMatrix34_t hudTransform = FarCryToOpenVR(transform);
 	vr::VROverlay()->SetOverlayWidthInMeters(m_hudOverlay, BinocularWidth);
 	vr::VROverlay()->SetOverlayTransformAbsolute(m_hudOverlay, vr::TrackingUniverseSeated, &hudTransform);

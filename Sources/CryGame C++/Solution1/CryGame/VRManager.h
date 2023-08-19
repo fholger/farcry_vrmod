@@ -85,6 +85,7 @@ private:
 	void SetHudInFrontOfPlayer();
 	void SetHudFixed();
 	void SetHudAsBinoculars();
+	void SetHudAsWeaponZoom();
 
 	void InitDevice(IDirect3DDevice9Ex* device);
 	void CreateEyeTexture(int eye);

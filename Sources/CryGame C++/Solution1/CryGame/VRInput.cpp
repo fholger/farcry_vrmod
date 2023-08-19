@@ -322,12 +322,12 @@ void VRInput::HandleDoubleBindAction(DoubleBindAction& action, TriggerFn shortPr
 	}
 }
 
-bool VRInput::IsHandTouchingHead(int hand)
+bool VRInput::IsHandTouchingHead(int hand, float radius)
 {
 	Matrix34 hmdTransform = gVR->GetHmdTransform();
 	Vec3 hmdPos = hmdTransform.GetTranslation();
 	hmdPos -= hmdTransform.GetForward() * 0.1f; // get a bit closer to the player head's centre
 	Matrix34 controllerTransform = gVR->GetControllerTransform(hand);
 	Vec3 controllerPos = controllerTransform.GetTranslation();
-	return controllerPos.GetDistance(hmdPos) <= 0.3f;
+	return controllerPos.GetDistance(hmdPos) <= radius;
 }
