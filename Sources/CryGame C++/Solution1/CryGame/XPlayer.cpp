@@ -2475,9 +2475,9 @@ void CPlayer::ModifyWeaponPosition(CWeaponClass* weapon, Vec3& weaponAngles, Vec
 		Matrix34 worldOffHandTransform = GetWorldControllerTransform(m_offHand);
 		Vec3 forward = worldOffHandTransform.GetTranslation() - worldControllerTransform.GetTranslation();
 		forward.Normalize();
-		Vec3 left = ((Matrix33)worldControllerTransform).GetColumn(0);
-		Vec3 up = left.Cross(-forward);
-		left = -forward.Cross(up);
+		Vec3 left = ((Matrix33)worldControllerTransform).GetColumn(0).GetNormalized();
+		Vec3 up = left.Cross(-forward).GetNormalized();
+		left = -forward.Cross(up).GetNormalized();
 		worldControllerTransform.SetMatFromVectors(left, -forward, up, worldControllerTransform.GetTranslation());
 	}
 

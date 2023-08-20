@@ -393,10 +393,10 @@ void CWeaponClass::GetMuzzlePosAngles(Vec3& muzzlePos, Vec3& muzzleAngles)
 	Matrix34 worldMuzzleTransform = m * m_muzzleTransform * Matrix33::CreateRotationY(gf_PI_DIV_2);
 
 	// eliminate roll from the final transform, to make grenade throws more consistent
-	Vec3 fwd = worldMuzzleTransform.GetForward();
+	Vec3 fwd = worldMuzzleTransform.GetForward().GetNormalized();
 	Vec3 up = Vec3(0, 0, 1);
-	Vec3 left = -fwd.Cross(up);
-	up = left.Cross(-fwd);
+	Vec3 left = -fwd.Cross(up).GetNormalized();
+	up = left.Cross(-fwd).GetNormalized();
 	worldMuzzleTransform.SetMatFromVectors(left, -fwd, up, worldMuzzleTransform.GetTranslation());
 
 	muzzleAngles = ToAnglesDeg(worldMuzzleTransform);
