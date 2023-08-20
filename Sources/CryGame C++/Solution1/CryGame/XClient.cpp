@@ -1830,6 +1830,11 @@ void CXClient::TriggerAimToggle(float fValue,XActivationEvent ae)
 	}
 }
 
+void CXClient::StopCutScene(float fValue, XActivationEvent ae)
+{
+	m_pGame->StopCurrentCutscene();
+}
+
 //////////////////////////////////////////////////////////////////////
 // move mode double click
 void CXClient::TriggerMoveMode2(float fValue,XActivationEvent ae)

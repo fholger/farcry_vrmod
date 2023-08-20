@@ -101,7 +101,14 @@ void VRInput::ProcessInput()
 	if (!m_pGame->GetClient())
 		return;
 
-	HandleDoubleBindAction(m_defaultMenu, &CXClient::TriggerMenu, &CXClient::TriggerScoreBoard);
+	if (m_pGame->IsCutSceneActive())
+	{
+		HandleDoubleBindAction(m_defaultMenu, &CXClient::TriggerMenu, &CXClient::StopCutScene);
+	}
+	else
+	{
+		HandleDoubleBindAction(m_defaultMenu, &CXClient::TriggerMenu, &CXClient::TriggerScoreBoard);
+	}
 	if (gVR->vr_snap_turn_amount == 0)
 	{
 		HandleAnalogAction(m_moveTurn, 0, &CXClient::TriggerTurnLR);
