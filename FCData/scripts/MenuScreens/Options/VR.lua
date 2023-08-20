@@ -253,11 +253,39 @@ UI.PageOptionsVR=
 			end,
 		},
 
-		vegetationdist_text=
+		objdist_text=
 		{
 			skin = UI.skins.Label,
 
 			left = 488, top = 184,
+			width = 112,
+
+			text="Render far objs *",
+		},
+
+		objdist=
+		{
+			left = 608, top = 184,
+			width = 28, height = 28,
+
+			skin = UI.skins.CheckBox,
+
+			tabstop = 4,
+
+			OnChanged=function(Sender)
+				if (Sender:GetChecked()) then
+					setglobal("vr_render_force_obj_draw_dist", 1);
+				else
+					setglobal("vr_render_force_obj_draw_dist", 0);
+				end
+			end,
+		},
+
+		vegetationdist_text=
+		{
+			skin = UI.skins.Label,
+
+			left = 488, top = 219,
 			width = 112,
 
 			text="Vegetation render dist",
@@ -267,7 +295,7 @@ UI.PageOptionsVR=
 		{
 			skin = UI.skins.HScrollBar,
 
-			left = 608, top = 184,
+			left = 608, top = 219,
 			width = 162, height = 24,
 
 			tabstop = 5,
@@ -289,7 +317,7 @@ UI.PageOptionsVR=
 		{
 			skin = UI.skins.Label,
 
-			left = 488, top = 219,
+			left = 488, top = 254,
 			width = 112,
 
 			text="Mirror eye",
@@ -297,7 +325,7 @@ UI.PageOptionsVR=
 
 		mirroreye=
 		{
-			left = 608, top = 219,
+			left = 608, top = 254,
 			width = 162, height = 28,
 
 			skin = UI.skins.ComboBox,
@@ -314,7 +342,7 @@ UI.PageOptionsVR=
 		{
 			skin = UI.skins.Label,
 
-			left = 488, top = 254,
+			left = 488, top = 289,
 			width = 112,
 
 			text="Crosshair",
@@ -322,7 +350,7 @@ UI.PageOptionsVR=
 
 		crosshair=
 		{
-			left = 608, top = 254,
+			left = 608, top = 289,
 			width = 162, height = 28,
 
 			skin = UI.skins.ComboBox,
@@ -338,6 +366,7 @@ UI.PageOptionsVR=
 		OnActivate= function(Sender)
 			UI.PageOptionsVR.GUI.motioncontrols:SetChecked(vr_enable_motion_controllers);
 			UI.PageOptionsVR.GUI.terrainlod:SetChecked(vr_render_force_max_terrain_detail);
+			UI.PageOptionsVR.GUI.objdist:SetChecked(vr_render_force_obj_draw_dist);
 
 			UI.PageOptionsVR.GUI.mainhand:Clear();
 			UI.PageOptionsVR.GUI.mainhand:AddItem( "Right" );
@@ -390,6 +419,7 @@ UI.PageOptionsVR=
 		UI.PageOptionsVR.GUI.weaponangle:SetValue( 0.667 );
 		UI.PageOptionsVR.GUI.yawdeadzone:SetValue( 0.5 );
 		UI.PageOptionsVR.GUI.terrainlod:SetChecked(1);
+		UI.PageOptionsVR.GUI.objdist:SetChecked(1);
 		UI.PageOptionsVR.GUI.vegetationdist:SetValue( 1 );
 		UI.PageOptionsVR.GUI.mirroreye:SelectIndex( 1 );
 		UI.PageOptionsVR.GUI.crosshair:SelectIndex( 1 );
@@ -400,6 +430,7 @@ UI.PageOptionsVR=
 		UI.PageOptionsVR.GUI.weaponangle:OnChanged();
 		UI.PageOptionsVR.GUI.yawdeadzone:OnChanged();
 		UI.PageOptionsVR.GUI.terrainlod:OnChanged();
+		UI.PageOptionsVR.GUI.objdist:OnChanged();
 		UI.PageOptionsVR.GUI.vegetationdist:OnChanged();
 		UI.PageOptionsVR.GUI.mirroreye:OnChanged();
 		UI.PageOptionsVR.GUI.crosshair:OnChanged();

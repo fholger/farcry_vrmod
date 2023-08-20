@@ -1422,6 +1422,9 @@ void CXGame::ProcessPMessages(const char *szMsg)
 //////////////////////////////////////////////////////////////////////////
 void CXGame::LoadLevelCS(bool keepclient, const char *szMapName, const char *szMissionName, bool listen)
 {
+	if (gVR->vr_render_force_obj_draw_dist)
+		m_pSystem->GetIConsole()->ExecuteString("e_obj_view_dist_ratio 55", false, true);
+
 	// need to reset timers as well
 	m_pScriptTimerMgr->Reset();
 
@@ -1540,6 +1543,9 @@ void CXGame::LoadLevelCS(bool keepclient, const char *szMapName, const char *szM
 	if(pInput)
 		pInput->SetMouseExclusive(true);
 	AllowQuicksave(true);
+
+	if (gVR->vr_render_force_obj_draw_dist)
+		m_pSystem->GetIConsole()->ExecuteString("e_obj_view_dist_ratio 500", false, true);
 };
 
 //////////////////////////////////////////////////////////////////////////
