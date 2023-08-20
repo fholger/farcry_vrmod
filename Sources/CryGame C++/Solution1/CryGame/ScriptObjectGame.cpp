@@ -321,6 +321,7 @@ void CScriptObjectGame::InitializeTemplate(IScriptSystem *pSS)
 	REG_FUNC(CScriptObjectGame,AddCommand);
 	REG_FUNC(CScriptObjectGame,EnableQuicksave);
 	REG_FUNC(CScriptObjectGame,GetServerIP);
+	REG_FUNC(CScriptObjectGame,IsStopVideoRequested);
 	REG_FUNC(CScriptObjectGame, CreateHapticsEffectFlat);
 	REG_FUNC(CScriptObjectGame, CreateHapticsEffectCustom);
 }
@@ -3846,6 +3847,12 @@ int CScriptObjectGame::GetCurrentModName(IFunctionHandler * pH)
 	assert(pMods->GetCurrentMod());
 
 	return pH->EndFunction(pMods->GetCurrentMod());
+}
+
+int CScriptObjectGame::IsStopVideoRequested(IFunctionHandler* pH)
+{
+	CHECK_PARAMETERS(0);
+	return pH->EndFunction(m_pGame->IsStopVideoRequested());
 }
 
 int CScriptObjectGame::CreateHapticsEffectFlat(IFunctionHandler* pH)

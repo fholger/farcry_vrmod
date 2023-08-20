@@ -815,6 +815,11 @@ public:
 
 	bool IsCutSceneActive() const { return m_pMovieUser && m_pMovieUser->IsCutSceneActive(); }
 
+	void RequestStopVideo(bool enabled) { m_requestStopVideo = enabled; }
+	bool IsStopVideoRequested() const { return m_requestStopVideo; }
+
+	bool m_requestStopVideo = false;
+
 
 	ActionsEnumMap& GetActionsEnumMap() { return m_mapActionsEnum; }
 

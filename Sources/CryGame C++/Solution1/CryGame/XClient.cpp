@@ -44,6 +44,7 @@
 #include "StreamData.h"									// CStreamData_WorldPos
 #include <map>													// STL map<>
 #include "Game.h"
+#include "UISystem.h"
 #include "VRManager.h"
 
 //////////////////////////////////////////////////////////////////////
@@ -1833,6 +1834,11 @@ void CXClient::TriggerAimToggle(float fValue,XActivationEvent ae)
 void CXClient::StopCutScene(float fValue, XActivationEvent ae)
 {
 	m_pGame->StopCurrentCutscene();
+}
+
+void CXClient::StopVideo(float fValue, XActivationEvent ae)
+{
+	m_pGame->GetUISystem()->StopAllVideo();
 }
 
 //////////////////////////////////////////////////////////////////////

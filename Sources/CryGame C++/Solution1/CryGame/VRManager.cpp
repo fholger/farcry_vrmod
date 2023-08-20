@@ -610,6 +610,7 @@ void VRManager::ProcessInput()
 		if (!m_wasInMenu)
 		{
 			m_wasInMenu = true;
+			m_buttonPressed = false;
 			vr::VROverlay()->SetOverlayInputMethod(m_hudOverlay, vr::VROverlayInputMethod_Mouse);
 			vr::VROverlay()->SetOverlayFlag(m_hudOverlay, vr::VROverlayFlags_MakeOverlaysInteractiveIfVisible, true);
 			vr::VROverlay()->SetOverlayFlag(m_hudOverlay, vr::VROverlayFlags_HideLaserIntersection, true);
@@ -630,6 +631,7 @@ void VRManager::ProcessInput()
 	if (m_wasInMenu)
 	{
 		m_wasInMenu = false;
+		m_buttonPressed = false;
 		vr::VROverlay()->SetOverlayInputMethod(m_hudOverlay, vr::VROverlayInputMethod_None);
 		vr::VROverlay()->SetOverlayFlag(m_hudOverlay, vr::VROverlayFlags_MakeOverlaysInteractiveIfVisible, false);
 	}
@@ -653,6 +655,7 @@ void VRManager::ProcessMenuInput()
 {
 	m_mousePressed = false;
 	m_mouseReleased = false;
+	m_pGame->RequestStopVideo(false);
 
 	vr::VREvent_t event;
 	while (vr::VROverlay()->PollNextOverlayEvent(m_hudOverlay, &event, sizeof(vr::VREvent_t)))
@@ -667,12 +670,30 @@ void VRManager::ProcessMenuInput()
 		{
 			if (event.data.mouse.button == vr::VRMouseButton_Left)
 				m_mousePressed = true;
+			m_buttonPressed = true;
+			m_lastTimeButtonPressed = m_pGame->GetSystem()->GetITimer()->GetAsyncCurTime();
 		}
 		if (event.eventType == vr::VREvent_MouseButtonUp)
 		{
 			if (event.data.mouse.button == vr::VRMouseButton_Left)
 				m_mouseReleased = true;
+			m_buttonPressed = false;
 		}
+		if (event.eventType == vr::VREvent_ButtonPress)
+		{
+			m_buttonPressed = true;
+			m_lastTimeButtonPressed = m_pGame->GetSystem()->GetITimer()->GetAsyncCurTime();
+		}
+		if (event.eventType == vr::VREvent_ButtonUnpress)
+		{
+			m_buttonPressed = false;
+		}
+	}
+
+	if (m_buttonPressed && m_pGame->GetSystem()->GetITimer()->GetAsyncCurTime() - m_lastTimeButtonPressed >= 0.5f)
+	{
+		m_pGame->RequestStopVideo(true);
+		m_buttonPressed = false;
 	}
 }
 

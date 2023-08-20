@@ -208,6 +208,8 @@ public:
 	int LoadMOD(IFunctionHandler * pH);
 	int GetCurrentModName(IFunctionHandler * pH);
 
+	int IsStopVideoRequested(IFunctionHandler* pH);
+
 	// Controller haptics
 	int CreateHapticsEffectFlat(IFunctionHandler* pH);
 	int CreateHapticsEffectCustom(IFunctionHandler* pH);

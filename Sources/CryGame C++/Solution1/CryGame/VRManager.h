@@ -130,6 +130,8 @@ private:
 	bool m_wasInMenu = false;
 	bool m_mousePressed = false;
 	bool m_mouseReleased = false;
+	float m_lastTimeButtonPressed = 0;
+	bool m_buttonPressed = false;
 
 	Matrix34 m_fixedHudTransform;
 

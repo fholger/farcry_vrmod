@@ -265,6 +265,7 @@ public:
 
 	void NoOp(float fValue, XActivationEvent ae) {}
 	void StopCutScene(float fValue, XActivationEvent ae);
+	void StopVideo(float fValue, XActivationEvent ae);
 
 	BEGIN_INPUTACTIONMAP()
 		REGISTER_INPUTACTIONMAP(ACTION_MOVE_LEFT, TriggerMoveLeft)
