@@ -267,6 +267,9 @@ void VRManager::CaptureHUD()
 
 void VRManager::MirrorEyeToBackBuffer()
 {
+	if (!gVRRenderer->ShouldRenderVR())
+		return;
+
 	int eye = clamp_tpl(vr_mirrored_eye, 0, 1);
 
 	if (!m_d3d->device || !m_d3d->eyeTextures[eye] || m_pGame->IsInMenu())
