@@ -93,11 +93,36 @@ UI.PageOptionsVR=
 			end,
 		},
 
-		turnmode_text=
+		movedir_text=
 		{
 			skin = UI.skins.Label,
 
 			left = 200, top = 219,
+			width = 112,
+
+			text="Movement dir",
+		},
+
+		movedir=
+		{
+			left = 320, top = 219,
+			width = 162, height = 28,
+
+			skin = UI.skins.ComboBox,
+
+			tabstop = 7,
+
+			OnChanged = function( Sender )
+				local new_movedir = tonumber( UI.PageOptionsVR.GUI.movedir:GetSelectionIndex() ) - 2;
+				setglobal( "vr_movement_dir", new_movedir );
+			end,
+		},
+
+		turnmode_text=
+		{
+			skin = UI.skins.Label,
+
+			left = 200, top = 254,
 			width = 112,
 
 			text="Turn mode",
@@ -105,7 +130,7 @@ UI.PageOptionsVR=
 
 		turnmode=
 		{
-			left = 320, top = 219,
+			left = 320, top = 254,
 			width = 162, height = 28,
 
 			skin = UI.skins.ComboBox,
@@ -122,7 +147,7 @@ UI.PageOptionsVR=
 		{
 			skin = UI.skins.Label,
 
-			left = 200, top = 254,
+			left = 200, top = 289,
 			width = 112,
 
 			text="Turn speed",
@@ -132,7 +157,7 @@ UI.PageOptionsVR=
 		{
 			skin = UI.skins.HScrollBar,
 
-			left = 320, top = 254,
+			left = 320, top = 289,
 			width = 162, height = 24,
 
 			tabstop = 5,
@@ -154,7 +179,7 @@ UI.PageOptionsVR=
 		{
 			skin = UI.skins.Label,
 
-			left = 200, top = 289,
+			left = 200, top = 324,
 			width = 112,
 
 			text="Weapon angle",
@@ -164,7 +189,7 @@ UI.PageOptionsVR=
 		{
 			skin = UI.skins.HScrollBar,
 
-			left = 320, top = 289,
+			left = 320, top = 324,
 			width = 162, height = 24,
 
 			tabstop = 5,
@@ -186,7 +211,7 @@ UI.PageOptionsVR=
 		{
 			skin = UI.skins.MenuBorder,
 
-			left = 200, top = 341,
+			left = 200, top = 375,
 			width = 290, height = 2,
 			bordersides = "t",
 
@@ -197,7 +222,7 @@ UI.PageOptionsVR=
 		{
 			skin = UI.skins.Label,
 
-			left = 200, top = 359,
+			left = 200, top = 394,
 			width = 112,
 
 			text="Mouse yaw deadzone",
@@ -207,7 +232,7 @@ UI.PageOptionsVR=
 		{
 			skin = UI.skins.HScrollBar,
 
-			left = 320, top = 359,
+			left = 320, top = 394,
 			width = 162, height = 24,
 
 			tabstop = 5,
@@ -372,6 +397,11 @@ UI.PageOptionsVR=
 			UI.PageOptionsVR.GUI.mainhand:AddItem( "Right" );
 			UI.PageOptionsVR.GUI.mainhand:AddItem( "Left" );
 
+			UI.PageOptionsVR.GUI.movedir:Clear();
+			UI.PageOptionsVR.GUI.movedir:AddItem( "Head" );
+			UI.PageOptionsVR.GUI.movedir:AddItem( "Left" );
+			UI.PageOptionsVR.GUI.movedir:AddItem( "Right" );
+
 			UI.PageOptionsVR.GUI.turnmode:Clear();
 			UI.PageOptionsVR.GUI.turnmode:AddItem( "Smooth" );
 			UI.PageOptionsVR.GUI.turnmode:AddItem( "Snap 15" );
@@ -383,6 +413,8 @@ UI.PageOptionsVR=
 
 			local cur_mainhand = tonumber( getglobal( "g_LeftHanded" ) );
 			UI.PageOptionsVR.GUI.mainhand:SelectIndex( cur_mainhand + 1 );
+			local cur_movedir = tonumber( getglobal( "vr_movement_dir" ) );
+			UI.PageOptionsVR.GUI.movedir:SelectIndex( cur_movedir + 2 );
 			local cur_turnmode = tonumber( getglobal( "vr_snap_turn_amount" ) ) / 15;
 			UI.PageOptionsVR.GUI.turnmode:SelectIndex( cur_turnmode + 1 );
 
@@ -413,6 +445,7 @@ UI.PageOptionsVR=
 	------------------------------------------------------------------------
 	ResetToDefaults=function()
 		UI.PageOptionsVR.GUI.motioncontrols:SetChecked(1);
+		UI.PageOptionsVR.GUI.movedir:SelectIndex( 1 );
 		UI.PageOptionsVR.GUI.mainhand:SelectIndex( 1 );
 		UI.PageOptionsVR.GUI.turnmode:SelectIndex( 1 );
 		UI.PageOptionsVR.GUI.turnspeed:SetValue( 0.5 );
@@ -425,6 +458,7 @@ UI.PageOptionsVR=
 		UI.PageOptionsVR.GUI.crosshair:SelectIndex( 1 );
 		UI.PageOptionsVR.GUI.motioncontrols:OnChanged();
 		UI.PageOptionsVR.GUI.mainhand:OnChanged();
+		UI.PageOptionsVR.GUI.movedir:OnChanged();
 		UI.PageOptionsVR.GUI.turnmode:OnChanged();
 		UI.PageOptionsVR.GUI.turnspeed:OnChanged();
 		UI.PageOptionsVR.GUI.weaponangle:OnChanged();

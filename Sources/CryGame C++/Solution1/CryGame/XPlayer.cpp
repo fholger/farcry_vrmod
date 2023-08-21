@@ -1772,6 +1772,15 @@ void CPlayer::ProcessMovements(CXEntityProcessingCmd &cmd, bool bScheduled)
 	//convert in the format used by physics
 	Vec3d tempangle = cmd.GetDeltaAngles();
 	Vec3d dirangle = tempangle;
+
+	if (gVR->vr_movement_dir == 0 || gVR->vr_movement_dir == 1)
+	{
+		// controller-oriented movement - adjust movement dir angles
+		Matrix33 offset = Matrix33::CreateRotationX(-gf_PI / 4);
+		Matrix34 controllerTransform = GetWorldControllerTransform(gVR->vr_movement_dir) * offset;
+		dirangle = ToAnglesDeg(controllerTransform);
+	}
+
 	dirangle=ConvertToRad(dirangle);	
 
 	float m_pcos = cry_cosf(dirangle[YAW]);//*inputspeed;
