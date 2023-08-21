@@ -1,0 +1,387 @@
+<?xml version="1.0"?>
+<?mso-application progid="Excel.Sheet"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:o="urn:schemas-microsoft-com:office:office"
+ xmlns:x="urn:schemas-microsoft-com:office:excel"
+ xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:html="http://www.w3.org/TR/REC-html40">
+ <DocumentProperties xmlns="urn:schemas-microsoft-com:office:office">
+  <Author>tony</Author>
+  <LastAuthor>tony</LastAuthor>
+  <Created>2004-02-19T08:12:49Z</Created>
+  <Version>11.5703</Version>
+ </DocumentProperties>
+ <OfficeDocumentSettings xmlns="urn:schemas-microsoft-com:office:office">
+  <DownloadComponents/>
+  <LocationOfComponents HRef="file:///Z:\Work_progs\en_office_2003_pro\"/>
+ </OfficeDocumentSettings>
+ <ExcelWorkbook xmlns="urn:schemas-microsoft-com:office:excel">
+  <WindowHeight>12660</WindowHeight>
+  <WindowWidth>19020</WindowWidth>
+  <WindowTopX>120</WindowTopX>
+  <WindowTopY>120</WindowTopY>
+  <ProtectStructure>False</ProtectStructure>
+  <ProtectWindows>False</ProtectWindows>
+ </ExcelWorkbook>
+ <Styles>
+  <Style ss:ID="Default" ss:Name="Normal">
+   <Alignment ss:Vertical="Bottom"/>
+   <Borders/>
+   <Font/>
+   <Interior/>
+   <NumberFormat/>
+   <Protection/>
+  </Style>
+  <Style ss:ID="s21">
+   <Borders/>
+   <Font ss:Bold="1"/>
+   <Interior ss:Color="#C0C0C0" ss:Pattern="Solid"/>
+   <NumberFormat ss:Format="@"/>
+   <Protection/>
+  </Style>
+  <Style ss:ID="s22">
+   <Interior ss:Color="#C0C0C0" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s23">
+   <Font x:Family="Swiss"/>
+   <Interior ss:Color="#C0C0C0" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s24">
+   <Interior ss:Color="#969696" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s25">
+   <Borders/>
+  </Style>
+  <Style ss:ID="s26">
+   <Alignment ss:Horizontal="Left" ss:Vertical="Top" ss:WrapText="1"/>
+   <Borders/>
+   <Font x:Family="Swiss"/>
+   <Interior/>
+  </Style>
+ </Styles>
+ <Worksheet ss:Name="Sheet1">
+  <Table ss:ExpandedColumnCount="3" ss:ExpandedRowCount="72" x:FullColumns="1"
+   x:FullRows="1">
+   <Column ss:AutoFitWidth="0" ss:Width="199.5"/>
+   <Column ss:AutoFitWidth="0" ss:Width="345"/>
+   <Row>
+    <Cell ss:StyleID="s21"><Data ss:Type="String">Key</Data></Cell>
+    <Cell ss:StyleID="s21"><Data ss:Type="String">English</Data></Cell>
+    <Cell ss:StyleID="s21"><Data ss:Type="String">Foreign Language</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">NewObjective      </Data></Cell>
+    <Cell><Data ss:Type="String">New Objective</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">SearchTheHutsFor  </Data></Cell>
+    <Cell><Data ss:Type="String">Search the huts for ammo</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">YouNeedAKey       </Data></Cell>
+    <Cell><Data ss:Type="String">You need a key</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">MaybeTheGuardHas  </Data></Cell>
+    <Cell><Data ss:Type="String">Maybe the guard has one</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">HintToDisplayYou  </Data></Cell>
+    <Cell><Data ss:Type="String">To display your current objectives hold offhand B/Y</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">NewObjective      </Data></Cell>
+    <Cell><Data ss:Type="String">New Objective</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">GoToTheHutOnTheH  </Data></Cell>
+    <Cell><Data ss:Type="String">Go to the hut on the hill and find binoculars</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">GoToTheCamp       </Data></Cell>
+    <Cell><Data ss:Type="String">Go to the camp</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">StealAVehicle     </Data></Cell>
+    <Cell><Data ss:Type="String">Steal a vehicle</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">GoToTheCarrier    </Data></Cell>
+    <Cell><Data ss:Type="String">Go to the carrier</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">FindAWayInsideTh  </Data></Cell>
+    <Cell><Data ss:Type="String">Find a way inside the wreck</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">PressGToThrowGre  </Data></Cell>
+    <Cell><Data ss:Type="String">Hold main hand B/Y to throw grenades</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">PressHToToggleGr  </Data></Cell>
+    <Cell><Data ss:Type="String">Press main hand B/Y to toggle grenades</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">HoldDownZAndAnyM  </Data></Cell>
+    <Cell><Data ss:Type="String">Click off-hand stick to activate SPRINT</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">PressHKeyToChang  </Data></Cell>
+    <Cell><Data ss:Type="String">Press main hand B/Y to cycle Grenades</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">NoticeYourStamin  </Data></Cell>
+    <Cell><Data ss:Type="String">Notice your stamina bar changes as you sprint</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">PressFKeyToEnter  </Data></Cell>
+    <Cell><Data ss:Type="String">Press off hand trigger to enter vehicles</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">dontStandToClose  </Data></Cell>
+    <Cell><Data ss:Type="String">Get out of there before the countdown reaches 0!</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">GetTheKeycardAnd  </Data></Cell>
+    <Cell><Data ss:Type="String">Get the keycard and to open the door</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">HintDestroyTheFi  </Data></Cell>
+    <Cell><Data ss:Type="String">Destroy the fieldradio so that enemies can not call reinforcements</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">TheBreathOMeterS  </Data></Cell>
+    <Cell><Data ss:Type="String">The breath-o-meter shows you how long you can hold your breath</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">underwaterWithou  </Data></Cell>
+    <Cell><Data ss:Type="String">underwater without taking damage</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">HoldDownCTRLKeyA  </Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Use off hand stick to move around</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">PressSPACEKeyToJ  </Data></Cell>
+    <Cell><Data ss:Type="String">Move main hand stick up to jump</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">PressVKeyToProne  </Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Move main hand stick down twice to lie down</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">PressVKeyAgainTo  </Data></Cell>
+    <Cell><Data ss:Type="String">Move main hand stick up to stand up</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">LookUpAndPressFo  </Data></Cell>
+    <Cell><Data ss:Type="String">Look up and use off hand stick to climb ladders</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">YouPickedUpTheBi  </Data></Cell>
+    <Cell><Data ss:Type="String">You picked up the binoculars</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">PressBToUseThem   </Data></Cell>
+    <Cell><Data ss:Type="String">Press off hand A/X to use binoculars</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">PressFToUseYourF  </Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Press offhand trigger near your head to turn your flashlight on/off</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">ZoomInOutWithThe  </Data></Cell>
+    <Cell><Data ss:Type="String">Move main hand stick up/down to zoom in and out</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">PressRightMouseB  </Data></Cell>
+    <Cell><Data ss:Type="String">Grab weapon with your off hand to reduce recoil</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">andPressRightMou  </Data></Cell>
+    <Cell><Data ss:Type="String"></Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">PressLeftMouseBu  </Data></Cell>
+    <Cell><Data ss:Type="String">Press main hand trigger to shoot</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">PressRToReload    </Data></Cell>
+    <Cell><Data ss:Type="String">Press main hand A/X to reload you current weapon</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">GoToTheMountedMa  </Data></Cell>
+    <Cell><Data ss:Type="String">Go to the mounted machine gun and press off hand trigger to use it</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">HoldDownTheRight  </Data></Cell>
+    <Cell><Data ss:Type="String"></Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">thisWillAllowYou  </Data></Cell>
+    <Cell><Data ss:Type="String"></Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">PressXToSwitchTo  </Data></Cell>
+    <Cell><Data ss:Type="String">Switch fire modes by holding main hand A/X</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">PressRToReloadYo  </Data></Cell>
+    <Cell><Data ss:Type="String">Press main hand A/X to reload your weapon, if you run out of </Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">bulletsGoToTheAm  </Data></Cell>
+    <Cell><Data ss:Type="String">bullets go to the ammo box to pick up an ammo pickup</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">UseYourMouseToLo  </Data></Cell>
+    <Cell><Data ss:Type="String">Move main hand stick left/right to turn</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">PressWToMoveForw  </Data></Cell>
+    <Cell><Data ss:Type="String">Use off hand stick to move</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">PressSToMoveBack  </Data></Cell>
+    <Cell><Data ss:Type="String">Use off hand stick to move</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">PressAAndDToStra  </Data></Cell>
+    <Cell><Data ss:Type="String">Use off hand stick to move</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">UseQAndEKeysToLe  </Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String"></Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">HoldDownCTRLAndW  </Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Move main hand stick down to toggle crouch and sneak</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">YouMustSearchFor  </Data></Cell>
+    <Cell><Data ss:Type="String">You must search for weapons in this room before you can go outside</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">ThrowTheRockToDi  </Data></Cell>
+    <Cell><Data ss:Type="String">Hold main hand B/Y to throw a rock and distract your enemies</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">Press2ToSwitchYo  </Data></Cell>
+    <Cell><Data ss:Type="String">Press main hand stick / trackpad to switch weapons</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">TipPressRIGHTMOU  </Data></Cell>
+    <Cell><Data ss:Type="String">Tip: Press RIGHT MOUSE BUTTON to switch to third person view</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">PressFKeyToOpenD  </Data></Cell>
+    <Cell><Data ss:Type="String">Press off hand trigger to open doors</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">YouAreImprisoned  </Data></Cell>
+    <Cell><Data ss:Type="String">You are imprisoned, try to go out of the wreck alive</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">GetOutItsGonnaBl  </Data></Cell>
+    <Cell><Data ss:Type="String">Get out its gonna blow</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">TheGameSavesChec</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">The game saves checkpoints. When you die you will</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">respawnAtTheseCh</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">respawn at these checkpoints</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">NoticeTheStealth</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">Notice the Stealth-O-Meter rises when enemies detects you.</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">HolddowntheSPRIN</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Click off-hand stick to activate sprint</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">TheOrangeArmorBa</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">The orange armor bar shows you how much armor you have</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">PressFORWARDKeyD</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Use triggers to accelerate / brake</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">PressF1KeyToChan</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Press off hand stick / trackpad to change perspective</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">PressLEFTMOUSEBU</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Press main hand A/X to shoot</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">PressLEFTMOUSEBX</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">Hold main hand B/Y to change firing mode</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">PressRIGHTMOUSEB</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">Toggle between Machine Gun and Rocket Launcher</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">disable_alarm</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Press off hand trigger to disable alarm</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">pull_lever</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Press off hand trigger to pull the lever</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">insert_keycard</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Press off hand trigger to insert keycard</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">move_elevator_down</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Press off hand trigger to move elevator down</Data></Cell>
+    <Cell ss:StyleID="s25"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">call_elevator</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Press off hand trigger to call the elevator</Data></Cell>
+    <Cell ss:StyleID="s26"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">move_elevator_up</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Press off hand trigger to move elevator up</Data></Cell>
+    <Cell ss:StyleID="s26"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">plant_explosives_here</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Press off hand trigger to plant explosives here</Data></Cell>
+    <Cell ss:StyleID="s26"/>
+   </Row>
+  </Table>
+  <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+   <Selected/>
+   <TopRowVisible>36</TopRowVisible>
+   <Panes>
+    <Pane>
+     <Number>3</Number>
+     <ActiveRow>40</ActiveRow>
+     <ActiveCol>1</ActiveCol>
+    </Pane>
+   </Panes>
+   <ProtectObjects>False</ProtectObjects>
+   <ProtectScenarios>False</ProtectScenarios>
+  </WorksheetOptions>
+ </Worksheet>
+ <Worksheet ss:Name="Sheet2">
+  <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+   <ProtectObjects>False</ProtectObjects>
+   <ProtectScenarios>False</ProtectScenarios>
+  </WorksheetOptions>
+ </Worksheet>
+ <Worksheet ss:Name="Sheet3">
+  <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+   <ProtectObjects>False</ProtectObjects>
+   <ProtectScenarios>False</ProtectScenarios>
+  </WorksheetOptions>
+ </Worksheet>
+</Workbook>

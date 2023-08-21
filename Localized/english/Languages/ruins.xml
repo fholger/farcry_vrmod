@@ -1,0 +1,115 @@
+<?xml version="1.0"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:o="urn:schemas-microsoft-com:office:office"
+ xmlns:x="urn:schemas-microsoft-com:office:excel"
+ xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:html="http://www.w3.org/TR/REC-html40">
+ <DocumentProperties xmlns="urn:schemas-microsoft-com:office:office">
+  <Author>ct</Author>
+  <LastAuthor>ct</LastAuthor>
+  <Created>2003-09-22T09:43:51Z</Created>
+  <Company>cry</Company>
+  <Version>10.3311</Version>
+ </DocumentProperties>
+ <OfficeDocumentSettings xmlns="urn:schemas-microsoft-com:office:office">
+  <DownloadComponents/>
+  <LocationOfComponents HRef="file:///F:\"/>
+ </OfficeDocumentSettings>
+ <ExcelWorkbook xmlns="urn:schemas-microsoft-com:office:excel">
+  <WindowHeight>13170</WindowHeight>
+  <WindowWidth>19020</WindowWidth>
+  <WindowTopX>120</WindowTopX>
+  <WindowTopY>60</WindowTopY>
+  <ProtectStructure>False</ProtectStructure>
+  <ProtectWindows>False</ProtectWindows>
+ </ExcelWorkbook>
+ <Styles>
+  <Style ss:ID="Default" ss:Name="Normal">
+   <Alignment ss:Vertical="Bottom"/>
+   <Borders/>
+   <Font/>
+   <Interior/>
+   <NumberFormat/>
+   <Protection/>
+  </Style>
+  <Style ss:ID="s21">
+   <Borders/>
+   <Font ss:Bold="1"/>
+   <Interior ss:Color="#C0C0C0" ss:Pattern="Solid"/>
+   <NumberFormat ss:Format="@"/>
+   <Protection/>
+  </Style>
+ </Styles>
+ <Worksheet ss:Name="Sheet1">
+  <Table ss:ExpandedColumnCount="3" ss:ExpandedRowCount="11" x:FullColumns="1"
+   x:FullRows="1">
+   <Column ss:AutoFitWidth="0" ss:Width="172.5"/>
+   <Column ss:AutoFitWidth="0" ss:Width="207.75"/>
+   <Column ss:AutoFitWidth="0" ss:Width="213"/>
+   <Row>
+    <Cell ss:StyleID="s21"><Data ss:Type="String">Key</Data></Cell>
+    <Cell ss:StyleID="s21"><Data ss:Type="String">English</Data></Cell>
+    <Cell ss:StyleID="s21"><Data ss:Type="String">Foreign Language</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">@laptop_placed</Data></Cell>
+    <Cell><Data ss:Type="String">Laptop placed</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">@Laptop_collected</Data></Cell>
+    <Cell><Data ss:Type="String">Laptop collected</Data></Cell>
+   </Row>
+   <Row ss:Index="5">
+    <Cell><Data ss:Type="String">FindTheSatellite  </Data></Cell>
+    <Cell><Data ss:Type="String">Find the satellite uplink truck</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">NewObjective      </Data></Cell>
+    <Cell><Data ss:Type="String">New Objective</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">FindTheCommandLa  </Data></Cell>
+    <Cell><Data ss:Type="String">Find the command laptop</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">BringTheCommandL  </Data></Cell>
+    <Cell><Data ss:Type="String">Bring the command laptop to the satellite truck</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">FindTheTruckAndU  </Data></Cell>
+    <Cell><Data ss:Type="String">Find the truck and upload the PDA</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">ExitTheRuins      </Data></Cell>
+    <Cell><Data ss:Type="String">Exit the ruins</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">LoadingNextMissi  </Data></Cell>
+    <Cell><Data ss:Type="String">Loading next mission</Data></Cell>
+   </Row>
+  </Table>
+  <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+   <Selected/>
+   <Panes>
+    <Pane>
+     <Number>3</Number>
+     <RangeSelection>R1C1:R11C3</RangeSelection>
+    </Pane>
+   </Panes>
+   <ProtectObjects>False</ProtectObjects>
+   <ProtectScenarios>False</ProtectScenarios>
+  </WorksheetOptions>
+ </Worksheet>
+ <Worksheet ss:Name="Sheet2">
+  <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+   <ProtectObjects>False</ProtectObjects>
+   <ProtectScenarios>False</ProtectScenarios>
+  </WorksheetOptions>
+ </Worksheet>
+ <Worksheet ss:Name="Sheet3">
+  <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+   <ProtectObjects>False</ProtectObjects>
+   <ProtectScenarios>False</ProtectScenarios>
+  </WorksheetOptions>
+ </Worksheet>
+</Workbook>

@@ -1,0 +1,299 @@
+<?xml version="1.0"?>
+<?mso-application progid="Excel.Sheet"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:o="urn:schemas-microsoft-com:office:office"
+ xmlns:x="urn:schemas-microsoft-com:office:excel"
+ xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:html="http://www.w3.org/TR/REC-html40">
+ <DocumentProperties xmlns="urn:schemas-microsoft-com:office:office">
+  <Author>tony</Author>
+  <LastAuthor>tony</LastAuthor>
+  <Created>2004-02-21T13:53:35Z</Created>
+  <Version>11.5703</Version>
+ </DocumentProperties>
+ <OfficeDocumentSettings xmlns="urn:schemas-microsoft-com:office:office">
+  <DownloadComponents/>
+  <LocationOfComponents HRef="file:///Z:\Work_progs\en_office_2003_pro\"/>
+ </OfficeDocumentSettings>
+ <ExcelWorkbook xmlns="urn:schemas-microsoft-com:office:excel">
+  <WindowHeight>12660</WindowHeight>
+  <WindowWidth>19020</WindowWidth>
+  <WindowTopX>120</WindowTopX>
+  <WindowTopY>120</WindowTopY>
+  <ProtectStructure>False</ProtectStructure>
+  <ProtectWindows>False</ProtectWindows>
+ </ExcelWorkbook>
+ <Styles>
+  <Style ss:ID="Default" ss:Name="Normal">
+   <Alignment ss:Vertical="Bottom"/>
+   <Borders/>
+   <Font/>
+   <Interior/>
+   <NumberFormat/>
+   <Protection/>
+  </Style>
+  <Style ss:ID="s21">
+   <Borders/>
+   <Font ss:Bold="1"/>
+   <Interior ss:Color="#C0C0C0" ss:Pattern="Solid"/>
+   <NumberFormat ss:Format="@"/>
+   <Protection/>
+  </Style>
+  <Style ss:ID="s22">
+   <Font x:Family="Swiss"/>
+   <Interior ss:Color="#C0C0C0" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s23">
+   <Interior ss:Color="#969696" ss:Pattern="Solid"/>
+  </Style>
+ </Styles>
+ <Worksheet ss:Name="Sheet1">
+  <Table ss:ExpandedColumnCount="3" ss:ExpandedRowCount="55" x:FullColumns="1"
+   x:FullRows="1">
+   <Row>
+    <Cell ss:StyleID="s21"><Data ss:Type="String">Key</Data></Cell>
+    <Cell ss:StyleID="s21"><Data ss:Type="String">English</Data></Cell>
+    <Cell ss:StyleID="s21"><Data ss:Type="String">Foreign Language</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">UBISOFTCUTSCENE   </Data></Cell>
+    <Cell><Data ss:Type="String">UBISOFT CUTSCENE!</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">ValIWillTakeTheB  </Data></Cell>
+    <Cell><Data ss:Type="String">Val: I will take the bomb, you have to clear the way.</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">ValIWillWaitHere  </Data></Cell>
+    <Cell><Data ss:Type="String">Val: I will wait here.</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">ValGetInsideAndC  </Data></Cell>
+    <Cell><Data ss:Type="String">Val: Get inside and call the elevator. Contact me and I will come.</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">NewObjectives     </Data></Cell>
+    <Cell><Data ss:Type="String">New Objectives</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">GetInsideAndCall  </Data></Cell>
+    <Cell><Data ss:Type="String">Get inside and call the elevator.</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">JackTheElevatorI  </Data></Cell>
+    <Cell><Data ss:Type="String">Jack: The elevator is coming.</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">ValOkayJackJustA  </Data></Cell>
+    <Cell><Data ss:Type="String">Val: Okay Jack, just a moment, I am there soon. </Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">NewObjectives     </Data></Cell>
+    <Cell><Data ss:Type="String">New Objectives</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">JackNoIHaveToWai  </Data></Cell>
+    <Cell><Data ss:Type="String">You have to wait for Valerie. </Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">JackWeNeedToStay  </Data></Cell>
+    <Cell><Data ss:Type="String">Jack: We need to stay together. </Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">ValIAmInLetsGo    </Data></Cell>
+    <Cell><Data ss:Type="String">Val: I am in. Lets go!</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">ValIWillStayHere  </Data></Cell>
+    <Cell><Data ss:Type="String">Val: I will stay here. Take care of the next area.</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">ValThereWillBeAC  </Data></Cell>
+    <Cell><Data ss:Type="String">Val: There will be a closed gate you have to open from the other side.</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">ValIWillComeAfte  </Data></Cell>
+    <Cell><Data ss:Type="String">Val: I will come after you managed to open it.</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">NewObjective      </Data></Cell>
+    <Cell><Data ss:Type="String">New Objective</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">OpenTheNextGateT  </Data></Cell>
+    <Cell><Data ss:Type="String">Open the next gate to help the forklift pass this section.</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">JackItsOpenNow    </Data></Cell>
+    <Cell><Data ss:Type="String">Jack: Its open now.</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">ValIAmThereInASe  </Data></Cell>
+    <Cell><Data ss:Type="String">Val: I am there in a second.</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">OpenTheNextGateT  </Data></Cell>
+    <Cell><Data ss:Type="String">Open the next gate to help the forklift pass this section.</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">JackCanYouOpenTh  </Data></Cell>
+    <Cell><Data ss:Type="String">Jack: Can you open this one? Its seems different.</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">ValICanTryMaybeO  </Data></Cell>
+    <Cell><Data ss:Type="String">Val: I can try. Maybe one of the codes from the COMM OPs works.</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">ValDoneWeAreAlmo  </Data></Cell>
+    <Cell><Data ss:Type="String">Val: Done. We are almost through. Just open the gate to the mutagen chamber.</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">ValThenWeHaveToA  </Data></Cell>
+    <Cell><Data ss:Type="String">Val: Then we have to arm the nuke.</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">OpenTheGateToThe  </Data></Cell>
+    <Cell><Data ss:Type="String">Open the gate to the mutagen chamber.</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">JackOkayThisGate  </Data></Cell>
+    <Cell><Data ss:Type="String">Jack: Okay, this gate is open as well.</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">ValThanksJack     </Data></Cell>
+    <Cell><Data ss:Type="String">Val: Thanks, Jack.</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">OpenTheGateToThe  </Data></Cell>
+    <Cell><Data ss:Type="String">Open the gate to the Mutagen Chamber.</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">ValINeedToArmThe  </Data></Cell>
+    <Cell><Data ss:Type="String">Val: I need to arm the bomb now.</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">ValWatchMyBack    </Data></Cell>
+    <Cell><Data ss:Type="String">Val: Watch my back.</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">ProtectValerieWh  </Data></Cell>
+    <Cell><Data ss:Type="String">Protect Valerie while she is arming the bomb.</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">ValICantFinishTh  </Data></Cell>
+    <Cell><Data ss:Type="String">Val: I cant finish this while those guys are around.</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">ValEliminateThem  </Data></Cell>
+    <Cell><Data ss:Type="String">Val: Eliminate them Jack, PLEASE!</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">ValFollowMeNowWe  </Data></Cell>
+    <Cell><Data ss:Type="String">Val: Follow me now. We need to get the antidote.</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">ValThisWillMakeU  </Data></Cell>
+    <Cell><Data ss:Type="String">Val: This will make us immune if something goes wrong.</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">FollowValerie     </Data></Cell>
+    <Cell><Data ss:Type="String">Follow Valerie</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">ValErrorWrongMes  </Data></Cell>
+    <Cell><Data ss:Type="String">Val: Error; wrong message</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">ValIWillGoAndArm  </Data></Cell>
+    <Cell><Data ss:Type="String">Val: I will go and arm the bomb now. Keep close Jack.</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">ValJackWeNeedToL  </Data></Cell>
+    <Cell><Data ss:Type="String">Val: Jack, we need to leave now. </Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">ValInAFewMinutes  </Data></Cell>
+    <Cell><Data ss:Type="String">Val: In a few minutes we better be very far away from here!</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">ProtectValerieWh  </Data></Cell>
+    <Cell><Data ss:Type="String">Protect Valerie while she is arming the bomb.</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">GetTheHellOutOfH  </Data></Cell>
+    <Cell><Data ss:Type="String">Get the hell out of here. Val will follow you.</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">ValOkayThisOneIs  </Data></Cell>
+    <Cell><Data ss:Type="String">Val: Okay, this one is open now as well.</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">ValGetUsOutOfHer  </Data></Cell>
+    <Cell><Data ss:Type="String">Val: Get us out of here now.</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">ValWeHaveToTakeT  </Data></Cell>
+    <Cell><Data ss:Type="String">Val: We have to take this plane.</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">ValThatsOurOnlyW  </Data></Cell>
+    <Cell><Data ss:Type="String">Val: Thats our only way out.</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">GetToThePlane     </Data></Cell>
+    <Cell><Data ss:Type="String">Get to the plane.</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">pull_lever</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Press USE to pull the lever</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">insert_keycard</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Press USE to insert keycard</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">move_elevator_down</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Press USE to move elevator down</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">call_elevator</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Press USE to call the elevator</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">move_elevator_up</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Press USE to move elevator up</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">plant_explosives_here</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Press USE to plant explosives here</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">open_gate </Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Press USE to open the gate</Data></Cell>
+   </Row>
+  </Table>
+  <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+   <Selected/>
+   <Panes>
+    <Pane>
+     <Number>3</Number>
+     <RangeSelection>R1C1:R55C3</RangeSelection>
+    </Pane>
+   </Panes>
+   <ProtectObjects>False</ProtectObjects>
+   <ProtectScenarios>False</ProtectScenarios>
+  </WorksheetOptions>
+ </Worksheet>
+ <Worksheet ss:Name="Sheet2">
+  <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+   <ProtectObjects>False</ProtectObjects>
+   <ProtectScenarios>False</ProtectScenarios>
+  </WorksheetOptions>
+ </Worksheet>
+ <Worksheet ss:Name="Sheet3">
+  <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+   <ProtectObjects>False</ProtectObjects>
+   <ProtectScenarios>False</ProtectScenarios>
+  </WorksheetOptions>
+ </Worksheet>
+</Workbook>

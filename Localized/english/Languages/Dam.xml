@@ -1,0 +1,142 @@
+<?xml version="1.0"?>
+<?mso-application progid="Excel.Sheet"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:o="urn:schemas-microsoft-com:office:office"
+ xmlns:x="urn:schemas-microsoft-com:office:excel"
+ xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:html="http://www.w3.org/TR/REC-html40">
+ <DocumentProperties xmlns="urn:schemas-microsoft-com:office:office">
+  <Author>tony</Author>
+  <LastAuthor>tony</LastAuthor>
+  <Created>2004-01-03T09:11:51Z</Created>
+  <Version>11.5703</Version>
+ </DocumentProperties>
+ <OfficeDocumentSettings xmlns="urn:schemas-microsoft-com:office:office">
+  <DownloadComponents/>
+  <LocationOfComponents HRef="file:///Z:\Work_progs\en_office_2003_pro\"/>
+ </OfficeDocumentSettings>
+ <ExcelWorkbook xmlns="urn:schemas-microsoft-com:office:excel">
+  <WindowHeight>12660</WindowHeight>
+  <WindowWidth>19020</WindowWidth>
+  <WindowTopX>120</WindowTopX>
+  <WindowTopY>120</WindowTopY>
+  <ProtectStructure>False</ProtectStructure>
+  <ProtectWindows>False</ProtectWindows>
+ </ExcelWorkbook>
+ <Styles>
+  <Style ss:ID="Default" ss:Name="Normal">
+   <Alignment ss:Vertical="Bottom"/>
+   <Borders/>
+   <Font/>
+   <Interior/>
+   <NumberFormat/>
+   <Protection/>
+  </Style>
+  <Style ss:ID="s21">
+   <Borders/>
+   <Font ss:Bold="1"/>
+   <Interior ss:Color="#C0C0C0" ss:Pattern="Solid"/>
+   <NumberFormat ss:Format="@"/>
+   <Protection/>
+  </Style>
+  <Style ss:ID="s22">
+   <Interior ss:Color="#00CCFF" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s23">
+   <Font x:Family="Swiss"/>
+   <Interior ss:Color="#C0C0C0" ss:Pattern="Solid"/>
+  </Style>
+ </Styles>
+ <Worksheet ss:Name="Sheet1">
+  <Table ss:ExpandedColumnCount="3" ss:ExpandedRowCount="18" x:FullColumns="1"
+   x:FullRows="1">
+   <Column ss:AutoFitWidth="0" ss:Width="138"/>
+   <Column ss:AutoFitWidth="0" ss:Width="142.5"/>
+   <Column ss:AutoFitWidth="0" ss:Width="222.75"/>
+   <Row>
+    <Cell ss:StyleID="s21"><Data ss:Type="String">Key</Data></Cell>
+    <Cell ss:StyleID="s21"><Data ss:Type="String">English</Data></Cell>
+    <Cell ss:StyleID="s21"><Data ss:Type="String">Foreign Language</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">dam_call_elevator</Data></Cell>
+    <Cell><Data ss:Type="String">press USE button to call elevator</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">dam_use_elevator</Data></Cell>
+    <Cell><Data ss:Type="String">press USE button to use elevator</Data></Cell>
+   </Row>
+   <Row ss:Index="5">
+    <Cell><Data ss:Type="String">NewObjective      </Data></Cell>
+    <Cell><Data ss:Type="String">New Objective</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">GoToTheVulcanoLa  </Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Go to the Volcano Laboratory</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">FindKriegerInHis  </Data></Cell>
+    <Cell><Data ss:Type="String">Find Krieger in his facility</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">NewObjective      </Data></Cell>
+    <Cell><Data ss:Type="String">New Objective</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">GetTheSerumFromD  </Data></Cell>
+    <Cell><Data ss:Type="String">Get the serum from Doyle</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">FindKriegerInHis  </Data></Cell>
+    <Cell><Data ss:Type="String">Find Krieger in his facility</Data></Cell>
+   </Row>
+   <Row ss:Index="13">
+    <Cell ss:StyleID="s23"><Data ss:Type="String">pull_lever</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Press USE to pull the lever</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">insert_keycard</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Press USE to insert keycard</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">move_elevator_down</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Press USE to move elevator down</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">call_elevator</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Press USE to call the elevator</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">move_elevator_up</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Press USE to move elevator up</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">plant_explosives_here</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Press USE to plant explosives here</Data></Cell>
+   </Row>
+  </Table>
+  <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+   <Selected/>
+   <Panes>
+    <Pane>
+     <Number>3</Number>
+     <RangeSelection>R1C1:R18C3</RangeSelection>
+    </Pane>
+   </Panes>
+   <ProtectObjects>False</ProtectObjects>
+   <ProtectScenarios>False</ProtectScenarios>
+  </WorksheetOptions>
+ </Worksheet>
+ <Worksheet ss:Name="Sheet2">
+  <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+   <ProtectObjects>False</ProtectObjects>
+   <ProtectScenarios>False</ProtectScenarios>
+  </WorksheetOptions>
+ </Worksheet>
+ <Worksheet ss:Name="Sheet3">
+  <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+   <ProtectObjects>False</ProtectObjects>
+   <ProtectScenarios>False</ProtectScenarios>
+  </WorksheetOptions>
+ </Worksheet>
+</Workbook>

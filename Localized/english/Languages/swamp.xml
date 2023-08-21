@@ -1,0 +1,195 @@
+<?xml version="1.0"?>
+<?mso-application progid="Excel.Sheet"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:o="urn:schemas-microsoft-com:office:office"
+ xmlns:x="urn:schemas-microsoft-com:office:excel"
+ xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:html="http://www.w3.org/TR/REC-html40">
+ <DocumentProperties xmlns="urn:schemas-microsoft-com:office:office">
+  <Author>tony</Author>
+  <LastAuthor>tony</LastAuthor>
+  <Created>2004-02-01T14:25:47Z</Created>
+  <Version>11.5703</Version>
+ </DocumentProperties>
+ <OfficeDocumentSettings xmlns="urn:schemas-microsoft-com:office:office">
+  <DownloadComponents/>
+  <LocationOfComponents HRef="file:///Z:\Work_progs\en_office_2003_pro\"/>
+ </OfficeDocumentSettings>
+ <ExcelWorkbook xmlns="urn:schemas-microsoft-com:office:excel">
+  <WindowHeight>12660</WindowHeight>
+  <WindowWidth>19020</WindowWidth>
+  <WindowTopX>120</WindowTopX>
+  <WindowTopY>120</WindowTopY>
+  <ProtectStructure>False</ProtectStructure>
+  <ProtectWindows>False</ProtectWindows>
+ </ExcelWorkbook>
+ <Styles>
+  <Style ss:ID="Default" ss:Name="Normal">
+   <Alignment ss:Vertical="Bottom"/>
+   <Borders/>
+   <Font/>
+   <Interior/>
+   <NumberFormat/>
+   <Protection/>
+  </Style>
+  <Style ss:ID="s21">
+   <Borders/>
+   <Font ss:Bold="1"/>
+   <Interior ss:Color="#C0C0C0" ss:Pattern="Solid"/>
+   <NumberFormat ss:Format="@"/>
+   <Protection/>
+  </Style>
+  <Style ss:ID="s22">
+   <Font x:Family="Swiss"/>
+   <Interior ss:Color="#C0C0C0" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s23">
+   <Font x:Family="Swiss"/>
+   <Interior/>
+  </Style>
+  <Style ss:ID="s24">
+   <Interior/>
+  </Style>
+ </Styles>
+ <Worksheet ss:Name="Sheet1">
+  <Table ss:ExpandedColumnCount="3" ss:ExpandedRowCount="28" x:FullColumns="1"
+   x:FullRows="1">
+   <Row>
+    <Cell ss:StyleID="s21"><Data ss:Type="String">Key</Data></Cell>
+    <Cell ss:StyleID="s21"><Data ss:Type="String">English</Data></Cell>
+    <Cell ss:StyleID="s21"><Data ss:Type="String">Foreign Language</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">MissionComplete   </Data></Cell>
+    <Cell><Data ss:Type="String">Mission Complete</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">NewObjectives     </Data></Cell>
+    <Cell><Data ss:Type="String">New Objectives</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">StealACarOutOfTh  </Data></Cell>
+    <Cell><Data ss:Type="String">Steal a car out of the camp</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">GetToTheMercenar  </Data></Cell>
+    <Cell><Data ss:Type="String">Get to the mercenary base</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">ValerieIsGoingTo  </Data></Cell>
+    <Cell><Data ss:Type="String">Valerie is going to drive</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">PleaseWaitUntilS  </Data></Cell>
+    <Cell><Data ss:Type="String">Please wait until she gets in the car</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">CompletedGetToTh  </Data></Cell>
+    <Cell><Data ss:Type="String">Completed: Get to the mercenary base</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">NewObjective      </Data></Cell>
+    <Cell><Data ss:Type="String">New Objective</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">GetIntoTheBaseAn  </Data></Cell>
+    <Cell><Data ss:Type="String">Get into the base and find a computer terminal</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">FollowValDoNotLo  </Data></Cell>
+    <Cell><Data ss:Type="String">Follow Val! Do not lose her</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">FindAWayInsideTh  </Data></Cell>
+    <Cell><Data ss:Type="String">Find a way inside the base</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">GetTheBombAcessC  </Data></Cell>
+    <Cell><Data ss:Type="String">Get the bomb access codes from the headquarters</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">GoBackToTheContr  </Data></Cell>
+    <Cell><Data ss:Type="String">Go back to the control center</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">EscortVal         </Data></Cell>
+    <Cell><Data ss:Type="String">Escort Val</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">EnterArmoury      </Data></Cell>
+    <Cell><Data ss:Type="String">Enter armoury</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">OpenTheArmouryGa  </Data></Cell>
+    <Cell><Data ss:Type="String">Open the armoury gate</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">GetTheBomb        </Data></Cell>
+    <Cell><Data ss:Type="String">Get the bomb</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">GetInTheCar       </Data></Cell>
+    <Cell><Data ss:Type="String">Get in the car</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">LoadingNextMissi  </Data></Cell>
+    <Cell><Data ss:Type="String">Loading next mission</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">pull_lever</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Press USE to pull the lever</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">insert_keycard</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Press USE to insert keycard</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">move_elevator_down</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Press USE to move elevator down</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">call_elevator</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Press USE to call the elevator</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">move_elevator_up</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Press USE to move elevator up</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">plant_explosives_here</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Press USE to plant explosives here</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">disable_alarm</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">Press USE to disable the alarm</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">val_can</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">Val can open these doors from the control center</Data></Cell>
+   </Row>
+  </Table>
+  <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+   <Selected/>
+   <Panes>
+    <Pane>
+     <Number>3</Number>
+     <RangeSelection>R1C1:R28C3</RangeSelection>
+    </Pane>
+   </Panes>
+   <ProtectObjects>False</ProtectObjects>
+   <ProtectScenarios>False</ProtectScenarios>
+  </WorksheetOptions>
+ </Worksheet>
+ <Worksheet ss:Name="Sheet2">
+  <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+   <ProtectObjects>False</ProtectObjects>
+   <ProtectScenarios>False</ProtectScenarios>
+  </WorksheetOptions>
+ </Worksheet>
+ <Worksheet ss:Name="Sheet3">
+  <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+   <ProtectObjects>False</ProtectObjects>
+   <ProtectScenarios>False</ProtectScenarios>
+  </WorksheetOptions>
+ </Worksheet>
+</Workbook>

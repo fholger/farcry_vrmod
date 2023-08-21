@@ -1,0 +1,156 @@
+<?xml version="1.0"?>
+<?mso-application progid="Excel.Sheet"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:o="urn:schemas-microsoft-com:office:office"
+ xmlns:x="urn:schemas-microsoft-com:office:excel"
+ xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:html="http://www.w3.org/TR/REC-html40">
+ <DocumentProperties xmlns="urn:schemas-microsoft-com:office:office">
+  <Author>tony</Author>
+  <LastAuthor>tony</LastAuthor>
+  <Created>2004-01-31T20:59:09Z</Created>
+  <Version>11.5703</Version>
+ </DocumentProperties>
+ <OfficeDocumentSettings xmlns="urn:schemas-microsoft-com:office:office">
+  <DownloadComponents/>
+  <LocationOfComponents HRef="file:///Z:\Work_progs\en_office_2003_pro\"/>
+ </OfficeDocumentSettings>
+ <ExcelWorkbook xmlns="urn:schemas-microsoft-com:office:excel">
+  <WindowHeight>12660</WindowHeight>
+  <WindowWidth>19020</WindowWidth>
+  <WindowTopX>120</WindowTopX>
+  <WindowTopY>120</WindowTopY>
+  <ProtectStructure>False</ProtectStructure>
+  <ProtectWindows>False</ProtectWindows>
+ </ExcelWorkbook>
+ <Styles>
+  <Style ss:ID="Default" ss:Name="Normal">
+   <Alignment ss:Vertical="Bottom"/>
+   <Borders/>
+   <Font/>
+   <Interior/>
+   <NumberFormat/>
+   <Protection/>
+  </Style>
+  <Style ss:ID="s21">
+   <Borders/>
+   <Font ss:Bold="1"/>
+   <Interior ss:Color="#C0C0C0" ss:Pattern="Solid"/>
+   <NumberFormat ss:Format="@"/>
+   <Protection/>
+  </Style>
+  <Style ss:ID="s22">
+   <Interior/>
+   <NumberFormat ss:Format="@"/>
+  </Style>
+  <Style ss:ID="s23">
+   <Alignment ss:Horizontal="Left" ss:Vertical="Top" ss:WrapText="1"/>
+   <Borders/>
+   <Font ss:Color="#000000"/>
+   <Interior/>
+  </Style>
+  <Style ss:ID="s24">
+   <Alignment ss:Vertical="Top" ss:WrapText="1"/>
+   <Borders/>
+   <Font x:Family="Swiss" ss:Color="#000000"/>
+   <Interior/>
+  </Style>
+ </Styles>
+ <Worksheet ss:Name="Sheet1">
+  <Table ss:ExpandedColumnCount="3" ss:ExpandedRowCount="17" x:FullColumns="1"
+   x:FullRows="1">
+   <Row>
+    <Cell ss:StyleID="s21"><Data ss:Type="String">Key</Data></Cell>
+    <Cell ss:StyleID="s21"><Data ss:Type="String">English</Data></Cell>
+    <Cell ss:StyleID="s21"><Data ss:Type="String">Foreign Language</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">dune_C1_A1</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Capture the warehouse!</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">dune_C1_D1</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Defend the warehouse!</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">dune_C2_A1</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Capture the village!</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">dune_C2_D1</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Defend the village!</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">dune_C3_A1</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Capture the dock!</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">dune_C3_D1</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Defend the dock!</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">dune_win</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Well done team!</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">dune_lose</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">You failed!</Data></Cell>
+   </Row>
+   <Row ss:Height="255">
+    <Cell ss:StyleID="s23"><Data ss:Type="String">mp_dune_S1_A1</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">Okay, team, we're going to mount an attack on the communications center north of here. Take the tower and dispose of any resistance you encounter!</Data></Cell>
+   </Row>
+   <Row ss:Height="255">
+    <Cell ss:StyleID="s23"><Data ss:Type="String">mp_dune_S1_D1</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">We have reports of enemy activity near the south of the island. They may be mounting an attack on our communications tower. Get down there and stop them!</Data></Cell>
+   </Row>
+   <Row ss:Height="229.5">
+    <Cell ss:StyleID="s23"><Data ss:Type="String">mp_dune_C1_A1</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">We've taken the radio tower and pushed the enemy back to the village. Take the initiative and gain some territory. Capture the village!</Data></Cell>
+   </Row>
+   <Row ss:Height="165.75">
+    <Cell ss:StyleID="s23"><Data ss:Type="String">mp_dune_C1_D1</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">We've fallen back to the village to build up some defenses and repel the enemy. Defend the village!</Data></Cell>
+   </Row>
+   <Row ss:Height="216.75">
+    <Cell ss:StyleID="s23"><Data ss:Type="String">mp_dune_C2_A1</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">Their forces have retreated further towards the island's harbor. This is our chance to seize the island! Capture the harbor!</Data></Cell>
+   </Row>
+   <Row ss:Height="178.5">
+    <Cell ss:StyleID="s23"><Data ss:Type="String">mp_dune_C2_D1</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">They've taken our position. Use the harbor's natural defenses to protect the island. Don't let them take this position!</Data></Cell>
+   </Row>
+   <Row ss:Height="76.5">
+    <Cell ss:StyleID="s23"><Data ss:Type="String">mp_dune_C3_A1</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">We've taken the harbor! The island is ours!</Data></Cell>
+   </Row>
+   <Row ss:Height="89.25">
+    <Cell ss:StyleID="s23"><Data ss:Type="String">mp_dune_C3_D1</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">They have taken the harbor! We've lost the island!</Data></Cell>
+   </Row>
+  </Table>
+  <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+   <Selected/>
+   <Panes>
+    <Pane>
+     <Number>3</Number>
+     <RangeSelection>R1C1:R17C3</RangeSelection>
+    </Pane>
+   </Panes>
+   <ProtectObjects>False</ProtectObjects>
+   <ProtectScenarios>False</ProtectScenarios>
+  </WorksheetOptions>
+ </Worksheet>
+ <Worksheet ss:Name="Sheet2">
+  <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+   <ProtectObjects>False</ProtectObjects>
+   <ProtectScenarios>False</ProtectScenarios>
+  </WorksheetOptions>
+ </Worksheet>
+ <Worksheet ss:Name="Sheet3">
+  <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+   <ProtectObjects>False</ProtectObjects>
+   <ProtectScenarios>False</ProtectScenarios>
+  </WorksheetOptions>
+ </Worksheet>
+</Workbook>

@@ -1,0 +1,170 @@
+<?xml version="1.0"?>
+<?mso-application progid="Excel.Sheet"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:o="urn:schemas-microsoft-com:office:office"
+ xmlns:x="urn:schemas-microsoft-com:office:excel"
+ xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:html="http://www.w3.org/TR/REC-html40">
+ <DocumentProperties xmlns="urn:schemas-microsoft-com:office:office">
+  <Author>tony</Author>
+  <LastAuthor>tony</LastAuthor>
+  <Created>2004-01-29T18:22:32Z</Created>
+  <Version>11.5703</Version>
+ </DocumentProperties>
+ <OfficeDocumentSettings xmlns="urn:schemas-microsoft-com:office:office">
+  <DownloadComponents/>
+  <LocationOfComponents HRef="file:///Z:\Work_progs\en_office_2003_pro\"/>
+ </OfficeDocumentSettings>
+ <ExcelWorkbook xmlns="urn:schemas-microsoft-com:office:excel">
+  <WindowHeight>12660</WindowHeight>
+  <WindowWidth>19020</WindowWidth>
+  <WindowTopX>120</WindowTopX>
+  <WindowTopY>120</WindowTopY>
+  <ProtectStructure>False</ProtectStructure>
+  <ProtectWindows>False</ProtectWindows>
+ </ExcelWorkbook>
+ <Styles>
+  <Style ss:ID="Default" ss:Name="Normal">
+   <Alignment ss:Vertical="Bottom"/>
+   <Borders/>
+   <Font/>
+   <Interior/>
+   <NumberFormat/>
+   <Protection/>
+  </Style>
+  <Style ss:ID="s21">
+   <Borders/>
+   <Font ss:Bold="1"/>
+   <Interior ss:Color="#C0C0C0" ss:Pattern="Solid"/>
+   <NumberFormat ss:Format="@"/>
+   <Protection/>
+  </Style>
+  <Style ss:ID="s22">
+   <Interior/>
+  </Style>
+  <Style ss:ID="s23">
+   <Font x:Family="Swiss"/>
+   <Interior ss:Color="#C0C0C0" ss:Pattern="Solid"/>
+  </Style>
+ </Styles>
+ <Worksheet ss:Name="Sheet1">
+  <Table ss:ExpandedColumnCount="3" ss:ExpandedRowCount="21" x:FullColumns="1"
+   x:FullRows="1">
+   <Row>
+    <Cell ss:StyleID="s21"><Data ss:Type="String">Key</Data></Cell>
+    <Cell ss:StyleID="s21"><Data ss:Type="String">English</Data></Cell>
+    <Cell ss:StyleID="s21"><Data ss:Type="String">Foreign Language</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">cooler_door1</Data></Cell>
+    <Cell><Data ss:Type="String">You need a keycard to open this door</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">cooler_switch1</Data></Cell>
+    <Cell><Data ss:Type="String">Press Use key to enable access to the elevator</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">cooler_switch2</Data></Cell>
+    <Cell><Data ss:Type="String">Press Use Button to activate the big door to the tank rooms</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">cooler_switch3</Data></Cell>
+    <Cell><Data ss:Type="String">Press Use Button to let sea water into the complex</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">cooler_elevator1</Data></Cell>
+    <Cell><Data ss:Type="String">Press the Use Button to call the elevator</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">cooler_elevator2</Data></Cell>
+    <Cell><Data ss:Type="String">Press Use Button to move down</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">cooler_elevator3</Data></Cell>
+    <Cell><Data ss:Type="String">Press Use Button to move up</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">FindSecuritySwit  </Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Find security switch to acess the elevator</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">NewObjective      </Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">New Objective</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">ObjectiveYouFoun  </Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">You found the security switch to acess the elevator</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">FloodTheMutagenR  </Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Flood the mutagen room to acess the upper floor</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">ObjectiveYouFloo  </Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">You flooded the mutagen room to acess the upper floor</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">GoToValerysLastK  </Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Go to Valeries last known position</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">SaveValerie       </Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Save Valerie</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">pull_lever</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Press USE to pull the lever</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">insert_keycard</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Press USE to insert keycard</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">move_elevator_down</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Press USE to move elevator down</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">call_elevator</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Press USE to call the elevator</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">move_elevator_up</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Press USE to move elevator up</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">plant_explosives_here</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Press USE to plant explosives here</Data></Cell>
+   </Row>
+  </Table>
+  <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+   <Selected/>
+   <Panes>
+    <Pane>
+     <Number>3</Number>
+     <RangeSelection>R1C1:R21C3</RangeSelection>
+    </Pane>
+   </Panes>
+   <ProtectObjects>False</ProtectObjects>
+   <ProtectScenarios>False</ProtectScenarios>
+  </WorksheetOptions>
+ </Worksheet>
+ <Worksheet ss:Name="Sheet2">
+  <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+   <ProtectObjects>False</ProtectObjects>
+   <ProtectScenarios>False</ProtectScenarios>
+  </WorksheetOptions>
+ </Worksheet>
+ <Worksheet ss:Name="Sheet3">
+  <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+   <ProtectObjects>False</ProtectObjects>
+   <ProtectScenarios>False</ProtectScenarios>
+  </WorksheetOptions>
+ </Worksheet>
+</Workbook>

@@ -1,0 +1,156 @@
+<?xml version="1.0"?>
+<?mso-application progid="Excel.Sheet"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:o="urn:schemas-microsoft-com:office:office"
+ xmlns:x="urn:schemas-microsoft-com:office:excel"
+ xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:html="http://www.w3.org/TR/REC-html40">
+ <DocumentProperties xmlns="urn:schemas-microsoft-com:office:office">
+  <Author>tony</Author>
+  <LastAuthor>tony</LastAuthor>
+  <Created>2004-02-05T15:31:13Z</Created>
+  <Version>11.5703</Version>
+ </DocumentProperties>
+ <OfficeDocumentSettings xmlns="urn:schemas-microsoft-com:office:office">
+  <DownloadComponents/>
+  <LocationOfComponents HRef="file:///Z:\Work_progs\en_office_2003_pro\"/>
+ </OfficeDocumentSettings>
+ <ExcelWorkbook xmlns="urn:schemas-microsoft-com:office:excel">
+  <WindowHeight>12660</WindowHeight>
+  <WindowWidth>19020</WindowWidth>
+  <WindowTopX>2085</WindowTopX>
+  <WindowTopY>-135</WindowTopY>
+  <ProtectStructure>False</ProtectStructure>
+  <ProtectWindows>False</ProtectWindows>
+ </ExcelWorkbook>
+ <Styles>
+  <Style ss:ID="Default" ss:Name="Normal">
+   <Alignment ss:Vertical="Bottom"/>
+   <Borders/>
+   <Font/>
+   <Interior/>
+   <NumberFormat/>
+   <Protection/>
+  </Style>
+  <Style ss:ID="s21">
+   <Borders/>
+   <Font ss:Bold="1"/>
+   <Interior ss:Color="#C0C0C0" ss:Pattern="Solid"/>
+   <NumberFormat ss:Format="@"/>
+   <Protection/>
+  </Style>
+  <Style ss:ID="s22">
+   <Interior/>
+   <NumberFormat ss:Format="@"/>
+  </Style>
+  <Style ss:ID="s23">
+   <Alignment ss:Horizontal="Left" ss:Vertical="Top" ss:WrapText="1"/>
+   <Borders/>
+   <Font ss:Color="#000000"/>
+   <Interior/>
+  </Style>
+  <Style ss:ID="s24">
+   <Alignment ss:Vertical="Top" ss:WrapText="1"/>
+   <Borders/>
+   <Font x:Family="Swiss" ss:Color="#000000"/>
+   <Interior/>
+  </Style>
+ </Styles>
+ <Worksheet ss:Name="Sheet1">
+  <Table ss:ExpandedColumnCount="3" ss:ExpandedRowCount="17" x:FullColumns="1"
+   x:FullRows="1">
+   <Row>
+    <Cell ss:StyleID="s21"><Data ss:Type="String">Key</Data></Cell>
+    <Cell ss:StyleID="s21"><Data ss:Type="String">English</Data></Cell>
+    <Cell ss:StyleID="s21"><Data ss:Type="String">Foreign Language</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">freighter_C1_A1</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Capture the dock compound!</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">freighter_C1_D1</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Defend the dock compound!</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">freighter_C2_A1</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Capture the freighter!</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">freighter_C2_D1</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Defend the freighter!</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">freighter_C3_A1</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Capture the stronghold!</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">freighter_C3_D1</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Defend the stronghold!</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">freighter_win</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Well done team!</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">freighter_lose</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">You failed!</Data></Cell>
+   </Row>
+   <Row ss:Height="165.75">
+    <Cell ss:StyleID="s23"><Data ss:Type="String">mp_freighter_S1_A1</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">Listen up, team. There's a shipment of arms and munitions in those containers. Move out and take that area!</Data></Cell>
+   </Row>
+   <Row ss:Height="140.25">
+    <Cell ss:StyleID="s23"><Data ss:Type="String">mp_freighter_S1_D1</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">The enemy is raiding the compound. Defend the area, and guard the containers.</Data></Cell>
+   </Row>
+   <Row ss:Height="102">
+    <Cell ss:StyleID="s23"><Data ss:Type="String">mp_freighter_C1_A1</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">We've taken the supply depot. Move up and secure the dock.</Data></Cell>
+   </Row>
+   <Row ss:Height="178.5">
+    <Cell ss:StyleID="s23"><Data ss:Type="String">mp_freighter_C1_D1</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">We've lost the depot, but we can resupply as long as the dock is in our hands. Protect it at all costs!</Data></Cell>
+   </Row>
+   <Row ss:Height="216.75">
+    <Cell ss:StyleID="s23"><Data ss:Type="String">mp_freighter_C2_A1</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">We have taken the dock. Only one more area of resistance remains and the island is in our hands. Capture the enemy stronghold!</Data></Cell>
+   </Row>
+   <Row ss:Height="165.75">
+    <Cell ss:StyleID="s23"><Data ss:Type="String">mp_freighter_C2_D1</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">We must protect the fort to hold our position on this island. Set up defenses and prepare for the attack.</Data></Cell>
+   </Row>
+   <Row ss:Height="89.25">
+    <Cell ss:StyleID="s23"><Data ss:Type="String">mp_freighter_C3_A1</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">We've captured the stronghold! The island is ours!</Data></Cell>
+   </Row>
+   <Row ss:Height="102">
+    <Cell ss:StyleID="s23"><Data ss:Type="String">mp_freighter_C3_D1</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">We've lost the stronghold! The enemy has taken the island!</Data></Cell>
+   </Row>
+  </Table>
+  <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+   <Selected/>
+   <Panes>
+    <Pane>
+     <Number>3</Number>
+     <RangeSelection>R1C1:R17C3</RangeSelection>
+    </Pane>
+   </Panes>
+   <ProtectObjects>False</ProtectObjects>
+   <ProtectScenarios>False</ProtectScenarios>
+  </WorksheetOptions>
+ </Worksheet>
+ <Worksheet ss:Name="Sheet2">
+  <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+   <ProtectObjects>False</ProtectObjects>
+   <ProtectScenarios>False</ProtectScenarios>
+  </WorksheetOptions>
+ </Worksheet>
+ <Worksheet ss:Name="Sheet3">
+  <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+   <ProtectObjects>False</ProtectObjects>
+   <ProtectScenarios>False</ProtectScenarios>
+  </WorksheetOptions>
+ </Worksheet>
+</Workbook>

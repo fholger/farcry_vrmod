@@ -1,0 +1,161 @@
+<?xml version="1.0"?>
+<?mso-application progid="Excel.Sheet"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:o="urn:schemas-microsoft-com:office:office"
+ xmlns:x="urn:schemas-microsoft-com:office:excel"
+ xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:html="http://www.w3.org/TR/REC-html40">
+ <DocumentProperties xmlns="urn:schemas-microsoft-com:office:office">
+  <Author>tony</Author>
+  <LastAuthor>tony</LastAuthor>
+  <Created>2004-02-06T11:03:56Z</Created>
+  <Version>11.5703</Version>
+ </DocumentProperties>
+ <OfficeDocumentSettings xmlns="urn:schemas-microsoft-com:office:office">
+  <DownloadComponents/>
+  <LocationOfComponents HRef="file:///Z:\Work_progs\en_office_2003_pro\"/>
+ </OfficeDocumentSettings>
+ <ExcelWorkbook xmlns="urn:schemas-microsoft-com:office:excel">
+  <WindowHeight>12660</WindowHeight>
+  <WindowWidth>19020</WindowWidth>
+  <WindowTopX>120</WindowTopX>
+  <WindowTopY>120</WindowTopY>
+  <ProtectStructure>False</ProtectStructure>
+  <ProtectWindows>False</ProtectWindows>
+ </ExcelWorkbook>
+ <Styles>
+  <Style ss:ID="Default" ss:Name="Normal">
+   <Alignment ss:Vertical="Bottom"/>
+   <Borders/>
+   <Font/>
+   <Interior/>
+   <NumberFormat/>
+   <Protection/>
+  </Style>
+  <Style ss:ID="s21">
+   <Borders/>
+   <Font ss:Bold="1"/>
+   <Interior ss:Color="#C0C0C0" ss:Pattern="Solid"/>
+   <NumberFormat ss:Format="@"/>
+   <Protection/>
+  </Style>
+  <Style ss:ID="s22">
+   <Interior/>
+   <NumberFormat ss:Format="@"/>
+  </Style>
+  <Style ss:ID="s23">
+   <Interior ss:Color="#00CCFF" ss:Pattern="Solid"/>
+   <NumberFormat ss:Format="@"/>
+  </Style>
+  <Style ss:ID="s24">
+   <Alignment ss:Horizontal="Left" ss:Vertical="Top" ss:WrapText="1"/>
+   <Borders/>
+   <Font ss:Color="#000000"/>
+   <Interior/>
+  </Style>
+  <Style ss:ID="s25">
+   <Alignment ss:Vertical="Top" ss:WrapText="1"/>
+   <Borders/>
+   <Font x:Family="Swiss" ss:Color="#000000"/>
+   <Interior/>
+  </Style>
+ </Styles>
+ <Worksheet ss:Name="Sheet1">
+  <Table ss:ExpandedColumnCount="3" ss:ExpandedRowCount="17" x:FullColumns="1"
+   x:FullRows="1">
+   <Row>
+    <Cell ss:StyleID="s21"><Data ss:Type="String">Key</Data></Cell>
+    <Cell ss:StyleID="s21"><Data ss:Type="String">English</Data></Cell>
+    <Cell ss:StyleID="s21"><Data ss:Type="String">Foreign Language</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">lake_C1_A1</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Capture the village!</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">lake_C1_D1</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Defend the village!</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">lake_C2_A1  </Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Capture the base!</Data></Cell>
+    <Cell><Data ss:Type="String">       </Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">lake_C2_D1</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Defend the base!</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">lake_C3_A1</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Capture the dam!</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">lake_C3_D1</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Defend the dam!</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">lake_win</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Well done team!</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">lake_lose</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">You failed!</Data></Cell>
+   </Row>
+   <Row ss:Height="165.75">
+    <Cell ss:StyleID="s24"><Data ss:Type="String">mp_lake_S1_A1</Data></Cell>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">Our final objective is to take the dam, but first, we must capture the village as a forward base. Seize the village!</Data></Cell>
+   </Row>
+   <Row ss:Height="216.75">
+    <Cell ss:StyleID="s24"><Data ss:Type="String">mp_lake_S1_D1</Data></Cell>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">Invaders are working their way into the village. We suspect they're heading towards the dam. Hold the village as a first line of defense!</Data></Cell>
+   </Row>
+   <Row ss:Height="140.25">
+    <Cell ss:StyleID="s24"><Data ss:Type="String">mp_lake_C1_A1</Data></Cell>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">They have fallen back from the village! Move forward into the irrigation canal!</Data></Cell>
+   </Row>
+   <Row ss:Height="114.75">
+    <Cell ss:StyleID="s24"><Data ss:Type="String">mp_lake_C1_D1</Data></Cell>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">We've lost the village! Fall back and defend the irrigation canal!</Data></Cell>
+   </Row>
+   <Row ss:Height="76.5">
+    <Cell ss:StyleID="s24"><Data ss:Type="String">mp_lake_C2_A1</Data></Cell>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">Good work! We control the canal, now take the dam!</Data></Cell>
+   </Row>
+   <Row ss:Height="102">
+    <Cell ss:StyleID="s24"><Data ss:Type="String">mp_lake_C2_D1</Data></Cell>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">They have taken the canal! Regroup and defend the dam!</Data></Cell>
+   </Row>
+   <Row ss:Height="38.25">
+    <Cell ss:StyleID="s24"><Data ss:Type="String">mp_lake_C3_A1</Data></Cell>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">We've captured the dam!</Data></Cell>
+   </Row>
+   <Row ss:Height="51">
+    <Cell ss:StyleID="s24"><Data ss:Type="String">mp_lake_C3_D1</Data></Cell>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">They have captured the dam!</Data></Cell>
+   </Row>
+  </Table>
+  <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+   <Selected/>
+   <Panes>
+    <Pane>
+     <Number>3</Number>
+     <RangeSelection>R1C1:R17C3</RangeSelection>
+    </Pane>
+   </Panes>
+   <ProtectObjects>False</ProtectObjects>
+   <ProtectScenarios>False</ProtectScenarios>
+  </WorksheetOptions>
+ </Worksheet>
+ <Worksheet ss:Name="Sheet2">
+  <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+   <ProtectObjects>False</ProtectObjects>
+   <ProtectScenarios>False</ProtectScenarios>
+  </WorksheetOptions>
+ </Worksheet>
+ <Worksheet ss:Name="Sheet3">
+  <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+   <ProtectObjects>False</ProtectObjects>
+   <ProtectScenarios>False</ProtectScenarios>
+  </WorksheetOptions>
+ </Worksheet>
+</Workbook>

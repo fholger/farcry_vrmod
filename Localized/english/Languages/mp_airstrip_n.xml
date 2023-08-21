@@ -1,0 +1,160 @@
+<?xml version="1.0"?>
+<?mso-application progid="Excel.Sheet"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:o="urn:schemas-microsoft-com:office:office"
+ xmlns:x="urn:schemas-microsoft-com:office:excel"
+ xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:html="http://www.w3.org/TR/REC-html40">
+ <DocumentProperties xmlns="urn:schemas-microsoft-com:office:office">
+  <Author>tony</Author>
+  <LastAuthor>tony</LastAuthor>
+  <Created>2004-01-31T20:54:07Z</Created>
+  <Version>11.5703</Version>
+ </DocumentProperties>
+ <OfficeDocumentSettings xmlns="urn:schemas-microsoft-com:office:office">
+  <DownloadComponents/>
+  <LocationOfComponents HRef="file:///Z:\Work_progs\en_office_2003_pro\"/>
+ </OfficeDocumentSettings>
+ <ExcelWorkbook xmlns="urn:schemas-microsoft-com:office:excel">
+  <WindowHeight>12660</WindowHeight>
+  <WindowWidth>19020</WindowWidth>
+  <WindowTopX>120</WindowTopX>
+  <WindowTopY>120</WindowTopY>
+  <ProtectStructure>False</ProtectStructure>
+  <ProtectWindows>False</ProtectWindows>
+ </ExcelWorkbook>
+ <Styles>
+  <Style ss:ID="Default" ss:Name="Normal">
+   <Alignment ss:Vertical="Bottom"/>
+   <Borders/>
+   <Font/>
+   <Interior/>
+   <NumberFormat/>
+   <Protection/>
+  </Style>
+  <Style ss:ID="s21">
+   <Borders/>
+   <Font ss:Bold="1"/>
+   <Interior ss:Color="#C0C0C0" ss:Pattern="Solid"/>
+   <NumberFormat ss:Format="@"/>
+   <Protection/>
+  </Style>
+  <Style ss:ID="s22">
+   <Interior/>
+   <NumberFormat ss:Format="@"/>
+  </Style>
+  <Style ss:ID="s23">
+   <Interior ss:Color="#C0C0C0" ss:Pattern="Solid"/>
+   <NumberFormat ss:Format="@"/>
+  </Style>
+  <Style ss:ID="s24">
+   <Alignment ss:Horizontal="Left" ss:Vertical="Top" ss:WrapText="1"/>
+   <Borders/>
+   <Font ss:Color="#000000"/>
+   <Interior/>
+  </Style>
+  <Style ss:ID="s25">
+   <Alignment ss:Vertical="Top" ss:WrapText="1"/>
+   <Borders/>
+   <Font x:Family="Swiss" ss:Color="#000000"/>
+   <Interior/>
+  </Style>
+ </Styles>
+ <Worksheet ss:Name="Sheet1">
+  <Table ss:ExpandedColumnCount="3" ss:ExpandedRowCount="17" x:FullColumns="1"
+   x:FullRows="1">
+   <Row>
+    <Cell ss:StyleID="s21"><Data ss:Type="String">Key</Data></Cell>
+    <Cell ss:StyleID="s21"><Data ss:Type="String">English</Data></Cell>
+    <Cell ss:StyleID="s21"><Data ss:Type="String">Foreign Language</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">airstrip_C1_A1</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Capture the tower!</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">airstrip_C1_D1</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Defend the tower!</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">airstrip_C2_A1</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Capture the airstrip!</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">airstrip_C2_D1</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Defend the airstrip!</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">airstrip_C3_A1</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Capture the heliport!</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">airstrip_C3_D1</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Defend the heliport!</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">airstrip_win</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Great job team!</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">airstrip_lose</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">You failed!</Data></Cell>
+   </Row>
+   <Row ss:Height="267.75">
+    <Cell ss:StyleID="s24"><Data ss:Type="String">mp_airstrip_S1_A1</Data></Cell>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">We have to take the radio antenna to block the enemy from calling in reinforcements. They'll probably be expecting us and are preparing defenses. Take the antenna!</Data></Cell>
+   </Row>
+   <Row ss:Height="306">
+    <Cell ss:StyleID="s24"><Data ss:Type="String">mp_airstrip_S1_D1</Data></Cell>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">Right, listen up everyone. We believe the enemy will attack the radio relay station. Without this, we can't communicate with HQ. Establish a defensive perimeter and resist them.</Data></Cell>
+   </Row>
+   <Row ss:Height="280.5">
+    <Cell ss:StyleID="s24"><Data ss:Type="String">mp_airstrip_C1_A1</Data></Cell>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">We've taken the antenna! The enemy is trying to get a cargo plane containing supplies and explosives out of the area. Take the airstrip and secure the goods.</Data></Cell>
+   </Row>
+   <Row ss:Height="306">
+    <Cell ss:StyleID="s24"><Data ss:Type="String">mp_airstrip_C1_D1</Data></Cell>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">They took the tower! Now we can't call in reinforcements from HQ. We'll have to protect the plane ourselves and stop the enemy from getting their hands on the supplies. Protect the plane!</Data></Cell>
+   </Row>
+   <Row ss:Height="267.75">
+    <Cell ss:StyleID="s24"><Data ss:Type="String">mp_airstrip_C2_A1</Data></Cell>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">The plane and it's cargo are in our hands! There's a helipad at the end of the runway the enemy will try to use to escape. Stop them from escaping at the helipad!</Data></Cell>
+   </Row>
+   <Row ss:Height="242.25">
+    <Cell ss:StyleID="s24"><Data ss:Type="String">mp_airstrip_C2_D1</Data></Cell>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">They took the plane! Without our supplies, we must retreat. Fall back to the helipad and defend it long enough to call in an escort chopper. Go, go, go!</Data></Cell>
+   </Row>
+   <Row ss:Height="38.25">
+    <Cell ss:StyleID="s24"><Data ss:Type="String">mp_airstrip_C3_A1</Data></Cell>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">We have taken the helipad!</Data></Cell>
+   </Row>
+   <Row ss:Height="38.25">
+    <Cell ss:StyleID="s24"><Data ss:Type="String">mp_airstrip_C3_D1</Data></Cell>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">They've taken the helipad!</Data></Cell>
+   </Row>
+  </Table>
+  <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+   <Selected/>
+   <Panes>
+    <Pane>
+     <Number>3</Number>
+     <RangeSelection>R1C1:R17C3</RangeSelection>
+    </Pane>
+   </Panes>
+   <ProtectObjects>False</ProtectObjects>
+   <ProtectScenarios>False</ProtectScenarios>
+  </WorksheetOptions>
+ </Worksheet>
+ <Worksheet ss:Name="Sheet2">
+  <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+   <ProtectObjects>False</ProtectObjects>
+   <ProtectScenarios>False</ProtectScenarios>
+  </WorksheetOptions>
+ </Worksheet>
+ <Worksheet ss:Name="Sheet3">
+  <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+   <ProtectObjects>False</ProtectObjects>
+   <ProtectScenarios>False</ProtectScenarios>
+  </WorksheetOptions>
+ </Worksheet>
+</Workbook>

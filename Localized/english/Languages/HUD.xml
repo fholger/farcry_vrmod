@@ -1,0 +1,450 @@
+<?xml version="1.0"?>
+<?mso-application progid="Excel.Sheet"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:o="urn:schemas-microsoft-com:office:office"
+ xmlns:x="urn:schemas-microsoft-com:office:excel"
+ xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:html="http://www.w3.org/TR/REC-html40">
+ <DocumentProperties xmlns="urn:schemas-microsoft-com:office:office">
+  <Author>tony</Author>
+  <LastAuthor>tony</LastAuthor>
+  <Created>2004-02-20T14:34:57Z</Created>
+  <Version>11.5703</Version>
+ </DocumentProperties>
+ <OfficeDocumentSettings xmlns="urn:schemas-microsoft-com:office:office">
+  <DownloadComponents/>
+  <LocationOfComponents HRef="file:///Z:\Work_progs\en_office_2003_pro\"/>
+ </OfficeDocumentSettings>
+ <ExcelWorkbook xmlns="urn:schemas-microsoft-com:office:excel">
+  <WindowHeight>12660</WindowHeight>
+  <WindowWidth>19020</WindowWidth>
+  <WindowTopX>120</WindowTopX>
+  <WindowTopY>120</WindowTopY>
+  <ProtectStructure>False</ProtectStructure>
+  <ProtectWindows>False</ProtectWindows>
+ </ExcelWorkbook>
+ <Styles>
+  <Style ss:ID="Default" ss:Name="Normal">
+   <Alignment ss:Vertical="Bottom"/>
+   <Borders/>
+   <Font/>
+   <Interior/>
+   <NumberFormat/>
+   <Protection/>
+  </Style>
+  <Style ss:ID="s21">
+   <Borders/>
+   <Font ss:Bold="1"/>
+   <Interior ss:Color="#C0C0C0" ss:Pattern="Solid"/>
+   <NumberFormat ss:Format="@"/>
+   <Protection/>
+  </Style>
+  <Style ss:ID="s22">
+   <Interior ss:Color="#C0C0C0" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s23">
+   <Alignment ss:Vertical="Bottom" ss:WrapText="1"/>
+   <Interior ss:Color="#00CCFF" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s24">
+   <Interior ss:Color="#969696" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s25">
+   <Interior ss:Color="#808080" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s26">
+   <Font x:Family="Swiss"/>
+   <Interior ss:Color="#969696" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s27">
+   <Font x:Family="Swiss"/>
+   <Interior ss:Color="#C0C0C0" ss:Pattern="Solid"/>
+  </Style>
+ </Styles>
+ <Worksheet ss:Name="Sheet1">
+  <Table ss:ExpandedColumnCount="3" ss:ExpandedRowCount="89" x:FullColumns="1"
+   x:FullRows="1">
+   <Row>
+    <Cell ss:StyleID="s21"><Data ss:Type="String">Key</Data></Cell>
+    <Cell ss:StyleID="s21"><Data ss:Type="String">English</Data></Cell>
+    <Cell ss:StyleID="s21"><Data ss:Type="String">Foreign Language</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">BuildProgress</Data></Cell>
+    <Cell><Data ss:Type="String">Build Progress</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">RepairProgress</Data></Cell>
+    <Cell><Data ss:Type="String">Repair Progress</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">AvertCapture</Data></Cell>
+    <Cell><Data ss:Type="String">$8Averted Capture</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">BeginCapture</Data></Cell>
+    <Cell><Data ss:Type="String">$8Begin Capture</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">OpenDoor</Data></Cell>
+    <Cell><Data ss:Type="String">Press off hand trigger to open the door</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">NeedKey</Data></Cell>
+    <Cell><Data ss:Type="String">You need a key to open this door</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">AG36</Data></Cell>
+    <Cell><Data ss:Type="String">AG36</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">SniperRifle</Data></Cell>
+    <Cell><Data ss:Type="String">Sniper Rifle</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">Falcon</Data></Cell>
+    <Cell><Data ss:Type="String">Falcon .357</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">MP5</Data></Cell>
+    <Cell><Data ss:Type="String">MP5 SMG</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">Machete</Data></Cell>
+    <Cell><Data ss:Type="String">Machete</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">Shotgun</Data></Cell>
+    <Cell><Data ss:Type="String">Jackhammer Shotgun</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">OICW</Data></Cell>
+    <Cell><Data ss:Type="String">OICW Assault Weapon</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">RL</Data></Cell>
+    <Cell><Data ss:Type="String">Rocket Launcher</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">P90</Data></Cell>
+    <Cell><Data ss:Type="String">P90 SMG</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">M4</Data></Cell>
+    <Cell><Data ss:Type="String">M4 Assault Weapon</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">Shocker</Data></Cell>
+    <Cell><Data ss:Type="String">Shocker</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">M249</Data></Cell>
+    <Cell><Data ss:Type="String">Machinegun</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">Mortar</Data></Cell>
+    <Cell><Data ss:Type="String">Mortar</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">COVERRL</Data></Cell>
+    <Cell><Data ss:Type="String">COVERRL</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">MG</Data></Cell>
+    <Cell><Data ss:Type="String">Minigun</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">MutantShotgun</Data></Cell>
+    <Cell><Data ss:Type="String">Mutant Shotgun</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">EngineerTool</Data></Cell>
+    <Cell><Data ss:Type="String">Wrench</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">MedicTool</Data></Cell>
+    <Cell><Data ss:Type="String">Injector</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">Wrench</Data></Cell>
+    <Cell><Data ss:Type="String">Wrench</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">ScoutTool</Data></Cell>
+    <Cell><Data ss:Type="String">Explosive</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">AG36Grenade</Data></Cell>
+    <Cell><Data ss:Type="String">AG36 Grenade</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">Assault</Data></Cell>
+    <Cell><Data ss:Type="String">Assault</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">AG36Grenade</Data></Cell>
+    <Cell><Data ss:Type="String">AG36 Grenade</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">HandGrenade</Data></Cell>
+    <Cell><Data ss:Type="String">Handgrenade</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">OICWGrenade</Data></Cell>
+    <Cell><Data ss:Type="String">OICW Grenade</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">Pistol</Data></Cell>
+    <Cell><Data ss:Type="String">Pistol</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">Rocket</Data></Cell>
+    <Cell><Data ss:Type="String">Rocket</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">Shotgun</Data></Cell>
+    <Cell><Data ss:Type="String">Shotgun</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">SMG</Data></Cell>
+    <Cell><Data ss:Type="String">SMG</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">SmokeGrenade</Data></Cell>
+    <Cell><Data ss:Type="String">Smoke Grenade</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">PressDropWeapon</Data></Cell>
+    <Cell><Data ss:Type="String">Hold main hand stick / trackpad to drop the</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">AndPickUp</Data></Cell>
+    <Cell><Data ss:Type="String">and pick up the</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">YouPickedUp</Data></Cell>
+    <Cell><Data ss:Type="String">You picked up</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">YouPickedUpA</Data></Cell>
+    <Cell><Data ss:Type="String">You picked up a</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">YouPickedUpAn</Data></Cell>
+    <Cell><Data ss:Type="String">You picked up an</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">UnitOfAmmunition</Data></Cell>
+    <Cell><Data ss:Type="String">unit(s) of ammunition</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">Health</Data></Cell>
+    <Cell><Data ss:Type="String">Health</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">KeyCard</Data></Cell>
+    <Cell><Data ss:Type="String">KeyCard</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">explosive</Data></Cell>
+    <Cell><Data ss:Type="String">Explosive</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">UnitsOf</Data></Cell>
+    <Cell><Data ss:Type="String">units of</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">Ammo</Data></Cell>
+    <Cell><Data ss:Type="String">ammo</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">Armor</Data></Cell>
+    <Cell><Data ss:Type="String">Armor</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">pickup_not_possible</Data></Cell>
+    <Cell><Data ss:Type="String">You cannot pickup anymore</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">ammo_pickup_not_possible_trail</Data></Cell>
+    <Cell><Data ss:Type="String">ammo</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">armor_pickup_not_possible_trail</Data></Cell>
+    <Cell><Data ss:Type="String">armor</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">medi_pickup_not_possible</Data></Cell>
+    <Cell><Data ss:Type="String">Health is full, you can not pickup anymore medipacks</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">Cannotcarrymorethan4exp</Data></Cell>
+    <Cell><Data ss:Type="String">You cannot carry more than 4 explosives</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">Checkpointreached</Data></Cell>
+    <Cell><Data ss:Type="String">Checkpoint reached</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">Gamesaved</Data></Cell>
+    <Cell><Data ss:Type="String">Game Saved</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">bino1</Data></Cell>
+    <Cell><Data ss:Type="String">Press off hand A/X to use binoculars</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">bino2</Data></Cell>
+    <Cell><Data ss:Type="String">Zoom in/out with the main hand stick (up/down)</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">bino3</Data></Cell>
+    <Cell><Data ss:Type="String">Moving enemies are marked on your compass.</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">bino4</Data></Cell>
+    <Cell><Data ss:Type="String">Enemies out of range are marked with an arrow.</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">compass1</Data></Cell>
+    <Cell><Data ss:Type="String">You picked up a detector - Yellow enemies are alerted</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">compass2</Data></Cell>
+    <Cell><Data ss:Type="String">Red enemies are engaging - Green enemies are unaware</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">compass3</Data></Cell>
+    <Cell><Data ss:Type="String">The stealth bar tells you there current state of awareness</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">Sniper</Data></Cell>
+    <Cell><Data ss:Type="String">Sniper</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">FlashbangGrenade</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Flashbang Grenade</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"/>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">cantexitvehicle</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">You can't exit from vehicle here</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">vehicledamaged</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">The vehicle is damaged, you cannot use it</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">driverforklift</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Press off hand trigger to drive the Forklift</Data></Cell>
+   </Row>
+   <Row ss:Height="76.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">driverhumvee</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Press off hand trigger to drive the 4WD vehicle</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">driverbuggy</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Press off hand trigger to drive the Buggy</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">driverbigtruck</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Press off hand trigger to drive the Big Truck</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">driverboat</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Press off hand trigger to drive the Patrol Boat</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">driverzodiac</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Press off hand trigger to drive the Inflatable Boat</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">driverparaglider</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Press off hand trigger to fly the Hang Glider</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">gunnerhumvee</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">Press off hand trigger to enter gunner of 4WD vehicle</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">gunnerboat</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Press off hand trigger to enter gunner of Patrol Boat</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">passengerhumvee</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">Press off hand trigger to enter passenger of 4WD vehicle</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">passengerzodiac</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Press off hand trigger to enter passenger of Inflatable Boat</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">passengerbigtruck</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Press off hand trigger to enter passenger of Big Truck</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">passengerbuggy</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Press off hand trigger to enter passenger of Buggy</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">usemortar</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Press off hand trigger to use the Mortar</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">usemachinegun</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Press off hand trigger to use the MachineGun</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">usemountedweaponvehicle</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Press off hand trigger to use the MachineGun</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">switchviewpara</Data></Cell>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">Press off hand stick / trackpad to toggle the view </Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">secondsleft</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">seconds left</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">drivefox</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">Press off hand trigger to jump off the flying fox</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s26"><Data ss:Type="String">pushboat </Data></Cell>
+    <Cell ss:StyleID="s26"><Data ss:Type="String">Press off hand trigger to push the boat into water </Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s27"><Data ss:Type="String">disable_alarm</Data></Cell>
+    <Cell ss:StyleID="s27"><Data ss:Type="String">Press off hand trigger to disable alarm</Data></Cell>
+   </Row>
+  </Table>
+  <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+   <Selected/>
+   <Panes>
+    <Pane>
+     <Number>3</Number>
+     <RangeSelection>R1C1:R89C3</RangeSelection>
+    </Pane>
+   </Panes>
+   <ProtectObjects>False</ProtectObjects>
+   <ProtectScenarios>False</ProtectScenarios>
+  </WorksheetOptions>
+ </Worksheet>
+ <Worksheet ss:Name="Sheet2">
+  <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+   <ProtectObjects>False</ProtectObjects>
+   <ProtectScenarios>False</ProtectScenarios>
+  </WorksheetOptions>
+ </Worksheet>
+ <Worksheet ss:Name="Sheet3">
+  <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+   <ProtectObjects>False</ProtectObjects>
+   <ProtectScenarios>False</ProtectScenarios>
+  </WorksheetOptions>
+ </Worksheet>
+</Workbook>

@@ -1,0 +1,128 @@
+<?xml version="1.0"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:o="urn:schemas-microsoft-com:office:office"
+ xmlns:x="urn:schemas-microsoft-com:office:excel"
+ xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:html="http://www.w3.org/TR/REC-html40">
+ <DocumentProperties xmlns="urn:schemas-microsoft-com:office:office">
+  <Author>ct</Author>
+  <LastAuthor>ct</LastAuthor>
+  <Created>2003-10-16T14:01:54Z</Created>
+  <Company>cry</Company>
+  <Version>10.3311</Version>
+ </DocumentProperties>
+ <OfficeDocumentSettings xmlns="urn:schemas-microsoft-com:office:office">
+  <DownloadComponents/>
+  <LocationOfComponents HRef="file:///F:\"/>
+ </OfficeDocumentSettings>
+ <ExcelWorkbook xmlns="urn:schemas-microsoft-com:office:excel">
+  <WindowHeight>13170</WindowHeight>
+  <WindowWidth>19020</WindowWidth>
+  <WindowTopX>120</WindowTopX>
+  <WindowTopY>60</WindowTopY>
+  <ProtectStructure>False</ProtectStructure>
+  <ProtectWindows>False</ProtectWindows>
+ </ExcelWorkbook>
+ <Styles>
+  <Style ss:ID="Default" ss:Name="Normal">
+   <Alignment ss:Vertical="Bottom"/>
+   <Borders/>
+   <Font/>
+   <Interior/>
+   <NumberFormat/>
+   <Protection/>
+  </Style>
+  <Style ss:ID="s21">
+   <Borders/>
+   <Font ss:Bold="1"/>
+   <Interior ss:Color="#C0C0C0" ss:Pattern="Solid"/>
+   <NumberFormat ss:Format="@"/>
+   <Protection/>
+  </Style>
+  <Style ss:ID="s22">
+   <Interior ss:Color="#FFFF00" ss:Pattern="Solid"/>
+  </Style>
+ </Styles>
+ <Worksheet ss:Name="Sheet1">
+  <Table ss:ExpandedColumnCount="3" ss:ExpandedRowCount="12" x:FullColumns="1"
+   x:FullRows="1">
+   <Column ss:AutoFitWidth="0" ss:Width="268.5"/>
+   <Column ss:AutoFitWidth="0" ss:Width="198"/>
+   <Column ss:AutoFitWidth="0" ss:Width="217.5"/>
+   <Row>
+    <Cell ss:StyleID="s21"><Data ss:Type="String">Key</Data></Cell>
+    <Cell ss:StyleID="s21"><Data ss:Type="String">English</Data></Cell>
+    <Cell ss:StyleID="s21"><Data ss:Type="String">Foreign Language</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">compound_open_door</Data></Cell>
+    <Cell><Data ss:Type="String">Press USE key to open the door</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">compound_alarm_deactivated</Data></Cell>
+    <Cell><Data ss:Type="String">Alarm deactivated</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">compound_alarm_activated</Data></Cell>
+    <Cell><Data ss:Type="String">Alarm activated</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">compound_press_button</Data></Cell>
+    <Cell><Data ss:Type="String">Press USE key to press the button</Data></Cell>
+   </Row>
+   <Row ss:Index="7">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">NewObjective      </Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">New Objective</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">PlaceTheNuclearD  </Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Place the nuclear device</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">DefendValWhileSh  </Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Defend Val while she arms the bomb</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">NewObjective      </Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">New Objective</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">FindTheSerum      </Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Find the Serum</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">EscapeFromCompou  </Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Escape from compound</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+  </Table>
+  <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+   <Selected/>
+   <Panes>
+    <Pane>
+     <Number>3</Number>
+     <RangeSelection>R1C1:R12C3</RangeSelection>
+    </Pane>
+   </Panes>
+   <ProtectObjects>False</ProtectObjects>
+   <ProtectScenarios>False</ProtectScenarios>
+  </WorksheetOptions>
+ </Worksheet>
+ <Worksheet ss:Name="Sheet2">
+  <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+   <ProtectObjects>False</ProtectObjects>
+   <ProtectScenarios>False</ProtectScenarios>
+  </WorksheetOptions>
+ </Worksheet>
+ <Worksheet ss:Name="Sheet3">
+  <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+   <ProtectObjects>False</ProtectObjects>
+   <ProtectScenarios>False</ProtectScenarios>
+  </WorksheetOptions>
+ </Worksheet>
+</Workbook>

@@ -1374,8 +1374,8 @@ end
 function Hud:DrawLabel()
 	if(self.label)then			
 		%Game:SetHUDFont("default", "default");
-		local strsizex,strsizey = Game:GetHudStringSize(self.label, 12, 12);
-		%Game:WriteHudString(400-strsizex*0.5, 350, self.label, self.color.r, self.color.g, self.color.b, 1, 12, 12, 0);											
+		local strsizex,strsizey = Game:GetHudStringSize(self.label, 20, 20);
+		%Game:WriteHudString(400-strsizex*0.5, 350, self.label, self.color.r, self.color.g, self.color.b, 1, 20, 20, 0);											
 	end
 	
 	--if labeltime is specified dont remove immediately the label, but wait for the time specified.
@@ -2370,7 +2370,7 @@ function Hud:DrawMessagesBox(tMsgList, xpos, ypos, killmsg)
 						txt = src.." killed "..trg.." with "..wpn;
 					end
 
-					local strsizex,strsizey = Game:GetHudStringSize(txtKiller, 12, 12);							
+					local strsizex,strsizey = Game:GetHudStringSize(txtKiller, 20, 20);							
 					local currColor=nil;
 					
 					if(msg.isTop==1) then
@@ -2389,7 +2389,7 @@ function Hud:DrawMessagesBox(tMsgList, xpos, ypos, killmsg)
 							sx=self.mpKills[wpn].size.w*(14/sy);												
 						end
 
-						Game:WriteHudString(xpos+strsizex+10+sx+10, ypos-msg.curr_ypos, txtKilled, currColor.r, currColor.g, currColor.b, textalpha, 12, 12, 0);
+						Game:WriteHudString(xpos+strsizex+10+sx+10, ypos-msg.curr_ypos, txtKilled, currColor.r, currColor.g, currColor.b, textalpha, 20, 20, 0);
 					end
 					
 					if (not msg.logged) then
@@ -2399,9 +2399,9 @@ function Hud:DrawMessagesBox(tMsgList, xpos, ypos, killmsg)
 				else																								
 					-- output text
 					if(msg.isTop==1) then
-						Game:WriteHudString(xpos, ypos-msg.curr_ypos, msg.text, self.color_top.r, self.color_top.g, self.color_top.b, textalpha, 12, 12, 0);
+						Game:WriteHudString(xpos, ypos-msg.curr_ypos, msg.text, self.color_top.r, self.color_top.g, self.color_top.b, textalpha, 20, 20, 0);
 					else
-						Game:WriteHudString(xpos, ypos-msg.curr_ypos, msg.text, self.color.r, self.color.g, self.color.b, textalpha, 12, 12, 0);
+						Game:WriteHudString(xpos, ypos-msg.curr_ypos, msg.text, self.color.r, self.color.g, self.color.b, textalpha, 20, 20, 0);
 					end
 				end
 

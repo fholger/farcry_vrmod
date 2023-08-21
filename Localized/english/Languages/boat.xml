@@ -1,0 +1,229 @@
+<?xml version="1.0"?>
+<?mso-application progid="Excel.Sheet"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:o="urn:schemas-microsoft-com:office:office"
+ xmlns:x="urn:schemas-microsoft-com:office:excel"
+ xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:html="http://www.w3.org/TR/REC-html40">
+ <DocumentProperties xmlns="urn:schemas-microsoft-com:office:office">
+  <Author>tony</Author>
+  <LastAuthor>tony</LastAuthor>
+  <Created>2004-02-04T17:25:36Z</Created>
+  <Version>11.5703</Version>
+ </DocumentProperties>
+ <OfficeDocumentSettings xmlns="urn:schemas-microsoft-com:office:office">
+  <DownloadComponents/>
+  <LocationOfComponents HRef="file:///Z:\Work_progs\en_office_2003_pro\"/>
+ </OfficeDocumentSettings>
+ <ExcelWorkbook xmlns="urn:schemas-microsoft-com:office:excel">
+  <WindowHeight>12660</WindowHeight>
+  <WindowWidth>19020</WindowWidth>
+  <WindowTopX>120</WindowTopX>
+  <WindowTopY>120</WindowTopY>
+  <ProtectStructure>False</ProtectStructure>
+  <ProtectWindows>False</ProtectWindows>
+ </ExcelWorkbook>
+ <Styles>
+  <Style ss:ID="Default" ss:Name="Normal">
+   <Alignment ss:Vertical="Bottom"/>
+   <Borders/>
+   <Font/>
+   <Interior/>
+   <NumberFormat/>
+   <Protection/>
+  </Style>
+  <Style ss:ID="s21">
+   <Borders/>
+   <Font ss:Bold="1"/>
+   <Interior ss:Color="#969696" ss:Pattern="Solid"/>
+   <NumberFormat ss:Format="@"/>
+   <Protection/>
+  </Style>
+  <Style ss:ID="s22">
+   <Interior ss:Color="#C0C0C0" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s23">
+   <Font ss:FontName="Verdana" x:Family="Swiss"/>
+  </Style>
+  <Style ss:ID="s24">
+   <Font x:Family="Swiss"/>
+   <Interior ss:Color="#C0C0C0" ss:Pattern="Solid"/>
+  </Style>
+ </Styles>
+ <Worksheet ss:Name="Sheet1">
+  <Table ss:ExpandedColumnCount="3" ss:ExpandedRowCount="31" x:FullColumns="1"
+   x:FullRows="1">
+   <Row>
+    <Cell ss:StyleID="s21"><Data ss:Type="String">Key</Data></Cell>
+    <Cell ss:StyleID="s21"><Data ss:Type="String">English</Data></Cell>
+    <Cell ss:StyleID="s21"><Data ss:Type="String">Foreign Language</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">HintDontGoIntoDe  </Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Hint: Dont go into deep water, they will find and kill you quickly.</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">useYourRadarAndG  </Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Use your radar and go back to the islands</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">NewObjective      </Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">New Objective</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">LandOnTheFirstIs  </Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Land on the first island</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">GetTheThreeExplo  </Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Get the three explosive located on the first island</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">YouveFoundTheExp  </Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Youve found the explosives, now destroy the first tower</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">DestroyTheFirstT  </Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Destroy the first tower</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">GetTheThreeExplo  </Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Get the three explosive located on the first island</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">FirstTowerDestro  </Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">First Tower destroyed, now destroy next one</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">DestroyTheSecond  </Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Destroy the second tower</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">DestroyTheFirstT  </Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Destroy the first tower</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">SecondTowerDestr  </Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Second tower destroyed, now destroy last one</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">DestroyTheLastTo  </Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Destroy the last tower</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">GoAndDestroyTheF  </Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Go and destroy the freighter!</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">NewObjective      </Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">New Objective</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">PlaceTheExplosiv  </Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Place the explosives on the fuel tank</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">ThisIsGoingToBeA  </Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">This is going to be a BIG explosion,</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">getToTheFrontOfT  </Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">get to the front of the ship!!</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">HurryYouOnlyHave  </Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Hurry, you only have 25 seconds</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">GetToTheFrontOfT  </Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Get to the front of the ship!!</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">GoAndDestroyTheF  </Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Go and destroy the freighter!</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">NewObjective      </Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">New Objective</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">missionSuccessfu  </Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">mission_successful</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">pressuseexpboat</Data></Cell>
+    <Cell><Data ss:Type="String">Press off hand trigger to plant bomb</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">pull_lever</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">Press off hand trigger to pull the lever</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">insert_keycard</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">Press off hand trigger to insert keycard</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">move_elevator_down</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">Press off hand trigger to move elevator down</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">call_elevator</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">Press off hand trigger to call the elevator</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">move_elevator_up</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">Press off hand trigger to move elevator up</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">plant_explosives_here</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">Press off hand trigger to plant explosives here</Data></Cell>
+   </Row>
+  </Table>
+  <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+   <Selected/>
+   <Panes>
+    <Pane>
+     <Number>3</Number>
+     <RangeSelection>R1C1:R31C3</RangeSelection>
+    </Pane>
+   </Panes>
+   <ProtectObjects>False</ProtectObjects>
+   <ProtectScenarios>False</ProtectScenarios>
+  </WorksheetOptions>
+ </Worksheet>
+ <Worksheet ss:Name="Sheet2">
+  <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+   <ProtectObjects>False</ProtectObjects>
+   <ProtectScenarios>False</ProtectScenarios>
+  </WorksheetOptions>
+ </Worksheet>
+ <Worksheet ss:Name="Sheet3">
+  <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+   <ProtectObjects>False</ProtectObjects>
+   <ProtectScenarios>False</ProtectScenarios>
+  </WorksheetOptions>
+ </Worksheet>
+</Workbook>

@@ -1,0 +1,2560 @@
+<?xml version="1.0"?>
+<?mso-application progid="Excel.Sheet"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:o="urn:schemas-microsoft-com:office:office"
+ xmlns:x="urn:schemas-microsoft-com:office:excel"
+ xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:html="http://www.w3.org/TR/REC-html40">
+ <DocumentProperties xmlns="urn:schemas-microsoft-com:office:office">
+  <Author>tony</Author>
+  <LastAuthor>tony</LastAuthor>
+  <Created>2004-06-07T14:13:18Z</Created>
+  <Company>Crytek</Company>
+  <Version>11.6360</Version>
+ </DocumentProperties>
+ <ExcelWorkbook xmlns="urn:schemas-microsoft-com:office:excel">
+  <WindowHeight>12660</WindowHeight>
+  <WindowWidth>19020</WindowWidth>
+  <WindowTopX>120</WindowTopX>
+  <WindowTopY>120</WindowTopY>
+  <ProtectStructure>False</ProtectStructure>
+  <ProtectWindows>False</ProtectWindows>
+ </ExcelWorkbook>
+ <Styles>
+  <Style ss:ID="Default" ss:Name="Normal">
+   <Alignment ss:Vertical="Bottom"/>
+   <Borders/>
+   <Font/>
+   <Interior/>
+   <NumberFormat/>
+   <Protection/>
+  </Style>
+  <Style ss:ID="s41" ss:Name="Normal_Sheet1">
+   <Alignment ss:Vertical="Bottom"/>
+   <Borders/>
+   <Font x:Family="Swiss"/>
+   <Interior/>
+   <NumberFormat/>
+   <Protection/>
+  </Style>
+  <Style ss:ID="s21">
+   <Alignment ss:Vertical="Bottom" ss:WrapText="1"/>
+   <Borders/>
+   <Font ss:Bold="1"/>
+   <Interior ss:Color="#C0C0C0" ss:Pattern="Solid"/>
+   <NumberFormat ss:Format="@"/>
+   <Protection/>
+  </Style>
+  <Style ss:ID="s22">
+   <Alignment ss:Vertical="Bottom" ss:WrapText="1"/>
+   <Interior/>
+  </Style>
+  <Style ss:ID="s23">
+   <Alignment ss:Vertical="Bottom" ss:WrapText="1"/>
+   <Font x:Family="Swiss"/>
+   <Interior/>
+  </Style>
+  <Style ss:ID="s24">
+   <Alignment ss:Vertical="Bottom" ss:WrapText="1"/>
+   <Interior ss:Color="#00CCFF" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s25">
+   <Alignment ss:Vertical="Bottom" ss:WrapText="1"/>
+   <Borders/>
+   <Interior/>
+  </Style>
+  <Style ss:ID="s26">
+   <Alignment ss:Vertical="Bottom" ss:WrapText="1"/>
+   <Borders/>
+   <Font x:Family="Swiss"/>
+   <Interior/>
+  </Style>
+  <Style ss:ID="s27">
+   <Alignment ss:Vertical="Bottom" ss:WrapText="1"/>
+   <Font ss:Color="#000000"/>
+   <Interior/>
+  </Style>
+  <Style ss:ID="s28">
+   <Font x:Family="Swiss"/>
+   <Interior/>
+  </Style>
+  <Style ss:ID="s29">
+   <Alignment ss:Horizontal="Left" ss:Vertical="Bottom"/>
+   <Font x:Family="Swiss" ss:Color="#000000"/>
+   <Interior/>
+  </Style>
+  <Style ss:ID="s30">
+   <Interior/>
+  </Style>
+  <Style ss:ID="s31">
+   <Alignment ss:Vertical="Bottom" ss:WrapText="1"/>
+   <Font x:Family="Swiss" ss:Color="#000000"/>
+   <Interior/>
+  </Style>
+  <Style ss:ID="s32">
+   <Alignment ss:Vertical="Bottom"/>
+   <Font x:Family="Swiss" ss:Color="#000000"/>
+   <Interior/>
+  </Style>
+  <Style ss:ID="s33">
+   <Alignment ss:Vertical="Bottom"/>
+   <Font x:Family="Swiss"/>
+   <Interior/>
+  </Style>
+  <Style ss:ID="s34">
+   <Font/>
+   <Interior/>
+  </Style>
+  <Style ss:ID="s35">
+   <Alignment ss:Vertical="Bottom" ss:WrapText="1"/>
+   <Interior ss:Color="#FF9900" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s36">
+   <Alignment ss:Vertical="Bottom" ss:WrapText="1"/>
+  </Style>
+  <Style ss:ID="s37">
+   <Alignment ss:Vertical="Top" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+   </Borders>
+   <Font x:Family="Swiss" ss:Bold="1"/>
+  </Style>
+  <Style ss:ID="s38">
+   <Alignment ss:Vertical="Top" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+   </Borders>
+   <Font x:Family="Swiss"/>
+  </Style>
+  <Style ss:ID="s42" ss:Parent="s41">
+   <Alignment ss:Vertical="Top" ss:WrapText="1"/>
+   <Font x:Family="Swiss" ss:Bold="1"/>
+  </Style>
+  <Style ss:ID="s44" ss:Parent="s41">
+   <Alignment ss:Vertical="Top" ss:WrapText="1"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Left" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1"/>
+   </Borders>
+   <Font x:Family="Swiss"/>
+  </Style>
+ </Styles>
+ <Worksheet ss:Name="Sheet1">
+  <Table ss:ExpandedColumnCount="3" ss:ExpandedRowCount="475" x:FullColumns="1"
+   x:FullRows="1">
+   <Column ss:AutoFitWidth="0" ss:Width="189.75"/>
+   <Column ss:AutoFitWidth="0" ss:Width="231"/>
+   <Row ss:AutoFitHeight="0" ss:Height="38.25">
+    <Cell ss:StyleID="s21"><Data ss:Type="String">Key</Data></Cell>
+    <Cell ss:StyleID="s21"><Data ss:Type="String">English</Data></Cell>
+    <Cell ss:StyleID="s21"><Data ss:Type="String">Foreign Language</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Campaign</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Campaign</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Multiplayer</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Multiplayer</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Profiles</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Profiles</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">DemoLoop</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Demo Loop</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Login</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Login</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="89.25">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">EnterNamePassword</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Enter your ubi.com username and password...</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">LoginName</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Name:</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">LoginPassword</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Password:</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="38.25">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">RefreshingServerList</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Refreshing Server List...</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Create</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Create</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Options</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Options</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Credits</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Credits</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Quit</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Quit</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Apply</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Apply</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">LoadGame</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Load Game</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">SaveGame</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Save Game</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">NewGame</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">New Game</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">JoinGame</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Join Game</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">CreateServer</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Create Server</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">FriendlyFire</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Friendly Fire</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">DedicatedServer</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Dedicated Server</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">LoadServerProfile</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Load Profile</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">SaveServerProfile</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Save Profile</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Launch</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Launch</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">RespawnCycle</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Respawn Cycle</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">WarmupTime</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Warmup Time</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">PlayerName</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Player Name</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">ReturnToGame</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Return to Game</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">MainMenu</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Main Menu</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Ok</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Ok</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Cancel</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Cancel</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">ASSAULT</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Assault</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="38.25">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">TDM</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Team Deathmatch</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">CTF</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Capture the Flag</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">FFA</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Free for All</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">CAH</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Capture and Hold</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">GameOptions</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Game Options</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">ControlOptions</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Control Options</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">VideoOptions</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Video Options</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">SoundOptions</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Sound Options</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="38.25">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">MouseSensitivity</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Mouse Sensitivity</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Fullscreen</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Full Screen</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">EnableGore</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Enable Gore</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">PhysicsQuality</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Physics Quality</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Resolution</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Screen resolution</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">AutoDetect</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Auto Detect</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">None</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">None</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Low</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Low</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">High</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">High</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">VeryHigh</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Very High</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">TextureQuality</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Texture Quality</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="38.25">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">TextureFilterQuality</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Texture Filter Quality</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">ParticleCount</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Particle Count</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="38.25">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">SpecialEffectsQuality</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Special Effects Quality</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="38.25">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">EnvironmentQuality</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Environment Quality</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">ShadowQuality</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Shadow Quality</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">WaterQuality</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Water Quality</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">LightingQuality</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Lighting Quality</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">VSync</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Vertical Sync</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="38.25">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">GammaCorrection</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Gamma Correction</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Contrast</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Contrast</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Brightness</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Brightness</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">FSAA</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Anti Aliasing</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">InvertMouse</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Invert Mouse</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="89.25">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">NoBindWarning</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">$4Warning: Some actions are not assigned to any key.</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">ChangeCtrlBind</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Change Control</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">CtrlActionName</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Action</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">CtrlActionBinding1</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Binding One</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">CtrlActionBinding2</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Binding Two</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">PressAKeyToBind</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Press a key to</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">SoundVolume</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">SoundFX Volume</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">MusicVolume</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Music Volume</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Doppler</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Doppler Effect</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">SpeakerConfig</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Speaker Setup</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Mono</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Monaural</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Stereo</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Stereo</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Headphones</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Headphones</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Quadrophonic</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Quadrophonic</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Surround</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Surround</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">5_1</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Surround 5.1</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">PlayerModel</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Player Model</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">LeftHanded</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Left Handed</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Resolution</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Resolution</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Driver</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Driver</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">FullScreen</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Full Screen</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">EnableVSync</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Enable VSync</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">EnableWater</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Enable Water</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Sun</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Enable Sunflares</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Shadow</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Enable Shadow</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="38.25">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">TexComp</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Compressed Textures</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">MaxTexSize</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Max Tex Size</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="38.25">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">LoadLastCheckpoint</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Load Last Checkpoint</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">JoinPlayersTeam</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Join the Players</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="38.25">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">JoinSpectatorsTeam</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Join the Spectators</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Ready</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Ready</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">DoSuicide</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Self Kill</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="38.25">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">JoinRedTeam</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Join the Red Team</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="38.25">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">JoinBlueTeam</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Join the Blue Team</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Accuracy</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Accuracy</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Aggression</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Aggression</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Health</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Health</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">ProfileSelect</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Select Profile</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">ProfileNew</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">New Profile</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">CurrentProfile</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Current Profile:</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="38.25">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">CreateProfile</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Create New Profile</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">ProfileName</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Profile Name:</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">RemoveProfile</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Remove Profile</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="38.25">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">RemoveProfileConfirmation</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Are you sure ?</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Start</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Start</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Join</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Join</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Refresh</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Refresh</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Back</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Back</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">ServerName</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Server Name</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">ServerPassword</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Server Password</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Password</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Password</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Disconnect</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Disconnect</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="51">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">RemainingTime</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">REMAINING GAME TIME</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="63.75">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">ReinforcementTime</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">TIME UNTIL REINFORCEMENTS</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Advanced</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Advanced</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="38.25">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">RespawnTime</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Respawn Time (Sec)</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">PrewarTime</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Prewar Time</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Cycle</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Cycle</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">From</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">From</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">To</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">To</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">GetServers</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Get Servers</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Connect</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Connect</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">EnterPassword</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Enter Password</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">EnterName</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Enter Name</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">CreateRoom</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Create Room</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">StartGame</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Start Game</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Friends</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Friends</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Members</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Members</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">CurrentLobby</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Current Lobby</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Lobbies</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Lobbies</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">CurrentRoom</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Current Room</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Rooms</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Rooms</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">EnterRoomName</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Room Name</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Public</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Public</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Private</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Private</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Message</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Message</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Action</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Action</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">PleaseWait</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Please Wait</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="38.25">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">RoomCancelledByHost</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Room Cancelled By Host</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">EnterPassword</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Enter password</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">JoinRoom</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Join Room</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">AddFriend</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Add Friend</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">RemoveFriend</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Remove Friend</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">PageFriend</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Page Friend</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Unknown</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Unknown</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Alias</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Alias</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">NickName</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Nickname</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Country</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Country</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Email</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Email</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">GameName</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Game Name</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Name</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Name</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Date</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Date</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Load</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Load</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="38.25">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">SuicideAndApply</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Suicide and Apply</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">TeamRed</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">RED TEAM</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">TeamBlue</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">BLUE TEAM</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">TeamSpec</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">SPECTATOR</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Difficulty</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Difficulty</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">DifficultyEasy</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Easy</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">DifficultyMedium</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Medium</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">DifficultyHard</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Hard</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Select_StartMap</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Select Start Map</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="38.25">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Load_SaveGame</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Load Check Point</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Load</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Load</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Save</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Save</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">LoadSettings</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Load Settings</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">SaveSettings</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Save Settings</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">SelectMap</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Select Map</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Players</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Players</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Default</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Default</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">QuitConfirmation</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Really Quit ?</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Yes</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Yes</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">No</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">No</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">LAN</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">LAN</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Internet</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Internet</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Easy</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Easy</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Medium</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Medium</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Level</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Level</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Checkpoint</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Checkpoint</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Hard</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Hard</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="51">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">LoggingIn</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Logging in to Ubi.com...</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="38.25">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">TimeLimit</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Time Limit (Min)</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="38.25">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">DisconnectedFromServer</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Disconnected from server...</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="38.25">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">UserDisconnected</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">User disconnected...</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="51">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">ClientHasQuit</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Client has quit the game...</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">ServerFull</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Server is full...</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Kicked</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Kicked!</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="38.25">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">ServerShutdown</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Server shutdown...</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="51">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">InvalidServerPassword</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Invalid server password...</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="51">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">ConnectionRejected</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Connection rejected...</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">IP</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">IP</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Mod</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Mod</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Map</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Map</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Ping</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Ping</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="38.25">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">LoadSavedGame</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Load Check Point</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">StartNewGame</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Start New Game</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">ServerTypeUBI</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">UBI.com</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="38.25">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">AskServerProfileName</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Profile name</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="76.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">SProfileOverwrite</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">This profile already exists! Overwrite ?</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="38.25">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">ServerTimeout</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Server timedout...</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="38.25">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">ClientTimeout</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Client timedout...</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="51">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">HardwareMixing</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Hardware Mixing (needs restart)</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="63.75">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">EnableEAX</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Enable EAX 2.0 (needs hw mixing)</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">EnableMusic</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Enable Music</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="38.25">
+    <Cell ss:StyleID="s23"><Data ss:Type="String">AskServerPassword</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Server is protected...</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="114.75">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">AskServerPasswordMsg</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">This server is password protected...\nPlease type in the password:</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="114.75">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">TerminateCurrentGameLabel</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">This will terminate your current game. Are you sure you want this ?</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="38.25">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">TerminateCurrentGame</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Terminate current game...</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">ToAll</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">To All</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">ToTeam</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">To Team</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="51">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">UbiBannedAccount</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">This account is banned!</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="51">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">UbiBlockedAccount</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">This account is blocked!</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="38.25">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">UbiLockedAccount</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">This account is locked!</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="63.75">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">UbiNotDisconnected</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Already logged in to this account...</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="63.75">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">UbiNoMorePlayers</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">No more players allowed in this server...</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="51">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">UbiGroupNotExist</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">This group does not exist...</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="76.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">UbiDatabaseFailed</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Failed to connect to Ubi.com database...</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="63.75">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">UbiConnectionFailed</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Failed to connect to Ubi.com service...</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="76.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">UbiUnknownError</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Unknown error trying to login to Ubi.com...</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="51">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">UbiInvalidAccount</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Invalid Ubi.com account name...</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="63.75">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">UbiInvalidPassword</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Invalid password for this account...</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">LoginFailed</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Login Failed...</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="38.25">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">WaitingForServerTitle</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Waiting for Server...</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="140.25">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">WaitingForServerLabel</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">The server is not responding. Press disconnect to terminate the connection now!</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">LoadingError</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Loading Error...</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="51">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">GameVersionError</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Game versions do not match!</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="38.25">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">LoadLevelError</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Error loading level data!</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="51">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">LevelVersionError</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Level versions do not match!</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">MoveLeft</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Move Left</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">MoveRight</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Move Right</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">MoveForward</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Move Forward</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">MoveBackward</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Move Backward</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Walk</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Walk</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="38.25">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">SprintRun</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Sprint/Switch Position</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Chat</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Chat</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">TeamChat</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Team Chat</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Jump</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Jump</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Crouch</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Crouch</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Prone</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Prone</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">LeanLeft</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Lean Left</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">LeanRight</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Lean Right</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="38.25">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">ViewScoreboard</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Objectives/Scoreboard</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Fire</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Fire</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="38.25">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">CancelCurrentTarget</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Cancel Current Target</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Use</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Use</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">TurnLeftRight</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Turn Left/Right</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">TurnUpDown</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Turn Up/Down</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">NextWeapon</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Next Weapon</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">PrevWeapon</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Previous Weapon</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Reload</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Reload</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Slot0</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Weapon Slot 0</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Slot1</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Weapon Slot 1</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Slot2</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Weapon Slot 2</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Slot3</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Weapon Slot 3</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Slot4</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Weapon Slot 4</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Slot5</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Weapon Slot 5</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Slot6</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Weapon Slot 6</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Slot7</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Weapon Slot 7</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Slot8</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Weapon Slot 8</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Slot9</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Weapon Slot 9</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">DropWeapon</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Drop Weapon</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">CycleGrenade</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Cycle Grenades</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Binoculars</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Binoculars</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">ThermalVision</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">CryVision</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Item2</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Select Item 2</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Item3</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Select Item 3</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Item4</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Select Item 4</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Item5</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Select Item 5</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Item6</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Select Item 6</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Item7</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Select Item 7</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Item8</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Select Item 8</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">ToggleZoom</Data></Cell>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">Zoom</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">ZoomIn</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Zoom In</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">ZoomOut</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Zoom Out</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">HoldBreath</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Hold Breath</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">ToggleFiremode</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Toggle Firemode</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Quicksave</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Quicksave</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Quickload</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Quickload</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">ThrowGrenade</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Throw Grenade</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Concentration</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Concentration</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">ToggleFlashlight</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Flashlight</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">SwitchView</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Switch View</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="38.25">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">TakeScreenshot</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Take Screenshot</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">DisconnectTitle</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Disconnect...</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="63.75">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">DisconnectYesNo</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Are you sure you want to disconnect ?</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">ChooseTeam</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Choose Team</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">ChooseClass</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Choose Class</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">ChooseWeapons</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Choose Weapons</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">NewerSrvVersion</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">[Newer Version]</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s25"><Data ss:Type="String">OlderSrvVersion</Data></Cell>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">[Old Version]</Data></Cell>
+    <Cell ss:StyleID="s25"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s25"><Data ss:Type="String">UnknownServer</Data></Cell>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">[Unknown]</Data></Cell>
+    <Cell ss:StyleID="s25"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s25"><Data ss:Type="String">UnknownMap</Data></Cell>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">[Unknown]</Data></Cell>
+    <Cell ss:StyleID="s25"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s25"><Data ss:Type="String">UnknownMod</Data></Cell>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">[Unknown]</Data></Cell>
+    <Cell ss:StyleID="s25"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s25"><Data ss:Type="String">RestoreDefaults</Data></Cell>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">Defaults</Data></Cell>
+    <Cell ss:StyleID="s25"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">Error</Data></Cell>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">Error</Data></Cell>
+    <Cell ss:StyleID="s25"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="38.25">
+    <Cell ss:StyleID="s25"><Data ss:Type="String">CreateServerSelectMap</Data></Cell>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">You must select a map first.</Data></Cell>
+    <Cell ss:StyleID="s25"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="89.25">
+    <Cell ss:StyleID="s25"><Data ss:Type="String">CreateServerFieldEmpty</Data></Cell>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">You must set all options before starting the server.</Data></Cell>
+    <Cell ss:StyleID="s25"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s25"><Data ss:Type="String">MusicQuality</Data></Cell>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">Music Quality</Data></Cell>
+    <Cell ss:StyleID="s25"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="63.75">
+    <Cell ss:StyleID="s25"><Data ss:Type="String">MusicQualitySetT</Data></Cell>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">Auto detection set the music quality to</Data></Cell>
+    <Cell ss:StyleID="s25"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="140.25">
+    <Cell ss:StyleID="s25"><Data ss:Type="String">AskAdjOptions</Data></Cell>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">It is the first time you are running Far Cry.\nDo you want to adjust your settings now ?</Data></Cell>
+    <Cell ss:StyleID="s25"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s25"><Data ss:Type="String">RenderMode</Data></Cell>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">Render Mode</Data></Cell>
+    <Cell ss:StyleID="s25"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">Normal</Data></Cell>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">Normal</Data></Cell>
+    <Cell ss:StyleID="s25"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">Paradise</Data></Cell>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">Paradise</Data></Cell>
+    <Cell ss:StyleID="s25"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">Cold</Data></Cell>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">Cold</Data></Cell>
+    <Cell ss:StyleID="s25"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">Cartoon</Data></Cell>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">Cartoon</Data></Cell>
+    <Cell ss:StyleID="s25"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">Renderer</Data></Cell>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">Renderer</Data></Cell>
+    <Cell ss:StyleID="s25"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">Direct3D9</Data></Cell>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">Direct3D9</Data></Cell>
+    <Cell ss:StyleID="s25"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">OpenGL</Data></Cell>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">OpenGL</Data></Cell>
+    <Cell ss:StyleID="s25"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s25"><Data ss:Type="String">LazyWeapon</Data></Cell>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">LazyWeapon</Data></Cell>
+    <Cell ss:StyleID="s25"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="38.25">
+    <Cell ss:StyleID="s25"><Data ss:Type="String">ConnectionSettings</Data></Cell>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">Connection Settings</Data></Cell>
+    <Cell ss:StyleID="s25"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="38.25">
+    <Cell ss:StyleID="s25"><Data ss:Type="String">MaxTeamPlayers</Data></Cell>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">Max Players per Team</Data></Cell>
+    <Cell ss:StyleID="s25"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="38.25">
+    <Cell ss:StyleID="s25"><Data ss:Type="String">MinTeamPlayers</Data></Cell>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">Min Players per Team</Data></Cell>
+    <Cell ss:StyleID="s25"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="38.25">
+    <Cell ss:StyleID="s25"><Data ss:Type="String">MaxServerPlayers</Data></Cell>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">Max Players Total</Data></Cell>
+    <Cell ss:StyleID="s25"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="114.75">
+    <Cell ss:StyleID="s25"><Data ss:Type="String">AskServerPasswordMsgWrong</Data></Cell>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">Invalid server password...\nPlease type in the correct password:</Data></Cell>
+    <Cell ss:StyleID="s25"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s25"><Data ss:Type="String">VerifyingCDKey</Data></Cell>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">Verifying CDKey...</Data></Cell>
+    <Cell ss:StyleID="s25"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s25"><Data ss:Type="String">AskCDKeyTitle</Data></Cell>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">CDKey</Data></Cell>
+    <Cell ss:StyleID="s25"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="51">
+    <Cell ss:StyleID="s25"><Data ss:Type="String">AskCDKey</Data></Cell>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">Please enter your CDKey:</Data></Cell>
+    <Cell ss:StyleID="s25"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="51">
+    <Cell ss:StyleID="s25"><Data ss:Type="String">AskCDKeyReenter</Data></Cell>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">\nPlease re-enter your CDKey:</Data></Cell>
+    <Cell ss:StyleID="s25"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="38.25">
+    <Cell ss:StyleID="s25"><Data ss:Type="String">UbiCDKeyInternalError</Data></Cell>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">Internal CDKey error!</Data></Cell>
+    <Cell ss:StyleID="s25"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="51">
+    <Cell ss:StyleID="s25"><Data ss:Type="String">UbiCDKeyNotChallenged</Data></Cell>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">CDKey not challenged!</Data></Cell>
+    <Cell ss:StyleID="s25"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="38.25">
+    <Cell ss:StyleID="s25"><Data ss:Type="String">UbiCDKeyOnline</Data></Cell>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">CDKey already in use!</Data></Cell>
+    <Cell ss:StyleID="s25"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="38.25">
+    <Cell ss:StyleID="s25"><Data ss:Type="String">UbiCDKeyTimeout</Data></Cell>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">CDKey verification timeout!</Data></Cell>
+    <Cell ss:StyleID="s25"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s25"><Data ss:Type="String">UbiInvalidCDKey</Data></Cell>
+    <Cell><Data ss:Type="String">Invalid CD Key</Data></Cell>
+    <Cell ss:StyleID="s25"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s25"><Data ss:Type="String">ConnectingTo</Data></Cell>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">Connecting to </Data></Cell>
+    <Cell ss:StyleID="s25"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="38.25">
+    <Cell ss:StyleID="s25"><Data ss:Type="String">ConnectingToServer</Data></Cell>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">Connecting to Server...</Data></Cell>
+    <Cell ss:StyleID="s25"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="38.25">
+    <Cell ss:StyleID="s25"><Data ss:Type="String">ConnectionTimeout</Data></Cell>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">Connection timeout...</Data></Cell>
+    <Cell ss:StyleID="s25"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="51">
+    <Cell ss:StyleID="s25"><Data ss:Type="String">AdvChangeMess1</Data></Cell>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">Advanced Video options changed</Data></Cell>
+    <Cell ss:StyleID="s25"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="38.25">
+    <Cell ss:StyleID="s25"><Data ss:Type="String">MenuVideo</Data></Cell>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">Play background video</Data></Cell>
+    <Cell ss:StyleID="s25"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">Custom</Data></Cell>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">Custom</Data></Cell>
+    <Cell ss:StyleID="s25"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s25"><Data ss:Type="String">CreateAccount</Data></Cell>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">Create Account</Data></Cell>
+    <Cell ss:StyleID="s25"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s26"><Data ss:Type="String">UBILogout</Data></Cell>
+    <Cell ss:StyleID="s26"><Data ss:Type="String">Logout Ubi.com</Data></Cell>
+    <Cell ss:StyleID="s25"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s26"><Data ss:Type="String">UBIcomInfo</Data></Cell>
+    <Cell ss:StyleID="s26"><Data ss:Type="String">UBI.com</Data></Cell>
+    <Cell ss:StyleID="s25"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="63.75">
+    <Cell ss:StyleID="s26"><Data ss:Type="String">DisconnectingFromService</Data></Cell>
+    <Cell ss:StyleID="s26"><Data ss:Type="String">Successfully logged out from UBI.com</Data></Cell>
+    <Cell ss:StyleID="s25"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="63.75">
+    <Cell ss:StyleID="s26"><Data ss:Type="String">CanNotRemoveDefaultProfile</Data></Cell>
+    <Cell ss:StyleID="s26"><Data ss:Type="String">You can not remove default profile</Data></Cell>
+    <Cell ss:StyleID="s25"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="63.75">
+    <Cell ss:StyleID="s25"><Data ss:Type="String">CreateServerTypeName</Data></Cell>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">Please type a name for your server!</Data></Cell>
+    <Cell ss:StyleID="s25"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="89.25">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">CreateServerMaxPlayers</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Max Players Total must be less or equal than 32!</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="38.25">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">CreateLANServer</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Create LAN Server</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="38.25">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">CreateUBIServer</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Create Internet Server</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="38.25">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">RenderModeNotSupported</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Not Supported!</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="38.25">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">AdvancedVidOptions</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Advanced Options</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">BasicVIdOptions</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Basic Options</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">SavingGame</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Saving Game</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="153">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">AdvChangeMess2</Data></Cell>
+    <Cell ss:StyleID="s27"><Data ss:Type="String">YOU MUST RESTART THE GAME TO MAKE THE CHANGES EFFECTIVE</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">AIAutoBalance</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">AI Auto Balance</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Controls</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Controls</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">LaunchDemo</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Launch Demo</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="38.25">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">MessageNotification</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Message Notification</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">MultiplayerName </Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Multiplayer Name</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">MultiplayerModel </Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Multiplayer Model</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s28"><Data ss:Type="String">Bilinear</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Bilinear</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s28"><Data ss:Type="String">Trilinear</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Trilinear</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="51">
+    <Cell ss:StyleID="s28"><Data ss:Type="String">AnisotropicFilteringLevel</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Anisotropic Filtering Level</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s28"><Data ss:Type="String">UltraHigh</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Ultra High</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="38.25">
+    <Cell ss:StyleID="s29"><Data ss:Type="String">DeathTime</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Corpse Stay (Secs)</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Challenging </Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Challenging</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Veteran</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Veteran</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Realistic </Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Realistic</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="102">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">SoundCompatibleMode</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Compatible mode (needs restart) \n Enable in case of playback issues</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="38.25">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">CONTROLS_MOVEMENT </Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">$$8MOVEMENT$</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="38.25">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">CONTROLS_MULTIPLAYER</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">$$8MULTIPLAYER$</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="38.25">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">CONTROLS_GAME</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">$$8GAME$</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="38.25">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">CONTROLS_COMBAT </Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">$$8COMBAT$</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="38.25">
+    <Cell ss:StyleID="s27"><Data ss:Type="String">RemoveServerProfile</Data></Cell>
+    <Cell ss:StyleID="s27"><Data ss:Type="String">Remove Profile</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="38.25">
+    <Cell ss:StyleID="s27"><Data ss:Type="String">RemoveSavedGame</Data></Cell>
+    <Cell ss:StyleID="s27"><Data ss:Type="String">Remove Checkpoint</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Mods </Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Mods</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">LoadMOD</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Load MOD</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Title</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Title</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Version</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Version</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Author</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Author</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">WebSite</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">WebSite</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">MPModelJack</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Jack</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">MPModelScout </Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Scout</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">MPModelRear </Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Rear</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">MPModelCover </Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Cover</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="38.25">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">MPModelEvilWorker </Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Evil Worker</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">MPModelCrowe </Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Crowe</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">CheckpointLast </Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Last</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">MultiplayerColor </Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Multiplayer Color</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="165.75">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Modalreadyselected </Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">The MOD you are trying to load is already set as the current one. \n Please select another MOD.</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s30"><Data ss:Type="String">SavePassword</Data></Cell>
+    <Cell ss:StyleID="s30"><Data ss:Type="String">Save password</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="38.25">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">ModChange1</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">MOD option changed</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="127.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">ModChange2</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Loading this MOD may require the game to relaunch. Do you want to do this?</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">CurrentMOD</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Current MOD</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s28"><Data ss:Type="String">SysSpec</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Machine Spec</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">GameType</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Game Type</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="38.25">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">UnknownGameType</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">[Unknown]</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="38.25">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">CDKeyFailed</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">CDKey Verification Failed!</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="114.75">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">GameXPWarning</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">ESRB notice: Game Experience May Change During Online Play!</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">XPWarningTitle</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Warning...</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Banned </Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Banned!</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="38.25">
+    <Cell ss:StyleID="s28"><Data ss:Type="String">MouseSmoothing</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Mouse Smoothing</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s28"><Data ss:Type="String">Fast</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Fast</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="38.25">
+    <Cell ss:StyleID="s28"><Data ss:Type="String">MouseAcceleration</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Mouse Acceleration</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="76.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">UbiTypeUsername</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Please type in your Ubi.com username!</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="76.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">UbiTypePassword</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Please type in your Ubi.com password!</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="102">
+    <Cell ss:StyleID="s29"><Data ss:Type="String">difficultytexteasy</Data></Cell>
+    <Cell ss:StyleID="s31"><Data ss:Type="String">A peaceful tropical island stroll. Enjoy your vacation. </Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="114.75">
+    <Cell ss:StyleID="s29"><Data ss:Type="String">difficultytextmedium</Data></Cell>
+    <Cell ss:StyleID="s31"><Data ss:Type="String">You will be challenged, but adventure requires a little danger, right?</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="153">
+    <Cell ss:StyleID="s29"><Data ss:Type="String">difficultytextchallenging</Data></Cell>
+    <Cell ss:StyleID="s31"><Data ss:Type="String">Your enemies are smarter, more accurate, and really pissed off. Good luck. You’ll need it.</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="102">
+    <Cell ss:StyleID="s29"><Data ss:Type="String">difficultytextveteran</Data></Cell>
+    <Cell ss:StyleID="s31"><Data ss:Type="String">Serious jungle madness. We hope you have a high tolerance for pain.</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s29"><Data ss:Type="String">difficultytextrealistic</Data></Cell>
+    <Cell ss:StyleID="s32"><Data ss:Type="String">You must be amazingly skilled or incredibly foolish. Forget paradise – this is hell.</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="38.25">
+    <Cell ss:StyleID="s23"><Data ss:Type="String">OverwriteConfirmation</Data></Cell>
+    <Cell ss:StyleID="s33"><Data ss:Type="String">Overwrite Confirmation</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s28"><Data ss:Type="String">Improved</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Improved</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s23"><Data ss:Type="String">LevelTraining </Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Training</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s23"><Data ss:Type="String">MissionTraining </Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Training</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s23"><Data ss:Type="String">LevelCarrier </Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Carrier</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s23"><Data ss:Type="String">MissionCarrier</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Carrier</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">LevelFort </Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Fort</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s23"><Data ss:Type="String">MissionFort</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Fort</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">LevelPier </Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Pier</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">MissionPier</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Pier</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">LevelResearch </Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Research</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">MissionResearch</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Research</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">LevelTreehouse</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Treehouse</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">MissionTreehouse </Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Treehouse</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">LevelBunker </Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Bunker</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">MissionBunker</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Bunker</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">LevelSteam</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Steam</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">MissionSteam</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Steam</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">LevelRegulator </Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Regulator</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">MissionRegulator</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Regulator</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">LevelControl </Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Control</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">MissionControl</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Control</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">LevelRebellion </Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Rebellion</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">MissionRebellion </Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Rebellion</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">LevelArchive </Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Archive</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">MissionArchive</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Archive</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">LevelCooler </Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Cooler</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">MissionCooler</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Cooler</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">LevelBoat </Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Boat</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">MissionBoat</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Boat</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">LevelCatacombs </Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Catacombs</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">MissionCatacombs</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Catacombs</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">LevelRiver </Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">River</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">MissionRiver</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">River</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">LevelSwamp</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Swamp</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">MissionSwamp</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String"> Swamp</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">LevelFactory</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Factory</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">MissionFactory </Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Factory</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">LevelDam </Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Dam</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">MissionDam</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Dam</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">LevelVolcano </Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Volcano</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">MissionVolcano</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Volcano</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">control65536</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Mouse 1</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">control131072</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Mouse 2</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">control196608</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Mouse 3</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">control262144</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Mouse 4</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">control327680</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Mouse 5</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">control393216</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Mouse 6</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">control458752</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Mouse 7</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">control524288</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Mouse 8</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">control589824</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Mouse Wheel Up</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="38.25">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">control655360</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Mouse Wheel Down</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">control720896</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Mouse Axis X</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">control786432</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Mouse Axis Y</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="38.25">
+    <Cell ss:StyleID="s25"><Data ss:Type="String">NewGameWarningTitle</Data></Cell>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">Start New Game Warning</Data></Cell>
+    <Cell ss:StyleID="s25"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="229.5">
+    <Cell ss:StyleID="s25"><Data ss:Type="String">StartNewGameWarning</Data></Cell>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">This will overwrite your saved checkpoints!\nAre you sure you want to do this ?\nNote: You can create a new profile to preserve your checkpoints!</Data></Cell>
+    <Cell ss:StyleID="s25"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s34"><Data ss:Type="String">ResetToDefault</Data></Cell>
+    <Cell ss:StyleID="s34"><Data ss:Type="String">Reset to defaults </Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s34"><Data ss:Type="String">GenericAreYouSure</Data></Cell>
+    <Cell ss:StyleID="s34"><Data ss:Type="String">Are you sure?</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">PB</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">PB</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">PWD </Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">P</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="38.25">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">EnablePBClient </Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Enable PunkBuster Client</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="38.25">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">EnablePBServer </Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Enable PunkBuster Server</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="89.25">
+    <Cell ss:StyleID="s22"><Data ss:Type="String">LanIPOnly </Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">LAN servers are restricted to LAN IP addresses!</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s28"><Data ss:Type="String">ToggleAim </Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Toggle Zoom</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s28"><Data ss:Type="String">CrouchToggle </Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Toggle Crouch</Data></Cell>
+    <Cell ss:StyleID="s22"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="38.25">
+    <Cell ss:StyleID="s35"><Data ss:Type="String">EnableHDR</Data></Cell>
+    <Cell ss:StyleID="s35"><Data ss:Type="String">HDR Rendering</Data></Cell>
+    <Cell ss:StyleID="s36"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s35"><Data ss:Type="String">HDRExposure</Data></Cell>
+    <Cell ss:StyleID="s35"><Data ss:Type="String">HDR Exposure</Data></Cell>
+    <Cell ss:StyleID="s36"/>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s37"><Data ss:Type="String">MinPlayersTooHigh </Data></Cell>
+    <Cell ss:StyleID="s38"><Data ss:Type="String">Min Players per Team cannot be higher than Max Players per Team!</Data></Cell>
+   </Row>
+   <Row ss:AutoFitHeight="0" ss:Height="25.5">
+    <Cell ss:StyleID="s37"><Data ss:Type="String">MaxPlayersTooHigh </Data></Cell>
+    <Cell ss:StyleID="s38"><Data ss:Type="String">Max Players per Team cannot be higher than Max Players Total!</Data></Cell>
+   </Row>
+   <Row ss:Height="25.5">
+    <Cell ss:StyleID="s42"><Data ss:Type="String">MinPlayersTooHigh2</Data></Cell>
+    <Cell ss:StyleID="s44"><Data ss:Type="String">Min Players per Team cannot be higher than half of Max Players Total!</Data></Cell>
+   </Row>
+  </Table>
+  <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+   <Print>
+    <ValidPrinterInfo/>
+    <PaperSizeIndex>9</PaperSizeIndex>
+    <HorizontalResolution>300</HorizontalResolution>
+    <VerticalResolution>300</VerticalResolution>
+   </Print>
+   <Selected/>
+   <TopRowVisible>466</TopRowVisible>
+   <Panes>
+    <Pane>
+     <Number>3</Number>
+     <ActiveRow>474</ActiveRow>
+     <ActiveCol>1</ActiveCol>
+    </Pane>
+   </Panes>
+   <ProtectObjects>False</ProtectObjects>
+   <ProtectScenarios>False</ProtectScenarios>
+  </WorksheetOptions>
+ </Worksheet>
+ <Worksheet ss:Name="Sheet2">
+  <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+   <ProtectObjects>False</ProtectObjects>
+   <ProtectScenarios>False</ProtectScenarios>
+  </WorksheetOptions>
+ </Worksheet>
+ <Worksheet ss:Name="Sheet3">
+  <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+   <ProtectObjects>False</ProtectObjects>
+   <ProtectScenarios>False</ProtectScenarios>
+  </WorksheetOptions>
+ </Worksheet>
+</Workbook>

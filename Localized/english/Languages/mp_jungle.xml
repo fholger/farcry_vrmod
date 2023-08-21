@@ -1,0 +1,166 @@
+<?xml version="1.0"?>
+<?mso-application progid="Excel.Sheet"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:o="urn:schemas-microsoft-com:office:office"
+ xmlns:x="urn:schemas-microsoft-com:office:excel"
+ xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:html="http://www.w3.org/TR/REC-html40">
+ <DocumentProperties xmlns="urn:schemas-microsoft-com:office:office">
+  <Author>tony</Author>
+  <LastAuthor>tony</LastAuthor>
+  <Created>2004-01-31T21:03:45Z</Created>
+  <Version>11.5703</Version>
+ </DocumentProperties>
+ <OfficeDocumentSettings xmlns="urn:schemas-microsoft-com:office:office">
+  <DownloadComponents/>
+  <LocationOfComponents HRef="file:///Z:\Work_progs\en_office_2003_pro\"/>
+ </OfficeDocumentSettings>
+ <ExcelWorkbook xmlns="urn:schemas-microsoft-com:office:excel">
+  <WindowHeight>12660</WindowHeight>
+  <WindowWidth>19020</WindowWidth>
+  <WindowTopX>1950</WindowTopX>
+  <WindowTopY>150</WindowTopY>
+  <ProtectStructure>False</ProtectStructure>
+  <ProtectWindows>False</ProtectWindows>
+ </ExcelWorkbook>
+ <Styles>
+  <Style ss:ID="Default" ss:Name="Normal">
+   <Alignment ss:Vertical="Bottom"/>
+   <Borders/>
+   <Font/>
+   <Interior/>
+   <NumberFormat/>
+   <Protection/>
+  </Style>
+  <Style ss:ID="s21">
+   <Borders/>
+   <Font ss:Bold="1"/>
+   <Interior ss:Color="#C0C0C0" ss:Pattern="Solid"/>
+   <NumberFormat ss:Format="@"/>
+   <Protection/>
+  </Style>
+  <Style ss:ID="s22">
+   <Interior/>
+   <NumberFormat ss:Format="@"/>
+  </Style>
+  <Style ss:ID="s23">
+   <Interior ss:Color="#808080" ss:Pattern="Solid"/>
+   <NumberFormat ss:Format="@"/>
+  </Style>
+  <Style ss:ID="s24">
+   <Alignment ss:Horizontal="Left" ss:Vertical="Top" ss:WrapText="1"/>
+   <Borders/>
+   <Font ss:Color="#000000"/>
+   <Interior/>
+  </Style>
+  <Style ss:ID="s25">
+   <Alignment ss:Vertical="Top" ss:WrapText="1"/>
+   <Borders/>
+   <Font x:Family="Swiss" ss:Color="#000000"/>
+   <Interior/>
+  </Style>
+  <Style ss:ID="s26">
+   <Alignment ss:Vertical="Top" ss:WrapText="1"/>
+   <Borders/>
+   <Font x:Family="Swiss" ss:Color="#000000"/>
+   <Interior ss:Color="#808080" ss:Pattern="Solid"/>
+  </Style>
+ </Styles>
+ <Worksheet ss:Name="Sheet1">
+  <Table ss:ExpandedColumnCount="3" ss:ExpandedRowCount="17" x:FullColumns="1"
+   x:FullRows="1">
+   <Row>
+    <Cell ss:StyleID="s21"><Data ss:Type="String">Key</Data></Cell>
+    <Cell ss:StyleID="s21"><Data ss:Type="String">English</Data></Cell>
+    <Cell ss:StyleID="s21"><Data ss:Type="String">Foreign Language</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">jungle_C1_A1</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Capture the solar array!</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">jungle_C1_D1</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Defend the solar array!</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">jungle_C2_A1</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Capture the crash site!</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">jungle_C2_D1</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Defend the crash site!</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">jungle_C3_A1</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Capture the heliport!</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">jungle_C3_D1</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Defend the heliport!</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">jungle_win</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">Well done team!</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">jungle_lose</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">You failed!</Data></Cell>
+   </Row>
+   <Row ss:Height="165.75">
+    <Cell ss:StyleID="s24"><Data ss:Type="String">mp_jungle_S1_A1</Data></Cell>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">We must capture the administration facility. First, take out the solar battery to shut off their power.</Data></Cell>
+   </Row>
+   <Row ss:Height="293.25">
+    <Cell ss:StyleID="s24"><Data ss:Type="String">mp_jungle_S1_D1</Data></Cell>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">We have reports of enemy activity in the area. We suspect their final goal is the administration facility. They'll likely attack the solar compound first, so defend that compound!</Data></Cell>
+   </Row>
+   <Row ss:Height="204">
+    <Cell ss:StyleID="s24"><Data ss:Type="String">mp_jungle_C1_A1</Data></Cell>
+    <Cell ss:StyleID="s26"><Data ss:Type="String">We've taken the solar battery! There's a crashed cargo plane nearby that may have valuable materials. Capture the crash site!</Data></Cell>
+   </Row>
+   <Row ss:Height="140.25">
+    <Cell ss:StyleID="s24"><Data ss:Type="String">mp_jungle_C1_D1</Data></Cell>
+    <Cell ss:StyleID="s26"><Data ss:Type="String">Our transport plane has crash landed near the heliport. Get over there and secure the site!</Data></Cell>
+   </Row>
+   <Row ss:Height="102">
+    <Cell ss:StyleID="s24"><Data ss:Type="String">mp_jungle_C2_A1</Data></Cell>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">We've secured the crash site! Move on and take the facility!</Data></Cell>
+   </Row>
+   <Row ss:Height="127.5">
+    <Cell ss:StyleID="s24"><Data ss:Type="String">mp_jungle_C2_D1</Data></Cell>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">They have taken the crash site. Get back here and protect the facility!</Data></Cell>
+   </Row>
+   <Row ss:Height="63.75">
+    <Cell ss:StyleID="s24"><Data ss:Type="String">mp_jungle_C3_A1</Data></Cell>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">We have taken the administration facility!</Data></Cell>
+   </Row>
+   <Row ss:Height="38.25">
+    <Cell ss:StyleID="s24"><Data ss:Type="String">mp_jungle_C3_D1</Data></Cell>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">They've taken the facility!</Data></Cell>
+   </Row>
+  </Table>
+  <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+   <Selected/>
+   <Panes>
+    <Pane>
+     <Number>3</Number>
+     <RangeSelection>R1C1:R17C3</RangeSelection>
+    </Pane>
+   </Panes>
+   <ProtectObjects>False</ProtectObjects>
+   <ProtectScenarios>False</ProtectScenarios>
+  </WorksheetOptions>
+ </Worksheet>
+ <Worksheet ss:Name="Sheet2">
+  <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+   <ProtectObjects>False</ProtectObjects>
+   <ProtectScenarios>False</ProtectScenarios>
+  </WorksheetOptions>
+ </Worksheet>
+ <Worksheet ss:Name="Sheet3">
+  <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+   <ProtectObjects>False</ProtectObjects>
+   <ProtectScenarios>False</ProtectScenarios>
+  </WorksheetOptions>
+ </Worksheet>
+</Workbook>

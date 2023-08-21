@@ -1,0 +1,190 @@
+<?xml version="1.0"?>
+<?mso-application progid="Excel.Sheet"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:o="urn:schemas-microsoft-com:office:office"
+ xmlns:x="urn:schemas-microsoft-com:office:excel"
+ xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:html="http://www.w3.org/TR/REC-html40">
+ <DocumentProperties xmlns="urn:schemas-microsoft-com:office:office">
+  <Author>tony</Author>
+  <LastAuthor>tony</LastAuthor>
+  <Created>2004-02-20T11:40:13Z</Created>
+  <Version>11.5703</Version>
+ </DocumentProperties>
+ <OfficeDocumentSettings xmlns="urn:schemas-microsoft-com:office:office">
+  <DownloadComponents/>
+  <LocationOfComponents HRef="file:///Z:\Work_progs\en_office_2003_pro\"/>
+ </OfficeDocumentSettings>
+ <ExcelWorkbook xmlns="urn:schemas-microsoft-com:office:excel">
+  <WindowHeight>12660</WindowHeight>
+  <WindowWidth>19020</WindowWidth>
+  <WindowTopX>120</WindowTopX>
+  <WindowTopY>120</WindowTopY>
+  <ProtectStructure>False</ProtectStructure>
+  <ProtectWindows>False</ProtectWindows>
+ </ExcelWorkbook>
+ <Styles>
+  <Style ss:ID="Default" ss:Name="Normal">
+   <Alignment ss:Vertical="Bottom"/>
+   <Borders/>
+   <Font/>
+   <Interior/>
+   <NumberFormat/>
+   <Protection/>
+  </Style>
+  <Style ss:ID="s21">
+   <Alignment ss:Vertical="Bottom" ss:WrapText="1"/>
+   <Borders/>
+   <Font x:Family="Swiss" ss:Color="#000000"/>
+   <Interior ss:Color="#808080" ss:Pattern="Solid"/>
+   <NumberFormat ss:Format="@"/>
+   <Protection/>
+  </Style>
+  <Style ss:ID="s22">
+   <Alignment ss:Vertical="Bottom" ss:WrapText="1"/>
+   <Borders/>
+   <Font ss:Color="#000000" ss:Bold="1"/>
+   <Interior ss:Color="#808080" ss:Pattern="Solid"/>
+   <NumberFormat ss:Format="@"/>
+   <Protection/>
+  </Style>
+  <Style ss:ID="s23">
+   <Alignment ss:Vertical="Bottom" ss:WrapText="1"/>
+   <Borders/>
+   <Font ss:Color="#000000" ss:Bold="1"/>
+   <Interior ss:Color="#C0C0C0" ss:Pattern="Solid"/>
+   <NumberFormat ss:Format="@"/>
+   <Protection/>
+  </Style>
+  <Style ss:ID="s24">
+   <Alignment ss:Horizontal="Left" ss:Vertical="Bottom"/>
+   <Font x:Family="Swiss"/>
+  </Style>
+  <Style ss:ID="s25">
+   <Alignment ss:Horizontal="Left" ss:Vertical="Top" ss:WrapText="1"/>
+   <Borders/>
+   <Font x:Family="Swiss"/>
+  </Style>
+  <Style ss:ID="s26">
+   <Alignment ss:Horizontal="Left" ss:Vertical="Bottom"/>
+   <Font x:Family="Swiss" ss:Color="#000000"/>
+  </Style>
+  <Style ss:ID="s27">
+   <Alignment ss:Horizontal="Left" ss:Vertical="Top" ss:WrapText="1"/>
+   <Borders/>
+   <Font x:Family="Swiss" ss:Color="#000000"/>
+  </Style>
+  <Style ss:ID="s28">
+   <Font x:Family="Swiss" ss:Color="#000000"/>
+  </Style>
+ </Styles>
+ <Worksheet ss:Name="Sheet1">
+  <Table ss:ExpandedColumnCount="3" ss:ExpandedRowCount="20" x:FullColumns="1"
+   x:FullRows="1">
+   <Row ss:Height="38.25">
+    <Cell ss:StyleID="s21"><Data ss:Type="String">Key</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">English</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Foreign Language</Data></Cell>
+   </Row>
+   <Row ss:Height="38.25">
+    <Cell ss:StyleID="s24"><Data ss:Type="String">StatFinishTime</Data></Cell>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">Time to finish level</Data></Cell>
+   </Row>
+   <Row ss:Height="25.5">
+    <Cell ss:StyleID="s24"><Data ss:Type="String">StatEnemies</Data></Cell>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">$$8Enemies$</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">StatKilled</Data></Cell>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">Killed</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">StatSurvived</Data></Cell>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">Survived</Data></Cell>
+   </Row>
+   <Row ss:Height="38.25">
+    <Cell ss:StyleID="s24"><Data ss:Type="String">StatKillPct</Data></Cell>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">Kill Percentage&#160;</Data></Cell>
+   </Row>
+   <Row ss:Height="25.5">
+    <Cell ss:StyleID="s24"><Data ss:Type="String">StatAvgLifeTime</Data></Cell>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">Average Lifetime </Data></Cell>
+   </Row>
+   <Row ss:Height="25.5">
+    <Cell ss:StyleID="s24"><Data ss:Type="String">StatSilentKill</Data></Cell>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">Silent Kills</Data></Cell>
+   </Row>
+   <Row ss:Height="25.5">
+    <Cell ss:StyleID="s24"><Data ss:Type="String">StatPlayer</Data></Cell>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">$$8Player$</Data></Cell>
+   </Row>
+   <Row ss:Height="25.5">
+    <Cell ss:StyleID="s24"><Data ss:Type="String">StatShotsFired</Data></Cell>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">Shots Fired</Data></Cell>
+   </Row>
+   <Row ss:Height="38.25">
+    <Cell ss:StyleID="s24"><Data ss:Type="String">StatShotsHit</Data></Cell>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">Shots Successful</Data></Cell>
+   </Row>
+   <Row ss:Height="38.25">
+    <Cell ss:StyleID="s24"><Data ss:Type="String">StatAccuracy</Data></Cell>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">Accuracy Percentage</Data></Cell>
+   </Row>
+   <Row ss:Height="25.5">
+    <Cell ss:StyleID="s24"><Data ss:Type="String">StatDeadliness</Data></Cell>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">Deadliness</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s24"><Data ss:Type="String">StatDeaths</Data></Cell>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">Deaths</Data></Cell>
+   </Row>
+   <Row ss:Height="63.75">
+    <Cell ss:StyleID="s24"><Data ss:Type="String">StatDeathsChkpt</Data></Cell>
+    <Cell ss:StyleID="s25"><Data ss:Type="String">Average deaths per checkpoint</Data></Cell>
+   </Row>
+   <Row ss:Height="51">
+    <Cell ss:StyleID="s26"><Data ss:Type="String">StatAvgChkptTime</Data></Cell>
+    <Cell ss:StyleID="s27"><Data ss:Type="String">Average time between deaths</Data></Cell>
+   </Row>
+   <Row ss:Height="25.5">
+    <Cell ss:StyleID="s26"><Data ss:Type="String">StatVehicles</Data></Cell>
+    <Cell ss:StyleID="s27"><Data ss:Type="String">Vehicles destroyed</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s28"><Data ss:Type="String">StatStats</Data></Cell>
+    <Cell ss:StyleID="s28"><Data ss:Type="String">Statistics</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s28"><Data ss:Type="String">StatSeconds</Data></Cell>
+    <Cell ss:StyleID="s28"><Data ss:Type="String">Seconds</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s28"><Data ss:Type="String">StatStatsMode</Data></Cell>
+    <Cell ss:StyleID="s28"><Data ss:Type="String">StatisticsMode</Data></Cell>
+   </Row>
+  </Table>
+  <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+   <Selected/>
+   <Panes>
+    <Pane>
+     <Number>3</Number>
+     <RangeSelection>R1C1:R20C3</RangeSelection>
+    </Pane>
+   </Panes>
+   <ProtectObjects>False</ProtectObjects>
+   <ProtectScenarios>False</ProtectScenarios>
+  </WorksheetOptions>
+ </Worksheet>
+ <Worksheet ss:Name="Sheet2">
+  <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+   <ProtectObjects>False</ProtectObjects>
+   <ProtectScenarios>False</ProtectScenarios>
+  </WorksheetOptions>
+ </Worksheet>
+ <Worksheet ss:Name="Sheet3">
+  <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+   <ProtectObjects>False</ProtectObjects>
+   <ProtectScenarios>False</ProtectScenarios>
+  </WorksheetOptions>
+ </Worksheet>
+</Workbook>
