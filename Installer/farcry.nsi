@@ -1,4 +1,5 @@
 !include "MUI2.nsh"
+!include "WordFunc.nsh"
 !define VERSION '0.6.0'
 
 Name "FarCry VR Mod"
@@ -55,7 +56,16 @@ Function .onInit
 	; try to look up install directory for the Steam version of Far Cry
 	SetRegView 64
 	ReadRegStr $R0 HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Steam App 13520" "InstallLocation"
+	IfErrors lbl_checkubi 0
+	StrCpy $INSTDIR $R0
+	Return
+
+	lbl_checkubi:
+	; try to look up install directory for the Ubisoft version of Far Cry
+	SetRegView 32
+	ReadRegStr $R0 HKLM "Software\Ubisoft\Launcher\Installs\84" "InstallDir"
 	IfErrors lbl_fallback 0
+	${WordReplace} $R0 "/" "\" "+" $R0
 	StrCpy $INSTDIR $R0
 	Return
 	
