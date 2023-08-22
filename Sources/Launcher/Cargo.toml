@@ -8,12 +8,5 @@ description = "A launcher for Far Cry VR"
 name = "FarCryVR"
 path = "src/main.rs"
 
-[dependencies.windows]
-version = "0.48"
-features = [
-    "Win32_Foundation",
-    "Win32_System_LibraryLoader",
-]
-
 [target.'cfg(windows)'.build-dependencies]
 winres = "0.1"

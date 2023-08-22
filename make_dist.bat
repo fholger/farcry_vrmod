@@ -17,7 +17,7 @@ cd %DIR%\Localized\english
 7z a english.zip .\*
 
 copy %DIR%\ModDesc.txt %DIST%\Mods\CryVR
-copy %DIR%\FarCryVR.bat %DIST%
+copy %DIR%\FarCryVR.exe %DIST%
 copy %DIR%\FarCryVR_dev.bat %DIST%
 copy %DIR%\README.md %DIST%\Mods\CryVR
 copy %DIR%\LICENSE.md %DIST%\Mods\CryVR

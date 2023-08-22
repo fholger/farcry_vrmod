@@ -21,7 +21,7 @@ It features a full roomscale VR experience with motion controller support.'
 !define MUI_DIRECTORYPAGE_TEXT 'Please enter the location of your FarCry installation.'
 
 !define MUI_FINISHPAGE_TITLE 'Installation complete.'
-!define MUI_FINISHPAGE_TEXT 'You can launch the VR Mod by running FarCryVR.bat from your FarCry install directory.'
+!define MUI_FINISHPAGE_TEXT 'You can launch the VR Mod by running FarCryVR.exe from your FarCry install directory.'
 !define MUI_FINISHPAGE_SHOWREADME 'https://farcryvr.de/manual/'
 !define MUI_FINISHPAGE_SHOWREADME_TEXT 'Show Far Cry VR manual'
 !define MUI_FINISHPAGE_NOREBOOTSUPPORT
@@ -41,7 +41,8 @@ Section ""
 	File .\assembly\Bin32\*
 
 	SetOutPath $INSTDIR
-	File .\assembly\FarCryVR*.bat
+	File .\assembly\FarCryVR.exe
+	File .\assembly\FarCryVR_dev.bat
 SectionEnd
 
 Function .onInit
