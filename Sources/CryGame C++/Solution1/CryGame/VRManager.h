@@ -115,6 +115,7 @@ public:
 	ICVar* vr_debug_override_rh_angles = nullptr;
 	ICVar* vr_debug_override_lh_offset = nullptr;
 	ICVar* e_terrain_lod_ratio = nullptr;
+	ICVar* e_detail_texture_min_fov = nullptr;
 
 private:
 	void RegisterCVars();

@@ -1546,6 +1546,14 @@ void CXGame::LoadLevelCS(bool keepclient, const char *szMapName, const char *szM
 
 	if (gVR->vr_render_force_obj_draw_dist)
 		m_pSystem->GetIConsole()->ExecuteString("e_obj_view_dist_ratio 500", false, true);
+
+	if (gVR->vr_render_force_max_terrain_detail != 0)
+	{
+		// make sure terrain is rendered at max detail pretty much everywhere
+		gVR->e_terrain_lod_ratio->Set(0.1f);
+		// this very slightly improves terrain texture LOD behavior
+		gVR->e_detail_texture_min_fov->Set(100.f);
+	}
 };
 
 //////////////////////////////////////////////////////////////////////////

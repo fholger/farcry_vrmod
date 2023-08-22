@@ -408,12 +408,6 @@ void VRManager::FinishFrame()
 		IDirect3DTexture9 *tex = eye == 2 ? m_d3d->hudTexture.Get() : m_d3d->eyeTextures[eye].Get();
 		dxvkTransitionImageLayout(m_d3d->device.Get(), tex, VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL, origLayout[eye]);
 	}
-
-	if (vr_render_force_max_terrain_detail != 0)
-	{
-		// make sure terrain is rendered at max detail pretty much everywhere
-		e_terrain_lod_ratio->Set(0.1f);
-	}
 }
 
 vector2di VRManager::GetRenderSize() const
@@ -904,6 +898,7 @@ void VRManager::RegisterCVars()
 	vr_debug_override_rh_angles = console->CreateVariable("vr_debug_override_rh_angles", "0.0 0.0 0.0", VF_CHEAT);
 
 	e_terrain_lod_ratio = console->GetCVar("e_terrain_lod_ratio");
+	e_detail_texture_min_fov = console->GetCVar("e_detail_texture_min_fov");
 
 	// disable motion blur, as it does not work properly in VR
 	console->GetCVar("r_MotionBlur")->ForceSet("0");
