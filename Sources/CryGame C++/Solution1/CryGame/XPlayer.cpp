@@ -2528,6 +2528,19 @@ void CPlayer::DisableTwoHandedWeaponMode()
 	}
 }
 
+void CPlayer::UpdateVRTransformsPreRender()
+{
+	if (!m_usesMotionControls)
+		return;
+
+	Ang3 refAngles = Deg2Rad(m_pEntity->GetCamera()->GetAngles());
+	refAngles.x = refAngles.y = 0;
+	m_refPlayerTransform = Matrix34::CreateRotationXYZ(refAngles, m_pEntity->GetCamera()->GetPos());
+
+	m_controllerTransform[0] = gVR->GetControllerTransform(0);
+	m_controllerTransform[1] = gVR->GetControllerTransform(1);
+}
+
 void CPlayer::TriggerHapticEffectOnMainHand(const char* effectName, float amplitudeModifier)
 {
 	if (IsMyPlayer())
@@ -4985,6 +4998,11 @@ void CPlayer::OnDraw(const SRendParams & _RendParams)
 			SRendParams RendParams      = _RendParams;
 			RendParams.vPos             = pWeapon->GetPos();
 			RendParams.vAngles          = pWeapon->GetAngles();
+
+			// redo weapon positioning on the client just before rendering, so that the weapon movement
+			// appears completely smooth to the player
+			UpdateVRTransformsPreRender();
+			ModifyWeaponPosition(pWeapon, RendParams.vAngles, RendParams.vPos);
 
 			if (RendParams.pShadowVolumeLightSource)
 			{

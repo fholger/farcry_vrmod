@@ -292,6 +292,8 @@ public:
 	void DisableTwoHandedWeaponMode();
 	bool IsTwoHandedModeActive() { return m_twoHandWeaponMode; }
 
+	void UpdateVRTransformsPreRender();
+
 	void TriggerHapticEffectOnMainHand(const char* effectName, float amplitudeModifier = 1.0f);
 	void TriggerHapticEffectOnOffHand(const char* effectName, float amplitudeModifier = 1.0f);
 	void TriggerWeaponHapticEffect(const char* effectName, float amplitudeModifier = 1.0f);
