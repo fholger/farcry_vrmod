@@ -1,8 +1,8 @@
 !include "MUI2.nsh"
 !include "WordFunc.nsh"
-!define VERSION '0.6.0'
+!define VERSION '0.7.0a'
 
-Name "FarCry VR Mod"
+Name "Far Cry VR Mod"
 ; should not need admin privileges as the install folder should be user writable, anyway
 RequestExecutionLevel user
 
@@ -20,6 +20,8 @@ It features a full roomscale VR experience with motion controller support.'
 
 !define MUI_DIRECTORYPAGE_TEXT 'Please enter the location of your FarCry installation.'
 
+!define MUI_COMPONENTSPAGE_NODESC
+
 !define MUI_FINISHPAGE_TITLE 'Installation complete.'
 !define MUI_FINISHPAGE_TEXT 'You can launch the VR Mod by running FarCryVR.exe from your FarCry install directory.'
 !define MUI_FINISHPAGE_SHOWREADME 'https://farcryvr.de/manual/'
@@ -28,12 +30,14 @@ It features a full roomscale VR experience with motion controller support.'
 
 !insertmacro MUI_PAGE_WELCOME
 !insertmacro MUI_PAGE_DIRECTORY
+!insertmacro MUI_PAGE_COMPONENTS
 !insertmacro MUI_PAGE_INSTFILES
 !insertmacro MUI_PAGE_FINISH
 
 !insertmacro MUI_LANGUAGE "English"
 
-Section "" 
+Section "!Mod files"
+	SectionIn RO
 	SetOutPath $INSTDIR\Mods\CryVR
 	File /r .\assembly\Mods\CryVR\*
 
@@ -43,6 +47,14 @@ Section ""
 	SetOutPath $INSTDIR
 	File .\assembly\FarCryVR.exe
 	File .\assembly\FarCryVR_dev.bat
+SectionEnd
+
+Section "Start menu shortcut"
+	CreateShortcut "$SMPrograms\$(^Name).lnk" "$InstDir\FarCryVR.exe"
+SectionEnd
+
+Section /o "Desktop shortcut"
+	CreateShortcut "$Desktop\$(^Name).lnk" "$InstDir\FarCryVR.exe"
 SectionEnd
 
 Function .onInit
