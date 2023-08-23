@@ -34,6 +34,10 @@ It features a full roomscale VR experience with motion controller support.'
 !insertmacro MUI_PAGE_INSTFILES
 !insertmacro MUI_PAGE_FINISH
 
+!insertmacro MUI_UNPAGE_CONFIRM
+!insertmacro MUI_UNPAGE_INSTFILES
+!insertmacro MUI_UNPAGE_FINISH
+
 !insertmacro MUI_LANGUAGE "English"
 
 Section "!Mod files"
@@ -47,6 +51,8 @@ Section "!Mod files"
 	SetOutPath $INSTDIR
 	File .\assembly\FarCryVR.exe
 	File .\assembly\FarCryVR_dev.bat
+	
+	WriteUninstaller "$INSTDIR\Uninstall_FarCryVR.exe"
 SectionEnd
 
 Section "Start menu shortcut"
@@ -55,6 +61,25 @@ SectionEnd
 
 Section /o "Desktop shortcut"
 	CreateShortcut "$Desktop\$(^Name).lnk" "$InstDir\FarCryVR.exe"
+SectionEnd
+
+Section "Uninstall"
+	SetOutPath $INSTDIR
+	RMDir /r "$INSTDIR\Mods\CryVR"
+	Delete "$INSTDIR\FarCryVR.exe"
+	Delete "$INSTDIR\FarCryVR_dev.bat"
+	Delete "$INSTDIR\Bin32\d3d9.dll"
+	Delete "$INSTDIR\Bin32\openvr_api.dll"
+	Delete "$INSTDIR\Bin32\avcodec-60.dll"
+	Delete "$INSTDIR\Bin32\avdevice-60.dll"
+	Delete "$INSTDIR\Bin32\avfilter-9.dll"
+	Delete "$INSTDIR\Bin32\avformat-60.dll"
+	Delete "$INSTDIR\Bin32\avutil-58.dll"
+	Delete "$INSTDIR\Bin32\swresample-4.dll"
+	Delete "$INSTDIR\Bin32\swscale-7.dll"
+	Delete "$SMPrograms\$(^Name).lnk"
+	Delete "$Desktop\$(^Name).lnk"
+	Delete "Uninstall_FarCryVR.exe"
 SectionEnd
 
 Function .onInit
