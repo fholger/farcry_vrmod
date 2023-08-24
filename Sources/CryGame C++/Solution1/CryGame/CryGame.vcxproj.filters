@@ -405,6 +405,9 @@
     <ClCompile Include="VRHaptics.cpp">
       <Filter>Source Files\VR</Filter>
     </ClCompile>
+    <ClCompile Include="Hand.cpp">
+      <Filter>Source Files\VR</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="IngameDialog.h">
@@ -1053,6 +1056,9 @@
       <Filter>Source Files\VR</Filter>
     </ClInclude>
     <ClInclude Include="VRHaptics.h">
+      <Filter>Source Files\VR</Filter>
+    </ClInclude>
+    <ClInclude Include="Hand.h">
       <Filter>Source Files\VR</Filter>
     </ClInclude>
   </ItemGroup>
