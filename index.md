@@ -44,13 +44,11 @@ If you would like to see the mod in action, here are some impressions:
 - Make sure to select the right path to your Far Cry installation. If you are not sure where it resides, in Steam you can right-click on the game and select "Manage -> Browse local files" to find the path on your machine. Similarly, in GOG Galaxy you can right-click on the game and go to "Manage installation -> Show folder".
 - Finish the installer.
 
-You can now launch Far Cry VR by executing the `FarCryVR.bat` in your Far Cry install folder. Far Cry VR requires SteamVR; if you have trouble starting the game, make sure that SteamVR is running first and working with your VR headset.
+You can now launch Far Cry VR by executing the `FarCryVR.exe` in your Far Cry install folder. Far Cry VR requires SteamVR; if you have trouble starting the game, make sure that SteamVR is running first and working with your VR headset.
 
 NOTE: by default, the installer runs without admin privileges as the Far Cry game folder should be user-writeable.
 If you run into issues, you may need to explicitly run the installer as an administrator.
 To do so, right-click on it and select "Run as administrator".
-
-*Attention for owners of the Ubisoft version*: due to the way the Ubisoft game launch works, the mod currently does not run out of the box on this version. There is a fairly simple workaround, though: open the `FarCryVR.bat` in a text editor of your choice and delete the last line, `erase d3d9.dll`. Now running the bat should properly launch the mod and allow you to play in VR. This problem will be fixed in a future version of the mod.
 
 ### Update instructions
 
