@@ -9,10 +9,16 @@ public:
 	void Init();
 	void Reset();
 
-	void Update(const Vec3& pos, const Ang3& angles);
-	void Render(const SRendParams& _RendParams);
+	void Update(const Matrix34& controllerTransform);
+	void Render(const SRendParams& _RendParams, const Vec3& basePos);
 
 private:
+	void HideUpperArms(const char* boneName);
+	void HideOtherHand();
+
+	const char* GetHandBone() const;
+	const char* GetOtherHandBone() const;
+
 	int m_handSide;
 	ICryCharInstance* m_pCharacter;
 	CPlayer* m_pPlayer;

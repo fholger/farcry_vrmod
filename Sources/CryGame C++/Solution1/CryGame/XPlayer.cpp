@@ -401,6 +401,15 @@ CPlayer::~CPlayer()
 		delete m_pDynLight;
 		m_pDynLight=NULL;
 	}
+
+	for (int i = 0; i < 2; ++i)
+	{
+		if (m_handModel[i])
+		{
+			delete m_handModel[i];
+			m_handModel[i] = nullptr;
+		}
+	}
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -457,6 +466,12 @@ bool CPlayer::Init()
 	GetEntity()->SetFlags( ETY_FLAG_CALCBBOX_ZROTATE );
 
 	GoStand();
+
+	for (int i = 0; i < 2; ++i)
+	{
+		m_handModel[i] = new CHand(i, this);
+		m_handModel[i]->Init();
+	}
 
 	return true;
 }
@@ -4986,6 +5001,25 @@ void CPlayer::OnDraw(const SRendParams & _RendParams)
 
 	// if nRecursionLevel is not 0 - use only 3tp person view ( for reflections )
 	int nRecursionLevel = (int)m_pGame->GetSystem()->GetIRenderer()->EF_Query(EFQ_RecurseLevel) - 1;
+
+
+	if (m_bFirstPerson && !nRecursionLevel && !GetVehicle() && !m_pMountedWeapon)
+	{
+		bool hideOffHand = GetSelectedWeapon() && (m_twoHandWeaponMode || m_stats.reloading);
+		if (!hideOffHand)
+		{
+			Matrix34 worldControllerTransform = GetWorldControllerTransform(m_offHand) * Matrix33::CreateRotationY(gf_PI_DIV_2);
+			m_handModel[m_offHand]->Update(worldControllerTransform);
+			m_handModel[m_offHand]->Render(_RendParams, m_pEntity->GetPos());
+		}
+
+		if (!GetSelectedWeapon())
+		{
+			Matrix34 worldControllerTransform = GetWorldControllerTransform(m_mainHand) * Matrix33::CreateRotationY(-gf_PI_DIV_2);
+			m_handModel[m_mainHand]->Update(worldControllerTransform);
+			m_handModel[m_mainHand]->Render(_RendParams, m_pEntity->GetPos());
+		}
+	}
 
 	// draw first person weapon
 	if(m_bFirstPerson && !nRecursionLevel && m_stats.drawfpweapon	&& m_nSelectedWeaponID != -1)

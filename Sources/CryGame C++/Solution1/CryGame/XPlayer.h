@@ -28,6 +28,7 @@
 #include "ScriptObjectStream.h"
 #include "ScriptObjectVector.h"
 #include "FireType.h"
+#include "Hand.h"
 #include "SynchedRandomSeed.h"			// CSynchedRandomSeed
 
 //////////////////////////////////////////////////////////////////////
@@ -1169,6 +1170,9 @@ private:
 	Vec3 m_swingDir;
 
 	Vec3 m_prevFireAngles;
+
+	// visible bare hands
+	CHand* m_handModel[2] = { nullptr };
 }; 
 
 #endif // __GAME_PLAYER_H__

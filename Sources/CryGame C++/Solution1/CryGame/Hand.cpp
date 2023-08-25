@@ -40,6 +40,9 @@ void CHand::Init()
 		m_pCharacter->StartAnimation(defaultIdle,ccap);
 		m_pCharacter->Update();
 		m_pCharacter->ForceUpdate(); 
+		m_pCharacter->EnableLastIdleAnimationRestart(0);
+		HideOtherHand();
+		m_pCharacter->SetFlags(m_pCharacter->GetFlags() | CS_FLAG_DRAW_NEAR);
 	}
 }
 
@@ -52,21 +55,78 @@ void CHand::Reset()
 	}
 }
 
-void CHand::Update(const Vec3& pos, const Ang3& angles)
-{
-}
-
-void CHand::Render(const SRendParams& _RendParams)
+void CHand::Update(const Matrix34& controllerTransform)
 {
 	if (!m_pCharacter)
 		return;
+
+	m_pCharacter->Update();
+	m_pCharacter->ForceUpdate();
+	m_pCharacter->ForceReskin();
+	ICryBone* bone = m_pCharacter->GetBoneByName(GetHandBone());
+	Matrix34 gripTransform = ((Matrix34)GetTransposed44(bone->GetAbsoluteMatrix())) * Matrix34::CreateTranslationMat(Vec3(0, -0.1f, -0.018f));
+
+	Matrix34 handTransform = controllerTransform * gripTransform.GetInverted();
+	m_pos = handTransform.GetTranslation();
+	m_ang = ToAnglesDeg(handTransform);
+}
+
+void CHand::Render(const SRendParams& _RendParams, const Vec3& basePos)
+{
+	if (!m_pCharacter)
+		return;
+
+	HideUpperArms(GetHandBone());
+	HideUpperArms(GetOtherHandBone());
 
 	if (m_pCharacter->GetFlags()&CS_FLAG_DRAW_MODEL)
 	{
 		SRendParams RendParams      = _RendParams;
 		RendParams.vPos             = m_pos;
 		RendParams.vAngles          = m_ang;
-
-		m_pCharacter->Draw(RendParams, m_pos);
+		m_pCharacter->Draw(RendParams, basePos);
 	}
+}
+
+void CHand::HideUpperArms(const char* boneName)
+{
+	ICryBone* bone = m_pCharacter->GetBoneByName(boneName);
+
+	Vec3 pos = bone->GetAbsoluteMatrix().GetTranslationOLD();
+
+	// scale the parent bones to zero to effectively hide those parts of the arms - we only want to see the hands in VR
+	// this will create some weird cut off at the hands, but it is the best we can do in code, without editing all the models
+	bone = bone->GetParent();
+	for (int i = 0; i < 3 && bone != nullptr; ++i)
+	{
+		Matrix44& m = const_cast<Matrix44&>(bone->GetAbsoluteMatrix());
+		m = Matrix44(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1);
+		m.SetTranslationOLD(pos);
+		bone = bone->GetParent();
+	}
+}
+
+void CHand::HideOtherHand()
+{
+	ICryBone* bone = m_pCharacter->GetBoneByName(GetOtherHandBone());
+	if (!bone || !bone->GetParent())
+		return;
+	bone = bone->GetParent()->GetParent();
+	if (!bone)
+		return;
+
+	Matrix44 zeroScale(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1);
+	bone->DoNotCalculateBoneRelativeMatrix(true);
+	Matrix44& boneMatrix = const_cast<Matrix44&>(bone->GetRelativeMatrix());
+	boneMatrix = zeroScale;
+}
+
+const char* CHand::GetHandBone() const
+{
+	return m_handSide == 1 ? "Bone03" : "Bone19";
+}
+
+const char* CHand::GetOtherHandBone() const
+{
+	return m_handSide == 1 ? "Bone19" : "Bone03";
 }
