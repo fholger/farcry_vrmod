@@ -111,6 +111,7 @@ public:
 	float vr_weapon_yaw_offset;
 	int vr_crosshair;
 	int vr_movement_dir;
+	int vr_show_empty_hands;
 	ICVar* vr_debug_override_rh_offset = nullptr;
 	ICVar* vr_debug_override_rh_angles = nullptr;
 	ICVar* vr_debug_override_lh_offset = nullptr;

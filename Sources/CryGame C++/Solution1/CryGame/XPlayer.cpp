@@ -5003,7 +5003,7 @@ void CPlayer::OnDraw(const SRendParams & _RendParams)
 	int nRecursionLevel = (int)m_pGame->GetSystem()->GetIRenderer()->EF_Query(EFQ_RecurseLevel) - 1;
 
 
-	if (m_bFirstPerson && !nRecursionLevel && !GetVehicle() && !m_pMountedWeapon)
+	if (m_bFirstPerson && !nRecursionLevel && !GetVehicle() && !m_pMountedWeapon && gVR->vr_show_empty_hands)
 	{
 		bool hideOffHand = GetSelectedWeapon() && (m_twoHandWeaponMode || m_stats.reloading);
 		if (!hideOffHand)
