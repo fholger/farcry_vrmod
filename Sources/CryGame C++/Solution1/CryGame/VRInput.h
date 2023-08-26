@@ -68,7 +68,7 @@ private:
 
 	void HandleBooleanAction(vr::VRActionHandle_t actionHandle, TriggerFn trigger, bool continuous = true);
 	void HandleAnalogAction(vr::VRActionHandle_t actionHandle, int axis, TriggerFn trigger);
-	float GetFloatValue(vr::VRActionHandle_t actionHandle, int axis = 0);
+	float GetFloatValue(vr::VRActionHandle_t actionHandle, int axis = 0, bool *isActive = nullptr);
 
 	void InitDoubleBindAction(DoubleBindAction& action, const char* actionName);
 	void HandleDoubleBindAction(DoubleBindAction& action, TriggerFn shortPressTrigger, TriggerFn longPressTrigger, bool longContinuous = true);

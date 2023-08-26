@@ -190,10 +190,15 @@ void VRInput::ProcessInputInVehicles()
 		HandleBooleanAction(m_vehiclesAttack, &CXClient::TriggerFire0);
 
 		// combine accelerate/brake to movement value
-		float accel = GetFloatValue(m_vehiclesAccelerate);
-		float brake = GetFloatValue(m_vehiclesBrake);
+		bool isAccelActive = false, isBrakeActive = false;
+		float accel = GetFloatValue(m_vehiclesAccelerate, 0, &isAccelActive);
+		float brake = GetFloatValue(m_vehiclesBrake, 0, &isBrakeActive);
 		float move = accel - brake;
-		m_pGame->GetClient()->TriggerMoveFB(move, XActivationEvent());
+
+		if (isAccelActive && isBrakeActive)
+			m_pGame->GetClient()->TriggerMoveFB(move, XActivationEvent());
+		else
+			HandleAnalogAction(m_vehiclesSteer, 1, &CXClient::TriggerMoveFB);
 	}
 	else
 	{
@@ -264,10 +269,12 @@ void VRInput::HandleAnalogAction(vr::VRActionHandle_t actionHandle, int axis, Tr
 	(m_pGame->GetClient()->*trigger)(value, XActivationEvent());
 }
 
-float VRInput::GetFloatValue(vr::VRActionHandle_t actionHandle, int axis)
+float VRInput::GetFloatValue(vr::VRActionHandle_t actionHandle, int axis, bool* isActive)
 {
 	vr::InputAnalogActionData_t actionData;
 	vr::VRInput()->GetAnalogActionData(actionHandle, &actionData, sizeof(vr::InputAnalogActionData_t), vr::k_ulInvalidInputValueHandle);
+	if (isActive != nullptr)
+		*isActive = actionData.bActive;
 	if (!actionData.bActive)
 		return 0.f;
 
