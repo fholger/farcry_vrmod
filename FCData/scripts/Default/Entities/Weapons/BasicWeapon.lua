@@ -300,7 +300,7 @@ function BasicWeapon.Client:OnUpdate(delta, shooter)
 	if (shooter == _localplayer) then
 		local stats = shooter.cnt;
 		
-		if ((stats.moving or stats.running) and ClientStuff.vlayers:IsActive("WeaponScope") and
+		if ((stats.running) and ClientStuff.vlayers:IsActive("WeaponScope") and
 				self.AimMode~=1 and (not shooter.theVehicle) and (not shooter.cnt.lock_weapon)) then
 			if (self.outOfScopeTime) then
 				if (_time > self.outOfScopeTime) then

@@ -136,11 +136,11 @@ void VRInput::ProcessInputOnFoot()
 	if (player && player->GetSelectedWeapon())
 	{
 		CWeaponClass* weapon = player->GetSelectedWeapon();
-		if (weapon->IsZoomActive() && (!IsHandTouchingHead(mainHand) || !player->IsTwoHandedModeActive()))
+		if (weapon->IsZoomActive() && (!IsHandTouchingHead(mainHand, 0.35f) || !player->IsTwoHandedModeActive()))
 		{
 			player->GetEntity()->SendScriptEvent(ScriptEvent_ZoomToggle, 2);
 		}
-		else if (player->IsTwoHandedModeActive() && !weapon->IsZoomActive() && IsHandTouchingHead(mainHand) && weapon->HasActualScope())
+		else if (player->IsTwoHandedModeActive() && !player->m_stats.running && !player->IsSwimming() && !weapon->IsZoomActive() && IsHandTouchingHead(mainHand, 0.3f) && weapon->HasActualScope())
 		{
 			player->GetEntity()->SendScriptEvent(ScriptEvent_ZoomToggle, 1);
 		}
@@ -169,11 +169,11 @@ void VRInput::ProcessInputOnFoot()
 		HandleBooleanAction(m_moveJump, &CXClient::TriggerJump, false);
 		HandleDoubleBindAction(m_weaponsNextDrop, &CXClient::TriggerNextWeapon, &CXClient::TriggerDropWeapon, false);
 		HandleDoubleBindAction(m_weaponsGrenades, &CXClient::CycleGrenade, &CXClient::TriggerFireGrenade, false);
-		HandleAnalogAction(m_moveMove, 0, &CXClient::TriggerMoveLR);
-		HandleAnalogAction(m_moveMove, 1, &CXClient::TriggerMoveFB);
 		HandleBooleanAction(m_moveSprint, &CXClient::TriggerRunSprint);
 	}
 
+	HandleAnalogAction(m_moveMove, 0, &CXClient::TriggerMoveLR);
+	HandleAnalogAction(m_moveMove, 1, &CXClient::TriggerMoveFB);
 	HandleBooleanAction(m_weaponsFire, &CXClient::TriggerFire0);
 	HandleDoubleBindAction(m_weaponsReloadFireMode, &CXClient::TriggerReload, &CXClient::TriggerFireMode, false);
 	HandleBooleanAction(m_weaponsGrip, &CXClient::TriggerTwoHandedGrip);
