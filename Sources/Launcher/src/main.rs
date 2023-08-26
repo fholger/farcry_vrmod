@@ -1,6 +1,7 @@
 #![windows_subsystem = "windows"]
 
 use std::env;
+use std::os::windows::process::CommandExt;
 use std::path::Path;
 use std::process::Command;
 
@@ -13,18 +14,22 @@ fn main() {
 
     let args = vec![
         "-MOD:CryVR",
-        "-DEVMODE",
     ];
 
-    Command::new(farcry_exe_path)
+    let mut process = Command::new(farcry_exe_path)
         .args(pass_on_args)
         .args(&args)
         .env("DXVK_ASYNC", "0")
         .env("DXVK_GPLASYNCCACHE", "0")
         .env("DXVK_STARTOPENVR", "1")
         .current_dir(install_dir.join("Bin32"))
+        .creation_flags(0x200)
         .spawn()
-        .expect("Failed to launch Far Cry")
-        .wait()
-        .expect("Failed to run Far Cry");
+        .expect("Failed to launch Far Cry");
+
+    if let Ok(value) = env::var("FCVR_WAIT") {
+        if value == "1" {
+            process.wait().unwrap();
+        }
+    }
 }
