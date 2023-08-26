@@ -1975,9 +1975,14 @@ void CXClient::CycleGrenade(float fValue,XActivationEvent ae)
 	m_PlayerProcessingCmd.AddAction( ACTION_CYCLE_GRENADE );
 }
 
-void CXClient::TriggerTwoHandedGrip(float fValue, XActivationEvent ae)
+void CXClient::TriggerLeftGrip(float fValue, XActivationEvent ae)
 {
-	m_PlayerProcessingCmd.AddAction(ACTION_TWOHAND_GRIP);
+	m_PlayerProcessingCmd.AddAction(ACTION_GRIP_LEFT);
+}
+
+void CXClient::TriggerRightGrip(float fValue, XActivationEvent ae)
+{
+	m_PlayerProcessingCmd.AddAction(ACTION_GRIP_RIGHT);
 }
 
 void CXClient::TriggerScoreBoard(float fValue, XActivationEvent ae)

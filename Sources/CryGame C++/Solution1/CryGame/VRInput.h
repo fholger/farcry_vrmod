@@ -40,6 +40,7 @@ private:
 	vr::VRActionHandle_t m_defaultBinoculars = vr::k_ulInvalidActionHandle;
 	vr::VRActionHandle_t m_defaultZoomIn = vr::k_ulInvalidActionHandle;
 	vr::VRActionHandle_t m_defaultZoomOut = vr::k_ulInvalidActionHandle;
+	vr::VRActionHandle_t m_defaultGrip = vr::k_ulInvalidActionHandle;
 
 	vr::VRActionHandle_t m_moveMove = vr::k_ulInvalidActionHandle;
 	vr::VRActionHandle_t m_moveTurn = vr::k_ulInvalidActionHandle;
@@ -61,12 +62,11 @@ private:
 	vr::VRActionHandle_t m_weaponsFire = vr::k_ulInvalidActionHandle;
 	DoubleBindAction m_weaponsReloadFireMode;
 	DoubleBindAction m_weaponsNextDrop;
-	vr::VRActionHandle_t m_weaponsGrip = vr::k_ulInvalidActionHandle;
 	DoubleBindAction m_weaponsGrenades;
 
 	using TriggerFn = void (CXClient::*)(float value, XActivationEvent ae);
 
-	void HandleBooleanAction(vr::VRActionHandle_t actionHandle, TriggerFn trigger, bool continuous = true);
+	void HandleBooleanAction(vr::VRActionHandle_t actionHandle, TriggerFn trigger, bool continuous = true, vr::VRInputValueHandle_t restrictToDevice = vr::k_ulInvalidInputValueHandle);
 	void HandleAnalogAction(vr::VRActionHandle_t actionHandle, int axis, TriggerFn trigger);
 	float GetFloatValue(vr::VRActionHandle_t actionHandle, int axis = 0, bool *isActive = nullptr);
 

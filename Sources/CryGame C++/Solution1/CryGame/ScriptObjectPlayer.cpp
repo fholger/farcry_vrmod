@@ -27,6 +27,8 @@
 #include "ScriptObjectVector.h"
 #include <ICryAnimation.h>
 
+#include "VRManager.h"
+
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
@@ -2285,8 +2287,9 @@ int CScriptObjectPlayer::UseLadder(IFunctionHandler *pH)
 		}
 		else 
 		{
-			if(onLadder!=0)
+			if(onLadder!=0 && !m_pPlayer->m_stats.onLadder)
 			{
+				m_pPlayer->m_insideLadderVolume = true;
 				m_pPlayer->m_PrevWeaponID=m_pPlayer->GetSelectedWeaponId();
 				m_pPlayer->SelectWeapon(-1);
 				m_pPlayer->m_stats.onLadder = true;
@@ -2319,10 +2322,10 @@ int CScriptObjectPlayer::UseLadder(IFunctionHandler *pH)
 
 				m_pPlayer->m_vLadderAngles.Set(0,0,0);
 			}
-			else
+			else if (onLadder == 0)
 			{
 				// restore speeds only if saved before
-				if(m_fSpeedRun)
+				if (m_fSpeedRun)
 				{
 					m_pPlayer->SetRunSpeed(m_fSpeedRun);
 					m_pPlayer->SetWalkSpeed(m_fSpeedWalk);
@@ -2330,9 +2333,17 @@ int CScriptObjectPlayer::UseLadder(IFunctionHandler *pH)
 					m_pPlayer->SetProneSpeed(m_fSpeedProne);
 				}
 
-				m_pPlayer->m_stats.onLadder = false;
-				if (m_pPlayer->m_PrevWeaponID>=0) 
-					m_pPlayer->SelectWeapon(m_pPlayer->m_PrevWeaponID);
+				if (gVR->vr_immersive_ladders && m_pPlayer->m_activeHandGrabbingLadder != -1)
+				{
+					// stick to ladder until player lets go
+					m_pPlayer->m_insideLadderVolume = false;
+				}
+				else
+				{
+					m_pPlayer->m_stats.onLadder = false;
+					if (m_pPlayer->m_PrevWeaponID >= 0)
+						m_pPlayer->SelectWeapon(m_pPlayer->m_PrevWeaponID);
+				}
 			}
 
 			m_pPlayer->InitCameraTransition( CPlayer::PCM_CASUAL, true );

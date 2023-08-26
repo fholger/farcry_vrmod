@@ -52,6 +52,7 @@ bool VRInput::Init(CXGame* game)
 	vr::VRInput()->GetActionHandle("/actions/default/in/binoculars", &m_defaultBinoculars);
 	vr::VRInput()->GetActionHandle("/actions/default/in/zoomin", &m_defaultZoomIn);
 	vr::VRInput()->GetActionHandle("/actions/default/in/zoomout", &m_defaultZoomOut);
+	vr::VRInput()->GetActionHandle("/actions/default/in/grip", &m_defaultGrip);
 
 	vr::VRInput()->GetActionHandle("/actions/move/in/move", &m_moveMove);
 	vr::VRInput()->GetActionHandle("/actions/move/in/continuousturn", &m_moveTurn);
@@ -73,7 +74,6 @@ bool VRInput::Init(CXGame* game)
 	vr::VRInput()->GetActionHandle("/actions/weapons/in/fire", &m_weaponsFire);
 	InitDoubleBindAction(m_weaponsReloadFireMode, "/actions/weapons/in/reload");
 	InitDoubleBindAction(m_weaponsNextDrop, "/actions/weapons/in/next");
-	vr::VRInput()->GetActionHandle("/actions/weapons/in/grip", &m_weaponsGrip);
 	InitDoubleBindAction(m_weaponsGrenades, "/actions/weapons/in/grenades");
 
 	m_pGame = game;
@@ -176,7 +176,8 @@ void VRInput::ProcessInputOnFoot()
 	HandleAnalogAction(m_moveMove, 1, &CXClient::TriggerMoveFB);
 	HandleBooleanAction(m_weaponsFire, &CXClient::TriggerFire0);
 	HandleDoubleBindAction(m_weaponsReloadFireMode, &CXClient::TriggerReload, &CXClient::TriggerFireMode, false);
-	HandleBooleanAction(m_weaponsGrip, &CXClient::TriggerTwoHandedGrip);
+	HandleBooleanAction(m_defaultGrip, &CXClient::TriggerLeftGrip, true, m_handHandle[0]);
+	HandleBooleanAction(m_defaultGrip, &CXClient::TriggerRightGrip, true, m_handHandle[1]);
 }
 
 void VRInput::ProcessInputInVehicles()
@@ -205,8 +206,9 @@ void VRInput::ProcessInputInVehicles()
 		HandleBooleanAction(m_weaponsFire, &CXClient::TriggerFire0);
 		HandleDoubleBindAction(m_weaponsReloadFireMode, &CXClient::TriggerReload, &CXClient::TriggerFireMode, false);
 		HandleDoubleBindAction(m_weaponsNextDrop, &CXClient::TriggerNextWeapon, &CXClient::TriggerDropWeapon, false);
-		HandleBooleanAction(m_weaponsGrip, &CXClient::TriggerTwoHandedGrip);
 		HandleDoubleBindAction(m_weaponsGrenades, &CXClient::CycleGrenade, &CXClient::TriggerFireGrenade, false);
+		HandleBooleanAction(m_defaultGrip, &CXClient::TriggerLeftGrip, true, m_handHandle[0]);
+		HandleBooleanAction(m_defaultGrip, &CXClient::TriggerRightGrip, true, m_handHandle[1]);
 	}
 
 	HandleBooleanAction(m_vehiclesLeave, &CXClient::TriggerUse, false);
@@ -248,10 +250,10 @@ Matrix34 VRInput::GetControllerTransform(int hand)
 	return OpenVRToFarCry(data.pose.mDeviceToAbsoluteTracking) * correction;
 }
 
-void VRInput::HandleBooleanAction(vr::VRActionHandle_t actionHandle, TriggerFn trigger, bool continuous)
+void VRInput::HandleBooleanAction(vr::VRActionHandle_t actionHandle, TriggerFn trigger, bool continuous, vr::VRInputValueHandle_t restrictToDevice)
 {
 	vr::InputDigitalActionData_t actionData;
-	vr::VRInput()->GetDigitalActionData(actionHandle, &actionData, sizeof(vr::InputDigitalActionData_t), vr::k_ulInvalidInputValueHandle);
+	vr::VRInput()->GetDigitalActionData(actionHandle, &actionData, sizeof(vr::InputDigitalActionData_t), restrictToDevice);
 	if (actionData.bActive && actionData.bState && (continuous || actionData.bChanged))
 	{
 		(m_pGame->GetClient()->*trigger)(1.f, XActivationEvent());

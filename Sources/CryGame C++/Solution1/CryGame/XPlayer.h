@@ -1173,6 +1173,12 @@ private:
 
 	// visible bare hands
 	CHand* m_handModel[2] = { nullptr };
+
+public:
+	bool m_wasGrabbingLadder[2] = { false, false };
+	int m_activeHandGrabbingLadder = -1;
+	Vec3 m_prevLadderGrabPos;
+	bool m_insideLadderVolume = false;
 }; 
 
 #endif // __GAME_PLAYER_H__

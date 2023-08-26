@@ -1898,6 +1898,46 @@ void CPlayer::ProcessMovements(CXEntityProcessingCmd &cmd, bool bScheduled)
 	else
 		m_stats.back_pressed = false;
 
+	if (m_stats.onLadder && gVR->vr_immersive_ladders)
+	{
+		speedxyz[2] = 0;
+
+		bool grabbing[2] = { cmd.CheckAction(ACTION_GRIP_LEFT), cmd.CheckAction(ACTION_GRIP_RIGHT) };
+		bool newActive[2] = { grabbing[0] && !m_wasGrabbingLadder[0], grabbing[1] && !m_wasGrabbingLadder[1] };
+		for (int i = 0; i < 2; ++i)
+		{
+			if (newActive[i])
+			{
+				m_activeHandGrabbingLadder = i;
+				m_prevLadderGrabPos = GetWorldControllerTransform(i).GetTranslation();
+			}
+			if (m_activeHandGrabbingLadder == i)
+			{
+				Vec3 curGrabPos = GetWorldControllerTransform(i).GetTranslation();
+				Vec3 diff = curGrabPos - m_prevLadderGrabPos;
+				speedxyz[2] = -diff.z / m_pGame->GetSystem()->GetITimer()->GetFrameTime() * 5;
+				if (speedxyz[2] > 0)
+				{
+					// add a bit of forward movement for dismounts at the top
+					speedxyz[0] = -m_psin * 0.50f;
+					speedxyz[1] = m_pcos * 0.50f;
+				}
+				m_prevLadderGrabPos = curGrabPos;
+			}
+			m_wasGrabbingLadder[i] = grabbing[i];
+		}
+		if (!grabbing[0] && !grabbing[1])
+			m_activeHandGrabbingLadder = -1;
+
+		if (m_activeHandGrabbingLadder == -1 && !m_insideLadderVolume)
+		{
+			// no longer inside ladder volume and not grabbing, so let go
+			m_stats.onLadder = false;
+			if (m_PrevWeaponID >= 0)
+				SelectWeapon(m_PrevWeaponID);
+		}
+	}
+
 	bool bStrafe = false;
 	if (cmd.CheckAction(ACTION_MOVE_LEFT)) //&& !m_stats.onLadder) 
 	{	
@@ -2039,6 +2079,9 @@ void CPlayer::ProcessMovements(CXEntityProcessingCmd &cmd, bool bScheduled)
 		}
 		else
 			inputspeed *= fSpeedScale;
+
+		if (m_stats.onLadder && gVR->vr_immersive_ladders && m_activeHandGrabbingLadder != -1)
+			inputspeed = speedxyz.Length();
 
 		speedxyz.Normalize();
 		speedxyz*=inputspeed;
@@ -2250,7 +2293,8 @@ void CPlayer::ProcessWeapons(CXEntityProcessingCmd &cmd)
 	// do not allow to use weapons and move when underwater or in a water volume, and 
 	// he is actively swimming			
 
-	bool twoHandGrip = cmd.CheckAction(ACTION_TWOHAND_GRIP);
+	unsigned offhandGrip = m_offHand == 0 ? ACTION_GRIP_LEFT : ACTION_GRIP_RIGHT;
+	bool twoHandGrip = cmd.CheckAction(offhandGrip);
 	if (m_wasTwoHandGrip != twoHandGrip && twoHandGrip)
 	{
 		TryEnableTwoHandedWeaponMode();
@@ -2448,7 +2492,7 @@ void CPlayer::ProcessRoomscaleMovement(CXEntityProcessingCmd& ProcessingCmd)
 	if (!ProcessingCmd.UseMotionControls())
 		return;
 
-	if (GetVehicle() || m_pMountedWeapon)
+	if (GetVehicle() || m_pMountedWeapon || (m_stats.onLadder && gVR->vr_immersive_ladders))
 		return;
 
 	Ang3 angles = m_pEntity->GetAngles();

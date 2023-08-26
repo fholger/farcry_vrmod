@@ -64,6 +64,10 @@
       "type" : "boolean"
     },
     {
+      "name": "/actions/default/in/Grip",
+      "type": "boolean"
+    },
+    {
       "name" : "/actions/move/in/Move",
       "type" : "vector2"
     },
@@ -133,10 +137,6 @@
     },
     {
       "name": "/actions/weapons/in/Next",
-      "type": "boolean"
-    },
-    {
-      "name": "/actions/weapons/in/Grip",
       "type": "boolean"
     },
     {

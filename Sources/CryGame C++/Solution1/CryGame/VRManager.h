@@ -112,6 +112,7 @@ public:
 	int vr_crosshair;
 	int vr_movement_dir;
 	int vr_show_empty_hands;
+	int vr_immersive_ladders;
 	ICVar* vr_debug_override_rh_offset = nullptr;
 	ICVar* vr_debug_override_rh_angles = nullptr;
 	ICVar* vr_debug_override_lh_offset = nullptr;

@@ -239,7 +239,8 @@ public:
 	void TriggerWeapon14(float fValue,XActivationEvent ae);
 	void TriggerDropWeapon(float fValue,XActivationEvent ae);
 	void CycleGrenade(float fValue,XActivationEvent ae);
-	void TriggerTwoHandedGrip(float fValue, XActivationEvent ae);
+	void TriggerLeftGrip(float fValue, XActivationEvent ae);
+	void TriggerRightGrip(float fValue, XActivationEvent ae);
 	void TriggerScoreBoard(float fValue, XActivationEvent ae);
 	
 	//client side

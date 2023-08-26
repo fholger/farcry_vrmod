@@ -58,6 +58,24 @@
           }
         },
         {
+          "path": "/user/hand/left/input/grip",
+          "mode": "button",
+          "inputs": {
+            "click": {
+              "output": "/actions/default/in/grip"
+            }
+          }
+        },
+        {
+          "path": "/user/hand/right/input/grip",
+          "mode": "button",
+          "inputs": {
+            "click": {
+              "output": "/actions/default/in/grip"
+            }
+          }
+        },
+        {
           "inputs" : {
             "north" : {
               "output" : "/actions/default/in/zoomin"
@@ -266,15 +284,6 @@
           "inputs": {
             "click": {
               "output": "/actions/weapons/in/reload"
-            }
-          }
-        },
-        {
-          "path": "/user/hand/left/input/grip",
-          "mode": "button",
-          "inputs": {
-            "click": {
-              "output": "/actions/weapons/in/grip"
             }
           }
         },
