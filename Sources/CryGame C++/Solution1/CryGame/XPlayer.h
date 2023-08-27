@@ -1179,6 +1179,8 @@ public:
 	int m_activeHandGrabbingLadder = -1;
 	Vec3 m_prevLadderGrabPos;
 	bool m_insideLadderVolume = false;
+
+	void CheckLadderDismount();
 }; 
 
 #endif // __GAME_PLAYER_H__

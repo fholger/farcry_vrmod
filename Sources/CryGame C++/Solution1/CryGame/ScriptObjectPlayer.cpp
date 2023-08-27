@@ -2290,6 +2290,9 @@ int CScriptObjectPlayer::UseLadder(IFunctionHandler *pH)
 			if(onLadder!=0 && !m_pPlayer->m_stats.onLadder)
 			{
 				m_pPlayer->m_insideLadderVolume = true;
+				m_pPlayer->m_activeHandGrabbingLadder = false;
+				m_pPlayer->m_wasGrabbingLadder[0] = false;
+				m_pPlayer->m_wasGrabbingLadder[1] = false;
 				m_pPlayer->m_PrevWeaponID=m_pPlayer->GetSelectedWeaponId();
 				m_pPlayer->SelectWeapon(-1);
 				m_pPlayer->m_stats.onLadder = true;

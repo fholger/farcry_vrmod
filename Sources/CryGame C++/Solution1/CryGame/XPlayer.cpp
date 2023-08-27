@@ -1919,15 +1919,18 @@ void CPlayer::ProcessMovements(CXEntityProcessingCmd &cmd, bool bScheduled)
 				if (speedxyz[2] > 0)
 				{
 					// add a bit of forward movement for dismounts at the top
-					speedxyz[0] = -m_psin * 0.50f;
-					speedxyz[1] = m_pcos * 0.50f;
+					//speedxyz[0] = -m_psin * 0.50f;
+					//speedxyz[1] = m_pcos * 0.50f;
 				}
 				m_prevLadderGrabPos = curGrabPos;
 			}
 			m_wasGrabbingLadder[i] = grabbing[i];
 		}
-		if (!grabbing[0] && !grabbing[1])
+		if (m_activeHandGrabbingLadder != -1 && !grabbing[m_activeHandGrabbingLadder])
+		{
 			m_activeHandGrabbingLadder = -1;
+			CheckLadderDismount();
+		}
 
 		if (m_activeHandGrabbingLadder == -1 && !m_insideLadderVolume)
 		{
@@ -7093,6 +7096,30 @@ void CPlayer::CheckMeleeWeaponSwing()
 		m_wasSwinging = false;
 
 	m_prevHandPos = handPos;
+}
+
+void CPlayer::CheckLadderDismount()
+{
+	Matrix34 cameraTransform = Matrix34::CreateRotationXYZ(Deg2Rad(m_pEntity->GetCamera()->GetAngles()), m_pEntity->GetCamera()->GetPos());
+	Vec3 fwd = cameraTransform.GetForward();
+	fwd.z = 0;
+	fwd.Normalize();
+	Vec3 testPos = cameraTransform.GetTranslation() + fwd * 1.0f + Vec3(0, 0, 0.5f);
+
+	// find floor
+	IPhysicalWorld* world = m_pGame->GetSystem()->GetIPhysicalWorld();
+	int objTypes = ent_terrain|ent_static;
+	int flags = rwi_stop_at_pierceable|rwi_ignore_terrain_holes;
+	ray_hit hit;
+	int col = world->RayWorldIntersection(testPos, Vec3(0, 0, -2), objTypes, flags, &hit, 1, m_pEntity->GetPhysics());
+	if (col)
+	{
+		Vec3 dismountCandidate = hit.pt;
+		if (CanStand(dismountCandidate))
+		{
+			m_pEntity->SetPos(dismountCandidate);
+		}
+	}
 }
 
 //////////////////////////////////////////////////////////////////////
