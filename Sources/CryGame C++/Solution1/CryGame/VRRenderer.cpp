@@ -215,6 +215,9 @@ void VRRenderer::DrawCrosshair()
 	if (!pPlayer || !pPlayer->GetSelectedWeapon())
 		return;
 
+	if (pPlayer->m_stats.reloading || pPlayer->IsSwimming())
+		return;
+
 	WeaponParams wp;
 	pPlayer->GetCurrentWeaponParams(wp);
 	if (wp.iFireModeType == FireMode_Melee)
