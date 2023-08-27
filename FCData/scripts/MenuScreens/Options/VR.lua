@@ -207,11 +207,39 @@ UI.PageOptionsVR=
 			end,
 		},
 
+		ladders_text=
+		{
+			skin = UI.skins.Label,
+
+			left = 200, top = 359,
+			width = 112,
+
+			text="Immersive ladders",
+		},
+
+		ladders=
+		{
+			left = 320, top = 359,
+			width = 28, height = 28,
+
+			skin = UI.skins.CheckBox,
+
+			tabstop = 4,
+
+			OnChanged=function(Sender)
+				if (Sender:GetChecked()) then
+					setglobal("vr_immersive_ladders", 1);
+				else
+					setglobal("vr_immersive_ladders", 0);
+				end
+			end,
+		},
+
 		sep_h0 =
 		{
 			skin = UI.skins.MenuBorder,
 
-			left = 200, top = 375,
+			left = 200, top = 410,
 			width = 290, height = 2,
 			bordersides = "t",
 
@@ -222,7 +250,7 @@ UI.PageOptionsVR=
 		{
 			skin = UI.skins.Label,
 
-			left = 200, top = 394,
+			left = 200, top = 429,
 			width = 112,
 
 			text="Mouse yaw deadzone",
@@ -232,7 +260,7 @@ UI.PageOptionsVR=
 		{
 			skin = UI.skins.HScrollBar,
 
-			left = 320, top = 394,
+			left = 320, top = 429,
 			width = 162, height = 24,
 
 			tabstop = 5,
@@ -392,6 +420,7 @@ UI.PageOptionsVR=
 			UI.PageOptionsVR.GUI.motioncontrols:SetChecked(vr_enable_motion_controllers);
 			UI.PageOptionsVR.GUI.terrainlod:SetChecked(vr_render_force_max_terrain_detail);
 			UI.PageOptionsVR.GUI.objdist:SetChecked(vr_render_force_obj_draw_dist);
+			UI.PageOptionsVR.GUI.ladders:SetChecked(vr_immersive_ladders);
 
 			UI.PageOptionsVR.GUI.mainhand:Clear();
 			UI.PageOptionsVR.GUI.mainhand:AddItem( "Right" );
@@ -450,6 +479,7 @@ UI.PageOptionsVR=
 		UI.PageOptionsVR.GUI.turnmode:SelectIndex( 1 );
 		UI.PageOptionsVR.GUI.turnspeed:SetValue( 0.5 );
 		UI.PageOptionsVR.GUI.weaponangle:SetValue( 0.667 );
+		UI.PageOptionsVR.GUI.ladders:SetChecked(1);
 		UI.PageOptionsVR.GUI.yawdeadzone:SetValue( 0.5 );
 		UI.PageOptionsVR.GUI.terrainlod:SetChecked(1);
 		UI.PageOptionsVR.GUI.objdist:SetChecked(1);
@@ -468,6 +498,7 @@ UI.PageOptionsVR=
 		UI.PageOptionsVR.GUI.vegetationdist:OnChanged();
 		UI.PageOptionsVR.GUI.mirroreye:OnChanged();
 		UI.PageOptionsVR.GUI.crosshair:OnChanged();
+		UI.PageOptionsVR.GUI.ladders:OnChanged();
 	end,
 }
 
