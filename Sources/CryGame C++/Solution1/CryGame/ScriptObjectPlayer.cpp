@@ -2336,7 +2336,7 @@ int CScriptObjectPlayer::UseLadder(IFunctionHandler *pH)
 					m_pPlayer->SetProneSpeed(m_fSpeedProne);
 				}
 
-				if (gVR->vr_immersive_ladders && m_pPlayer->m_activeHandGrabbingLadder != -1)
+				if (gVR->vr_immersive_ladders)
 				{
 					// stick to ladder until player lets go
 					m_pPlayer->m_insideLadderVolume = false;

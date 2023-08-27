@@ -1868,6 +1868,12 @@ void CPlayer::ProcessMovements(CXEntityProcessingCmd &cmd, bool bScheduled)
 
 		//FIXME: would be nice if backward key detach us from the ladder when we approach the ground (instead use the jump button), but for this
 		//more info about the ladder are needed, like the center position, to know if we are going up or down.
+		if (m_stats.onLadder)
+		{
+			speedxyz[0] -= -m_psin*.3f*fBack;
+			speedxyz[1] -=	m_pcos*.3f*fBack;
+		}
+		else
 		{
 			speedxyz[0] -= -m_psin*fBack;
 			speedxyz[1] -=	m_pcos*fBack;
@@ -1926,13 +1932,16 @@ void CPlayer::ProcessMovements(CXEntityProcessingCmd &cmd, bool bScheduled)
 			}
 			m_wasGrabbingLadder[i] = grabbing[i];
 		}
-		if (m_activeHandGrabbingLadder != -1 && !grabbing[m_activeHandGrabbingLadder])
+
+		Vec3 distFromLadder = m_pEntity->GetPos() - m_vLadderPosition;
+		distFromLadder.z = 0;
+		if (m_activeHandGrabbingLadder != -1 && (!grabbing[m_activeHandGrabbingLadder] || distFromLadder.Length() > 2.f))
 		{
 			m_activeHandGrabbingLadder = -1;
 			CheckLadderDismount();
 		}
 
-		if (m_activeHandGrabbingLadder == -1 && !m_insideLadderVolume)
+		if (m_activeHandGrabbingLadder == -1 && !m_insideLadderVolume && distFromLadder.Length() > 0.8f)
 		{
 			// no longer inside ladder volume and not grabbing, so let go
 			m_stats.onLadder = false;
@@ -2495,7 +2504,7 @@ void CPlayer::ProcessRoomscaleMovement(CXEntityProcessingCmd& ProcessingCmd)
 	if (!ProcessingCmd.UseMotionControls())
 		return;
 
-	if (GetVehicle() || m_pMountedWeapon || (m_stats.onLadder && gVR->vr_immersive_ladders))
+	if (GetVehicle() || m_pMountedWeapon || m_stats.onLadder)
 		return;
 
 	Ang3 angles = m_pEntity->GetAngles();
