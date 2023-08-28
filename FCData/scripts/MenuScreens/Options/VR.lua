@@ -416,6 +416,44 @@ UI.PageOptionsVR=
 			end,
 		},
 
+		vrscopes_text=
+		{
+			skin = UI.skins.Label,
+
+			left = 488, top = 324,
+			width = 112,
+
+			text="Scopes in VR",
+		},
+
+		vrscopes_warning=
+		{
+			skin = UI.skins.Label,
+
+			left = 660, top = 324,
+			width = 100,
+
+			text="high CPU perf. cost",
+		},
+
+		vrscopes=
+		{
+			left = 608, top = 324,
+			width = 28, height = 28,
+
+			skin = UI.skins.CheckBox,
+
+			tabstop = 4,
+
+			OnChanged=function(Sender)
+				if (Sender:GetChecked()) then
+					setglobal("vr_render_world_while_zoomed", 1);
+				else
+					setglobal("vr_render_world_while_zoomed", 0);
+				end
+			end,
+		},
+
 		OnActivate= function(Sender)
 			UI.PageOptionsVR.GUI.motioncontrols:SetChecked(vr_enable_motion_controllers);
 			UI.PageOptionsVR.GUI.terrainlod:SetChecked(vr_render_force_max_terrain_detail);
@@ -465,6 +503,8 @@ UI.PageOptionsVR=
 			UI.PageOptionsVR.GUI.mirroreye:SelectIndex( cur_eye + 1 );
 			local cur_crosshair = tonumber( getglobal( "vr_crosshair" ) );
 			UI.PageOptionsVR.GUI.crosshair:SelectIndex( cur_crosshair + 1 );
+
+			UI.PageOptionsVR.GUI.vrscopes:SetChecked(vr_render_world_while_zoomed);
 		end,
 
 		OnDeactivate = function(Sender)
@@ -486,6 +526,7 @@ UI.PageOptionsVR=
 		UI.PageOptionsVR.GUI.vegetationdist:SetValue( 1 );
 		UI.PageOptionsVR.GUI.mirroreye:SelectIndex( 1 );
 		UI.PageOptionsVR.GUI.crosshair:SelectIndex( 1 );
+		UI.PageOptionsVR.GUI.vrscopes:SetChecked(1);
 		UI.PageOptionsVR.GUI.motioncontrols:OnChanged();
 		UI.PageOptionsVR.GUI.mainhand:OnChanged();
 		UI.PageOptionsVR.GUI.movedir:OnChanged();
@@ -499,6 +540,7 @@ UI.PageOptionsVR=
 		UI.PageOptionsVR.GUI.mirroreye:OnChanged();
 		UI.PageOptionsVR.GUI.crosshair:OnChanged();
 		UI.PageOptionsVR.GUI.ladders:OnChanged();
+		UI.PageOptionsVR.GUI.vrscopes:OnChanged();
 	end,
 }
 
