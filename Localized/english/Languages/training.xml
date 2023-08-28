@@ -175,7 +175,7 @@
    </Row>
    <Row>
     <Cell><Data ss:Type="String">LookUpAndPressFo  </Data></Cell>
-    <Cell><Data ss:Type="String">Look up and use off hand stick to climb ladders</Data></Cell>
+    <Cell><Data ss:Type="String">Approach ladder, grab with your hands and pull yourself up to climb</Data></Cell>
    </Row>
    <Row>
     <Cell><Data ss:Type="String">YouPickedUpTheBi  </Data></Cell>
