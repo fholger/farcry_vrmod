@@ -405,6 +405,8 @@ void VRManager::FinishFrame()
 		IDirect3DTexture9 *tex = eye == 2 ? m_d3d->hudTexture.Get() : m_d3d->eyeTextures[eye].Get();
 		dxvkTransitionImageLayout(m_d3d->device.Get(), tex, VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL, origLayout[eye]);
 	}
+
+	m_wasBinocular = m_pGame->AreBinocularsActive();
 }
 
 vector2di VRManager::GetRenderSize() const
@@ -438,7 +440,7 @@ void VRManager::ModifyViewCamera(int eye, CCamera& cam)
 		return;
 	}
 
-	if (m_pGame->AreBinocularsActive())
+	if (m_pGame->AreBinocularsActive() || m_wasBinocular)
 	{
 		cam = m_binocularOriginalPlayerCam;
 	}

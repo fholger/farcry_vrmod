@@ -145,6 +145,7 @@ private:
 	Ang3 m_curBinocularAngles;
 	Vec3 m_curBinocularPos;
 	CCamera m_binocularOriginalPlayerCam;
+	bool m_wasBinocular = false;
 
 	void UpdateHmdTransform();
 	void ProcessRoomscale();
