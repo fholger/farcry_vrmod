@@ -91,7 +91,7 @@ void VRRenderer::Render(ISystem* pSystem)
 	// clear render target to fully transparent for HUD render
 	dxvkGetCreatedDevice()->Clear(0, nullptr, D3DCLEAR_TARGET, D3DCOLOR_ARGB(0, 0, 0, 0), 0, 0);
 
-	if (!ShouldRenderVR())
+	if (ShouldRender2D())
 	{
 		// for things like the binoculars, we skip the stereo rendering and instead render to the 2D screen
 		if (gVR->UseMotionControllers())
@@ -161,14 +161,24 @@ void VRRenderer::ChangeRenderResolution(int width, int height)
 
 bool VRRenderer::ShouldRenderVR() const
 {
+	if (!gVR->vr_render_world_while_zoomed)
+	{
+		return !ShouldRender2D();
+	}
+
+	return true;
+}
+
+bool VRRenderer::ShouldRender2D() const
+{
 	if (m_pGame->AreBinocularsActive())
-		return false;
+		return true;
 
 	CPlayer *player = m_pGame->GetLocalPlayer();
 	if (player && player->IsWeaponZoomActive())
-		return false;
+		return true;
 
-	return true;
+	return false;
 }
 
 void VRRenderer::RenderSingleEye(int eye, ISystem* pSystem)

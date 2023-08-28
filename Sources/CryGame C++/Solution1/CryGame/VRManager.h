@@ -113,6 +113,9 @@ public:
 	int vr_movement_dir;
 	int vr_show_empty_hands;
 	int vr_immersive_ladders;
+	int vr_render_world_while_zoomed;
+	float vr_binocular_size;
+	float vr_scope_size;
 	ICVar* vr_debug_override_rh_offset = nullptr;
 	ICVar* vr_debug_override_rh_angles = nullptr;
 	ICVar* vr_debug_override_lh_offset = nullptr;
@@ -141,6 +144,7 @@ private:
 
 	Ang3 m_curBinocularAngles;
 	Vec3 m_curBinocularPos;
+	CCamera m_binocularOriginalPlayerCam;
 
 	void UpdateHmdTransform();
 	void ProcessRoomscale();

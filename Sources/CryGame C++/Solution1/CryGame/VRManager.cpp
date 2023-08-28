@@ -22,9 +22,6 @@ extern "C" void dxvkReleaseSubmissionQueue(IDirect3DDevice9Ex * device);
 extern "C" HRESULT dxvkFillVulkanTextureInfo(IDirect3DDevice9Ex * device, IDirect3DTexture9 * texture, vr::VRVulkanTextureData_t & data, VkImageLayout & layout);
 extern "C" void dxvkTransitionImageLayout(IDirect3DDevice9Ex * device, IDirect3DTexture9 * texture, VkImageLayout from, VkImageLayout to);
 
-const float BinocularWidth = 0.5f;
-const float WeaponScopeWidth = 0.5f;
-
 // OpenVR: x = right, y = up, -z = forward
 // FarCry: x = left, -y = forward, z = up
 Matrix34 OpenVRToFarCry(const vr::HmdMatrix34_t &mat)
@@ -441,6 +438,11 @@ void VRManager::ModifyViewCamera(int eye, CCamera& cam)
 		return;
 	}
 
+	if (m_pGame->AreBinocularsActive())
+	{
+		cam = m_binocularOriginalPlayerCam;
+	}
+
 	Ang3 angles = cam.GetAngles();
 	Vec3 position = cam.GetPos();
 
@@ -559,6 +561,8 @@ void VRManager::Modify2DCamera(CCamera& cam)
 
 void VRManager::ModifyBinocularCamera(IEntityCamera* cam)
 {
+	m_binocularOriginalPlayerCam = cam->GetCamera();
+
 	if (!cam || !UseMotionControllers() || !m_pGame->AreBinocularsActive())
 		return;
 
@@ -571,7 +575,7 @@ void VRManager::ModifyBinocularCamera(IEntityCamera* cam)
 	Matrix34 viewMat = Matrix34::CreateRotationXYZ(angles, position);
 
 	// set camera to off hand position, instead
-	Matrix34 offset = Matrix34::CreateTranslationMat(Vec3(-BinocularWidth / 2, 0, BinocularWidth / 2));
+	Matrix34 offset = Matrix34::CreateTranslationMat(Vec3(-vr_binocular_size / 2, 0, vr_binocular_size / 2));
 	Matrix34 controllerTransform = GetControllerTransform(m_pGame->g_LeftHanded->GetIVal() == 1 ? 1 : 0);
 	Matrix34 modifiedViewMat = viewMat * controllerTransform * offset;
 	m_curBinocularPos = modifiedViewMat.GetTranslation();
@@ -812,29 +816,30 @@ void VRManager::SetHudFixed()
 void VRManager::SetHudAsBinoculars()
 {
 	Matrix34 transform = m_input.GetControllerTransform(m_pGame->g_LeftHanded->GetIVal() == 1 ? 1 : 0);
-	transform = transform * Matrix34::CreateTranslationMat(Vec3(-BinocularWidth / 2, 0, BinocularWidth / 2));
+	transform = transform * Matrix34::CreateTranslationMat(Vec3(-vr_binocular_size / 2, 0, vr_binocular_size / 2));
 	vr::HmdMatrix34_t hudTransform = FarCryToOpenVR(transform);
 	vr::VROverlay()->SetOverlayFlag(m_hudOverlay, vr::VROverlayFlags_IgnoreTextureAlpha, true);
-	vr::VROverlay()->SetOverlayWidthInMeters(m_hudOverlay, BinocularWidth);
+	vr::VROverlay()->SetOverlayWidthInMeters(m_hudOverlay, vr_binocular_size);
 	vr::VROverlay()->SetOverlayTransformAbsolute(m_hudOverlay, vr::TrackingUniverseSeated, &hudTransform);
 }
 
 void VRManager::SetHudAsWeaponZoom()
 {
-	Matrix34 mainTransform = m_input.GetControllerTransform(m_pGame->g_LeftHanded->GetIVal() == 1 ? 0 : 1);
 	Matrix34 transform = m_input.GetControllerTransform(m_pGame->g_LeftHanded->GetIVal() == 1 ? 1 : 0);
-	Vec3 fwd = transform.GetTranslation() - mainTransform.GetTranslation();
+	Matrix34 rawHmdTransform = OpenVRToFarCry(m_headPose.mDeviceToAbsoluteTracking);
+	Vec3 headPos = rawHmdTransform.GetTranslation() - Vec3(0, 0, vr_scope_size / 2);
+	Vec3 fwd = transform.GetTranslation() - headPos;
 	Vec3 up(0, 0, 1);
-	Vec3 left = -fwd.Cross(up);
-	up = left.Cross(-fwd);
+	Vec3 left = -fwd.Cross(up).GetNormalized();
+	up = left.Cross(-fwd).GetNormalized();
 	transform.SetMatFromVectors(left, -fwd, up, transform.GetTranslation());
 	Ang3 angles = ToAnglesDeg(transform);
-	angles.x = angles.y = 0;
+	angles.y = 0;
 	transform.SetRotationXYZ(Deg2Rad(angles), transform.GetTranslation());
-	transform = transform * Matrix34::CreateTranslationMat(Vec3(0, 0, BinocularWidth / 2));
+	transform = transform * Matrix34::CreateTranslationMat(Vec3(0, 0, vr_scope_size / 2));
 	vr::HmdMatrix34_t hudTransform = FarCryToOpenVR(transform);
 	vr::VROverlay()->SetOverlayFlag(m_hudOverlay, vr::VROverlayFlags_IgnoreTextureAlpha, true);
-	vr::VROverlay()->SetOverlayWidthInMeters(m_hudOverlay, BinocularWidth);
+	vr::VROverlay()->SetOverlayWidthInMeters(m_hudOverlay, vr_scope_size);
 	vr::VROverlay()->SetOverlayTransformAbsolute(m_hudOverlay, vr::TrackingUniverseSeated, &hudTransform);
 }
 
@@ -895,6 +900,9 @@ void VRManager::RegisterCVars()
 	console->Register("vr_movement_dir", &vr_movement_dir, -1, VF_DUMPTODISK, "Movement direction reference: -1 = head, 0 = left hand, 1 = right hand");
 	console->Register("vr_show_empty_hands", &vr_show_empty_hands, 1, VF_DUMPTODISK, "If enabled, draws empty player hands when appropriate");
 	console->Register("vr_immersive_ladders", &vr_immersive_ladders, 1, VF_DUMPTODISK, "Climb ladders by grabbing with your hands");
+	console->Register("vr_render_world_while_zoomed", &vr_render_world_while_zoomed, 1, VF_DUMPTODISK, "Keep rendering the world in VR while binoculars or weapon scopes are active - costs performance!");
+	console->Register("vr_binocular_size", &vr_binocular_size, 0.4f, VF_DUMPTODISK, "Width of the binocular overlay (in meters)");
+	console->Register("vr_scope_size", &vr_scope_size, 0.3f, VF_DUMPTODISK, "Width of the weapon scope overlay (in meters)");
 	vr_debug_override_rh_offset = console->CreateVariable("vr_debug_override_rh_offset", "0.0 -0.1 -0.018", VF_CHEAT);
 	vr_debug_override_lh_offset = console->CreateVariable("vr_debug_override_lh_offset", "0.0 -0.1 -0.018", VF_CHEAT);
 	vr_debug_override_rh_angles = console->CreateVariable("vr_debug_override_rh_angles", "0.0 0.0 0.0", VF_CHEAT);

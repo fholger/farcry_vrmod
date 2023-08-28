@@ -22,6 +22,7 @@ public:
 	void ChangeRenderResolution(int width, int height);
 
 	bool ShouldRenderVR() const;
+	bool ShouldRender2D() const;
 
 	bool ShouldIgnoreWindowSizeChanges() const { return m_ignoreWindowSizeChanges; }
 
