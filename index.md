@@ -25,6 +25,7 @@ Far Cry VR is a third-party mod for the 2004 PC gaming classic by CryTek. It all
 - aim your guns naturally with your hands; use two hands to stabilize the guns further
 - physically swing the machete
 - aim mounted and vehicle guns by pointing with your main hand
+- climb ladders manually
 - left-handed support
 
 The mod is completely free. Simply download [the latest release](https://github.com/fholger/farcry_vrmod/releases/latest)

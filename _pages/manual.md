@@ -25,15 +25,15 @@ Use the left stick to move around or click it to activate sprint. Sprint will re
 
 The right stick allows you to turn the camera; you can choose between smooth and snap turn in the options. By moving the right stick down you can toggle between the crouch and prone poses. There is currently no support for physically crouching. Moving the right stick up will make you stand up again or jump if you were already standing.
 
-Your off-hand currently has no visual representation in the game, but its position and orientation is still tracked. Press the off-hand trigger to use items in the game. If you bring your hand close to your head, trigger will instead toggle your flashlight on a short press or the CryVision on a long press.
+Press the off-hand trigger to use items in the game. If you bring your hand close to your head, trigger will instead toggle your flashlight on a short press or the CryVision on a long press.
 
-Press the left A/X button to activate your binoculars. Your view will switch from VR to a 2D cinema view where you can look around with the binoculars. Use your right stick up/down to zoom in or out in the binoculars. Press the left A/X button again to put the binoculars away.
+Press the left A/X button to activate your binoculars. The binoculars will be displayed in a 2D overlay anchored to your off hand. Use your right stick up/down to zoom in or out in the binoculars. Press the left A/X button again to put the binoculars away.
 
 Weapons are controlled by your dominant hand (as chosen in the options). Press trigger on your main controller to fire the weapon and A/X to reload. Hold the A/X button to switch between the available fire modes for the current weapon. Cycle to the next weapon by pressing the joystick/trackpad. Hold the joystick/trackpad to drop your current weapon. Press the B/Y button to cycle between your available grenade types or rocks. Hold the B/Y button to throw the currently selected grenade type.
 
-Most weapons can be held with both hands. Bring your off-hand controller towards where the second hand should go on the weapon and hold the grip button. Two-handing guns will stabilize them and reduce recoil.
+Most weapons can be held with both hands. Bring your off-hand controller towards where the second hand should go on the weapon and hold the grip button. Two-handing guns will stabilize them and reduce recoil, as will crouching or lying down.
 
-If the current weapon has a scope, you can activate it by grabbing it with both hands and then bringing your main hand close to your head. Your view will switch from VR to a 2D cinema view where you can aim and zoom the weapon. Use your main hand's stick up/down to zoom in or out with the scope.
+If the current weapon has a scope, you can activate it by grabbing it with both hands and then bringing your main hand close to your head. The scope will be shown as a 2D overlay where you can aim and zoom the weapon. Use your main hand's stick up/down to zoom in or out with the scope.
 
 ### Vehicles
 
@@ -45,7 +45,7 @@ Touch-like controllers
 
 Press your off-hand trigger to enter a vehicle. Press your off-hand A/X button to leave the vehicle.
 
-While in the vehicle, the right trigger is used to accelerate, while the left trigger will brake/reverse. The left stick is used to steer the vehicle, while the right stick can be used to rotate the view.
+While in the vehicle, the right trigger is used to accelerate, while the left trigger will brake/reverse. The left stick is used to steer the vehicle, while the right stick can be used to rotate the view. If you prefer to have all vehicle movement on the stick, you can unbind the accelerate and brake actions in the SteamVR controller bindings. The stick will then also control the vehicle's throttle.
 
 Point with your main hand to aim the vehicle weapon and press the A/X button to fire it.
 
