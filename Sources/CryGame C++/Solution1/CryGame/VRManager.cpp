@@ -817,8 +817,9 @@ void VRManager::SetHudFixed()
 
 void VRManager::SetHudAsBinoculars()
 {
-	Matrix34 transform = m_input.GetControllerTransform(m_pGame->g_LeftHanded->GetIVal() == 1 ? 1 : 0);
-	transform = transform * Matrix34::CreateTranslationMat(Vec3(-vr_binocular_size / 2, 0, vr_binocular_size / 2));
+	bool leftHanded = m_pGame->g_LeftHanded->GetIVal() == 1;
+	Matrix34 transform = m_input.GetControllerTransform(leftHanded ? 1 : 0);
+	transform = transform * Matrix34::CreateTranslationMat(Vec3((leftHanded ? 1 : -1) * vr_binocular_size / 2, 0, vr_binocular_size / 2));
 	vr::HmdMatrix34_t hudTransform = FarCryToOpenVR(transform);
 	vr::VROverlay()->SetOverlayFlag(m_hudOverlay, vr::VROverlayFlags_IgnoreTextureAlpha, true);
 	vr::VROverlay()->SetOverlayWidthInMeters(m_hudOverlay, vr_binocular_size);
