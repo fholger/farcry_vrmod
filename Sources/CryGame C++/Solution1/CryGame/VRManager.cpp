@@ -264,7 +264,7 @@ void VRManager::CaptureHUD()
 
 void VRManager::MirrorEyeToBackBuffer()
 {
-	if (!gVRRenderer->ShouldRenderVR())
+	if (!gVRRenderer->ShouldRenderVR() || gVRRenderer->ShouldRender2D())
 		return;
 
 	int eye = clamp_tpl(vr_mirrored_eye, 0, 1);
