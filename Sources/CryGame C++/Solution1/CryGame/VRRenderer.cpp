@@ -108,6 +108,8 @@ void VRRenderer::Render(ISystem* pSystem)
 		pSystem->SetViewCamera(m_originalViewCamera);
 		m_viewCamOverridden = false;
 	}
+
+	m_pGame->GetSystem()->GetITimer()->Enable(true);
 }
 
 void VRRenderer::OnPrePresent()
@@ -193,6 +195,9 @@ void VRRenderer::RenderSingleEye(int eye, ISystem* pSystem)
 
 	if (ShouldRenderVR())
 	{
+		if (eye == 1)
+			m_pGame->GetSystem()->GetITimer()->Enable(false);
+
 		pSystem->RenderBegin();
 		pSystem->Render();
 		DrawCrosshair();
