@@ -39,9 +39,7 @@ Refer to the [manual](https://farcryvr.de/manual/) for the default controller bi
 
 - No comfort options: you need your VR legs for this game!
 - Distant LOD may under certain viewing angles cause stereo artifacting.
-- Your controllers/hands have no visual representation unless they are holding a gun
 - Weapon orientation in two-handed mode can go into reverse under certain angles
-- Binoculars and weapon scope views could be better
 - The machete hit detection is not always very accurate
 - Grenade throws happen at the press of a button, there is currently no physical throwing
 - Motion controls do not work properly in multiplayer
