@@ -5064,14 +5064,14 @@ void CPlayer::OnDraw(const SRendParams & _RendParams)
 		bool hideOffHand = GetSelectedWeapon() && (m_twoHandWeaponMode || m_stats.reloading);
 		if (!hideOffHand)
 		{
-			Matrix34 worldControllerTransform = GetWorldControllerTransform(m_offHand) * Matrix33::CreateRotationY(gf_PI_DIV_2);
+			Matrix34 worldControllerTransform = GetWorldControllerTransform(m_offHand) * Matrix33::CreateRotationY(gf_PI_DIV_2 * (m_offHand == 0 ? 1 : -1));
 			m_handModel[m_offHand]->Update(worldControllerTransform);
 			m_handModel[m_offHand]->Render(_RendParams, m_pEntity->GetPos());
 		}
 
 		if (!GetSelectedWeapon())
 		{
-			Matrix34 worldControllerTransform = GetWorldControllerTransform(m_mainHand) * Matrix33::CreateRotationY(-gf_PI_DIV_2);
+			Matrix34 worldControllerTransform = GetWorldControllerTransform(m_mainHand) * Matrix33::CreateRotationY(gf_PI_DIV_2 * (m_mainHand == 0 ? 1 : -1));
 			m_handModel[m_mainHand]->Update(worldControllerTransform);
 			m_handModel[m_mainHand]->Render(_RendParams, m_pEntity->GetPos());
 		}
