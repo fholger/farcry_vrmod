@@ -81,6 +81,11 @@ void VRRenderer::Render(ISystem* pSystem)
 	gVR->SetDevice(dxvkGetCreatedDevice());
 	gVR->AwaitFrame();
 
+	if (CPlayer* player = m_pGame->GetLocalPlayer())
+	{
+		player->UpdateVRTransformsPreRender();
+	}
+
 	for (int eye = 0; eye < 2; ++eye)
 	{
 		RenderSingleEye(eye, pSystem);
