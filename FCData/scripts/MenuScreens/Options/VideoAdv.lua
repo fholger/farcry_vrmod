@@ -1016,7 +1016,7 @@ UI.PageOptionsVideoAdv.GUI.widget_SpecialEffects.user.Initialize = function()
 	 		cur_r_Beams == 1 and
 		 	cur_es_EnableCloth == 1 ) then
 		UI.PageOptionsVideoAdv.GUI.widget_SpecialEffects:SelectIndex( 2 ); -- medium quality
-	elseif( cur_r_MotionBlur == 1 and
+	elseif( cur_r_MotionBlur == 0 and
 		 	cur_r_Glare > 0 and
 		 	cur_r_GlareQuality == 2 and
 		 	cur_r_Flares == 1 and
@@ -1031,7 +1031,7 @@ UI.PageOptionsVideoAdv.GUI.widget_SpecialEffects.user.Initialize = function()
 	 		cur_r_Beams == 1 and
 		 	cur_es_EnableCloth == 1 ) then
 		UI.PageOptionsVideoAdv.GUI.widget_SpecialEffects:SelectIndex( 3 ); -- high quality
-	elseif( cur_r_MotionBlur == 1 and
+	elseif( cur_r_MotionBlur == 0 and
 		 	cur_r_Glare > 0 and
 		 	cur_r_GlareQuality == 2 and
 		 	cur_r_Flares == 1 and
@@ -1090,7 +1090,7 @@ UI.PageOptionsVideoAdv.GUI.widget_SpecialEffects.user.UpdateAssignedGlobals = fu
 		UI.PageOptionsVideoAdv.user:SetGlobal( "es_EnableCloth", 1 );
 	elseif( curSelectionIndex == 3 ) then
 		-- high quality
-		UI.PageOptionsVideoAdv.user:SetGlobal( "r_MotionBlur", 1 );
+		UI.PageOptionsVideoAdv.user:SetGlobal( "r_MotionBlur", 0 );
 		UI.PageOptionsVideoAdv.user:SetGlobal( "r_Glare", 1 );
 		UI.PageOptionsVideoAdv.user:SetGlobal( "r_GlareQuality", 2 );
 		UI.PageOptionsVideoAdv.user:SetGlobal( "r_Flares", 1 );
@@ -1106,7 +1106,7 @@ UI.PageOptionsVideoAdv.GUI.widget_SpecialEffects.user.UpdateAssignedGlobals = fu
 		UI.PageOptionsVideoAdv.user:SetGlobal( "es_EnableCloth", 1 );
 	elseif( curSelectionIndex == 4 ) then
 		-- very high quality
-		UI.PageOptionsVideoAdv.user:SetGlobal( "r_MotionBlur", 1 );
+		UI.PageOptionsVideoAdv.user:SetGlobal( "r_MotionBlur", 0 );
 		UI.PageOptionsVideoAdv.user:SetGlobal( "r_Glare", 1 );
 		UI.PageOptionsVideoAdv.user:SetGlobal( "r_GlareQuality", 2 );
 		UI.PageOptionsVideoAdv.user:SetGlobal( "r_Flares", 1 );
@@ -1211,7 +1211,7 @@ UI.PageOptionsVideoAdv.GUI.widget_Environment.user.Initialize = function()
 			cur_ca_EnableDecals == 1 and
 			cur_e_overlay_geometry == 1 and
 			cur_e_obj_lod_ratio == 10 and
-			cur_e_vegetation_sprites_distance_ratio == 1.0 and
+			cur_e_vegetation_sprites_distance_ratio == 50.0 and
 			cur_e_cgf_load_lods == 1 and
 			cur_e_vegetation_min_size == 0 and
 			cur_e_flocks == 1 and
@@ -1228,7 +1228,7 @@ UI.PageOptionsVideoAdv.GUI.widget_Environment.user.Initialize = function()
 			cur_ca_EnableDecals == 1 and
 			cur_e_overlay_geometry == 1 and
 			cur_e_obj_lod_ratio == 10 and
-			cur_e_vegetation_sprites_distance_ratio == 1.0 and
+			cur_e_vegetation_sprites_distance_ratio == 100.0 and
 			cur_e_cgf_load_lods == 0 and
 			cur_e_vegetation_min_size == 0 and
 			cur_e_flocks == 1 and
@@ -1261,6 +1261,8 @@ UI.PageOptionsVideoAdv.GUI.widget_Environment.user.UpdateAssignedGlobals = funct
 		UI.PageOptionsVideoAdv.user:SetGlobal( "e_flocks", 0 );
 		UI.PageOptionsVideoAdv.user:SetGlobal( "e_EntitySuppressionLevel", 2 );
 		UI.PageOptionsVideoAdv.user:SetGlobal( "sys_skiponlowspec", 1 );
+		UI.PageOptionsVideoAdv.user:SetGlobal( "vr_render_force_obj_draw_dist", 0 );
+		UI.PageOptionsVideoAdv.user:SetGlobal( "vr_render_force_max_terrain_detail", 0 );
 	elseif( curSelectionIndex == 2 ) then
 		-- medium quality
 		UI.PageOptionsVideoAdv.user:SetGlobal( "r_VolumetricFog", 1 );
@@ -1279,6 +1281,8 @@ UI.PageOptionsVideoAdv.GUI.widget_Environment.user.UpdateAssignedGlobals = funct
 		UI.PageOptionsVideoAdv.user:SetGlobal( "e_flocks", 0 );
 		UI.PageOptionsVideoAdv.user:SetGlobal( "e_EntitySuppressionLevel", 2 );
 		UI.PageOptionsVideoAdv.user:SetGlobal( "sys_skiponlowspec", 0 );
+		UI.PageOptionsVideoAdv.user:SetGlobal( "vr_render_force_obj_draw_dist", 0 );
+		UI.PageOptionsVideoAdv.user:SetGlobal( "vr_render_force_max_terrain_detail", 0 );
 	elseif( curSelectionIndex == 3 ) then
 		-- high quality
 		UI.PageOptionsVideoAdv.user:SetGlobal( "r_VolumetricFog", 1 );
@@ -1291,12 +1295,14 @@ UI.PageOptionsVideoAdv.GUI.widget_Environment.user.UpdateAssignedGlobals = funct
 		UI.PageOptionsVideoAdv.user:SetGlobal( "ca_EnableDecals", 1 );
 		UI.PageOptionsVideoAdv.user:SetGlobal( "e_overlay_geometry", 1 );
 		UI.PageOptionsVideoAdv.user:SetGlobal( "e_obj_lod_ratio", 10 );
-		UI.PageOptionsVideoAdv.user:SetGlobal( "e_vegetation_sprites_distance_ratio", 1.0 );
+		UI.PageOptionsVideoAdv.user:SetGlobal( "e_vegetation_sprites_distance_ratio", 50.0 );
 		UI.PageOptionsVideoAdv.user:SetGlobal( "e_cgf_load_lods", 1 );
 		UI.PageOptionsVideoAdv.user:SetGlobal( "e_vegetation_min_size", 0 );
 		UI.PageOptionsVideoAdv.user:SetGlobal( "e_flocks", 1 );
 		UI.PageOptionsVideoAdv.user:SetGlobal( "e_EntitySuppressionLevel", 0 );
 		UI.PageOptionsVideoAdv.user:SetGlobal( "sys_skiponlowspec", 0 );
+		UI.PageOptionsVideoAdv.user:SetGlobal( "vr_render_force_obj_draw_dist", 0 );
+		UI.PageOptionsVideoAdv.user:SetGlobal( "vr_render_force_max_terrain_detail", 1 );
 	elseif( curSelectionIndex == 4 ) then
 		-- very high quality
 		UI.PageOptionsVideoAdv.user:SetGlobal( "r_VolumetricFog", 1 );
@@ -1308,13 +1314,15 @@ UI.PageOptionsVideoAdv.GUI.widget_Environment.user.UpdateAssignedGlobals = funct
 		UI.PageOptionsVideoAdv.user:SetGlobal( "e_decals_life_time_scale", 3.0 );
 		UI.PageOptionsVideoAdv.user:SetGlobal( "ca_EnableDecals", 1 );
 		UI.PageOptionsVideoAdv.user:SetGlobal( "e_overlay_geometry", 1 );
-		UI.PageOptionsVideoAdv.user:SetGlobal( "e_obj_lod_ratio", 10 );
-		UI.PageOptionsVideoAdv.user:SetGlobal( "e_vegetation_sprites_distance_ratio", 1.0 );
+		UI.PageOptionsVideoAdv.user:SetGlobal( "e_obj_lod_ratio", 50 );
+		UI.PageOptionsVideoAdv.user:SetGlobal( "e_vegetation_sprites_distance_ratio", 100.0 );
 		UI.PageOptionsVideoAdv.user:SetGlobal( "e_cgf_load_lods", 0 );
 		UI.PageOptionsVideoAdv.user:SetGlobal( "e_vegetation_min_size", 0 );
 		UI.PageOptionsVideoAdv.user:SetGlobal( "e_flocks", 1 );
 		UI.PageOptionsVideoAdv.user:SetGlobal( "e_EntitySuppressionLevel", 0 );
 		UI.PageOptionsVideoAdv.user:SetGlobal( "sys_skiponlowspec", 0 );
+		UI.PageOptionsVideoAdv.user:SetGlobal( "vr_render_force_obj_draw_dist", 1 );
+		UI.PageOptionsVideoAdv.user:SetGlobal( "vr_render_force_max_terrain_detail", 1 );
 	end
 end
 
