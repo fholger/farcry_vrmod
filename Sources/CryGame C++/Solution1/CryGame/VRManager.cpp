@@ -97,7 +97,7 @@ bool VRManager::Init(CXGame *game)
 		return false;
 	}
 
-	vr::VRCompositor()->SetTrackingSpace(vr::TrackingUniverseSeated);
+	vr::VRCompositor()->SetTrackingSpace(vr::TrackingUniverseStanding);
 
 	vr::VROverlay()->CreateOverlay("CrysisHud", "Crysis HUD", &m_hudOverlay);
 	vr::VROverlay()->SetOverlayWidthInMeters(m_hudOverlay, 2.f);
@@ -447,6 +447,11 @@ void VRManager::ModifyViewCamera(int eye, CCamera& cam)
 
 	Ang3 angles = cam.GetAngles();
 	Vec3 position = cam.GetPos();
+
+	if (CPlayer* player = m_pGame->GetLocalPlayer())
+	{
+		position.z = player->GetEntity()->GetPos().z;
+	}
 
 	angles = Deg2Rad(angles);
 	// eliminate pitch and roll
@@ -801,7 +806,7 @@ void VRManager::SetHudInFrontOfPlayer()
 	vr::HmdMatrix34_t hudTransform = FarCryToOpenVR(m_fixedHudTransform);
 	vr::VROverlay()->SetOverlayFlag(m_hudOverlay, vr::VROverlayFlags_IgnoreTextureAlpha, false);
 	vr::VROverlay()->SetOverlayWidthInMeters(m_hudOverlay, 2.f);
-	vr::VROverlay()->SetOverlayTransformAbsolute(m_hudOverlay, vr::TrackingUniverseSeated, &hudTransform);
+	vr::VROverlay()->SetOverlayTransformAbsolute(m_hudOverlay, vr::TrackingUniverseStanding, &hudTransform);
 }
 
 void VRManager::SetHudFixed()
@@ -812,7 +817,7 @@ void VRManager::SetHudFixed()
 	hudTransform.m[2][3] = -2.f;
 	vr::VROverlay()->SetOverlayFlag(m_hudOverlay, vr::VROverlayFlags_IgnoreTextureAlpha, false);
 	vr::VROverlay()->SetOverlayWidthInMeters(m_hudOverlay, 2.f);
-	vr::VROverlay()->SetOverlayTransformAbsolute(m_hudOverlay, vr::TrackingUniverseSeated, &hudTransform);
+	vr::VROverlay()->SetOverlayTransformAbsolute(m_hudOverlay, vr::TrackingUniverseStanding, &hudTransform);
 }
 
 void VRManager::SetHudAsBinoculars()
@@ -823,7 +828,7 @@ void VRManager::SetHudAsBinoculars()
 	vr::HmdMatrix34_t hudTransform = FarCryToOpenVR(transform);
 	vr::VROverlay()->SetOverlayFlag(m_hudOverlay, vr::VROverlayFlags_IgnoreTextureAlpha, true);
 	vr::VROverlay()->SetOverlayWidthInMeters(m_hudOverlay, vr_binocular_size);
-	vr::VROverlay()->SetOverlayTransformAbsolute(m_hudOverlay, vr::TrackingUniverseSeated, &hudTransform);
+	vr::VROverlay()->SetOverlayTransformAbsolute(m_hudOverlay, vr::TrackingUniverseStanding, &hudTransform);
 }
 
 void VRManager::SetHudAsWeaponZoom()
@@ -843,7 +848,7 @@ void VRManager::SetHudAsWeaponZoom()
 	vr::HmdMatrix34_t hudTransform = FarCryToOpenVR(transform);
 	vr::VROverlay()->SetOverlayFlag(m_hudOverlay, vr::VROverlayFlags_IgnoreTextureAlpha, true);
 	vr::VROverlay()->SetOverlayWidthInMeters(m_hudOverlay, vr_scope_size);
-	vr::VROverlay()->SetOverlayTransformAbsolute(m_hudOverlay, vr::TrackingUniverseSeated, &hudTransform);
+	vr::VROverlay()->SetOverlayTransformAbsolute(m_hudOverlay, vr::TrackingUniverseStanding, &hudTransform);
 }
 
 void VRManager::InitDevice(IDirect3DDevice9Ex* device)
