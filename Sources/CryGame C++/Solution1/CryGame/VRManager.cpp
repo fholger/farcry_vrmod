@@ -912,6 +912,7 @@ void VRManager::RegisterCVars()
 
 	e_terrain_lod_ratio = console->GetCVar("e_terrain_lod_ratio");
 	e_detail_texture_min_fov = console->GetCVar("e_detail_texture_min_fov");
+	e_obj_view_dist_ratio = console->GetCVar("e_obj_view_dist_ratio");
 
 	// disable motion blur, as it does not work properly in VR
 	console->GetCVar("r_MotionBlur")->ForceSet("0");

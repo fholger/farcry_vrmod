@@ -121,6 +121,7 @@ public:
 	ICVar* vr_debug_override_lh_offset = nullptr;
 	ICVar* e_terrain_lod_ratio = nullptr;
 	ICVar* e_detail_texture_min_fov = nullptr;
+	ICVar* e_obj_view_dist_ratio = nullptr;
 
 private:
 	void RegisterCVars();

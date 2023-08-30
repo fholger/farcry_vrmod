@@ -1423,7 +1423,7 @@ void CXGame::ProcessPMessages(const char *szMsg)
 void CXGame::LoadLevelCS(bool keepclient, const char *szMapName, const char *szMissionName, bool listen)
 {
 	if (gVR->vr_render_force_obj_draw_dist)
-		m_pSystem->GetIConsole()->ExecuteString("e_obj_view_dist_ratio 55", false, true);
+		gVR->e_obj_view_dist_ratio->ForceSet("55");
 
 	// need to reset timers as well
 	m_pScriptTimerMgr->Reset();
@@ -1545,14 +1545,14 @@ void CXGame::LoadLevelCS(bool keepclient, const char *szMapName, const char *szM
 	AllowQuicksave(true);
 
 	if (gVR->vr_render_force_obj_draw_dist)
-		m_pSystem->GetIConsole()->ExecuteString("e_obj_view_dist_ratio 500", false, true);
+		gVR->e_obj_view_dist_ratio->ForceSet("500");
 
 	if (gVR->vr_render_force_max_terrain_detail != 0)
 	{
 		// make sure terrain is rendered at max detail pretty much everywhere
-		gVR->e_terrain_lod_ratio->Set(0.1f);
+		gVR->e_terrain_lod_ratio->ForceSet("0.1");
 		// this very slightly improves terrain texture LOD behavior
-		gVR->e_detail_texture_min_fov->Set(100.f);
+		gVR->e_detail_texture_min_fov->ForceSet("100");
 	}
 };
 
