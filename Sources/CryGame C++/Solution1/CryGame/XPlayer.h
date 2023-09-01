@@ -288,6 +288,7 @@ public:
 	void ProcessRoomscaleTurn(CXEntityProcessingCmd& ProcessingCmd);
 	void ProcessRoomscaleMovement(CXEntityProcessingCmd& ProcessingCmd);
 
+	Vec3 GetVRBasePos() const;
 	void ModifyWeaponPosition(CWeaponClass* weapon, Vec3& weaponAngles, Vec3& weaponPosition);
 	void TryEnableTwoHandedWeaponMode();
 	void DisableTwoHandedWeaponMode();
@@ -458,7 +459,7 @@ public:
 	bool	IsMyPlayer() const;
 	bool	IsFirstPerson() const;
 	void	UpdateSwimState(bool bAlive);
-	bool	IsSwimming() 
+	bool	IsSwimming() const
 	{ 
 		return(m_bSwimming && !m_pEntity->IsBound()); 
 	} 
@@ -1156,6 +1157,7 @@ private:
 	int m_offHand = 0;
 	Matrix34 m_refPlayerTransform;
 	Matrix34 m_hmdTransform;
+	float m_hmdRefHeight;
 	Matrix34 m_controllerTransform[2];
 
 	Matrix34 GetWorldControllerTransform(int controller) const;

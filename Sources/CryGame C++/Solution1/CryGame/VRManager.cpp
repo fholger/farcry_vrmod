@@ -447,7 +447,7 @@ void VRManager::ModifyViewCamera(int eye, CCamera& cam)
 
 	if (CPlayer* player = m_pGame->GetLocalPlayer())
 	{
-		position.z = player->GetEntity()->GetPos().z;
+		position = player->GetVRBasePos();
 	}
 
 	angles = Deg2Rad(angles);
@@ -771,7 +771,7 @@ void VRManager::ProcessRoomscale()
 		m_pGame->GetClient()->EnableMotionControls(m_pGame->g_LeftHanded->GetIVal() == 0);
 		Vec3 hmdPos = m_hmdTransform.GetTranslation();
 		Ang3 hmdAngles = ToAnglesDeg(m_hmdTransform);
-		m_pGame->GetClient()->UpdateHmdTransform(hmdPos, hmdAngles);
+		m_pGame->GetClient()->UpdateHmdTransform(hmdPos, hmdAngles, m_referenceHeight);
 
 		for (int i = 0; i < 2; ++i)
 		{

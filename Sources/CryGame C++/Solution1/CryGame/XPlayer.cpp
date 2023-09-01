@@ -1186,7 +1186,7 @@ void CPlayer::ProcessAngles(CXEntityProcessingCmd &ProcessingCmd)
 
 	Ang3 refAngles = Deg2Rad(m_pEntity->GetCamera()->GetAngles());
 	refAngles.x = refAngles.y = 0;
-	m_refPlayerTransform = Matrix34::CreateRotationXYZ(refAngles, m_pEntity->GetCamera()->GetPos());
+	m_refPlayerTransform = Matrix34::CreateRotationXYZ(refAngles, GetVRBasePos());
 
 	ProcessRoomscaleTurn(ProcessingCmd);
 	// copy VR motion controller data here
@@ -1466,6 +1466,7 @@ void CPlayer::ProcessMovements(CXEntityProcessingCmd &cmd, bool bScheduled)
 	if(!pPhysEnt)
 		return;
 
+	m_hmdRefHeight = cmd.GetHmdRefHeight();
 	if (!m_pGame->IsMultiplayer())
 	{
 		// fixme: does not work well in multiplayer, probably needs some massaging with prediction
@@ -2531,6 +2532,36 @@ void CPlayer::ProcessRoomscaleMovement(CXEntityProcessingCmd& ProcessingCmd)
 	}
 }
 
+Vec3 CPlayer::GetVRBasePos() const
+{
+	if (m_pVehicle || IsSwimming() || m_pGame->IsCutSceneActive() || !IsAlive() || !IsMyPlayer())
+	{
+		// use actual camera position as base
+		Vec3 pos = m_pEntity->GetCamera()->GetPos();
+		pos.z -= m_hmdRefHeight;
+		return pos;
+	}
+
+	Vec3 pos = m_pEntity->GetPos();
+
+	float offset = 0;
+	switch (m_CurStance)
+	{
+	case eCrouch:
+		offset = m_PlayerDimCrouch.heightHead - m_hmdRefHeight;
+		break;
+	case eProne:
+		offset = m_PlayerDimProne.heightHead - m_hmdRefHeight;
+		break;
+	case eStealth:
+		offset = m_PlayerDimStealth.heightHead - m_hmdRefHeight;
+		break;
+	}
+
+	pos.z += offset;
+	return pos;
+}
+
 void CPlayer::ModifyWeaponPosition(CWeaponClass* weapon, Vec3& weaponAngles, Vec3& weaponPosition)
 {
 	if (!m_usesMotionControls)
@@ -2606,7 +2637,7 @@ void CPlayer::UpdateVRTransformsPreRender()
 
 	Ang3 refAngles = Deg2Rad(m_pEntity->GetCamera()->GetAngles());
 	refAngles.x = refAngles.y = 0;
-	m_refPlayerTransform = Matrix34::CreateRotationXYZ(refAngles, m_pEntity->GetCamera()->GetPos());
+	m_refPlayerTransform = Matrix34::CreateRotationXYZ(refAngles, GetVRBasePos());
 
 	m_controllerTransform[0] = gVR->GetControllerTransform(0);
 	m_controllerTransform[1] = gVR->GetControllerTransform(1);

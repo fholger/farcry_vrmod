@@ -99,10 +99,11 @@ public:
 		m_rightHandDominant = rightHandDominant;
 	}
 
-	void SetHmdTransform(const Vec3& pos, const Ang3& anglesDeg)
+	void SetHmdTransform(const Vec3& pos, const Ang3& anglesDeg, float refHeight)
 	{
 		m_hmdPosition = pos;
 		m_hmdAnglesDeg = anglesDeg;
+		m_hmdRefHeight = refHeight;
 	}
 
 	void SetControllerTransform(int controller, const Vec3& pos, const Ang3& anglesDeg)
@@ -115,6 +116,7 @@ public:
 	bool IsRightHandDominant() const { return m_rightHandDominant; }
 	const Vec3& GetHmdPos() const { return m_hmdPosition; }
 	const Ang3& GetHmdAnglesDeg() const { return m_hmdAnglesDeg; }
+	float GetHmdRefHeight() const { return m_hmdRefHeight; }
 	const Vec3& GetControllerPos(int controller) const { return m_controllerPosition[controller]; }
 	const Ang3& GetControllerAnglesDeg(int controller) const { return m_controllerAnglesDeg[controller]; }
 
@@ -153,6 +155,7 @@ private:
 	// transforms for HMD and controllers, relative to player
 	Vec3 m_hmdPosition;
 	Ang3 m_hmdAnglesDeg;
+	float m_hmdRefHeight;
 	Vec3 m_controllerPosition[2];
 	Ang3 m_controllerAnglesDeg[2];
 

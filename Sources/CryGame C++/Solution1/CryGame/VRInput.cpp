@@ -243,7 +243,7 @@ Matrix34 VRInput::GetControllerTransform(int hand)
 	hand = clamp_tpl(hand, 0, 1);
 
 	vr::InputPoseActionData_t data;
-	vr::VRInput()->GetPoseActionDataForNextFrame(m_handPoses[hand], vr::TrackingUniverseSeated, &data, sizeof(data), vr::k_ulInvalidInputValueHandle);
+	vr::VRInput()->GetPoseActionDataForNextFrame(m_handPoses[hand], vr::TrackingUniverseStanding, &data, sizeof(data), vr::k_ulInvalidInputValueHandle);
 
 	// the grip pose has a peculiar orientation that we need to fix
 	Matrix33 correction = Matrix33::CreateRotationX(gf_PI/2);

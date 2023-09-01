@@ -187,7 +187,7 @@ public:
 
 	// VR motion controls
 	void EnableMotionControls(bool rightHandDominant);
-	void UpdateHmdTransform(const Vec3& pos, const Ang3& anglesDeg);
+	void UpdateHmdTransform(const Vec3& pos, const Ang3& anglesDeg, float refHeight);
 	void UpdateControllerTransform(int controller, const Vec3& pos, const Ang3& anglesDeg);
 
 	// Triggers function

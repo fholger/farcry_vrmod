@@ -3299,9 +3299,9 @@ void CXClient::EnableMotionControls(bool rightHandDominant)
 	m_PlayerProcessingCmd.SetMotionControls(true, rightHandDominant);
 }
 
-void CXClient::UpdateHmdTransform(const Vec3& pos, const Ang3& anglesDeg)
+void CXClient::UpdateHmdTransform(const Vec3& pos, const Ang3& anglesDeg, float refHeight)
 {
-	m_PlayerProcessingCmd.SetHmdTransform(pos, anglesDeg);
+	m_PlayerProcessingCmd.SetHmdTransform(pos, anglesDeg, refHeight);
 }
 
 void CXClient::UpdateControllerTransform(int controller, const Vec3& pos, const Ang3& anglesDeg)

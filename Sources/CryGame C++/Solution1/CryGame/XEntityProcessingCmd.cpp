@@ -141,6 +141,9 @@ bool CXEntityProcessingCmd::Write( CStream &stm, IBitStream *pBitStream, bool bW
 			if (!pBitStream->WriteBitStream(stm, m_hmdAnglesDeg, eEulerAnglesHQ))
 				return false;
 
+			if (!pBitStream->WriteBitStream(stm, m_hmdRefHeight, eWorldPos))
+				return false;
+
 			for (int i = 0; i < 2; ++i)
 			{
 				if (!pBitStream->WriteBitStream(stm, m_controllerPosition[i], eWorldPos))
@@ -221,6 +224,9 @@ bool CXEntityProcessingCmd::Read( CStream &stm, IBitStream *pBitStream )
 				return false;
 
 			if (!pBitStream->ReadBitStream(stm, m_hmdAnglesDeg, eEulerAnglesHQ))
+				return false;
+
+			if (!pBitStream->ReadBitStream(stm, m_hmdRefHeight, eWorldPos))
 				return false;
 
 			for (int i = 0; i < 2; ++i)
