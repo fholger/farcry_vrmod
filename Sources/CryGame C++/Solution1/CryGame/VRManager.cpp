@@ -101,8 +101,6 @@ bool VRManager::Init(CXGame *game)
 
 	vr::VROverlay()->CreateOverlay("CrysisHud", "Crysis HUD", &m_hudOverlay);
 	vr::VROverlay()->SetOverlayWidthInMeters(m_hudOverlay, 2.f);
-
-	SetHudFixed();
 	vr::VROverlay()->ShowOverlay(m_hudOverlay);
 
 	float ll, lr, lt, lb, rl, rr, rt, rb;
@@ -176,9 +174,8 @@ void VRManager::HandleEvents()
 	{
 		if (event.eventType == vr::VREvent_SeatedZeroPoseReset)
 		{
-			m_referencePosition.Set(0, 0, 0);
-			m_referenceYaw = 0;
-			UpdateHmdTransform();
+			vr::VRSystem()->GetDeviceToAbsoluteTrackingPose(vr::TrackingUniverseStanding, 0, &m_headPose, 1);
+			RecalibrateView();
 		}
 		if (event.eventType == vr::VREvent_Quit)
 		{
@@ -613,23 +610,23 @@ void VRManager::GetEffectiveRenderLimits(int eye, float* left, float* right, flo
 
 void VRManager::ProcessInput()
 {
+	bool firstValidPose = m_referenceHeight < 0 && m_headPose.bPoseIsValid;
+	if (firstValidPose)
+	{
+		RecalibrateView();
+	}
+
 	if ((m_pGame->IsInMenu() || m_pGame->GetSystem()->GetIConsole()->IsOpened()) && UseMotionControllers())
 	{
 		if (!m_wasInMenu)
 		{
+			CryLogAlways("Entering menu...");
 			m_wasInMenu = true;
 			m_buttonPressed = false;
 			vr::VROverlay()->SetOverlayInputMethod(m_hudOverlay, vr::VROverlayInputMethod_Mouse);
 			vr::VROverlay()->SetOverlayFlag(m_hudOverlay, vr::VROverlayFlags_MakeOverlaysInteractiveIfVisible, true);
 			vr::VROverlay()->SetOverlayFlag(m_hudOverlay, vr::VROverlayFlags_HideLaserIntersection, true);
-			m_fixedHudTransform = OpenVRToFarCry(m_headPose.mDeviceToAbsoluteTracking);
-			// erase pitch and roll
-			Ang3 angles;
-			angles.SetAnglesXYZ((Matrix33)m_fixedHudTransform);
-			angles.x = angles.y = 0;
-			m_fixedHudTransform.SetRotationXYZ(angles, m_fixedHudTransform.GetTranslation());
-			Vec3 dir = -((Matrix33)m_fixedHudTransform).GetColumn(1);
-			m_fixedHudTransform.SetTranslation(m_fixedHudTransform.GetTranslation() + 2.f * dir);
+			RecalibrateView();
 		}
 		SetHudInFrontOfPlayer();
 		ProcessMenuInput();
@@ -642,6 +639,7 @@ void VRManager::ProcessInput()
 		m_buttonPressed = false;
 		vr::VROverlay()->SetOverlayInputMethod(m_hudOverlay, vr::VROverlayInputMethod_None);
 		vr::VROverlay()->SetOverlayFlag(m_hudOverlay, vr::VROverlayFlags_MakeOverlaysInteractiveIfVisible, false);
+		RecalibrateView();
 	}
 
 	if (!UseMotionControllers())
@@ -748,6 +746,7 @@ void VRManager::CommitYawAndOffsetChanges()
 {
 	m_referenceYaw = m_uncommittedReferenceYaw;
 	m_referencePosition = m_uncommittedReferencePosition;
+	m_referencePosition.z = 0;
 	UpdateHmdTransform();
 }
 
@@ -763,12 +762,7 @@ void VRManager::ProcessRoomscale()
 	if (m_skippedRoomscaleMovement)
 	{
 		// if we previously skipped roomscale movement, reset our offsets to not accidentally move way too much
-		Matrix34 rawHmdTransform = OpenVRToFarCry(m_headPose.mDeviceToAbsoluteTracking);
-		Ang3 rawAngles;
-		rawAngles.SetAnglesXYZ((Matrix33)rawHmdTransform);
-		m_referencePosition = rawHmdTransform.GetTranslation();
-		m_referenceYaw = rawAngles.z;
-		UpdateHmdTransform();
+		RecalibrateView();
 		m_skippedRoomscaleMovement = false;
 	}
 
@@ -789,6 +783,33 @@ void VRManager::ProcessRoomscale()
 	}
 }
 
+void VRManager::RecalibrateView()
+{
+	if (!m_headPose.bPoseIsValid)
+		return;
+
+	CryLogAlways("Recalibrating view");
+	Matrix34 rawHmdTransform = OpenVRToFarCry(m_headPose.mDeviceToAbsoluteTracking);
+	Ang3 rawAngles;
+	rawAngles.SetAnglesXYZ((Matrix33)rawHmdTransform);
+	m_referencePosition = rawHmdTransform.GetTranslation();
+	m_referenceHeight = m_referencePosition.z;
+	m_referencePosition.z = 0;
+	m_referenceYaw = rawAngles.z;
+	UpdateHmdTransform();
+
+	// recalibrate menu HUD positioning
+	m_fixedHudTransform = OpenVRToFarCry(m_headPose.mDeviceToAbsoluteTracking);
+	// erase pitch and roll
+	Ang3 angles;
+	angles.SetAnglesXYZ((Matrix33)m_fixedHudTransform);
+	angles.x = angles.y = 0;
+	m_fixedHudTransform.SetRotationXYZ(angles, m_fixedHudTransform.GetTranslation());
+	Vec3 dir = -((Matrix33)m_fixedHudTransform).GetColumn(1);
+	Vec3 pos = m_fixedHudTransform.GetTranslation() + 2.f * dir;
+	m_fixedHudTransform.SetTranslation(pos);
+}
+
 
 void VRManager::SetHudAttachedToHead()
 {
@@ -804,17 +825,6 @@ void VRManager::SetHudAttachedToHead()
 void VRManager::SetHudInFrontOfPlayer()
 {
 	vr::HmdMatrix34_t hudTransform = FarCryToOpenVR(m_fixedHudTransform);
-	vr::VROverlay()->SetOverlayFlag(m_hudOverlay, vr::VROverlayFlags_IgnoreTextureAlpha, false);
-	vr::VROverlay()->SetOverlayWidthInMeters(m_hudOverlay, 2.f);
-	vr::VROverlay()->SetOverlayTransformAbsolute(m_hudOverlay, vr::TrackingUniverseStanding, &hudTransform);
-}
-
-void VRManager::SetHudFixed()
-{
-	vr::HmdMatrix34_t hudTransform;
-	memset(&hudTransform, 0, sizeof(vr::HmdMatrix34_t));
-	hudTransform.m[0][0] = hudTransform.m[1][1] = hudTransform.m[2][2] = 1;
-	hudTransform.m[2][3] = -2.f;
 	vr::VROverlay()->SetOverlayFlag(m_hudOverlay, vr::VROverlayFlags_IgnoreTextureAlpha, false);
 	vr::VROverlay()->SetOverlayWidthInMeters(m_hudOverlay, 2.f);
 	vr::VROverlay()->SetOverlayTransformAbsolute(m_hudOverlay, vr::TrackingUniverseStanding, &hudTransform);

@@ -83,7 +83,6 @@ private:
 
 	void SetHudAttachedToHead();
 	void SetHudInFrontOfPlayer();
-	void SetHudFixed();
 	void SetHudAsBinoculars();
 	void SetHudAsWeaponZoom();
 
@@ -133,6 +132,7 @@ private:
 	Vec3 m_uncommittedReferencePosition;
 	float m_referenceYaw = 0;
 	float m_uncommittedReferenceYaw = 0;
+	float m_referenceHeight = -1;
 	Matrix34 m_hmdTransform;
 	bool m_skippedRoomscaleMovement = false;
 	bool m_wasInMenu = false;
@@ -150,6 +150,8 @@ private:
 
 	void UpdateHmdTransform();
 	void ProcessRoomscale();
+
+	void RecalibrateView();
 };
 
 extern VRManager* gVR;
