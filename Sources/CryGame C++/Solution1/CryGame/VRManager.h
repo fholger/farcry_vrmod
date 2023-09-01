@@ -115,6 +115,7 @@ public:
 	int vr_render_world_while_zoomed;
 	float vr_binocular_size;
 	float vr_scope_size;
+	int vr_seated_mode;
 	ICVar* vr_debug_override_rh_offset = nullptr;
 	ICVar* vr_debug_override_rh_angles = nullptr;
 	ICVar* vr_debug_override_lh_offset = nullptr;

@@ -2534,7 +2534,9 @@ void CPlayer::ProcessRoomscaleMovement(CXEntityProcessingCmd& ProcessingCmd)
 
 Vec3 CPlayer::GetVRBasePos() const
 {
-	if (m_pVehicle || IsSwimming() || m_pGame->IsCutSceneActive() || !IsAlive() || !IsMyPlayer())
+	bool usePlayerCam = m_pVehicle || IsSwimming() || m_pGame->IsCutSceneActive() || !IsAlive() || !IsMyPlayer() || gVR->vr_seated_mode;
+	usePlayerCam = usePlayerCam || m_CurStance == eCrouch || m_CurStance == eProne || m_CurStance == eStealth;
+	if (usePlayerCam)
 	{
 		// use actual camera position as base
 		Vec3 pos = m_pEntity->GetCamera()->GetPos();
@@ -2542,24 +2544,7 @@ Vec3 CPlayer::GetVRBasePos() const
 		return pos;
 	}
 
-	Vec3 pos = m_pEntity->GetPos();
-
-	float offset = 0;
-	switch (m_CurStance)
-	{
-	case eCrouch:
-		offset = m_PlayerDimCrouch.heightHead - m_hmdRefHeight;
-		break;
-	case eProne:
-		offset = m_PlayerDimProne.heightHead - m_hmdRefHeight;
-		break;
-	case eStealth:
-		offset = m_PlayerDimStealth.heightHead - m_hmdRefHeight;
-		break;
-	}
-
-	pos.z += offset;
-	return pos;
+	return m_pEntity->GetPos();
 }
 
 void CPlayer::ModifyWeaponPosition(CWeaponClass* weapon, Vec3& weaponAngles, Vec3& weaponPosition)
