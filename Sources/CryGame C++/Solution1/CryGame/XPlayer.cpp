@@ -1467,7 +1467,7 @@ void CPlayer::ProcessMovements(CXEntityProcessingCmd &cmd, bool bScheduled)
 		return;
 
 	m_hmdRefHeight = cmd.GetHmdRefHeight();
-	if (!m_pGame->IsMultiplayer())
+	//if (!m_pGame->IsMultiplayer())
 	{
 		// fixme: does not work well in multiplayer, probably needs some massaging with prediction
 		ProcessRoomscaleMovement(cmd);
@@ -2198,7 +2198,7 @@ void CPlayer::ProcessMovements(CXEntityProcessingCmd &cmd, bool bScheduled)
 	hike.iJump = bJump && !bNoGravity;
 	hike.dir=speedxyz;     
 
-	DampInputVector(hike.dir,m_input_accel,m_input_stop_accel,true,false);
+	//DampInputVector(hike.dir,m_input_accel,m_input_stop_accel,true,false);
 	
 	pPhysEnt->Action(&hike);
 
@@ -2519,6 +2519,20 @@ void CPlayer::ProcessRoomscaleMovement(CXEntityProcessingCmd& ProcessingCmd)
 	Vec3 offset = ProcessingCmd.GetHmdPos();
 	Vec3 worldOffset = playerTransform * offset;
 	worldOffset.z = 0;
+
+	// take terrain slope into account to move a bit up or down and prevent the engine from "jumping" the player vertically
+	if (m_pEntity->GetPhysics())
+	{
+		pe_status_living status;
+		m_pEntity->GetPhysics()->GetStatus(&status);
+		Vec3 normal = status.groundSlope;
+
+		Vec3 fwd = worldOffset.GetNormalized();
+		Vec3 left = -fwd.Cross(normal);
+		fwd = left.Cross(normal);
+		worldOffset = fwd * worldOffset.len();
+	}
+
 	Vec3 desiredPos = playerPos + worldOffset;
 
 	// fixme: the engine appears to do a good job of preventing the player from clipping into obstacles and getting up terrain slopes
