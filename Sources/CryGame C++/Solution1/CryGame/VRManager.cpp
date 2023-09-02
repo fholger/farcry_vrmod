@@ -766,6 +766,8 @@ void VRManager::ProcessRoomscale()
 		m_skippedRoomscaleMovement = false;
 	}
 
+	m_referenceHeight = max(m_referenceHeight, m_hmdTransform.GetTranslation().z);
+
 	if (m_pGame->GetClient())
 	{
 		m_pGame->GetClient()->EnableMotionControls(m_pGame->g_LeftHanded->GetIVal() == 0);
@@ -938,6 +940,9 @@ void VRManager::RegisterCVars()
 
 void VRManager::UpdateHmdTransform()
 {
+	if (!m_headPose.bPoseIsValid)
+		return;
+
 	Ang3 refAngles(0, 0, m_referenceYaw);
 	Matrix33 refTransform;
 	refTransform.SetRotationXYZ(refAngles);

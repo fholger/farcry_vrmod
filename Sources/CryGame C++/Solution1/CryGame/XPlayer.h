@@ -956,6 +956,8 @@ private:
 	string	m_sPrevAniNameLayer2;		//!< layer 2 is used for jump/land animations
 	float		m_fShootAniLength;
 
+	eStance m_curPhysicalStance = eNone;
+	eStance GetVRPhysicalStance() const;
 public:
 	void GetFirePosAngles( Vec3& firePos, Vec3& fireAngles );
 	float CalculateAccuracyFactor(float accuracy);

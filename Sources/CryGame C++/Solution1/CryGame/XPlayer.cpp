@@ -1612,6 +1612,30 @@ void CPlayer::ProcessMovements(CXEntityProcessingCmd &cmd, bool bScheduled)
 			cmd.RemoveAction(ACTION_MOVEMODE_SWITCH);
 		}
 
+		if (!gVR->vr_seated_mode)
+		{
+			eStance physicalStance = GetVRPhysicalStance();
+			if (physicalStance == eNone && physicalStance != m_curPhysicalStance)
+			{
+				GoStand();
+				bGoCrouch = false;
+				bGoProne = false;
+				m_bStayCrouch = false;
+			}
+			if (physicalStance == eCrouch && ((!bGoProne && m_CurStance != eProne) || physicalStance != m_curPhysicalStance))
+			{
+				bGoCrouch = true;
+				m_bStayCrouch = true;
+			}
+			if (physicalStance == eProne && m_CurStance != eProne)
+			{
+				bGoCrouch = false;
+				bGoProne = true;
+				m_bStayCrouch = false;
+			}
+			m_curPhysicalStance = physicalStance;
+		}
+
 		if (m_stats.crouch && !m_bSwimming && !m_stats.onLadder)
 		{
 			//if it was crouching lets remove it otherwise the "onhold" will not work
@@ -2549,7 +2573,6 @@ void CPlayer::ProcessRoomscaleMovement(CXEntityProcessingCmd& ProcessingCmd)
 Vec3 CPlayer::GetVRBasePos() const
 {
 	bool usePlayerCam = m_pVehicle || IsSwimming() || m_pGame->IsCutSceneActive() || !IsAlive() || !IsMyPlayer() || gVR->vr_seated_mode;
-	usePlayerCam = usePlayerCam || m_CurStance == eCrouch || m_CurStance == eProne || m_CurStance == eStealth;
 	if (usePlayerCam)
 	{
 		// use actual camera position as base
@@ -2558,7 +2581,28 @@ Vec3 CPlayer::GetVRBasePos() const
 		return pos;
 	}
 
-	return m_pEntity->GetPos();
+	Vec3 pos = m_pEntity->GetPos();
+
+	if (m_CurStance == eProne)
+	{
+		if (m_curPhysicalStance == eCrouch)
+		{
+			pos.z -= (m_PlayerDimCrouch.heightEye - m_PlayerDimProne.heightEye);
+		}
+		else if (m_curPhysicalStance != eProne)
+		{
+			pos.z -= (m_hmdRefHeight - m_PlayerDimProne.heightEye);
+		}
+	}
+	else if (m_CurStance == eCrouch)
+	{
+		if (m_curPhysicalStance == eNone)
+		{
+			pos.z -= (m_hmdRefHeight - m_PlayerDimCrouch.heightEye);
+		}
+	}
+
+	return pos;
 }
 
 void CPlayer::ModifyWeaponPosition(CWeaponClass* weapon, Vec3& weaponAngles, Vec3& weaponPosition)
@@ -2951,6 +2995,16 @@ void CPlayer::SetWeapon(int iClsID)
 
 	// release two handed weapon grip, if held
 	DisableTwoHandedWeaponMode();
+}
+
+CPlayer::eStance CPlayer::GetVRPhysicalStance() const
+{
+	float hmdHeight = m_hmdTransform.GetTranslation().z;
+	if (hmdHeight <= m_PlayerDimProne.heightEye + 0.1f)
+		return eProne;
+	if (hmdHeight <= m_PlayerDimCrouch.heightEye + 0.1f)
+		return eCrouch;
+	return eNone;
 }
 
 //////////////////////////////////////////////////////////////////////
