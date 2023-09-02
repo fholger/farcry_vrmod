@@ -2541,8 +2541,16 @@ void CPlayer::ProcessRoomscaleMovement(CXEntityProcessingCmd& ProcessingCmd)
 
 	Vec3 playerPos = m_pEntity->GetPos();
 	Vec3 offset = ProcessingCmd.GetHmdPos();
+	offset.z = 0;
 	Vec3 worldOffset = playerTransform * offset;
 	worldOffset.z = 0;
+	float length = worldOffset.len();
+	if (length > 0.02f)
+	{
+		// only do small movements per frame, as otherwise it can lead to stuttering responses from the engine
+		worldOffset *= 0.02f / length;
+		offset *= 0.02f / length;
+	}
 
 	// take terrain slope into account to move a bit up or down and prevent the engine from "jumping" the player vertically
 	if (m_pEntity->GetPhysics())
