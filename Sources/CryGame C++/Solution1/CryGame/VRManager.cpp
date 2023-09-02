@@ -444,8 +444,10 @@ void VRManager::ModifyViewCamera(int eye, CCamera& cam)
 
 	Ang3 angles = cam.GetAngles();
 	Vec3 position = cam.GetPos();
+	position.z -= m_referenceHeight;
 
-	if (CPlayer* player = m_pGame->GetLocalPlayer())
+	CPlayer* player = m_pGame->GetLocalPlayer();
+	if (player && !m_pGame->IsCutSceneActive())
 	{
 		position = player->GetVRBasePos();
 	}

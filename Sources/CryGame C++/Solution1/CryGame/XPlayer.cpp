@@ -2554,7 +2554,9 @@ void CPlayer::ProcessRoomscaleMovement(CXEntityProcessingCmd& ProcessingCmd)
 		Vec3 fwd = worldOffset.GetNormalized();
 		Vec3 left = -fwd.Cross(normal);
 		fwd = left.Cross(normal);
-		worldOffset = fwd * worldOffset.len();
+		Vec3 fwd2D = fwd;
+		fwd2D.z = 0;
+		worldOffset = fwd * worldOffset.len() / (max(fwd2D.len(), 0.01f));
 	}
 
 	Vec3 desiredPos = playerPos + worldOffset;
@@ -2582,9 +2584,11 @@ Vec3 CPlayer::GetVRBasePos() const
 	}
 
 	Vec3 pos = m_pEntity->GetPos();
+	float refHeight = m_PlayerDimNormal.heightEye;
 
 	if (m_CurStance == eProne)
 	{
+		refHeight = m_PlayerDimProne.heightEye;
 		if (m_curPhysicalStance == eCrouch)
 		{
 			pos.z -= (m_PlayerDimCrouch.heightEye - m_PlayerDimProne.heightEye);
@@ -2596,10 +2600,21 @@ Vec3 CPlayer::GetVRBasePos() const
 	}
 	else if (m_CurStance == eCrouch)
 	{
+		refHeight = m_PlayerDimCrouch.heightEye;
 		if (m_curPhysicalStance == eNone)
 		{
 			pos.z -= (m_hmdRefHeight - m_PlayerDimCrouch.heightEye);
 		}
+	}
+
+	pe_status_living status;
+	m_pEntity->GetPhysics()->GetStatus(&status);
+	if (status.timeSinceStanceChange > 3.f)
+	{
+		// if we are not in a stance change, apply camera height offset
+		// this smoothes movement over stairs and other steps
+		float camOffset = m_pEntity->GetCamera()->GetCamOffset().z;
+		pos.z += camOffset - refHeight;
 	}
 
 	return pos;
@@ -5151,7 +5166,8 @@ void CPlayer::OnDraw(const SRendParams & _RendParams)
 	int nRecursionLevel = (int)m_pGame->GetSystem()->GetIRenderer()->EF_Query(EFQ_RecurseLevel) - 1;
 
 
-	if (m_bFirstPerson && !nRecursionLevel && !GetVehicle() && !m_pMountedWeapon && gVR->vr_show_empty_hands && !m_pGame->AreBinocularsActive())
+	if (m_bFirstPerson && !nRecursionLevel && !GetVehicle() && !m_pMountedWeapon && gVR->vr_show_empty_hands
+		&& !m_pGame->AreBinocularsActive() && !m_pGame->IsCutSceneActive())
 	{
 		bool hideOffHand = GetSelectedWeapon() && (m_twoHandWeaponMode || m_stats.reloading);
 		if (!hideOffHand)
