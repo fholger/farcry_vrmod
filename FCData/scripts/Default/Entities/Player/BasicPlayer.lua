@@ -308,6 +308,10 @@ BasicPlayer =	 {
 		"Scripts/Expressions/SearchRandomExpressions.lua",		-- search
 		"Scripts/Expressions/CombatRandomExpressions.lua",		-- combat	
 	},
+	
+	heartbeatPlayed = nil,
+	nextSwimHapticEvent = nil,
+	swimHapticEventInterval = 2.0,
 };
 
 
@@ -526,7 +530,9 @@ function BasicPlayer:OnReset()
 	self.hasJumped = 0;
 	self.lastStanceSound = 0;
 	--self.lastProne = 0;
-
+	
+	self.nextSwimHapticEvent = nil;
+	self.swimHapticEventInterval = 1.5;
 end
 
 -----------------------------------------------------------------------------------------------------------
@@ -580,6 +586,9 @@ function BasicPlayer:Client_OnInit()
 	Game:RegisterBHapticsEffect("jump", "bhaptics/vest/Jumping.tact");
 	Game:RegisterBHapticsEffect("heal", "bhaptics/vest/ConsumeHealth.tact");
 	Game:RegisterBHapticsEffect("pickup", "bhaptics/vest/ConsumeOther.tact");
+	Game:RegisterBHapticsEffect("heartbeat", "bhaptics/vest/Heartbeat.tact");
+	Game:RegisterBHapticsEffect("swimming", "bhaptics/vest/Swimming.tact");
+	Game:RegisterBHapticsEffect("vehicle_rumble", "bhaptics/vest/VehicleRumble.tact");
 
 	self:RegisterStates();
 
@@ -1812,14 +1821,20 @@ function BasicPlayer:UpdateInWaterSplash()
 	--				self.SwimSound = BasicPlayer.sndWaterSwim[iSoundIdx];
 					self.SwimSound = BasicPlayer.sndWaterSwim;
 					if (self.SwimSound) then
+						self.swimHapticEventInterval = Sound:GetSoundLength(self.SwimSound);
 						Sound:SetSoundLoop(self.SwimSound, 1);
 						Sound:PlaySound(self.SwimSound);
+						self.nextSwimHapticEvent = _time;
 					end
+				end
+				if (self.nextSwimHapticEvent == nil) then
+					self.nextSwimHapticEvent = _time;
 				end
 			else
 				if ((self.SwimSound~=nil) and (Sound:IsPlaying(self.SwimSound)==1)) then
 					Sound:StopSound(self.SwimSound);
 					self.SwimSound=nil;
+					self.nextSwimHapticEvent = nil;
 				end
 			end
 			-- Spawn ripples if player enters water
@@ -1853,13 +1868,19 @@ function BasicPlayer:UpdateInWaterSplash()
 				if (not Sound:IsPlaying(self.sndUnderWaterSwim)) then
 					Sound:SetSoundLoop(self.sndUnderWaterSwim, 1);
 					Sound:PlaySound(self.sndUnderWaterSwim);
+					self.swimHapticEventInterval = Sound:GetSoundLength(self.sndUnderWaterSwim);
+					self.nextSwimHapticEvent = _time;
 				end
-			elseif (Sound:IsPlaying(self.sndUnderWaterSwim)) then
-				Sound:StopSound(self.sndUnderWaterSwim);
+			else
+				if (Sound:IsPlaying(self.sndUnderWaterSwim)) then
+					Sound:StopSound(self.sndUnderWaterSwim);
+					self.nextSwimHapticEvent = nil;
+				end
 			end
 		end
 	else	-- not in water at all
 		Sound:SetGroupScale(SOUNDSCALE_UNDERWATER, 1);
+		self.nextSwimHapticEvent = nil;
 		self.InWater = 0;
 		self.Diving=0;
 		if ((self.SwimSound~=nil) and (Sound:IsPlaying(self.SwimSound)==1)) then
@@ -2543,6 +2564,24 @@ function BasicPlayer:Client_OnTimer()
 --						
 --				end
 --			end
+		end
+		
+		if (self.nextSwimHapticEvent ~= nil and self.nextSwimHapticEvent <= _time) then
+			self.cnt:TriggerBHapticsEffect("swimming", "swimming", 0.1);
+			if (self.swimHapticEventInterval ~= nil) then
+				self.nextSwimHapticEvent = self.nextSwimHapticEvent + self.swimHapticEventInterval;
+			else
+				self.nextSwimHapticEvent = nil;
+			end
+		end
+		
+		if (self.cnt.health <= self.Properties.max_health / 4.0) then
+			if (self.heartbeatPlayed == nil) then
+				self.heartbeatPlayed = _time;
+				self.cnt:TriggerBHapticsEffect("heartbeat", "heartbeat", 1.0);
+			end
+		else
+			self.heartbeatPlayed = nil;
 		end
 
 	end
