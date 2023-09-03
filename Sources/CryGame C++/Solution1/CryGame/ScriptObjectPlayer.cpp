@@ -2156,8 +2156,10 @@ int CScriptObjectPlayer::TriggerBHapticsEffect(IFunctionHandler* pH)
 	const char* keyRight = nullptr;
 	const char* keyLeft = nullptr;
 	float intensity = 1.0f;
-	float offsetAngleX = 0;
-	float offsetY = 0;
+	CScriptObjectVector pos (m_pScriptSystem, true);
+	CScriptObjectVector dir (m_pScriptSystem, true);
+	bool isPositional = false;
+
 	if (pH->GetParamCount() >= 2)
 	{
 		pH->GetParam(1, keyRight);
@@ -2165,13 +2167,20 @@ int CScriptObjectPlayer::TriggerBHapticsEffect(IFunctionHandler* pH)
 	}
 	if (pH->GetParamCount() >= 3)
 		pH->GetParam(3, intensity);
-	if (pH->GetParamCount() >= 4)
-		pH->GetParam(4, offsetAngleX);
 	if (pH->GetParamCount() >= 5)
-		pH->GetParam(5, offsetY);
+	{
+		pH->GetParam(4, pos);
+		pH->GetParam(5, dir);
+		isPositional = true;
+	}
 
 	if (keyRight != nullptr && keyLeft != nullptr)
-		m_pPlayer->TriggerBHapticsEffect(keyRight, keyLeft, intensity, offsetAngleX, offsetY);
+	{
+		if (isPositional)
+			m_pPlayer->TriggerBHapticsEffect(keyRight, keyLeft, intensity, pos.Get(), dir.Get());
+		else
+			m_pPlayer->TriggerBHapticsEffect(keyRight, keyLeft, intensity);
+	}
 
 	return pH->EndFunction();
 }

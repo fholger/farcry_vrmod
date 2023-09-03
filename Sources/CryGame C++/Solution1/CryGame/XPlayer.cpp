@@ -2757,6 +2757,34 @@ void CPlayer::TriggerBHapticsEffect(const char* keyRight, const char* keyLeft, f
 	}
 }
 
+void CPlayer::TriggerBHapticsEffect(const char* keyRight, const char* keyLeft, float intensity, const Vec3& pos, const Vec3& dir)
+{
+	float damageHeight = pos.z - m_pEntity->GetPos().z;
+	float eyeHeight = m_hmdTransform.GetTranslation().z;
+	// rough approximation: subtract a little for the head, then assume the vest covers about half of the remaining player height
+	float vestMax = eyeHeight - 0.15f;
+	float vestMin = vestMax / 2;
+	float vestMid = (vestMax + vestMin) / 2;
+	float offsetY = clamp_tpl((damageHeight - vestMid) / (vestMax - vestMin), -0.5f, 0.5f);
+
+	// determine yaw angle of direction in world pos
+	Vec3 fwd = dir.GetNormalized();
+	Vec3 up(0, 0, 1);
+	Vec3 left = fwd.Cross(up);
+	up = left.Cross(fwd);
+	Ang3 angles = ToAnglesDeg(Matrix33::CreateMatFromVectors(left, fwd, up));
+
+	// get offset to player angle
+	Ang3 playerAng = m_pEntity->GetAngles();
+	float delta = fmodf(angles.z - playerAng.z, 360.f);
+	if (angles.z > playerAng.z && delta >= 180)
+		delta -= 360;
+	else if (angles.z <= playerAng.z && delta <= -180)
+		delta += 360;
+
+	TriggerBHapticsEffect(keyRight, keyLeft, intensity, delta, offsetY);
+}
+
 void CPlayer::ModifyVehicleWeaponAim(Vec3& aimPos, Vec3& aimAngles)
 {
 	if (!m_usesMotionControls)

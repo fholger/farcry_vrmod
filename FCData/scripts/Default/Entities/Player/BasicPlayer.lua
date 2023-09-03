@@ -569,6 +569,9 @@ end
 function BasicPlayer:Client_OnInit()
 
 --	System:Log("function BasicPlayer:Client_OnInit()");
+	Game:RegisterBHapticsEffect("hit_by_bullet", "bhaptics/vest/HitByBullet.tact");
+	Game:RegisterBHapticsEffect("hit_by_melee", "bhaptics/vest/HitByMelee.tact");
+	Game:RegisterBHapticsEffect("hit_by_explosion", "bhaptics/vest/HitByExplosion.tact");
 
 	self:RegisterStates();
 
@@ -1426,6 +1429,7 @@ function BasicPlayer:Client_OnDamage( hit )
 				Hud:OnMiscDamage(hit.damage/5);			
 				Hud:SetScreenDamageColor(0.25, 0.0, 0);		
 				self.cnt:TriggerHapticEffect("damage_explosion", amplitude);
+				self.cnt:TriggerBHapticsEffect("hit_by_explosion", "hit_by_explosion", amplitude, hit.pos, hit.dir);
 			elseif	(hit.drowning) then						
 				Hud:OnMiscDamage(hit.damage);							
 				Hud:SetScreenDamageColor(0.6, 0.7, 0.9);			
@@ -1439,6 +1443,7 @@ function BasicPlayer:Client_OnDamage( hit )
 				Hud:OnMiscDamage(hit.damage);					
 				Hud:SetScreenDamageColor(0.9, 0.8, 0.8);
 				self.cnt:TriggerHapticEffect("damage_melee", amplitude);
+				self.cnt:TriggerBHapticsEffect("hit_by_melee", "hit_by_melee", amplitude, hit.pos, hit.dir);
 			elseif (Hud.meleeDamageType=="MeleeDamageGas") then			
 				Hud.meleeDamageType=nil;				
 				Hud:OnMiscDamage(hit.damage);					
@@ -1448,6 +1453,9 @@ function BasicPlayer:Client_OnDamage( hit )
 				Hud:OnMiscDamage(hit.damage/30.0);					
 				Hud:SetScreenDamageColor(0.9, 0.8, 0.8);
 				self.cnt:TriggerHapticEffect("damage", amplitude);
+				if (hit.weapon ~= nil) then
+					self.cnt:TriggerBHapticsEffect("hit_by_bullet", "hit_by_bullet", amplitude, hit.pos, hit.dir);
+				end
 			end
 		end
 		
