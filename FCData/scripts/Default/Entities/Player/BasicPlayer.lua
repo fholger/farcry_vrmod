@@ -578,6 +578,8 @@ function BasicPlayer:Client_OnInit()
 	Game:RegisterBHapticsEffect("damage_fire", "bhaptics/vest/Burning.tact");
 	Game:RegisterBHapticsEffect("damage_drowning", "bhaptics/vest/Drowning.tact");
 	Game:RegisterBHapticsEffect("jump", "bhaptics/vest/Jumping.tact");
+	Game:RegisterBHapticsEffect("heal", "bhaptics/vest/ConsumeHealth.tact");
+	Game:RegisterBHapticsEffect("pickup", "bhaptics/vest/ConsumeOther.tact");
 
 	self:RegisterStates();
 
