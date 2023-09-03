@@ -1,5 +1,5 @@
 _Title_= "CryVR"
 _Author_= "Holger Frydrych"
-_Version_= "0.8.1"
+_Version_= "0.9.0"
 _Description_= "Play Far Cry in VR"
 _Website_= "htps://farcryvr.de"
