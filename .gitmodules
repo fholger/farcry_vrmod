@@ -7,3 +7,6 @@
 [submodule "Sources/ThirdParty/openvr"]
 	path = Sources/ThirdParty/openvr
 	url = https://github.com/ValveSoftware/openvr.git
+[submodule "Sources/ThirdParty/bhaptics"]
+	path = Sources/ThirdParty/bhaptics
+	url = https://github.com/bhaptics/haptic-library.git

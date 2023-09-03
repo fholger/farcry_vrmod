@@ -25,6 +25,7 @@ copy %DIR%\EULA.txt %DIST%\Mods\CryVR
 copy %DIR%\Sources\ThirdParty\openvr\bin\win32\openvr_api.dll %DIST%\Bin32\
 copy %DIR%\Sources\ThirdParty\dxvk\bin\d3d9.dll %DIST%\Bin32\
 copy %DIR%\Sources\ThirdParty\ffmpeg\bin\*.dll %DIST%\Bin32\
+copy %DIR%\Sources\ThirdParty\bhaptics\bin\win32\haptic_library.dll %DIST%\Bin32\
 copy "%DIR%\Sources\CryGame C++\Solution1\CryGame\Release\CryGame.dll" %DIST%\Mods\CryVR\Bin32\
 copy %DIR%\FCData\CryVR.zip %DIST%\Mods\CryVR\CryVR.pak
 copy %DIR%\Localized\english\english.zip %DIST%\Mods\CryVR\FCData\Localized\english2.pak
