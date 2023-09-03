@@ -186,6 +186,7 @@ void CScriptObjectPlayer::InitializeTemplate(IScriptSystem *pSS)
 	REG_FUNC(CScriptObjectPlayer,SetSmoothInput);
 	REG_FUNC(CScriptObjectPlayer, TriggerWeaponHapticEffect);
 	REG_FUNC(CScriptObjectPlayer, TriggerHapticEffect);
+	REG_FUNC(CScriptObjectPlayer, TriggerBHapticsEffect);
 
 	pSS->SetGlobalValue("BITMASK_PLAYER",BITMASK_PLAYER);
 	pSS->SetGlobalValue("BITMASK_WEAPON",BITMASK_WEAPON);	
@@ -2146,6 +2147,31 @@ int CScriptObjectPlayer::TriggerHapticEffect(IFunctionHandler* pH)
 		m_pPlayer->TriggerHapticEffectOnMainHand(effectName, amplitudeModifier);
 		m_pPlayer->TriggerHapticEffectOnOffHand(effectName, amplitudeModifier);
 	}
+
+	return pH->EndFunction();
+}
+
+int CScriptObjectPlayer::TriggerBHapticsEffect(IFunctionHandler* pH)
+{
+	const char* keyRight = nullptr;
+	const char* keyLeft = nullptr;
+	float intensity = 1.0f;
+	float offsetAngleX = 0;
+	float offsetY = 0;
+	if (pH->GetParamCount() >= 2)
+	{
+		pH->GetParam(1, keyRight);
+		pH->GetParam(2, keyLeft);
+	}
+	if (pH->GetParamCount() >= 3)
+		pH->GetParam(3, intensity);
+	if (pH->GetParamCount() >= 4)
+		pH->GetParam(4, offsetAngleX);
+	if (pH->GetParamCount() >= 5)
+		pH->GetParam(5, offsetY);
+
+	if (keyRight != nullptr && keyLeft != nullptr)
+		m_pPlayer->TriggerBHapticsEffect(keyRight, keyLeft, intensity, offsetAngleX, offsetY);
 
 	return pH->EndFunction();
 }

@@ -629,6 +629,8 @@ void VRManager::ProcessInput()
 			vr::VROverlay()->SetOverlayFlag(m_hudOverlay, vr::VROverlayFlags_MakeOverlaysInteractiveIfVisible, true);
 			vr::VROverlay()->SetOverlayFlag(m_hudOverlay, vr::VROverlayFlags_HideLaserIntersection, true);
 			RecalibrateView();
+
+			m_vrHaptics.StopAllEffects();
 		}
 		SetHudInFrontOfPlayer();
 		ProcessMenuInput();

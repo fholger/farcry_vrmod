@@ -214,6 +214,8 @@ public:
 	int CreateHapticsEffectFlat(IFunctionHandler* pH);
 	int CreateHapticsEffectCustom(IFunctionHandler* pH);
 
+	int RegisterBHapticsEffect(IFunctionHandler* pH);
+
 private: 
 
 	CXGame *											m_pGame;

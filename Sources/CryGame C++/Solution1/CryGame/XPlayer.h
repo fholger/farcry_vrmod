@@ -299,6 +299,7 @@ public:
 	void TriggerHapticEffectOnMainHand(const char* effectName, float amplitudeModifier = 1.0f);
 	void TriggerHapticEffectOnOffHand(const char* effectName, float amplitudeModifier = 1.0f);
 	void TriggerWeaponHapticEffect(const char* effectName, float amplitudeModifier = 1.0f);
+	void TriggerBHapticsEffect(const char* keyRight, const char* keyLeft, float intensity = 1.0f, float offsetAngleX = 0, float offsetY = 0);
 
 	void ModifyVehicleWeaponAim(Vec3& aimPos, Vec3& aimAngles);
 	void UpdateMountedGunAnglesFromController();

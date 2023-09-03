@@ -184,6 +184,7 @@ public:
 	// controller haptics
 	int TriggerWeaponHapticEffect(IFunctionHandler* pH);
 	int TriggerHapticEffect(IFunctionHandler* pH);
+	int TriggerBHapticsEffect(IFunctionHandler* pH);
 
 private:
 

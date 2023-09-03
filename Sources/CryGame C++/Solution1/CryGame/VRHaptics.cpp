@@ -4,11 +4,16 @@
 #include "VRInput.h"
 #include "VRManager.h"
 
+#include <HapticLibrary.h>
+
+#include "ICryPak.h"
+
 
 void VRHaptics::Init(CXGame* game, VRInput* vrInput)
 {
 	m_pGame = game;
 	m_vrInput = vrInput;
+	InitialiseSync("farcryvr", "Far Cry VR");
 	InitEffects();
 }
 
@@ -45,6 +50,33 @@ void VRHaptics::Update()
 	}
 }
 
+void VRHaptics::RegisterBHapticsEffect(const char* key, const char* file)
+{
+	if (IsFeedbackRegistered(key))
+	{
+		CryLogAlways("BHaptics effect already registered: %s", key);
+		return;
+	}
+
+	ICryPak* pak = m_pGame->GetSystem()->GetIPak();
+	FILE* f = pak->FOpen(file, "rb");
+	if (!f)
+	{
+		CryLogAlways("BHaptics effect file not found: %s", file);
+		return;
+	}
+	pak->FSeek(f, 0, SEEK_END);
+	int size = pak->FTell(f);
+	pak->FSeek(f, 0, SEEK_SET);
+
+	char* buffer = new char[size];
+	pak->FRead(buffer, size, 1, f);
+	pak->FClose(f);
+
+	RegisterFeedbackFromTactFile(key, buffer);
+	delete[] buffer;
+}
+
 void VRHaptics::TriggerEffect(int hand, const char* effectName, float amplitudeModifier)
 {
 	if (m_activeEffects[hand].size() >= 20)
@@ -60,10 +92,22 @@ void VRHaptics::TriggerEffect(int hand, const char* effectName, float amplitudeM
 	m_activeEffects[hand].push_back(ActiveHapticEffect{ &it->second, 0, amplitudeModifier });
 }
 
+void VRHaptics::TriggerBHapticsEffect(const char* key, float intensity, float offsetAngleX, float offsetY)
+{
+	SubmitRegisteredWithOption(key, key, intensity, 1.0f, offsetAngleX, offsetY);
+}
+
 void VRHaptics::StopEffects(int hand)
 {
 	m_activeEffects[hand].clear();
 	m_vrInput->TriggerHaptics(hand, 0, 0, 0);
+}
+
+void VRHaptics::StopAllEffects()
+{
+	StopEffects(0);
+	StopEffects(1);
+	TurnOff();
 }
 
 void VRHaptics::CreateFlatEffect(const char* effectName, float duration, float amplitude, float easeInTime, float easeOutTime)

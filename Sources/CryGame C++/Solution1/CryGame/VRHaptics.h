@@ -24,8 +24,12 @@ public:
 	void Init(CXGame* game, VRInput* vrInput);
 	void Update();
 
+	void RegisterBHapticsEffect(const char* key, const char* file);
+
 	void TriggerEffect(int hand, const char* effectName, float amplitudeModifier = 1.0f);
+	void TriggerBHapticsEffect(const char* key, float intensity = 1.0f, float offsetAngleX = 0, float offsetY = 0);
 	void StopEffects(int hand);
+	void StopAllEffects();
 
 	void CreateFlatEffect(const char* effectName, float duration, float amplitude, float easeInTime = 0.0f, float easeOutTime = 0.0f);
 	void CreateCustomEffect(const char* effectName, float* amplitudes, int count);

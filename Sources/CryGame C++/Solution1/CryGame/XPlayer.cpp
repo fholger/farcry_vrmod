@@ -2749,6 +2749,14 @@ void CPlayer::TriggerWeaponHapticEffect(const char* effectName, float amplitudeM
 	}
 }
 
+void CPlayer::TriggerBHapticsEffect(const char* keyRight, const char* keyLeft, float intensity, float offsetAngleX, float offsetY)
+{
+	if (IsMyPlayer())
+	{
+		gVR->GetHaptics()->TriggerBHapticsEffect(m_mainHand == 1 ? keyRight : keyLeft, intensity, offsetAngleX, offsetY);
+	}
+}
+
 void CPlayer::ModifyVehicleWeaponAim(Vec3& aimPos, Vec3& aimAngles)
 {
 	if (!m_usesMotionControls)

@@ -324,6 +324,7 @@ void CScriptObjectGame::InitializeTemplate(IScriptSystem *pSS)
 	REG_FUNC(CScriptObjectGame,IsStopVideoRequested);
 	REG_FUNC(CScriptObjectGame, CreateHapticsEffectFlat);
 	REG_FUNC(CScriptObjectGame, CreateHapticsEffectCustom);
+	REG_FUNC(CScriptObjectGame, RegisterBHapticsEffect);
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -3897,6 +3898,20 @@ int CScriptObjectGame::CreateHapticsEffectCustom(IFunctionHandler* pH)
 
 	if (effectName != nullptr)
 		gVR->GetHaptics()->CreateCustomEffect(effectName, &amplitudes[0], amplitudes.size());
+
+	return pH->EndFunction();
+}
+
+int CScriptObjectGame::RegisterBHapticsEffect(IFunctionHandler* pH)
+{
+	CHECK_PARAMETERS(2);
+	const char* key = nullptr;
+	const char* fileName = nullptr;
+	pH->GetParam(1, key);
+	pH->GetParam(2, fileName);
+
+	if (key != nullptr && fileName != nullptr)
+		gVR->GetHaptics()->RegisterBHapticsEffect(key, fileName);
 
 	return pH->EndFunction();
 }
