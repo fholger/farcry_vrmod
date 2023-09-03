@@ -572,6 +572,12 @@ function BasicPlayer:Client_OnInit()
 	Game:RegisterBHapticsEffect("hit_by_bullet", "bhaptics/vest/HitByBullet.tact");
 	Game:RegisterBHapticsEffect("hit_by_melee", "bhaptics/vest/HitByMelee.tact");
 	Game:RegisterBHapticsEffect("hit_by_explosion", "bhaptics/vest/HitByExplosion.tact");
+	Game:RegisterBHapticsEffect("hit_by_sniper", "bhaptics/vest/HitBySniper.tact");
+	Game:RegisterBHapticsEffect("hit_by_shotgun", "bhaptics/vest/HitByBuckshot.tact");
+	Game:RegisterBHapticsEffect("damage_fall", "bhaptics/vest/Landing.tact");
+	Game:RegisterBHapticsEffect("damage_fire", "bhaptics/vest/Burning.tact");
+	Game:RegisterBHapticsEffect("damage_drowning", "bhaptics/vest/Drowning.tact");
+	Game:RegisterBHapticsEffect("jump", "bhaptics/vest/Jumping.tact");
 
 	self:RegisterStates();
 
@@ -1423,6 +1429,7 @@ function BasicPlayer:Client_OnDamage( hit )
 			if(hit.falling) then
 				Hud.dmgindicator = bor( Hud.dmgindicator, 16 );
 				self.cnt:TriggerHapticEffect("damage_fall", amplitude);
+				self.cnt:TriggerBHapticsEffect("damage_fall", "damage_fall", 1.2 + amplitude);
 			end
 			
 			if(hit.explosion) then				
@@ -1434,10 +1441,12 @@ function BasicPlayer:Client_OnDamage( hit )
 				Hud:OnMiscDamage(hit.damage);							
 				Hud:SetScreenDamageColor(0.6, 0.7, 0.9);			
 				self.cnt:TriggerHapticEffect("damage_drowning", amplitude);
+				self.cnt:TriggerBHapticsEffect("damage_drowning", "damage_drowning", 0.1);
 			elseif	(hit.fire) then						
 				Hud:OnMiscDamage(hit.damage*10);			
 				Hud:SetScreenDamageColor(0.9, 0.8, 0.8);
 				self.cnt:TriggerHapticEffect("damage_fire", amplitude);
+				self.cnt:TriggerBHapticsEffect("damage_fire", "damage_fire", 0.6);
 			elseif (Hud.meleeDamageType=="MeleeDamageNormal") then			
 				Hud.meleeDamageType=nil;
 				Hud:OnMiscDamage(hit.damage);					
@@ -1454,7 +1463,14 @@ function BasicPlayer:Client_OnDamage( hit )
 				Hud:SetScreenDamageColor(0.9, 0.8, 0.8);
 				self.cnt:TriggerHapticEffect("damage", amplitude);
 				if (hit.weapon ~= nil) then
-					self.cnt:TriggerBHapticsEffect("hit_by_bullet", "hit_by_bullet", amplitude, hit.pos, hit.dir);
+					local effect = "hit_by_bullet";
+					if (hit.weapon.name == "SniperRifle") then
+						effect = "hit_by_sniper";
+					end
+					if (hit.weapon.name == "Shotgun") then
+						effect = "hit_by_shotgun";
+					end
+					self.cnt:TriggerBHapticsEffect(effect, effect, amplitude, hit.pos, hit.dir);
 				end
 			end
 		end
@@ -3079,7 +3095,6 @@ BasicPlayer.Client_EventHandler={
 		BasicPlayer.PlayLandDamageSound(self,onfalldamage);
 	end,
 	[ScriptEvent_Jump]= function(self,Params)
-	
 		BasicPlayer.OnPlayerJump(self,Params);
 	end,
 };
@@ -3376,6 +3391,8 @@ function BasicPlayer:PlayLandDamageSound(onfalldamage)
 		if (landsounds) then
 			self:PlaySound(landsounds[random(1, getn(landsounds))],1);
 		end
+		
+		self.cnt:TriggerBHapticsEffect("damage_fall", "damage_fall", 0.6);
 		
 --		if (timedelta>=2 and landhardsounds) then
 --			self:PlaySound(landhardsounds[random(1, getn(landhardsounds))],1);

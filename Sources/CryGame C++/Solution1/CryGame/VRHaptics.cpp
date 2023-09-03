@@ -53,7 +53,6 @@ void VRHaptics::RegisterBHapticsEffect(const char* key, const char* file)
 {
 	if (IsFeedbackRegistered(key))
 	{
-		CryLogAlways("BHaptics effect already registered: %s", key);
 		return;
 	}
 
@@ -96,6 +95,7 @@ void VRHaptics::TriggerEffect(int hand, const char* effectName, float amplitudeM
 
 void VRHaptics::TriggerBHapticsEffect(const char* key, float intensity, float offsetAngleX, float offsetY)
 {
+	CryLogAlways("Playing bHaptics effect %s at intensity %.2f", key, intensity);
 	SubmitRegisteredWithOption(key, key, intensity, 1.0f, offsetAngleX, offsetY);
 }
 

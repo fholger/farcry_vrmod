@@ -2187,6 +2187,7 @@ void CPlayer::ProcessMovements(CXEntityProcessingCmd &cmd, bool bScheduled)
 					m_stats.stamina = 0;
 
 				m_bHasJumped = true;
+				TriggerBHapticsEffect("jump", "jump", 0.4f);
 			}
 			else
 			{
