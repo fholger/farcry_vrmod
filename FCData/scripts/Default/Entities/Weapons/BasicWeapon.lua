@@ -633,9 +633,13 @@ function BasicWeapon.Client:OnFire( Params )
 		--end
 		
 		BasicWeapon.RandomAnimation(self,"fire",shooter.firemodenum);
-		
+
 		if (CurFireParams.HapticFireEffect ~= nil) then
 			my_player.cnt:TriggerWeaponHapticEffect(CurFireParams.HapticFireEffect);
+		end
+		
+		if (CurFireParams.BHapticsFireRight ~= nil) then
+			my_player.cnt:TriggerBHapticsEffect(CurFireParams.BHapticsFireRight, CurFireParams.BHapticsFireLeft, CurFireParams.BHapticsIntensity);
 		end
 	end
 	

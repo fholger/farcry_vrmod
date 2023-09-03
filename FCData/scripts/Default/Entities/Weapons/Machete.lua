@@ -38,7 +38,10 @@ Machete = {
 			"sounds/weapons/machete/fire3.wav",
 		},
 		HapticFireEffect="machete_swing",
-		
+		BHapticsFireRight = "m4_fire_r",
+		BHapticsFireLeft = "m4_fire_l",
+		BHapticsIntensity = 0.2,
+
 		no_ammo=1,
 		SoundMinMaxVol = { 205, 1, 20 },
 	},

@@ -70,6 +70,9 @@ OICWSP = {
 		TrailOffStereo="Sounds/Weapons/oicw/FINAL_OICW_STEREO_TAIL.wav",
 		DrySound = "Sounds/Weapons/oicw/DryFire.wav",
 		HapticFireEffect = "oicw_fire",
+		BHapticsFireRight = "m4_fire_r",
+		BHapticsFireLeft = "m4_fire_l",
+		BHapticsIntensity = 0.1,
 
 		ScopeTexId = GetScopeTex(),
 
@@ -191,6 +194,9 @@ OICWSP = {
 		},
 		DrySound = "Sounds/Weapons/AG36/DryFire.wav",
 		HapticFireEffect = "oicw_grenade",
+		BHapticsFireRight = "rl_fire_r",
+		BHapticsFireLeft = "rl_fire_l",
+		BHapticsIntensity = 0.3,
 
 		LightFlash = {
 			fRadius = 3.0,
@@ -276,6 +282,10 @@ OICWMP = {
 		TrailOff="Sounds/Weapons/oicw/FINAL_OICW_MONO_TAIL.wav",
 		TrailOffStereo="Sounds/Weapons/oicw/FINAL_OICW_STEREO_TAIL.wav",
 		DrySound = "Sounds/Weapons/oicw/DryFire.wav",
+		HapticFireEffect = "oicw_fire",
+		BHapticsFireRight = "m4_fire_r",
+		BHapticsFireLeft = "m4_fire_l",
+		BHapticsIntensity = 0.1,
 
 		ScopeTexId = GetScopeTex(),
 
@@ -401,6 +411,10 @@ OICWMP = {
 				"Sounds/Weapons/OICW/FINAL_OICW_STEREO_GRENADE.wav",
 			},
 			DrySound = "Sounds/Weapons/AG36/DryFire.wav",
+			HapticFireEffect = "oicw_grenade",
+			BHapticsFireRight = "rl_fire_r",
+			BHapticsFireLeft = "rl_fire_l",
+			BHapticsIntensity = 0.3,
 
 			
 			LightFlash = {

@@ -1,4 +1,6 @@
 Game:CreateHapticsEffectFlat("m4_fire", 0.1, 0.3);
+Game:RegisterBHapticsEffect("m4_fire_r", "bhaptics/vest/ShootSMG_R.tact");
+Game:RegisterBHapticsEffect("m4_fire_l", "bhaptics/vest/ShootSMG_L.tact");
 
 M4 = {
 	-- DESCRIPTION:
@@ -67,6 +69,9 @@ M4 = {
 		
 		DrySound = "Sounds/Weapons/DE/dryfire.wav",
 		HapticFireEffect = "m4_fire",
+		BHapticsFireRight = "m4_fire_r",
+		BHapticsFireLeft = "m4_fire_l",
+		BHapticsIntensity = 0.07,
 		
 		LightFlash = {
 			fRadius = 3.0,
@@ -211,6 +216,9 @@ M4 = {
 		
 		DrySound = "Sounds/Weapons/DE/dryfire.wav",
 		HapticFireEffect = "pistol_fire",
+		BHapticsFireRight = "pistol_fire_r",
+		BHapticsFireLeft = "pistol_fire_l",
+		BHapticsIntensity = 0.1,
 		
 		ShellCases = {
 			geometry=System:LoadObject("Objects/Weapons/shells/rifleshell.cgf"),

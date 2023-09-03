@@ -1,4 +1,6 @@
 Game:CreateHapticsEffectFlat("pistol_fire", 0.2, 0.5);
+Game:RegisterBHapticsEffect("pistol_fire_r", "bhaptics/vest/ShootPistol_R.tact");
+Game:RegisterBHapticsEffect("pistol_fire_l", "bhaptics/vest/ShootPistol_L.tact");
 
 Falcon = {
 	-- DESCRIPTION
@@ -70,6 +72,9 @@ Falcon = {
 		DrySound = "Sounds/Weapons/DE/dryfire.wav",
 		
 		HapticFireEffect = "pistol_fire",
+		BHapticsFireRight = "pistol_fire_r",
+		BHapticsFireLeft = "pistol_fire_l",
+		BHapticsIntensity = 0.1,
 		
 		ShellCases = {
 			geometry=System:LoadObject("Objects/Weapons/shells/smgshell.cgf"),

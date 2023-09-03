@@ -61,7 +61,10 @@ P90 = {
 		TrailOffStereo="Sounds/Weapons/p90/FINAL_P90_STEREO_TAIL.wav",
 		DrySound = "Sounds/Weapons/P90/DryFire.wav",
 		HapticFireEffect = "p90_fire",
-		
+		BHapticsFireRight = "m4_fire_r",
+		BHapticsFireLeft = "m4_fire_l",
+		BHapticsIntensity = 0.07,
+	
 		LightFlash = {
 			fRadius = 3.0,
 			vDiffRGBA = { r = 1.0, g = 1.0, b = 0.7, a = 1.0, },

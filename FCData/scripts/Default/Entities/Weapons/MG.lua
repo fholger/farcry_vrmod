@@ -49,6 +49,9 @@ MG = {
 		
 		DrySound = "Sounds/Weapons/DE/dryfire.wav",
 		HapticFireEffect = "mg_fire",
+		BHapticsFireRight = "m4_fire_r",
+		BHapticsFireLeft = "m4_fire_l",
+		BHapticsIntensity = 0.1,
 		
 		LightFlash = {
 			fRadius = 5.0,

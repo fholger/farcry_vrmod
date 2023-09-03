@@ -1,4 +1,6 @@
 Game:CreateHapticsEffectFlat("rl_fire", 0.8, 0.5, 0.35, 0.35);
+Game:RegisterBHapticsEffect("rl_fire_r", "bhaptics/vest/ShootRPG_R.tact");
+Game:RegisterBHapticsEffect("rl_fire_l", "bhaptics/vest/ShootRPG_L.tact");
 
 RLSP = {
 	name			= "RL",
@@ -48,6 +50,9 @@ RLSP = {
 			},
 			DrySound = "Sounds/Weapons/AG36/DryFire.wav",
 			HapticFireEffect = "rl_fire",
+			BHapticsFireRight = "rl_fire_r",
+			BHapticsFireLeft = "rl_fire_l",
+			BHapticsIntensity = 0.4,
 	
 	-- Light from flying rocket is enough so this light is not needed
 	--		LightFlash = {
@@ -81,6 +86,10 @@ RLMP = {
 	name			= "RL",
 	object		= "Objects/Weapons/RL/RL_bind.cgf",
 	character	= "Objects/Weapons/RL/RL.cgf",
+
+	BoneRightHand = "weapon",
+	BoneLeftHand = "Bone03",
+	RHOffset = { -0.1, -0.07, 0 },
 
 	-- if the weapon supports zooming then add this...
 	ZoomActive = 0,												-- initially always 0
@@ -122,6 +131,10 @@ RLMP = {
 	
 			},
 			DrySound = "Sounds/Weapons/AG36/DryFire.wav",
+			HapticFireEffect = "rl_fire",
+			BHapticsFireRight = "rl_fire_r",
+			BHapticsFireLeft = "rl_fire_l",
+			BHapticsIntensity = 0.4,
 	
 	-- Light from flying rocket is enough so this light is not needed
 	--		LightFlash = {

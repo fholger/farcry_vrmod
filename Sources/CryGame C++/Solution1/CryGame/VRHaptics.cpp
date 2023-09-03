@@ -1,18 +1,17 @@
 #include "StdAfx.h"
+#include "ICryPak.h"
 #include "VRHaptics.h"
-
 #include "VRInput.h"
 #include "VRManager.h"
-
 #include <HapticLibrary.h>
 
-#include "ICryPak.h"
 
 
 void VRHaptics::Init(CXGame* game, VRInput* vrInput)
 {
 	m_pGame = game;
 	m_vrInput = vrInput;
+	CryLogAlways("Initialised haptics.");
 	InitialiseSync("farcryvr", "Far Cry VR");
 	InitEffects();
 }
@@ -69,12 +68,15 @@ void VRHaptics::RegisterBHapticsEffect(const char* key, const char* file)
 	int size = pak->FTell(f);
 	pak->FSeek(f, 0, SEEK_SET);
 
-	char* buffer = new char[size];
+	char* buffer = new char[size+1];
 	pak->FRead(buffer, size, 1, f);
 	pak->FClose(f);
+	buffer[size] = 0;
 
 	RegisterFeedbackFromTactFile(key, buffer);
 	delete[] buffer;
+
+	CryLogAlways("Registered bHaptics effect %s from file %s", key, file);
 }
 
 void VRHaptics::TriggerEffect(int hand, const char* effectName, float amplitudeModifier)

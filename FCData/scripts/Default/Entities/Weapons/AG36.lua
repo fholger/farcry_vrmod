@@ -66,6 +66,9 @@ AG36SP = {
 
 		DrySound = "Sounds/Weapons/AG36/DryFire.wav",
 		HapticFireEffect = "oicw_fire",
+		BHapticsFireRight = "m4_fire_r",
+		BHapticsFireLeft = "m4_fire_l",
+		BHapticsIntensity = 0.1,
 
 		ScopeTexId = GetScopeTex(),
 
@@ -190,6 +193,9 @@ AG36SP = {
 		},
 		DrySound = "Sounds/Weapons/AG36/DryFire.wav",
 		HapticFireEffect = "oicw_grenade",
+		BHapticsFireRight = "rl_fire_r",
+		BHapticsFireLeft = "rl_fire_l",
+		BHapticsIntensity = 0.3,
 
 		SoundMinMaxVol = { 255, 4, 2600 },
 
@@ -277,6 +283,10 @@ AG36MP = {
 		TrailOff="Sounds/Weapons/ag36/FINAL_AG36_MONO_TAIL.wav",
 		TrailOffStereo="Sounds/Weapons/ag36/FINAL_AG36_STEREO_TAIL.wav",
 		DrySound = "Sounds/Weapons/AG36/DryFire.wav",
+		HapticFireEffect = "oicw_fire",
+		BHapticsFireRight = "m4_fire_r",
+		BHapticsFireLeft = "m4_fire_l",
+		BHapticsIntensity = 0.1,
 
 		ScopeTexId = GetScopeTex(),
 
@@ -405,6 +415,10 @@ AG36MP = {
 
 		},
 		DrySound = "Sounds/Weapons/AG36/DryFire.wav",
+		HapticFireEffect = "oicw_grenade",
+		BHapticsFireRight = "rl_fire_r",
+		BHapticsFireLeft = "rl_fire_l",
+		BHapticsIntensity = 0.3,
 
 		SoundMinMaxVol = { 255, 4, 2600 },
 

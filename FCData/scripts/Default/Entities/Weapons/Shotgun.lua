@@ -1,4 +1,6 @@
 Game:CreateHapticsEffectFlat("shotgun_fire", 0.3, 0.8);
+Game:RegisterBHapticsEffect("shotgun_fire_r", "bhaptics/vest/ShootShotgun_R.tact");
+Game:RegisterBHapticsEffect("shotgun_fire_l", "bhaptics/vest/ShootShotgun_L.tact");
 
 Shotgun = {
 	name			= "Shotgun",
@@ -65,6 +67,9 @@ Shotgun = {
 		DrySound = "Sounds/Weapons/Pancor/DryFire.wav",
 		ReloadSound = "Sounds/Weapons/Pancor/jackrload.wav",
 		HapticFireEffect = "shotgun_fire",
+		BHapticsFireRight = "shotgun_fire_r",
+		BHapticsFireLeft = "shotgun_fire_l",
+		BHapticsIntensity = 0.7,
 
 		LightFlash = {
 			fRadius = 5.0,

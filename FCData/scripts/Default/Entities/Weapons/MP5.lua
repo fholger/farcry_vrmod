@@ -72,6 +72,9 @@ MP5 = {
 		TrailOffStereo="Sounds/Weapons/mp5/FINAL_MP5_STEREO_TAIL.wav",
 		DrySound ="Sounds/Weapons/MP5/DryFire.wav",
 		HapticFireEffect = "mp5_fire",
+		BHapticsFireRight = "m4_fire_r",
+		BHapticsFireLeft = "m4_fire_l",
+		BHapticsIntensity = 0.07,
 
 		SmokeEffect = {
 			size = {0.15,0.07,0.035,0.01},
@@ -172,6 +175,9 @@ MP5 = {
 		FireSoundsStereo = {"Sounds/Weapons/mp5/FINAL_MP5_STEREO_SINGLE.wav"},
 		DrySound = "Sounds/Weapons/DE/dryfire.wav",
 		HapticFireEffect = "mp5_fire_single",
+		BHapticsFireRight = "m4_fire_r",
+		BHapticsFireLeft = "m4_fire_l",
+		BHapticsIntensity = 0.1,
 		
 		LightFlash = {
 			fRadius = 3.0,
