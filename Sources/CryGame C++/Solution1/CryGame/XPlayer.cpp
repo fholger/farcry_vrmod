@@ -3060,9 +3060,9 @@ void CPlayer::SetWeapon(int iClsID)
 CPlayer::eStance CPlayer::GetVRPhysicalStance() const
 {
 	float hmdHeight = m_hmdTransform.GetTranslation().z;
-	if (hmdHeight <= m_PlayerDimProne.heightEye + 0.1f)
+	if (hmdHeight <= m_PlayerDimProne.heightEye + 0.15f)
 		return eProne;
-	if (hmdHeight <= m_PlayerDimCrouch.heightEye + 0.1f)
+	if (hmdHeight <= m_PlayerDimCrouch.heightEye + 0.2f)
 		return eCrouch;
 	return eNone;
 }
