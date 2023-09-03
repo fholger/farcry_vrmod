@@ -40,17 +40,17 @@ UI.PageOptionsVR=
 			bordersides = "l",
 		},
 
-		motioncontrols_text=
+		seatedmode_text=
 		{
 			skin = UI.skins.Label,
 
 			left = 200, top = 149,
 			width = 112,
 
-			text="Motion controls",
+			text="Seated mode",
 		},
 
-		motioncontrols=
+		seatedmode=
 		{
 			left = 320, top = 149,
 			width = 28, height = 28,
@@ -61,9 +61,9 @@ UI.PageOptionsVR=
 
 			OnChanged=function(Sender)
 				if (Sender:GetChecked()) then
-					setglobal("vr_enable_motion_controllers", 1);
+					setglobal("vr_seated_mode", 1);
 				else
-					setglobal("vr_enable_motion_controllers", 0);
+					setglobal("vr_seated_mode", 0);
 				end
 			end,
 		},
@@ -232,49 +232,6 @@ UI.PageOptionsVR=
 				else
 					setglobal("vr_immersive_ladders", 0);
 				end
-			end,
-		},
-
-		sep_h0 =
-		{
-			skin = UI.skins.MenuBorder,
-
-			left = 200, top = 410,
-			width = 290, height = 2,
-			bordersides = "t",
-
-			zorder = -50,
-		},
-
-		yawdeadzone_text=
-		{
-			skin = UI.skins.Label,
-
-			left = 200, top = 429,
-			width = 112,
-
-			text="Mouse yaw deadzone",
-		},
-
-		yawdeadzone =
-		{
-			skin = UI.skins.HScrollBar,
-
-			left = 320, top = 429,
-			width = 162, height = 24,
-
-			tabstop = 5,
-
-			OnChanged = function( sender )
-				local newValue = tonumber( UI.PageOptionsVR.GUI.yawdeadzone:GetValue() );
-				if( newValue < 0.0 ) then
-					newValue = 0.0;
-				elseif( newValue > 1.0 ) then
-					newValue = 1.0;
-				end;
-				-- map to value range [0, 60]
-				newValue = newValue * 60;
-				setglobal( "vr_yaw_deadzone_angle", newValue );
 			end,
 		},
 
@@ -455,7 +412,7 @@ UI.PageOptionsVR=
 		},
 
 		OnActivate= function(Sender)
-			UI.PageOptionsVR.GUI.motioncontrols:SetChecked(vr_enable_motion_controllers);
+			UI.PageOptionsVR.GUI.seatedmode:SetChecked(vr_seated_mode);
 			UI.PageOptionsVR.GUI.terrainlod:SetChecked(vr_render_force_max_terrain_detail);
 			UI.PageOptionsVR.GUI.objdist:SetChecked(vr_render_force_obj_draw_dist);
 			UI.PageOptionsVR.GUI.ladders:SetChecked(vr_immersive_ladders);
@@ -513,7 +470,7 @@ UI.PageOptionsVR=
 
 	------------------------------------------------------------------------
 	ResetToDefaults=function()
-		UI.PageOptionsVR.GUI.motioncontrols:SetChecked(1);
+		UI.PageOptionsVR.GUI.seatedmode:SetChecked(0);
 		UI.PageOptionsVR.GUI.movedir:SelectIndex( 1 );
 		UI.PageOptionsVR.GUI.mainhand:SelectIndex( 1 );
 		UI.PageOptionsVR.GUI.turnmode:SelectIndex( 1 );
@@ -527,7 +484,7 @@ UI.PageOptionsVR=
 		UI.PageOptionsVR.GUI.mirroreye:SelectIndex( 1 );
 		UI.PageOptionsVR.GUI.crosshair:SelectIndex( 1 );
 		UI.PageOptionsVR.GUI.vrscopes:SetChecked(1);
-		UI.PageOptionsVR.GUI.motioncontrols:OnChanged();
+		UI.PageOptionsVR.GUI.seatedmode:OnChanged();
 		UI.PageOptionsVR.GUI.mainhand:OnChanged();
 		UI.PageOptionsVR.GUI.movedir:OnChanged();
 		UI.PageOptionsVR.GUI.turnmode:OnChanged();
