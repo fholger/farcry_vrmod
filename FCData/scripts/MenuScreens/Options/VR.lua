@@ -443,7 +443,6 @@ UI.PageOptionsVR=
 			UI.PageOptionsVR.GUI.turnmode:SelectIndex( cur_turnmode + 1 );
 
 			UI.PageOptionsVR.GUI.turnspeed:SetValue( ( getglobal( "vr_smooth_turn_speed" ) - 0.5) / 1.5 );
-			UI.PageOptionsVR.GUI.yawdeadzone:SetValue( getglobal( "vr_yaw_deadzone_angle" ) / 60.0 );
 			UI.PageOptionsVR.GUI.vegetationdist:SetValue( getglobal( "e_vegetation_sprites_distance_ratio" ) / 100.0 );
 			UI.PageOptionsVR.GUI.weaponangle:SetValue( getglobal( "vr_weapon_pitch_offset" ) / 90 + 0.5 );
 
@@ -477,7 +476,6 @@ UI.PageOptionsVR=
 		UI.PageOptionsVR.GUI.turnspeed:SetValue( 0.5 );
 		UI.PageOptionsVR.GUI.weaponangle:SetValue( 0.667 );
 		UI.PageOptionsVR.GUI.ladders:SetChecked(1);
-		UI.PageOptionsVR.GUI.yawdeadzone:SetValue( 0.5 );
 		UI.PageOptionsVR.GUI.terrainlod:SetChecked(1);
 		UI.PageOptionsVR.GUI.objdist:SetChecked(1);
 		UI.PageOptionsVR.GUI.vegetationdist:SetValue( 1 );
@@ -490,7 +488,6 @@ UI.PageOptionsVR=
 		UI.PageOptionsVR.GUI.turnmode:OnChanged();
 		UI.PageOptionsVR.GUI.turnspeed:OnChanged();
 		UI.PageOptionsVR.GUI.weaponangle:OnChanged();
-		UI.PageOptionsVR.GUI.yawdeadzone:OnChanged();
 		UI.PageOptionsVR.GUI.terrainlod:OnChanged();
 		UI.PageOptionsVR.GUI.objdist:OnChanged();
 		UI.PageOptionsVR.GUI.vegetationdist:OnChanged();
