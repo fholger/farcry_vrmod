@@ -1470,7 +1470,7 @@ function BasicPlayer:Client_OnDamage( hit )
 				Hud:SetScreenDamageColor(0.0, 0.4, 0.1);
 				self.cnt:TriggerHapticEffect("damage_melee", amplitude);
 			else			
-				Hud:OnMiscDamage(hit.damage/30.0);					
+				Hud:OnMiscDamage(hit.damage/15.0);
 				Hud:SetScreenDamageColor(0.9, 0.8, 0.8);
 				self.cnt:TriggerHapticEffect("damage", amplitude);
 				if (hit.weapon ~= nil) then

@@ -1998,7 +1998,8 @@ end
 function Hud:DrawCrosshair(player)
 	if(tonumber(hud_damageindicator)~=0)then		
 				
-		if(self.dmgindicator)then
+		--if(self.dmgindicator)then
+		if (false) then
 			if ( band( self.dmgindicator, 16 ) > 0 ) then				
 				self.dmgfront=1;
 				self.dmgback=1;
