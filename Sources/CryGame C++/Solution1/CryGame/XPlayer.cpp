@@ -3140,14 +3140,17 @@ void CPlayer::GetFirePosAngles(Vec3d& firePos, Vec3d& fireAngles)
 				string vehicleWeaponName = m_pVehicle->GetWeaponName( m_stats.inVehicleState );
 				if(!vehicleWeaponName.empty() && vehicleWeaponName != m_pVehicle->m_sNoWeaponName)
 					m_pVehicle->GetFirePosAngles( firePos, fireAngles );
-				else if(IsMyPlayer())	// use vehicle camera position only for local player
-					firePos = m_pVehicle->GetCamPos();
-				else
-					firePos += Vec3(0.0f, 0.0f, -1.04f); // [kirill] UGLY FIX FOR THE INFLATABLE BOAT!
+				else if (!m_usesMotionControls)
+				{
+					if (IsMyPlayer())	// use vehicle camera position only for local player
+						firePos = m_pVehicle->GetCamPos();
+					else
+						firePos += Vec3(0.0f, 0.0f, -1.04f); // [kirill] UGLY FIX FOR THE INFLATABLE BOAT!
+				}
 																						 // firePos on the server was 0.6 meters less than the client
 			}
 			// if passenger - get camera position from vehicle, it's smoothed with some spring simulation
-			else if (m_stats.inVehicleState == PVS_PASSENGER)
+			else if (m_stats.inVehicleState == PVS_PASSENGER && !m_usesMotionControls)
 			{
 				if(IsMyPlayer())	// use vehicle camera position only for local player
 					firePos = m_pVehicle->GetCamPos();
