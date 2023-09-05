@@ -589,6 +589,8 @@ function BasicPlayer:Client_OnInit()
 	Game:RegisterBHapticsEffect("heartbeat", "bhaptics/vest/Heartbeat.tact");
 	Game:RegisterBHapticsEffect("swimming", "bhaptics/vest/Swimming.tact");
 	Game:RegisterBHapticsEffect("vehicle_rumble", "bhaptics/vest/VehicleRumble.tact");
+	Game:CreateHapticsEffectFlat("vehicle_engine", 1.0, 0.5, 0.3, 0.2);
+	Game:RegisterBHapticsEffect("vehicle_rumble", "bhaptics/vest/VehicleRumble.tact");
 
 	self:RegisterStates();
 

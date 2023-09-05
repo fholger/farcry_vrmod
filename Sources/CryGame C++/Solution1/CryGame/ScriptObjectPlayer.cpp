@@ -187,6 +187,8 @@ void CScriptObjectPlayer::InitializeTemplate(IScriptSystem *pSS)
 	REG_FUNC(CScriptObjectPlayer, TriggerWeaponHapticEffect);
 	REG_FUNC(CScriptObjectPlayer, TriggerHapticEffect);
 	REG_FUNC(CScriptObjectPlayer, TriggerBHapticsEffect);
+	REG_FUNC(CScriptObjectPlayer, IsBHapticsEffectPlaying);
+	REG_FUNC(CScriptObjectPlayer, StopBHapticsEffect);
 
 	pSS->SetGlobalValue("BITMASK_PLAYER",BITMASK_PLAYER);
 	pSS->SetGlobalValue("BITMASK_WEAPON",BITMASK_WEAPON);	
@@ -2182,6 +2184,27 @@ int CScriptObjectPlayer::TriggerBHapticsEffect(IFunctionHandler* pH)
 			m_pPlayer->TriggerBHapticsEffect(keyRight, keyLeft, intensity);
 	}
 
+	return pH->EndFunction();
+}
+
+int CScriptObjectPlayer::IsBHapticsEffectPlaying(IFunctionHandler* pH)
+{
+	CHECK_PARAMETERS(1);
+	const char* key = nullptr;
+	pH->GetParam(1, key);
+	int playing = false;
+	if (key != nullptr)
+		playing = gVR->GetHaptics()->IsBHapticsEffectPlaying(key);
+	return pH->EndFunction(playing);
+}
+
+int CScriptObjectPlayer::StopBHapticsEffect(IFunctionHandler* pH)
+{
+	CHECK_PARAMETERS(1);
+	const char* key = nullptr;
+	pH->GetParam(1, key);
+	if (key != nullptr)
+		gVR->GetHaptics()->StopBHapticsEffect(key);
 	return pH->EndFunction();
 }
 

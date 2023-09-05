@@ -28,6 +28,8 @@ public:
 
 	void TriggerEffect(int hand, const char* effectName, float amplitudeModifier = 1.0f);
 	void TriggerBHapticsEffect(const char* key, float intensity = 1.0f, float offsetAngleX = 0, float offsetY = 0);
+	bool IsBHapticsEffectPlaying(const char* key) const;
+	void StopBHapticsEffect(const char* key);
 	void StopEffects(int hand);
 	void StopAllEffects();
 

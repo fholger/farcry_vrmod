@@ -185,6 +185,8 @@ public:
 	int TriggerWeaponHapticEffect(IFunctionHandler* pH);
 	int TriggerHapticEffect(IFunctionHandler* pH);
 	int TriggerBHapticsEffect(IFunctionHandler* pH);
+	int IsBHapticsEffectPlaying(IFunctionHandler* pH);
+	int StopBHapticsEffect(IFunctionHandler* pH);
 
 private:
 
