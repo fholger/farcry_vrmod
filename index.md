@@ -21,12 +21,12 @@ intro:
 Far Cry VR is a third-party mod for the 2004 PC gaming classic by CryTek. It allows players to experience the world of Far Cry in virtual reality. Features:
 
 - full 6DoF roomscale VR experience: play seated or standing with VR motion controllers
-  - (or play seated with keyboard and mouse)
 - aim your guns naturally with your hands; use two hands to stabilize the guns further
 - physically swing the machete
 - aim mounted and vehicle guns by pointing with your main hand
 - climb ladders manually
 - left-handed support
+- support for bHaptics vests to provide haptic feedback for player damage, weapon recoil and more
 
 The mod is completely free. Simply download [the latest release](https://github.com/fholger/farcry_vrmod/releases/latest)
 and install it to your local Far Cry folder. If you do not own Far Cry, you can get it from
