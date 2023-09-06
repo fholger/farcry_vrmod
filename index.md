@@ -33,6 +33,8 @@ and install it to your local Far Cry folder. If you do not own Far Cry, you can 
 [Steam](https://store.steampowered.com/app/13520/Far_Cry/) or
 [gog.com](https://www.gog.com/en/game/far_cry).
 
+Check out the [manual](https://farcryvr.de/manual/) for an explanation of the motion controls and how to configure the mod.
+
 If you would like to see the mod in action, here are some impressions:
 
 {% include video provider="youtube" id="TSNd7s_x-4g" %}
