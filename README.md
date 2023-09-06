@@ -5,9 +5,10 @@ You need to own and have installed the original Far Cry. It is available at:
 * [Steam](https://store.steampowered.com/app/13520/Far_Cry/)
 * [gog.com](https://www.gog.com/en/game/far_cry)
 
-This mod is still in development. It has working stereoscopic rendering with 6DOF headset tracking.
-You can play seated or standing.
-You can play with VR motion controllers or with keyboard and mouse.
+- This mod features fully working stereoscopic rendering with 6DOF headset tracking.
+- You can play seated or standing.
+- You can play with VR motion controllers or with keyboard and mouse.
+- bHaptics vests are supported
 
 ## Installation
 
