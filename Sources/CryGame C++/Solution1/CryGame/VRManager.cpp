@@ -637,8 +637,8 @@ void VRManager::Modify3DCamera(int eye, CCamera& cam)
 	// start from the 2D camera setup
 	Modify2DCamera(cam);
 
-	float eyeShift = 0.03f * min(6, DEFAULT_FOV / cam.GetFov());
-	//cam.SetZMin(1.0f);
+	float eyeShift = 0.025f;
+	//cam.SetZMin(0.75f);
 	cam.Update();
 
 	// shift position slightly based on eye
@@ -646,7 +646,7 @@ void VRManager::Modify3DCamera(int eye, CCamera& cam)
 	Matrix34 shift = Matrix34::CreateTranslationMat(Vec3(eye == 0 ? eyeShift : -eyeShift, 0, 0));
 	camTransform = camTransform * shift;
 
-	cam.SetPos(camTransform.GetTranslation());
+	cam.SetPos(camTransform.GetTranslation() - 0.f * camTransform.GetForward());
 	cam.SetAngle(ToAnglesDeg(camTransform));
 }
 
@@ -902,7 +902,7 @@ void VRManager::RecalibrateView()
 	angles.x = angles.y = 0;
 	m_fixedHudTransform.SetRotationXYZ(angles, m_fixedHudTransform.GetTranslation());
 	Vec3 dir = -((Matrix33)m_fixedHudTransform).GetColumn(1);
-	Vec3 pos = m_fixedHudTransform.GetTranslation() + 2.f * dir;
+	Vec3 pos = m_fixedHudTransform.GetTranslation() + vr_menu_distance * dir;
 	m_fixedHudTransform.SetTranslation(pos);
 }
 
@@ -912,9 +912,9 @@ void VRManager::SetHudAttachedToHead()
 	vr::HmdMatrix34_t hudTransform;
 	memset(&hudTransform, 0, sizeof(vr::HmdMatrix34_t));
 	hudTransform.m[0][0] = hudTransform.m[1][1] = hudTransform.m[2][2] = 1;
-	hudTransform.m[2][3] = -2.5f;
+	hudTransform.m[2][3] = -vr_hud_distance;
 	vr::VROverlay()->SetOverlayFlag(m_hudOverlay, vr::VROverlayFlags_IgnoreTextureAlpha, false);
-	vr::VROverlay()->SetOverlayWidthInMeters(m_hudOverlay, 2.f);
+	vr::VROverlay()->SetOverlayWidthInMeters(m_hudOverlay, vr_hud_width);
 	vr::VROverlay()->SetOverlayTransformTrackedDeviceRelative(m_hudOverlay, vr::k_unTrackedDeviceIndex_Hmd, &hudTransform);
 }
 
@@ -922,12 +922,12 @@ void VRManager::SetHudInFrontOfPlayer()
 {
 	vr::HmdMatrix34_t hudTransform = FarCryToOpenVR(m_fixedHudTransform);
 	vr::VROverlay()->SetOverlayFlag(m_hudOverlay, vr::VROverlayFlags_IgnoreTextureAlpha, false);
-	vr::VROverlay()->SetOverlayWidthInMeters(m_hudOverlay, 2.f);
+	vr::VROverlay()->SetOverlayWidthInMeters(m_hudOverlay, vr_menu_width);
 	vr::VROverlay()->SetOverlayTransformAbsolute(m_hudOverlay, vr::TrackingUniverseStanding, &hudTransform);
 	if (gVRRenderer->ShouldRenderStereo())
 	{
 		vr::VROverlay()->ShowOverlay(m_3DOverlay);
-		vr::VROverlay()->SetOverlayWidthInMeters(m_3DOverlay, 2.f);
+		vr::VROverlay()->SetOverlayWidthInMeters(m_3DOverlay, vr_menu_width);
 		vr::VROverlay()->SetOverlayTransformAbsolute(m_3DOverlay, vr::TrackingUniverseStanding, &hudTransform);
 	}
 }
@@ -1058,6 +1058,10 @@ void VRManager::RegisterCVars()
 	console->Register("vr_scope_size", &vr_scope_size, 0.3f, VF_DUMPTODISK, "Width of the weapon scope overlay (in meters)");
 	console->Register("vr_seated_mode", &vr_seated_mode, 0, VF_DUMPTODISK, "If enabled, will fix VR camera at player head height and disable physical crouching");
 	console->Register("vr_cutscenes_cinema_mode", &vr_cutscenes_cinema_mode, 2, VF_DUMPTODISK, "Determines how cutscenes are played. 0 - full VR, 1 - 2D cinema, 2 - 3D cinema");
+	console->Register("vr_hud_distance", &vr_hud_distance, 2.5f, VF_DUMPTODISK, "Determines how far away from the player the ingame HUD is placed");
+	console->Register("vr_hud_width", &vr_hud_width, 2, VF_DUMPTODISK, "Determines how large the ingame HUD is");
+	console->Register("vr_menu_distance", &vr_menu_distance, 4, VF_DUMPTODISK, "Determines how far away from the player the menu and theater mode is placed");
+	console->Register("vr_menu_width", &vr_menu_width, 4, VF_DUMPTODISK, "Determines how large the menu and theater mode is");
 	vr_debug_override_rh_offset = console->CreateVariable("vr_debug_override_rh_offset", "0.0 -0.1 -0.018", VF_CHEAT);
 	vr_debug_override_lh_offset = console->CreateVariable("vr_debug_override_lh_offset", "0.0 -0.1 -0.018", VF_CHEAT);
 	vr_debug_override_rh_angles = console->CreateVariable("vr_debug_override_rh_angles", "0.0 0.0 0.0", VF_CHEAT);

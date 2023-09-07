@@ -126,6 +126,10 @@ public:
 	float vr_scope_size;
 	int vr_seated_mode;
 	int vr_cutscenes_cinema_mode;
+	float vr_hud_distance;
+	float vr_hud_width;
+	float vr_menu_distance;
+	float vr_menu_width;
 	ICVar* vr_debug_override_rh_offset = nullptr;
 	ICVar* vr_debug_override_rh_angles = nullptr;
 	ICVar* vr_debug_override_lh_offset = nullptr;
