@@ -14,6 +14,14 @@
 #include "WeaponClass.h"
 
 
+HMODULE GetCurrentModule()
+{
+	HMODULE module = nullptr;
+	GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS, (LPCTSTR)GetCurrentModule, &module);
+	return module;
+}
+
+
 VRManager s_VRManager;
 VRManager* gVR = &s_VRManager;
 
@@ -86,6 +94,9 @@ bool VRManager::Init(CXGame *game)
 {
 	if (m_initialized)
 		return true;
+
+	HMODULE module = GetCurrentModule();
+	CryLogAlways("Initializing CryVR, base module address: 0x%x", module);
 
 	m_pGame = game;
 
