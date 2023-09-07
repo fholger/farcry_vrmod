@@ -192,6 +192,9 @@ void VRRenderer::ChangeRenderResolution(int width, int height)
 
 bool VRRenderer::ShouldRenderVR() const
 {
+	if (m_pGame->IsCutSceneActive() && gVR->vr_cutscenes_cinema_mode != 0)
+		return false;
+
 	if (!gVR->vr_render_world_while_zoomed)
 	{
 		return !ShouldRender2D();
@@ -209,12 +212,12 @@ bool VRRenderer::ShouldRender2D() const
 	if (player && player->IsWeaponZoomActive())
 		return true;
 
-	return false;
+	return m_pGame->IsCutSceneActive() && gVR->vr_cutscenes_cinema_mode != 0;
 }
 
 bool VRRenderer::ShouldRenderStereo() const
 {
-	return gVR->UseMotionControllers() && m_pGame->AreBinocularsActive();
+	return m_pGame->IsCutSceneActive() && gVR->vr_cutscenes_cinema_mode == 2;
 }
 
 void VRRenderer::RenderSingleEye(int eye, ISystem* pSystem)

@@ -593,6 +593,9 @@ void VRManager::Modify2DCamera(CCamera& cam)
 		return;
 	}
 
+	if (m_pGame->IsCutSceneActive())
+		return;
+
 	if (m_pGame->AreBinocularsActive())
 	{
 		// already corrected in player cam by necessity - otherwise, the motion tracking markers just don't display at the right position
@@ -631,12 +634,11 @@ void VRManager::Modify2DCamera(CCamera& cam)
 
 void VRManager::Modify3DCamera(int eye, CCamera& cam)
 {
-	// set up a non-VR stereoscopic camera for rendering binoculars etc.
 	// start from the 2D camera setup
 	Modify2DCamera(cam);
 
 	float eyeShift = 0.03f * min(6, DEFAULT_FOV / cam.GetFov());
-	cam.SetZMin(2.f * DEFAULT_FOV / cam.GetFov());
+	//cam.SetZMin(1.0f);
 	cam.Update();
 
 	// shift position slightly based on eye
@@ -740,6 +742,8 @@ void VRManager::ProcessInput()
 		SetHudAsWeaponZoom();
 	else if (m_pGame->AreBinocularsActive())
 		SetHudAsBinoculars();
+	else if (m_pGame->IsCutSceneActive() && gVR->vr_cutscenes_cinema_mode > 0)
+		SetHudInFrontOfPlayer();
 	else
 		SetHudAttachedToHead();
 
@@ -920,6 +924,12 @@ void VRManager::SetHudInFrontOfPlayer()
 	vr::VROverlay()->SetOverlayFlag(m_hudOverlay, vr::VROverlayFlags_IgnoreTextureAlpha, false);
 	vr::VROverlay()->SetOverlayWidthInMeters(m_hudOverlay, 2.f);
 	vr::VROverlay()->SetOverlayTransformAbsolute(m_hudOverlay, vr::TrackingUniverseStanding, &hudTransform);
+	if (gVRRenderer->ShouldRenderStereo())
+	{
+		vr::VROverlay()->ShowOverlay(m_3DOverlay);
+		vr::VROverlay()->SetOverlayWidthInMeters(m_3DOverlay, 2.f);
+		vr::VROverlay()->SetOverlayTransformAbsolute(m_3DOverlay, vr::TrackingUniverseStanding, &hudTransform);
+	}
 }
 
 void VRManager::SetHudAsBinoculars()
@@ -1047,6 +1057,7 @@ void VRManager::RegisterCVars()
 	console->Register("vr_binocular_size", &vr_binocular_size, 0.4f, VF_DUMPTODISK, "Width of the binocular overlay (in meters)");
 	console->Register("vr_scope_size", &vr_scope_size, 0.3f, VF_DUMPTODISK, "Width of the weapon scope overlay (in meters)");
 	console->Register("vr_seated_mode", &vr_seated_mode, 0, VF_DUMPTODISK, "If enabled, will fix VR camera at player head height and disable physical crouching");
+	console->Register("vr_cutscenes_cinema_mode", &vr_cutscenes_cinema_mode, 2, VF_DUMPTODISK, "Determines how cutscenes are played. 0 - full VR, 1 - 2D cinema, 2 - 3D cinema");
 	vr_debug_override_rh_offset = console->CreateVariable("vr_debug_override_rh_offset", "0.0 -0.1 -0.018", VF_CHEAT);
 	vr_debug_override_lh_offset = console->CreateVariable("vr_debug_override_lh_offset", "0.0 -0.1 -0.018", VF_CHEAT);
 	vr_debug_override_rh_angles = console->CreateVariable("vr_debug_override_rh_angles", "0.0 0.0 0.0", VF_CHEAT);
