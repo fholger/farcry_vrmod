@@ -1,6 +1,6 @@
 !include "MUI2.nsh"
 !include "WordFunc.nsh"
-!define VERSION '0.9.0'
+!define VERSION '0.9.1'
 
 Name "Far Cry VR Mod"
 ; should not need admin privileges as the install folder should be user writable, anyway
