@@ -411,6 +411,31 @@ UI.PageOptionsVR=
 			end,
 		},
 
+		cutscenes_text=
+		{
+			skin = UI.skins.Label,
+
+			left = 488, top = 359,
+			width = 112,
+
+			text="Cutscene mode",
+		},
+
+		cutscenes=
+		{
+			left = 608, top = 359,
+			width = 162, height = 28,
+
+			skin = UI.skins.ComboBox,
+
+			tabstop = 7,
+
+			OnChanged = function( Sender )
+				local eye = tonumber( UI.PageOptionsVR.GUI.cutscenes:GetSelectionIndex() ) - 1;
+				setglobal( "vr_cutscenes_cinema_mode", eye );
+			end,
+		},
+
 		OnActivate= function(Sender)
 			UI.PageOptionsVR.GUI.seatedmode:SetChecked(vr_seated_mode);
 			UI.PageOptionsVR.GUI.terrainlod:SetChecked(vr_render_force_max_terrain_detail);
@@ -461,6 +486,13 @@ UI.PageOptionsVR=
 			UI.PageOptionsVR.GUI.crosshair:SelectIndex( cur_crosshair + 1 );
 
 			UI.PageOptionsVR.GUI.vrscopes:SetChecked(vr_render_world_while_zoomed);
+
+			UI.PageOptionsVR.GUI.cutscenes:Clear();
+			UI.PageOptionsVR.GUI.cutscenes:AddItem( "VR" );
+			UI.PageOptionsVR.GUI.cutscenes:AddItem( "2D Cinema" );
+			UI.PageOptionsVR.GUI.cutscenes:AddItem( "3D Cinema" );
+			local cur_cutscenes = tonumber( getglobal( "vr_cutscenes_cinema_mode" ) );
+			UI.PageOptionsVR.GUI.cutscenes:SelectIndex( cur_cutscenes + 1 );
 		end,
 
 		OnDeactivate = function(Sender)
@@ -482,6 +514,7 @@ UI.PageOptionsVR=
 		UI.PageOptionsVR.GUI.mirroreye:SelectIndex( 1 );
 		UI.PageOptionsVR.GUI.crosshair:SelectIndex( 1 );
 		UI.PageOptionsVR.GUI.vrscopes:SetChecked(1);
+		UI.PageOptionsVR.GUI.cutscenes:SelectIndex( 1 );
 		UI.PageOptionsVR.GUI.seatedmode:OnChanged();
 		UI.PageOptionsVR.GUI.mainhand:OnChanged();
 		UI.PageOptionsVR.GUI.movedir:OnChanged();
@@ -495,6 +528,7 @@ UI.PageOptionsVR=
 		UI.PageOptionsVR.GUI.crosshair:OnChanged();
 		UI.PageOptionsVR.GUI.ladders:OnChanged();
 		UI.PageOptionsVR.GUI.vrscopes:OnChanged();
+		UI.PageOptionsVR.GUI.cutscenes:OnChanged();
 	end,
 }
 
