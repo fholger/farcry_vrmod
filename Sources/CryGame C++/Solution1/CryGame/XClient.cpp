@@ -1633,7 +1633,7 @@ void CXClient::TriggerTurnLR(float fValue,XActivationEvent ae)
 			}
 		}
 
-		m_PlayerProcessingCmd.GetDeltaAngles()[ROLL] -= fVal*gVR->vr_smooth_turn_speed; //fValue*fFovMul;
+		m_PlayerProcessingCmd.GetDeltaAngles()[ROLL] -= fVal * gVR->vr_smooth_turn_speed * 100 * m_pGame->GetSystem()->GetITimer()->GetFrameTime();
 		m_PlayerProcessingCmd.AddAction(ACTION_TURNLR);	
 	}
 	else

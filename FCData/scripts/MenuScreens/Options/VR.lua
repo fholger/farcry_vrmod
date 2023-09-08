@@ -169,8 +169,8 @@ UI.PageOptionsVR=
 				elseif( newValue > 1.0 ) then
 					newValue = 1.0;
 				end;
-				-- map to value range [0.5, 2.0]
-				newValue = 0.5 + newValue * 1.5;
+				-- map to value range [0.5, 3.0]
+				newValue = 0.5 + newValue * 2.5;
 				setglobal( "vr_smooth_turn_speed", newValue );
 			end,
 		},
@@ -442,7 +442,7 @@ UI.PageOptionsVR=
 			local cur_turnmode = tonumber( getglobal( "vr_snap_turn_amount" ) ) / 15;
 			UI.PageOptionsVR.GUI.turnmode:SelectIndex( cur_turnmode + 1 );
 
-			UI.PageOptionsVR.GUI.turnspeed:SetValue( ( getglobal( "vr_smooth_turn_speed" ) - 0.5) / 1.5 );
+			UI.PageOptionsVR.GUI.turnspeed:SetValue( ( getglobal( "vr_smooth_turn_speed" ) - 0.5) / 2.5 );
 			UI.PageOptionsVR.GUI.vegetationdist:SetValue( getglobal( "e_vegetation_sprites_distance_ratio" ) / 100.0 );
 			UI.PageOptionsVR.GUI.weaponangle:SetValue( getglobal( "vr_weapon_pitch_offset" ) / 90 + 0.5 );
 
