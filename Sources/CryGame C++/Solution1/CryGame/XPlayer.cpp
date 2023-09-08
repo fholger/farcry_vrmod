@@ -3104,16 +3104,8 @@ void CPlayer::GetFirePosAngles(Vec3d& firePos, Vec3d& fireAngles)
 
 				if (weapon->IsZoomActive())
 				{
-					// need to smooth the weapon orientation, or else zoom isn't really usable with motion controls
-					float factor = 0.03 * powf(DEFAULT_FOV / m_pEntity->GetCamera()->GetFov(), 1.5f);
-					Vec3 smoothedAngles = fireAngles;
-					float yawPitchDecay = powf(2.f, -m_pGame->GetSystem()->GetITimer()->GetFrameTime() / factor);
-					smoothedAngles.z = fireAngles.z + GetAngleDifference360(m_prevFireAngles.z, fireAngles.z) * yawPitchDecay;
-					smoothedAngles.x = fireAngles.x + GetAngleDifference360(m_prevFireAngles.x, fireAngles.x) * yawPitchDecay;
-					fireAngles = smoothedAngles;
+					fireAngles = m_smoothedFireAngles;
 				}
-
-				m_prevFireAngles = fireAngles;
 			}
 
 			if (m_pMountedWeapon)
@@ -3266,6 +3258,8 @@ void CPlayer::UpdateWeapon()
 	FUNCTION_PROFILER( GetISystem(),PROFILE_GAME );
 	
 	float frametime=m_pTimer->GetFrameTime();
+
+	CalcSmoothedFireAngles();
 
 	if(m_stats.firing_grenade)
 	{
@@ -7256,6 +7250,28 @@ void CPlayer::CheckMeleeWeaponSwing()
 		m_wasSwinging = false;
 
 	m_prevHandPos = handPos;
+}
+
+void CPlayer::CalcSmoothedFireAngles()
+{
+	CWeaponClass* weapon = GetSelectedWeapon();
+	if (!weapon)
+		return;
+
+	Vec3 firePos, fireAngles;
+	weapon->GetMuzzlePosAngles(firePos, fireAngles);
+
+	if (weapon->IsZoomActive())
+	{
+		// need to smooth the weapon orientation, or else zoom isn't really usable with motion controls
+		float factor = 0.03 * powf(DEFAULT_FOV / m_pEntity->GetCamera()->GetFov(), 1.5f);
+		Vec3 smoothedAngles = fireAngles;
+		float yawPitchDecay = powf(2.f, -m_pGame->GetSystem()->GetITimer()->GetFrameTime() / factor);
+		smoothedAngles.z = fireAngles.z + GetAngleDifference360(m_smoothedFireAngles.z, fireAngles.z) * yawPitchDecay;
+		smoothedAngles.x = fireAngles.x + GetAngleDifference360(m_smoothedFireAngles.x, fireAngles.x) * yawPitchDecay;
+		fireAngles = smoothedAngles;
+	}
+	m_smoothedFireAngles = fireAngles;
 }
 
 void CPlayer::CheckLadderDismount()

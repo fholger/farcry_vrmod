@@ -1175,7 +1175,8 @@ private:
 	Vec3 m_prevMeleePos;
 	Vec3 m_swingDir;
 
-	Vec3 m_prevFireAngles;
+	void CalcSmoothedFireAngles();
+	Vec3 m_smoothedFireAngles;
 
 	// visible bare hands
 	CHand* m_handModel[2] = { nullptr };
