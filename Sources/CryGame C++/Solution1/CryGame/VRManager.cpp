@@ -604,6 +604,13 @@ void VRManager::Modify2DCamera(CCamera& cam)
 
 	Ang3 angles = cam.GetAngles();
 	Vec3 position = cam.GetPos();
+	position.z -= m_referenceHeight;
+
+	CPlayer* player = m_pGame->GetLocalPlayer();
+	if (player && !m_pGame->IsCutSceneActive())
+	{
+		position = player->GetVRBasePos();
+	}
 
 	angles = Deg2Rad(angles);
 	// eliminate pitch and roll
@@ -621,7 +628,6 @@ void VRManager::Modify2DCamera(CCamera& cam)
 	angles.Rad2Deg();
 	cam.SetAngle(angles);
 
-	CPlayer* player = m_pGame->GetLocalPlayer();
 	if (player && player->IsWeaponZoomActive())
 	{
 		// set camera to weapon firing pos, instead
@@ -659,6 +665,14 @@ void VRManager::ModifyBinocularCamera(IEntityCamera* cam)
 
 	Ang3 angles = cam->GetAngles();
 	Vec3 position = cam->GetPos();
+	position.z -= m_referenceHeight;
+
+	CPlayer* player = m_pGame->GetLocalPlayer();
+	if (player && !m_pGame->IsCutSceneActive())
+	{
+		position = player->GetVRBasePos();
+	}
+
 	angles = Deg2Rad(angles);
 	// eliminate pitch and roll
 	angles.y = 0;
