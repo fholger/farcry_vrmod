@@ -131,6 +131,7 @@ public:
 	float vr_menu_distance;
 	float vr_menu_width;
 	int vr_skip_vehicle_transitions;
+	int vr_decouple_vehicle_rotations;
 	ICVar* vr_debug_override_rh_offset = nullptr;
 	ICVar* vr_debug_override_rh_angles = nullptr;
 	ICVar* vr_debug_override_lh_offset = nullptr;
