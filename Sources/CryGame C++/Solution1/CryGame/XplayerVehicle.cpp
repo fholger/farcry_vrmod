@@ -26,6 +26,7 @@
 #include <ISound.h>
 #include <IAgent.h>
 #include "Game.h"
+#include "VRManager.h"
 
 //////////////////////////////////////////////////////////////////////
 void CPlayer::ProcessVehicleMovements(CXEntityProcessingCmd &ProcessingCmd)
@@ -513,6 +514,9 @@ float	timeScale = m_pTimer->GetFrameTime();
 		m_vCurCamposVhcl.x = vEyePos.x;
 		m_vCurCamposVhcl.y = vEyePos.y;
 	}
+
+	if (gVR->vr_skip_vehicle_transitions)
+		m_fCameraTime = 0;
 
 	if(	(m_fCameraTime -= timeScale) <= 0 )	
 	{	
