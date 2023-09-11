@@ -235,6 +235,34 @@ UI.PageOptionsVR=
 			end,
 		},
 
+		vehiclerot_text=
+		{
+			skin = UI.skins.Label,
+
+			left = 200, top = 394,
+			width = 112,
+
+			text="Decouple vehicle rot.",
+		},
+
+		vehiclerot=
+		{
+			left = 320, top = 394,
+			width = 28, height = 28,
+
+			skin = UI.skins.CheckBox,
+
+			tabstop = 4,
+
+			OnChanged=function(Sender)
+				if (Sender:GetChecked()) then
+					setglobal("vr_decouple_vehicle_rotations", 1);
+				else
+					setglobal("vr_decouple_vehicle_rotations", 0);
+				end
+			end,
+		},
+
 		terrainlod_text=
 		{
 			skin = UI.skins.Label,
@@ -441,6 +469,7 @@ UI.PageOptionsVR=
 			UI.PageOptionsVR.GUI.terrainlod:SetChecked(vr_render_force_max_terrain_detail);
 			UI.PageOptionsVR.GUI.objdist:SetChecked(vr_render_force_obj_draw_dist);
 			UI.PageOptionsVR.GUI.ladders:SetChecked(vr_immersive_ladders);
+			UI.PageOptionsVR.GUI.vehiclerot:SetChecked(vr_decouple_vehicle_rotations);
 
 			UI.PageOptionsVR.GUI.mainhand:Clear();
 			UI.PageOptionsVR.GUI.mainhand:AddItem( "Right" );
@@ -508,6 +537,7 @@ UI.PageOptionsVR=
 		UI.PageOptionsVR.GUI.turnspeed:SetValue( 0.5 );
 		UI.PageOptionsVR.GUI.weaponangle:SetValue( 0.667 );
 		UI.PageOptionsVR.GUI.ladders:SetChecked(1);
+		UI.PageOptionsVR.GUI.vehiclerot:SetChecked(0);
 		UI.PageOptionsVR.GUI.terrainlod:SetChecked(1);
 		UI.PageOptionsVR.GUI.objdist:SetChecked(1);
 		UI.PageOptionsVR.GUI.vegetationdist:SetValue( 1 );
@@ -527,6 +557,7 @@ UI.PageOptionsVR=
 		UI.PageOptionsVR.GUI.mirroreye:OnChanged();
 		UI.PageOptionsVR.GUI.crosshair:OnChanged();
 		UI.PageOptionsVR.GUI.ladders:OnChanged();
+		UI.PageOptionsVR.GUI.vehiclerot:OnChanged();
 		UI.PageOptionsVR.GUI.vrscopes:OnChanged();
 		UI.PageOptionsVR.GUI.cutscenes:OnChanged();
 	end,

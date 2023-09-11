@@ -1076,7 +1076,7 @@ void VRManager::RegisterCVars()
 	console->Register("vr_hud_width", &vr_hud_width, 2, VF_DUMPTODISK, "Determines how large the ingame HUD is");
 	console->Register("vr_menu_distance", &vr_menu_distance, 4, VF_DUMPTODISK, "Determines how far away from the player the menu and theater mode is placed");
 	console->Register("vr_menu_width", &vr_menu_width, 4, VF_DUMPTODISK, "Determines how large the menu and theater mode is");
-	console->Register("vr_skip_vehicle_transitions", &vr_skip_vehicle_transitions, 0, VF_DUMPTODISK, "If enabled, skip camera transitions when entering/exiting vehicles");
+	console->Register("vr_skip_vehicle_transitions", &vr_skip_vehicle_transitions, 1, VF_DUMPTODISK, "If enabled, skip camera transitions when entering/exiting vehicles");
 	console->Register("vr_decouple_vehicle_rotations", &vr_decouple_vehicle_rotations, 0, VF_DUMPTODISK, "If enabled, vehicle rotations do not automatically transfer to the player camera");
 	vr_debug_override_rh_offset = console->CreateVariable("vr_debug_override_rh_offset", "0.0 -0.1 -0.018", VF_CHEAT);
 	vr_debug_override_lh_offset = console->CreateVariable("vr_debug_override_lh_offset", "0.0 -0.1 -0.018", VF_CHEAT);
