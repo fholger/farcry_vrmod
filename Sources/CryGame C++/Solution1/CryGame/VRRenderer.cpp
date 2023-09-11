@@ -285,6 +285,7 @@ void VRRenderer::DrawCrosshair()
 	Vec3 dir = -transform.GetColumn(1);
 	dir.Normalize();
 	float maxDistance = 16.f;
+	float crosshairSize = 0.03f;
 
 	IPhysicalEntity* skipPlayer = pPlayer->GetEntity()->GetPhysics();
 	IPhysicalEntity* skipVehicle = nullptr;
@@ -292,6 +293,7 @@ void VRRenderer::DrawCrosshair()
 	{
 		skipVehicle = pPlayer->GetVehicle()->GetEntity()->GetPhysics();
 		maxDistance = 24.f;
+		crosshairSize = 0.06f;
 	}
 	else if (gVR->vr_crosshair == 2)
 		maxDistance = 100.f;
@@ -313,7 +315,7 @@ void VRRenderer::DrawCrosshair()
 	if (gVR->vr_crosshair == 1 || pPlayer->GetVehicle())
 	{
 		m_pGame->m_pRenderer->SetState(GS_NODEPTHTEST);
-		m_pGame->m_pRenderer->DrawBall(crosshairPos - dir * 0.06f, 0.03f);
+		m_pGame->m_pRenderer->DrawBall(crosshairPos - dir * 0.06f, crosshairSize);
 	}
 	else
 	{

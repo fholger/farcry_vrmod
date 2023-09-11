@@ -228,7 +228,7 @@ void CPlayer::UpdateCamera()
 		m_ValidAngle = m_pEntity->GetAngles();
 
 
-		if (m_bFirstPerson && m_pVehicle)
+		if ((m_bFirstPerson || gVR->vr_decouple_vehicle_rotations) && m_pVehicle)
 		{
 			// in vehicle camera
 			UpdateBoatCamera();

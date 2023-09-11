@@ -26,6 +26,7 @@
 #include <ISound.h>
 #include <IAgent.h>
 #include "Game.h"
+#include "VRManager.h"
 
 //////////////////////////////////////////////////////////////////////
 void CPlayer::ProcessVehicleMovements(CXEntityProcessingCmd &ProcessingCmd)
@@ -283,7 +284,7 @@ void	CPlayer::UpdateBoatCamera()
 				mat=GetTransposed44(mat);	
 				GetEntity()->SetParentLocale(mat);
 				GetEntity()->CalculateInWorld();
-				m_vEyeAngles = GetEntity()->GetAngles();
+				m_vEyeAngles = GetEntity()->GetAngles(gVR->vr_decouple_vehicle_rotations);
 
 				m_vCurCamposVhcl = vEyePos;
 				m_vCurAngleVhcl = m_vEyeAngles + m_walkParams.shakeAOffset;
@@ -299,6 +300,9 @@ void	CPlayer::UpdateBoatCamera()
 	}
 
 	// third person mode uses one of the different cameras
+	if (gVR->vr_decouple_vehicle_rotations)
+		angles.z = 0;
+
 	switch(m_pGame->b_camera->GetIVal())
 	{
 	case 0:
@@ -306,8 +310,8 @@ void	CPlayer::UpdateBoatCamera()
 			angles.x = 1;
 			angles.y = 1;
 			IPhysicalEntity *physEnt = car->GetPhysics();
-			camera->SetCameraOffset(Vec3d(0,m_pGame->cl_ThirdPersonRange->GetFVal(),m_pGame->cl_ThirdPersonRange->GetFVal()));
-			camera->SetCameraMode(pos,angles+m_pEntity->GetAngles(), physEnt);
+			camera->SetCameraOffset(Vec3d(0,m_pGame->cl_ThirdPersonRange->GetFVal(),m_pGame->cl_ThirdPersonRange->GetFVal() * 0.6f));
+			camera->SetCameraMode(pos,angles+m_pEntity->GetAngles(gVR->vr_decouple_vehicle_rotations), physEnt);
 			break;
 		}
 	case 1:
@@ -513,6 +517,9 @@ float	timeScale = m_pTimer->GetFrameTime();
 		m_vCurCamposVhcl.x = vEyePos.x;
 		m_vCurCamposVhcl.y = vEyePos.y;
 	}
+
+	if (gVR->vr_skip_vehicle_transitions)
+		m_fCameraTime = 0;
 
 	if(	(m_fCameraTime -= timeScale) <= 0 )	
 	{	
