@@ -464,6 +464,31 @@ UI.PageOptionsVR=
 			end,
 		},
 
+		vehiclemode_text=
+		{
+			skin = UI.skins.Label,
+
+			left = 488, top = 394,
+			width = 112,
+
+			text="Vehicle mode",
+		},
+
+		vehiclemode=
+		{
+			left = 608, top = 394,
+			width = 162, height = 28,
+
+			skin = UI.skins.ComboBox,
+
+			tabstop = 7,
+
+			OnChanged = function( Sender )
+				local eye = tonumber( UI.PageOptionsVR.GUI.vehiclemode:GetSelectionIndex() ) - 1;
+				setglobal( "vr_vehicles_cinema_mode", eye );
+			end,
+		},
+
 		OnActivate= function(Sender)
 			UI.PageOptionsVR.GUI.seatedmode:SetChecked(vr_seated_mode);
 			UI.PageOptionsVR.GUI.terrainlod:SetChecked(vr_render_force_max_terrain_detail);
@@ -522,6 +547,13 @@ UI.PageOptionsVR=
 			UI.PageOptionsVR.GUI.cutscenes:AddItem( "3D Cinema" );
 			local cur_cutscenes = tonumber( getglobal( "vr_cutscenes_cinema_mode" ) );
 			UI.PageOptionsVR.GUI.cutscenes:SelectIndex( cur_cutscenes + 1 );
+
+			UI.PageOptionsVR.GUI.vehiclemode:Clear();
+			UI.PageOptionsVR.GUI.vehiclemode:AddItem( "VR" );
+			UI.PageOptionsVR.GUI.vehiclemode:AddItem( "2D Cinema" );
+			UI.PageOptionsVR.GUI.vehiclemode:AddItem( "3D Cinema" );
+			local cur_vehiclemode = tonumber( getglobal( "vr_vehicles_cinema_mode" ) );
+			UI.PageOptionsVR.GUI.vehiclemode:SelectIndex( cur_vehiclemode + 1 );
 		end,
 
 		OnDeactivate = function(Sender)
@@ -545,6 +577,7 @@ UI.PageOptionsVR=
 		UI.PageOptionsVR.GUI.crosshair:SelectIndex( 1 );
 		UI.PageOptionsVR.GUI.vrscopes:SetChecked(1);
 		UI.PageOptionsVR.GUI.cutscenes:SelectIndex( 1 );
+		UI.PageOptionsVR.GUI.vehiclemode:SelectIndex( 1 );
 		UI.PageOptionsVR.GUI.seatedmode:OnChanged();
 		UI.PageOptionsVR.GUI.mainhand:OnChanged();
 		UI.PageOptionsVR.GUI.movedir:OnChanged();
@@ -560,6 +593,7 @@ UI.PageOptionsVR=
 		UI.PageOptionsVR.GUI.vehiclerot:OnChanged();
 		UI.PageOptionsVR.GUI.vrscopes:OnChanged();
 		UI.PageOptionsVR.GUI.cutscenes:OnChanged();
+		UI.PageOptionsVR.GUI.vehiclemode:OnChanged();
 	end,
 }
 
