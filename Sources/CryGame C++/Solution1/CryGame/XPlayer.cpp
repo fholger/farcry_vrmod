@@ -2669,7 +2669,7 @@ void CPlayer::ModifyWeaponPosition(CWeaponClass* weapon, Vec3& weaponAngles, Vec
 void CPlayer::TryEnableTwoHandedWeaponMode()
 {
 	CWeaponClass* weapon = GetSelectedWeapon();
-	if (!weapon || weapon->GetTwoHandedMode() == TWOHAND_DISABLED)
+	if (!weapon || weapon->GetTwoHandedMode() == TWOHAND_DISABLED || !weapon->GetCharacter())
 		return;
 
 	// check if the off hand controller is near the off hand grip position
