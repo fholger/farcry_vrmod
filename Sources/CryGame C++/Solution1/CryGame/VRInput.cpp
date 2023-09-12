@@ -109,9 +109,11 @@ void VRInput::ProcessInput()
 	{
 		HandleDoubleBindAction(m_defaultMenu, &CXClient::TriggerMenu, &CXClient::TriggerScoreBoard);
 	}
-	if (gVR->vr_snap_turn_amount == 0)
+	if (gVR->vr_snap_turn_amount == 0 || gVR->IsDrivingVehicleInCinemaMode())
 	{
 		HandleAnalogAction(m_moveTurn, 0, &CXClient::TriggerTurnLR);
+		if (gVR->IsDrivingVehicleInCinemaMode())
+			HandleAnalogAction(m_moveTurn, 1, &CXClient::TriggerTurnUD);
 	}
 	else
 	{

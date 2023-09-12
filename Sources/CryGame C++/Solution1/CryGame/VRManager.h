@@ -67,6 +67,8 @@ public:
 	const Vec3& GetBinocularAngles() const { return m_curBinocularAngles; }
 	const Vec3& GetBinocularPos() const { return m_curBinocularPos; }
 
+	bool IsDrivingVehicleInCinemaMode();
+
 private:
 	struct D3DResources;
 
@@ -126,6 +128,7 @@ public:
 	float vr_scope_size;
 	int vr_seated_mode;
 	int vr_cutscenes_cinema_mode;
+	int vr_vehicles_cinema_mode;
 	float vr_hud_distance;
 	float vr_hud_width;
 	float vr_menu_distance;

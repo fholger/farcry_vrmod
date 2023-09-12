@@ -12,6 +12,7 @@
 #include "UISystem.h"
 #include "VRRenderer.h"
 #include "WeaponClass.h"
+#include "XVehicle.h"
 
 
 HMODULE GetCurrentModule()
@@ -593,7 +594,7 @@ void VRManager::Modify2DCamera(CCamera& cam)
 		return;
 	}
 
-	if (m_pGame->IsCutSceneActive())
+	if (m_pGame->IsCutSceneActive() || IsDrivingVehicleInCinemaMode())
 		return;
 
 	if (m_pGame->AreBinocularsActive())
@@ -758,6 +759,8 @@ void VRManager::ProcessInput()
 		SetHudAsBinoculars();
 	else if (m_pGame->IsCutSceneActive() && gVR->vr_cutscenes_cinema_mode > 0)
 		SetHudInFrontOfPlayer();
+	else if (IsDrivingVehicleInCinemaMode())
+		SetHudInFrontOfPlayer();
 	else
 		SetHudAttachedToHead();
 
@@ -856,6 +859,16 @@ void VRManager::CommitYawAndOffsetChanges()
 	m_referencePosition = m_uncommittedReferencePosition;
 	m_referencePosition.z = 0;
 	UpdateHmdTransform();
+}
+
+bool VRManager::IsDrivingVehicleInCinemaMode()
+{
+	if (CPlayer* player = m_pGame->GetLocalPlayer())
+	{
+		return player->GetVehicle() && player->GetVehicle()->GetUserInState(CPlayer::PVS_DRIVER) == player && vr_vehicles_cinema_mode != 0;
+	}
+
+	return false;
 }
 
 void VRManager::ProcessRoomscale()
@@ -1072,6 +1085,7 @@ void VRManager::RegisterCVars()
 	console->Register("vr_scope_size", &vr_scope_size, 0.3f, VF_DUMPTODISK, "Width of the weapon scope overlay (in meters)");
 	console->Register("vr_seated_mode", &vr_seated_mode, 0, VF_DUMPTODISK, "If enabled, will fix VR camera at player head height and disable physical crouching");
 	console->Register("vr_cutscenes_cinema_mode", &vr_cutscenes_cinema_mode, 0, VF_DUMPTODISK, "Determines how cutscenes are played. 0 - full VR, 1 - 2D cinema, 2 - 3D cinema");
+	console->Register("vr_vehicles_cinema_mode", &vr_vehicles_cinema_mode, 0, VF_DUMPTODISK, "Determines how vehicles are played. 0 - full VR, 1 - 2D cinema, 2 - 3D cinema");
 	console->Register("vr_hud_distance", &vr_hud_distance, 2.5f, VF_DUMPTODISK, "Determines how far away from the player the ingame HUD is placed");
 	console->Register("vr_hud_width", &vr_hud_width, 2, VF_DUMPTODISK, "Determines how large the ingame HUD is");
 	console->Register("vr_menu_distance", &vr_menu_distance, 4, VF_DUMPTODISK, "Determines how far away from the player the menu and theater mode is placed");

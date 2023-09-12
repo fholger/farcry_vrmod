@@ -115,6 +115,8 @@ void VRRenderer::Render(ISystem* pSystem)
 
 				pSystem->RenderBegin();
 				pSystem->Render();
+				if (gVR->IsDrivingVehicleInCinemaMode())
+					DrawCrosshair();
 				gVR->CaptureStereo(eye);
 			}
 			// clear render target to fully transparent for HUD render
@@ -132,6 +134,8 @@ void VRRenderer::Render(ISystem* pSystem)
 			}
 			pSystem->RenderBegin();
 			pSystem->Render();
+			if (gVR->IsDrivingVehicleInCinemaMode())
+				DrawCrosshair();
 		}
 
 		pSystem->SetViewCamera(m_originalViewCamera);
@@ -195,6 +199,9 @@ bool VRRenderer::ShouldRenderVR() const
 	if (m_pGame->IsCutSceneActive() && gVR->vr_cutscenes_cinema_mode != 0)
 		return false;
 
+	if (gVR->IsDrivingVehicleInCinemaMode())
+		return false;
+
 	if (!gVR->vr_render_world_while_zoomed)
 	{
 		return !ShouldRender2D();
@@ -212,11 +219,17 @@ bool VRRenderer::ShouldRender2D() const
 	if (player && player->IsWeaponZoomActive())
 		return true;
 
+	if (gVR->IsDrivingVehicleInCinemaMode())
+		return true;
+
 	return m_pGame->IsCutSceneActive() && gVR->vr_cutscenes_cinema_mode != 0;
 }
 
 bool VRRenderer::ShouldRenderStereo() const
 {
+	if (gVR->IsDrivingVehicleInCinemaMode() && gVR->vr_vehicles_cinema_mode == 2)
+		return true;
+
 	return m_pGame->IsCutSceneActive() && gVR->vr_cutscenes_cinema_mode == 2;
 }
 
