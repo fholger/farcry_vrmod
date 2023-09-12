@@ -3,6 +3,8 @@ Game:CreateHapticsEffectFlat("mg_fire", 0.1, 0.25);
 MG = {
 	name = "MG",
 	
+	TwoHandedMode = 0,
+	
 	PlayerSlowDown = 1.0,									-- factor to slow down the player when he holds that weapon
 	---------------------------------------------------
 	ActivateSound = Sound:Load3DSound("Sounds/Weapons/M4/m4weapact.wav"),	-- sound to play when this weapon is selected
