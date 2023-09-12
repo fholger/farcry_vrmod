@@ -74,8 +74,6 @@ void VRHaptics::RegisterBHapticsEffect(const char* key, const char* file)
 
 	RegisterFeedbackFromTactFile(key, buffer);
 	delete[] buffer;
-
-	CryLogAlways("Registered bHaptics effect %s from file %s", key, file);
 }
 
 void VRHaptics::TriggerEffect(int hand, const char* effectName, float amplitudeModifier)
