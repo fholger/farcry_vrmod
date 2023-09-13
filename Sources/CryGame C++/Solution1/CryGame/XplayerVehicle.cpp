@@ -919,7 +919,7 @@ void CVehicle::UpdateWeaponPosAngl( )
 		pSelectedWeapon->GetModeParams(shooter->m_stats.firemode, wp);
 		bAutoAim = (wp.fAutoAimDist>0.0f);
 		autoaimWndSize = wp.fAutoAimDist;
-		minDist = autoaimWndSize*autoaimWndSize*2.0f;// 30000;
+		minDist = autoaimWndSize*autoaimWndSize;// 30000;
 	}
 
 	// we aim always in the center of the screen
@@ -927,6 +927,18 @@ void CVehicle::UpdateWeaponPosAngl( )
 	m_vCrossScreen.y = 300.0f;
 
 	Vec3 vCrossHair3Dpos;
+	if (shooter->m_usesMotionControls)
+	{
+		Ang3 vCrossHairAngles;
+		shooter->ModifyVehicleWeaponAim(vCrossHair3Dpos, vCrossHairAngles);
+		Matrix34 crossHairMat = Matrix34::CreateRotationXYZ(Deg2Rad(vCrossHairAngles), vCrossHair3Dpos);
+		vCrossHair3Dpos += crossHairMat.GetForward() * 150.f;
+		m_pGame->GetSystem()->GetIRenderer()->ProjectToScreen(vCrossHair3Dpos.x, vCrossHair3Dpos.y, vCrossHair3Dpos.z, &m_vCrossScreen.x, &m_vCrossScreen.y, &m_vCrossScreen.z);
+		m_vCrossScreen.x *= 8;
+		m_vCrossScreen.y *= 6;
+
+		CryLogAlways("Crosshair projection: (%.2f, %.2f)", m_vCrossScreen.x, m_vCrossScreen.y);
+	}
 
 	//fixme - add the check if it's on screen
 	m_bCrossOnScreen = true;
@@ -1006,7 +1018,7 @@ void CVehicle::UpdateWeaponPosAngl( )
 					(Position.y<=m_vCrossScreen.y+autoaimWndSize) &&
 					(Position.z>0.0f))
 			{
-				float dist = (Position.x-400)*(Position.x-400) + (Position.y-300)*(Position.y-300);
+				float dist = (Position.x-m_vCrossScreen.x)*(Position.x-m_vCrossScreen.x) + (Position.y-m_vCrossScreen.y)*(Position.y-m_vCrossScreen.y);
 				if( dist<minDist )
 				{
 					Vec3 offset = diff.normalized()*2.0f;	// trace not from the weapon position - to skip windows

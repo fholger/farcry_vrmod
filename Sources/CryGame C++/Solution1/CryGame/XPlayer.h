@@ -1150,13 +1150,13 @@ public:
 	Vec3 m_vLadderPosition; //!< when player use a ladder we have to know the ladder position to orient the player model to the ladder.
 	Vec3 m_vLadderAngles; //!< the player model orientation when using the ladder, useful to limit the head rotation.
 
+	bool m_usesMotionControls = false;
 private:
 
 	Ang3 m_vHeadAngles; //!< the actual player head bone angle , used for smooth the head rotation.
 
 	float m_fLastProneTime; //!< needed to cap the prone-standing position spamming
 
-	bool m_usesMotionControls = false;
 	int m_mainHand = 1;
 	int m_offHand = 0;
 	Matrix34 m_refPlayerTransform;
