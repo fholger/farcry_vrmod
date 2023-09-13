@@ -936,6 +936,7 @@ void VRManager::RecalibrateView()
 
 void VRManager::SetHudAttachedToHead()
 {
+	m_fixedPositionInitialized = false;
 	vr::HmdMatrix34_t hudTransform;
 	memset(&hudTransform, 0, sizeof(vr::HmdMatrix34_t));
 	hudTransform.m[0][0] = hudTransform.m[1][1] = hudTransform.m[2][2] = 1;
@@ -947,6 +948,12 @@ void VRManager::SetHudAttachedToHead()
 
 void VRManager::SetHudInFrontOfPlayer()
 {
+	if (!m_fixedPositionInitialized)
+	{
+		RecalibrateView();
+		m_fixedPositionInitialized = true;
+	}
+
 	vr::HmdMatrix34_t hudTransform = FarCryToOpenVR(m_fixedHudTransform);
 	vr::VROverlay()->SetOverlayFlag(m_hudOverlay, vr::VROverlayFlags_IgnoreTextureAlpha, false);
 	vr::VROverlay()->SetOverlayWidthInMeters(m_hudOverlay, vr_menu_width);
@@ -961,6 +968,7 @@ void VRManager::SetHudInFrontOfPlayer()
 
 void VRManager::SetHudAsBinoculars()
 {
+	m_fixedPositionInitialized = false;
 	bool leftHanded = m_pGame->g_LeftHanded->GetIVal() == 1;
 	Matrix34 transform = m_input.GetControllerTransform(leftHanded ? 1 : 0);
 	transform = transform * Matrix34::CreateTranslationMat(Vec3((leftHanded ? 1 : -1) * vr_binocular_size / 2, 0, vr_binocular_size / 2));
@@ -972,6 +980,7 @@ void VRManager::SetHudAsBinoculars()
 
 void VRManager::SetHudAsWeaponZoom()
 {
+	m_fixedPositionInitialized = false;
 	Matrix34 transform = m_input.GetControllerTransform(m_pGame->g_LeftHanded->GetIVal() == 1 ? 1 : 0);
 	Matrix34 rawHmdTransform = OpenVRToFarCry(m_headPose.mDeviceToAbsoluteTracking);
 	Vec3 headPos = rawHmdTransform.GetTranslation() - Vec3(0, 0, vr_scope_size / 2);

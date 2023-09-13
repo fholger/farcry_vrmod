@@ -162,6 +162,7 @@ private:
 	bool m_buttonPressed = false;
 
 	Matrix34 m_fixedHudTransform;
+	bool m_fixedPositionInitialized = false;
 
 	Ang3 m_curBinocularAngles;
 	Vec3 m_curBinocularPos;
