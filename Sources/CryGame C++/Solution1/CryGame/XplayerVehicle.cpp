@@ -936,8 +936,6 @@ void CVehicle::UpdateWeaponPosAngl( )
 		m_pGame->GetSystem()->GetIRenderer()->ProjectToScreen(vCrossHair3Dpos.x, vCrossHair3Dpos.y, vCrossHair3Dpos.z, &m_vCrossScreen.x, &m_vCrossScreen.y, &m_vCrossScreen.z);
 		m_vCrossScreen.x *= 8;
 		m_vCrossScreen.y *= 6;
-
-		CryLogAlways("Crosshair projection: (%.2f, %.2f)", m_vCrossScreen.x, m_vCrossScreen.y);
 	}
 
 	//fixme - add the check if it's on screen
