@@ -1041,14 +1041,14 @@ void CVehicle::UpdateWeaponPosAngl( )
 				shooterAng = camera->GetAngles();//shooter->GetEntity()->GetAngles();
 				shooterPos = camera->GetPos();//shooter->GetEntity()->GetPos();
 			}
-
-			shooter->ModifyVehicleWeaponAim(shooterPos, shooterAng);
 		}
 		else
 		{
 			shooterAng = shooter->GetEntity()->GetAngles();
 			GetEntity()->GetHelperPosition("eye_pos",shooterPos);
 		}
+
+		shooter->ModifyVehicleWeaponAim(shooterPos, shooterAng);
 
 		// get trace direction 
 		Matrix44 tm = Matrix44::CreateRotationZYX(-shooterAng*gf_DEGTORAD); //NOTE: angles in radians and negated 

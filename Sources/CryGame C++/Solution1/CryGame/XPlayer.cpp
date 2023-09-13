@@ -2791,7 +2791,9 @@ void CPlayer::ModifyVehicleWeaponAim(Vec3& aimPos, Vec3& aimAngles)
 	if (!m_usesMotionControls)
 		return;
 
-	Matrix34 controllerTransform = GetWorldControllerTransform(m_mainHand);
+	Matrix33 offset = Matrix33::CreateRotationX(-gf_PI_DIV_2 / 3);
+	Matrix33 gripOffset = Matrix33::CreateRotationX(DEG2RAD(gVR->vr_weapon_pitch_offset)) * Matrix33::CreateRotationZ(DEG2RAD(gVR->vr_weapon_yaw_offset));
+	Matrix34 controllerTransform = GetWorldControllerTransform(m_mainHand) * gripOffset * offset;
 	aimPos = controllerTransform.GetTranslation();
 	aimAngles = ToAnglesDeg(controllerTransform);
 }
@@ -2801,7 +2803,9 @@ void CPlayer::UpdateMountedGunAnglesFromController()
 	if (!m_pMountedWeapon || !m_usesMotionControls)
 		return;
 
-	Matrix34 controllerTransform = GetWorldControllerTransform(m_mainHand);
+	Matrix33 offset = Matrix33::CreateRotationX(-gf_PI_DIV_2 / 3);
+	Matrix33 gripOffset = Matrix33::CreateRotationX(DEG2RAD(gVR->vr_weapon_pitch_offset)) * Matrix33::CreateRotationZ(DEG2RAD(gVR->vr_weapon_yaw_offset));
+	Matrix34 controllerTransform = GetWorldControllerTransform(m_mainHand) * gripOffset * offset;
 	// find aim target
 	Vec3 dir = -((Matrix33)controllerTransform).GetColumn(1);
 	Vec3 distance = dir * 150.f;
