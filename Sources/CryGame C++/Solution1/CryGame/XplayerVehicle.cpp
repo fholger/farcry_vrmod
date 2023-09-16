@@ -873,7 +873,8 @@ void CVehicle::UpdateWeaponPosAngl( )
 		m_vWpnAng = shooter->GetEntity()->GetAngles();
 		m_bCrossOnScreen = true;
 		shooter->m_stats.crosshairOnScreen = true;
-		return;
+		if (!shooter->m_usesMotionControls)
+			return;
 	}
 	else
 		shooter = GetUserInState( CPlayer::PVS_DRIVER );
