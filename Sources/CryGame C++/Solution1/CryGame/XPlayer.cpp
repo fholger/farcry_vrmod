@@ -2506,7 +2506,7 @@ void CPlayer::ProcessRoomscaleTurn(CXEntityProcessingCmd& ProcessingCmd)
 	if (!ProcessingCmd.UseMotionControls())
 		return;
 
-	if (GetVehicle())
+	if (GetVehicle() || m_AngleLimitHFlag)
 		return;
 
 	Vec3 angles = ProcessingCmd.GetDeltaAngles();
@@ -2822,7 +2822,8 @@ void CPlayer::UpdateMountedGunAnglesFromController()
 
 	float l = GetLength( Vec3(gunViewDirection.x, gunViewDirection.y, 0.0f ) );
 	assert(l); //throw assert if length=0
-	m_AngleLimitBase = Vec3(0,0,180);
+	//m_AngleLimitBase = Vec3(0,0,180);
+	//m_AngleLimitBase.z = Snap_s360(m_pMountedWeapon->GetAngles().z - m_pMountedWeapon->GetAngles(1).z);
 
 	//calculate the sine&cosine and matrix for rotation around the X-axis
 	float angleX = atan2_tpl(-gunViewDirection.z,l); //angle for up-down movement
