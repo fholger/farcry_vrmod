@@ -2,8 +2,8 @@
   "action_manifest_version" : 0,
   "alias_info" : {},
   "category" : "steamvr_input",
-  "controller_type" : "oculus_touch",
-  "description" : "Default bindings",
+  "controller_type" : "knuckles",
+  "description" : "Default bindings with vehicle throttle on triggers",
   "name" : "Dual Controllers",
   "options" : {},
   "simulated_actions" : [],
@@ -31,7 +31,7 @@
       ],
       "sources": [
         {
-          "path": "/user/hand/left/input/y",
+          "path": "/user/hand/left/input/b",
           "mode": "button",
           "inputs": {
             "click": {
@@ -49,7 +49,7 @@
           }
         },
         {
-          "path": "/user/hand/left/input/x",
+          "path": "/user/hand/left/input/a",
           "mode": "button",
           "inputs": {
             "click": {
@@ -91,7 +91,7 @@
             "sub_mode" : "touch",
             "sticky": "true"
           },
-          "path" : "/user/hand/right/input/joystick"
+          "path" : "/user/hand/right/input/thumbstick"
         }
       ]
     },
@@ -107,7 +107,7 @@
           "parameters" : {
             "exponent" : "2"
           },
-          "path" : "/user/hand/left/input/joystick"
+          "path" : "/user/hand/left/input/thumbstick"
         },
         {
           "inputs" : {
@@ -125,7 +125,7 @@
             "sticky": "true",
             "sub_mode" : "touch"
           },
-          "path" : "/user/hand/right/input/joystick"
+          "path" : "/user/hand/right/input/thumbstick"
         },
         {
           "inputs" : {
@@ -139,7 +139,7 @@
             "exponent" : "2",
             "sticky_click" : "false"
           },
-          "path" : "/user/hand/right/input/joystick"
+          "path" : "/user/hand/right/input/thumbstick"
         },
         {
           "inputs" : {
@@ -151,7 +151,7 @@
           "parameters" : {
             "sticky_click" : "true"
           },
-          "path" : "/user/hand/left/input/joystick"
+          "path" : "/user/hand/left/input/thumbstick"
         },
         {
           "inputs" : {
@@ -169,7 +169,7 @@
             "sub_mode" : "touch",
             "sticky": "true"
           },
-          "path" : "/user/hand/right/input/joystick"
+          "path" : "/user/hand/right/input/thumbstick"
         }
       ]
     },
@@ -185,7 +185,25 @@
           "parameters" : {
             "exponent" : "2"
           },
-          "path" : "/user/hand/left/input/joystick"
+          "path" : "/user/hand/left/input/thumbstick"
+        },
+        {
+          "inputs" : {
+            "pull" : {
+              "output" : "/actions/vehicles/in/accelerate"
+            }
+          },
+          "mode" : "trigger",
+          "path" : "/user/hand/right/input/trigger"
+        },
+        {
+          "inputs" : {
+            "pull" : {
+              "output" : "/actions/vehicles/in/brake"
+            }
+          },
+          "mode" : "trigger",
+          "path" : "/user/hand/left/input/trigger"
         },
         {
           "inputs" : {
@@ -194,7 +212,7 @@
             }
           },
           "mode" : "button",
-          "path" : "/user/hand/left/input/trigger"
+          "path" : "/user/hand/left/input/a"
         },
         {
           "inputs" : {
@@ -206,7 +224,7 @@
           "path" : "/user/hand/right/input/b"
         },
         {
-          "path": "/user/hand/right/input/a",
+          "path": "/user/hand/right/input/b",
           "mode": "button",
           "inputs": {
             "click": {
@@ -221,7 +239,7 @@
             }
           },
           "mode" : "button",
-          "path" : "/user/hand/right/input/trigger"
+          "path" : "/user/hand/right/input/a"
         },
         {
           "inputs" : {
@@ -233,7 +251,7 @@
           "parameters" : {
             "touchy_click" : "false"
           },
-          "path" : "/user/hand/left/input/joystick"
+          "path" : "/user/hand/left/input/trackpad"
         },
         {
           "inputs" : {
@@ -245,7 +263,7 @@
           "parameters" : {
             "touchy_click" : "false"
           },
-          "path" : "/user/hand/left/input/x"
+          "path" : "/user/hand/right/input/thumbstick"
         }
 	  ]
 	},
@@ -261,7 +279,7 @@
           }
         },
         {
-          "path": "/user/hand/right/input/joystick",
+          "path": "/user/hand/right/input/trackpad",
           "mode": "button",
           "inputs": {
             "click": {

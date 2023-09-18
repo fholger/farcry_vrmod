@@ -3,7 +3,7 @@
   "alias_info" : {},
   "category" : "steamvr_input",
   "controller_type" : "oculus_touch",
-  "description" : "Default bindings",
+  "description" : "Default bindings with vehicle throttle on triggers",
   "name" : "Dual Controllers",
   "options" : {},
   "simulated_actions" : [],
@@ -189,12 +189,30 @@
         },
         {
           "inputs" : {
+            "pull" : {
+              "output" : "/actions/vehicles/in/accelerate"
+            }
+          },
+          "mode" : "trigger",
+          "path" : "/user/hand/right/input/trigger"
+        },
+        {
+          "inputs" : {
+            "pull" : {
+              "output" : "/actions/vehicles/in/brake"
+            }
+          },
+          "mode" : "trigger",
+          "path" : "/user/hand/left/input/trigger"
+        },
+        {
+          "inputs" : {
             "click" : {
               "output" : "/actions/vehicles/in/leave"
             }
           },
           "mode" : "button",
-          "path" : "/user/hand/left/input/trigger"
+          "path" : "/user/hand/left/input/x"
         },
         {
           "inputs" : {
@@ -206,7 +224,7 @@
           "path" : "/user/hand/right/input/b"
         },
         {
-          "path": "/user/hand/right/input/a",
+          "path": "/user/hand/right/input/b",
           "mode": "button",
           "inputs": {
             "click": {
@@ -221,7 +239,7 @@
             }
           },
           "mode" : "button",
-          "path" : "/user/hand/right/input/trigger"
+          "path" : "/user/hand/right/input/a"
         },
         {
           "inputs" : {
@@ -245,7 +263,7 @@
           "parameters" : {
             "touchy_click" : "false"
           },
-          "path" : "/user/hand/left/input/x"
+          "path" : "/user/hand/right/input/joystick"
         }
 	  ]
 	},

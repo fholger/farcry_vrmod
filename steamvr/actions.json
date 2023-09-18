@@ -8,6 +8,14 @@
     {
       "binding_url" : "bindings_knuckles.json",
       "controller_type" : "knuckles"
+    },
+    {
+      "binding_url" : "bindings_touch_vehicles_alt.json",
+      "controller_type" : "oculus_touch"
+    },
+    {
+      "binding_url" : "bindings_knuckles_vehicles_alt.json",
+      "controller_type" : "knuckles"
     }
   ],
   "action_sets": [

@@ -3,7 +3,7 @@
   "alias_info" : {},
   "category" : "steamvr_input",
   "controller_type" : "knuckles",
-  "description" : "Default two handed bindings with movement on the off hand",
+  "description" : "Default bindings",
   "name" : "Dual Controllers",
   "options" : {},
   "simulated_actions" : [],
@@ -189,30 +189,12 @@
         },
         {
           "inputs" : {
-            "pull" : {
-              "output" : "/actions/vehicles/in/accelerate"
-            }
-          },
-          "mode" : "trigger",
-          "path" : "/user/hand/right/input/trigger"
-        },
-        {
-          "inputs" : {
-            "pull" : {
-              "output" : "/actions/vehicles/in/brake"
-            }
-          },
-          "mode" : "trigger",
-          "path" : "/user/hand/left/input/trigger"
-        },
-        {
-          "inputs" : {
             "click" : {
               "output" : "/actions/vehicles/in/leave"
             }
           },
           "mode" : "button",
-          "path" : "/user/hand/left/input/a"
+          "path" : "/user/hand/left/input/trigger"
         },
         {
           "inputs" : {
@@ -224,7 +206,7 @@
           "path" : "/user/hand/right/input/b"
         },
         {
-          "path": "/user/hand/right/input/b",
+          "path": "/user/hand/right/input/a",
           "mode": "button",
           "inputs": {
             "click": {
@@ -239,7 +221,7 @@
             }
           },
           "mode" : "button",
-          "path" : "/user/hand/right/input/a"
+          "path" : "/user/hand/right/input/trigger"
         },
         {
           "inputs" : {
@@ -263,7 +245,7 @@
           "parameters" : {
             "touchy_click" : "false"
           },
-          "path" : "/user/hand/right/input/thumbstick"
+          "path" : "/user/hand/left/input/a"
         }
 	  ]
 	},
