@@ -58,6 +58,7 @@ private:
 	vr::VRActionHandle_t m_vehiclesChangeView = vr::k_ulInvalidActionHandle;
 	DoubleBindAction m_vehiclesChangeSeat;
 	vr::VRActionHandle_t m_vehiclesLights = vr::k_ulInvalidActionHandle;
+	DoubleBindAction m_vehiclesReloadFireMode;
 
 	vr::VRActionHandle_t m_weaponsFire = vr::k_ulInvalidActionHandle;
 	DoubleBindAction m_weaponsReloadFireMode;

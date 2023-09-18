@@ -224,6 +224,15 @@
           "path" : "/user/hand/right/input/b"
         },
         {
+          "path": "/user/hand/right/input/b",
+          "mode": "button",
+          "inputs": {
+            "click": {
+              "output": "/actions/vehicles/in/reload"
+            }
+          }
+        },
+        {
           "inputs" : {
             "click" : {
               "output" : "/actions/vehicles/in/attack"

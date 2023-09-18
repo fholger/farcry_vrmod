@@ -70,6 +70,7 @@ bool VRInput::Init(CXGame* game)
 	InitDoubleBindAction(m_vehiclesChangeSeat, "/actions/vehicles/in/changeseat");
 	vr::VRInput()->GetActionHandle("/actions/vehicles/in/leave", &m_vehiclesLeave);
 	vr::VRInput()->GetActionHandle("/actions/vehicles/in/lights", &m_vehiclesLights);
+	InitDoubleBindAction(m_vehiclesReloadFireMode, "/actions/vehicles/in/reload");
 
 	vr::VRInput()->GetActionHandle("/actions/weapons/in/fire", &m_weaponsFire);
 	InitDoubleBindAction(m_weaponsReloadFireMode, "/actions/weapons/in/reload");
@@ -202,13 +203,21 @@ void VRInput::ProcessInputInVehicles()
 			m_pGame->GetClient()->TriggerMoveFB(move, XActivationEvent());
 		else
 			HandleAnalogAction(m_vehiclesSteer, 1, &CXClient::TriggerMoveFB);
+
+		if (player->GetSelectedWeapon() && player->GetSelectedWeapon()->GetName() != vehicle->GetWeaponName(CPlayer::PVS_DRIVER))
+		{
+			// using own weapon - allow to reload and grab with second hand
+			HandleDoubleBindAction(m_vehiclesReloadFireMode, &CXClient::TriggerReload, &CXClient::TriggerFireMode, false);
+			HandleDoubleBindAction(m_weaponsNextDrop, &CXClient::TriggerNextWeapon, &CXClient::TriggerDropWeapon, false);
+			HandleBooleanAction(m_defaultGrip, &CXClient::TriggerLeftGrip, true, m_handHandle[0]);
+			HandleBooleanAction(m_defaultGrip, &CXClient::TriggerRightGrip, true, m_handHandle[1]);
+		}
 	}
 	else
 	{
 		HandleBooleanAction(m_weaponsFire, &CXClient::TriggerFire0);
 		HandleDoubleBindAction(m_weaponsReloadFireMode, &CXClient::TriggerReload, &CXClient::TriggerFireMode, false);
 		HandleDoubleBindAction(m_weaponsNextDrop, &CXClient::TriggerNextWeapon, &CXClient::TriggerDropWeapon, false);
-		HandleDoubleBindAction(m_weaponsGrenades, &CXClient::CycleGrenade, &CXClient::TriggerFireGrenade, false);
 		HandleBooleanAction(m_defaultGrip, &CXClient::TriggerLeftGrip, true, m_handHandle[0]);
 		HandleBooleanAction(m_defaultGrip, &CXClient::TriggerRightGrip, true, m_handHandle[1]);
 	}
