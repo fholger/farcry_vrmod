@@ -228,7 +228,7 @@ void CPlayer::UpdateCamera()
 		m_ValidAngle = m_pEntity->GetAngles();
 
 
-		if ((m_bFirstPerson || gVR->vr_decouple_vehicle_rotations || gVR->vr_vehicles_cinema_mode != 0) && m_pVehicle)
+		if (m_bFirstPerson && m_pVehicle)
 		{
 			// in vehicle camera
 			UpdateBoatCamera();
@@ -239,7 +239,7 @@ void CPlayer::UpdateCamera()
 			//third person camera
 			Vec3d pos,angles;
 			pos = m_pEntity->GetPos();
-			angles = m_pEntity->GetAngles();
+			angles = m_pEntity->GetAngles(gVR->vr_decouple_vehicle_rotations);
 
 			//<<FIXME>> if something with the third person camera doesn't work, talk to Petar
 			if (m_pVehicle && m_pVehicle->GetEntity() )	// in vehicle - third person - skip vehicle physiscs when trace camera
@@ -257,19 +257,16 @@ void CPlayer::UpdateCamera()
 				Vec3 offset(0.0f,camDist, 0.0f);
 				Matrix33 targetMt;
 				targetMt.SetIdentity();
-				targetMt.SetRotationXYZ((m_pVehicle->GetEntity()->GetAngles()+Vec3(camAVert,0.0f,camAHor))*gf_DEGTORAD); 
+				Vec3 vangles = (gVR->vr_decouple_vehicle_rotations ? m_pEntity->GetAngles(1) : m_pVehicle->GetEntity()->GetAngles());
+				targetMt.SetRotationXYZ((vangles+Vec3(camAVert,0.0f,camAHor))*gf_DEGTORAD); 
 				targetMt.Transpose();
 				Matrix33 offsetMt;
 				offsetMt.SetIdentity();
 				offset = offset*(targetMt);
 				offset += m_pVehicle->GetEntity()->GetPos();
 
-				float	waterLevel = m_pGame->GetSystem()->GetI3DEngine()->GetWaterLevel(&offset);
-				float	terrainLevel = m_pGame->GetSystem()->GetI3DEngine()->GetTerrainZ((int)offset.x, (int)offset.y);
-
 				camera->SetThirdPersonMode(offset,
-						angles,CAMERA_3DPERSON1,frameTime,camRange,!m_bFirstPerson,physEnt, 
-						//						NULL,
+						angles,CAMERA_3DPERSON1,100.f,camRange,!m_bFirstPerson,physEnt, 
 						physEntCar,
 						m_pGame->GetSystem()->GetI3DEngine());
 			}
