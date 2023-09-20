@@ -265,6 +265,14 @@ void CPlayer::UpdateCamera()
 				offset = offset*(targetMt);
 				offset += m_pVehicle->GetEntity()->GetPos();
 
+				// in the vehicle cinema mode it sometimes happens that the camera accumulates some weird shaking, usually while firing
+				// this is ultimately caused by the player entity's quaternion jumping between two values. Not sure why; might come
+				// from some camera shake somewhere that we no longer properly deal with. Anyway, resetting the quat here fixes it
+				// and I could not observe any negative side-effects.
+				pe_params_pos pp;
+				pp.q = Quat(1, 0, 0, 0);
+				physEnt->SetParams(&pp);
+
 				camera->SetThirdPersonMode(offset,
 						angles,CAMERA_3DPERSON1,100.f,camRange,!m_bFirstPerson,physEnt, 
 						physEntCar,
