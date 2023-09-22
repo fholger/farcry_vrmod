@@ -37,7 +37,7 @@ Check out the [manual](https://farcryvr.de/manual/) for an explanation of the mo
 
 If you would like to see the mod in action, here are some impressions:
 
-{% include video provider="youtube" id="TSNd7s_x-4g" %}
+{% include video provider="youtube" id="I1oiDHGzDTk" %}
 
 
 ### Installation instructions
