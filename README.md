@@ -1,14 +1,18 @@
 # Far Cry VR Mod
 
+![Title](title.jpg)
+
 This is a mod for the 2004 Crytek game *Far Cry* which makes it possible to experience it in Virtual Reality.
 You need to own and have installed the original Far Cry. It is available at:
 * [Steam](https://store.steampowered.com/app/13520/Far_Cry/)
 * [gog.com](https://www.gog.com/en/game/far_cry)
 
-- This mod features fully working stereoscopic rendering with 6DOF headset tracking.
-- You can play seated or standing.
-- You can play with VR motion controllers or with keyboard and mouse.
-- bHaptics vests are supported
+- full roomscale 6DOF VR rendering and movement
+- full motion controller support
+- two-handed gun handling
+- immersive binocular and weapon scope handling
+- manual ladder climbing
+- controller vibrations and bHaptics vest support
 
 ## Installation
 
@@ -17,7 +21,7 @@ find the latest release at the top of the page. Under the "Assets" section find 
 Open it and install into your Far Cry install directory. If you are not sure where it is located,
 right-click on Far Cry in your Steam library, then select "Manage" -> "Browse local files", and it will show you the game's install location.
 
-Launch the `FarCryVR.bat` to start the game in VR.
+Launch `FarCryVR.exe` to start the game in VR.
 
 Note: the installer is not signed, so Windows will most likely complain about it. You'll have to tell it to execute the installer, anyway.
 
@@ -32,13 +36,11 @@ Some more advanced config options are only available through the console or the 
 
 This mod requires SteamVR. If you have any issues, ensure that SteamVR is already running and working with your headset before launching the game.
 
-Important: you need to recenter your view in SteamVR once you have assumed your seated or standing position. To do so, bring up the SteamVR dashboard and hit the "Recenter view" icon. The game will place the player's head at the calibrated height; your floor level may not necessarily match the ingame floor height.
-
-Refer to the [manual](https://farcryvr.de/manual/) for the default controller bindings if playing with VR motion controllers. At the moment, Index and Touch-like controllers are supported out of the box. Any other controller type may require you to create your own custom controller bindings for the game.
+Refer to the [manual](https://farcryvr.de/manual/) for the default controller bindings. Index and Touch-like controllers are supported out of the box. Any other controller type may require you to create your own custom controller bindings for the game.
 
 ## Known issues / limitations
 
-- No comfort options: you need your VR legs for this game!
+- Few comfort options: you need your VR legs for this game!
 - Distant LOD may under certain viewing angles cause stereo artifacting.
 - Weapon orientation in two-handed mode can go into reverse under certain angles
 - The machete hit detection is not always very accurate
