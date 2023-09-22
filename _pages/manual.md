@@ -15,13 +15,16 @@ Start SteamVR. Make sure your headset is working properly. Then launch FarCryVR.
 ## Configuration
 
 Use your motion controllers to navigate the game menu. You may have to tap the trigger on your controller to get it to control the mouse cursor.
-Head into the Options and configure the game to your liking. You can probably push the graphics options to the max, or close to it. For sound, make sure that you select "headphones".
+Head into the Options and configure the game to your liking. I recommend pushing the graphics options to the max, or close to it - the game is not very demanding on your GPU. For sound, make sure that you select "headphones" and enable hardware acceleration and EAX.
 
 On the "VR options" tab, you will find VR-specific options where you can select your dominant hand (the hand that will be holding the weapons), turn mode, movement direction and a couple more options you can experiment with.
+It is recommended to enable the options to force higher detail in the game and to max out the vegetation distance slider for the best visual experience.
 
 ## Controls
 
-Controls can be customized through the SteamVR controller bindings. The mod includes default bindings for Index and Oculus Touch controllers. Other controllers which are Touch-like (including Reverb G2 and Pico) should work out of the box with the Touch profile. Other controllers like the Vive wands might need you to set up custom bindings.
+Controls can be customized through the SteamVR controller bindings. The mod includes default bindings for Index and Oculus Touch controllers in two variations. The variations differ in the controls for vehicles - the default has vehicle steering and throttle on the left stick while keeping the remaining controls close to the on foot controls. The alternative preset puts vehicle throttle on the triggers for a better steering experience, but as a consequence needs to shuffle around the remaining controls (see below).
+
+Other controllers which are Touch-like (including Reverb G2 and Pico) should work out of the box with the Touch profile. Other controllers like the Vive wands might need you to set up custom bindings.
 
 The sections below will show and explain the default bindings for a right-handed player. If you are left-handed, go into the options and under "VR Options" switch your dominant hand. This will swap all controls between the left and right controller - if you don't want to swap certain bindings (e.g. the stick functions), you will have to set up a custom controller binding.
 
@@ -70,6 +73,8 @@ Touch-like controllers
 
 ### Vehicles
 
+The default bindings are close to the on-foot controls. The alternative bindings with vehicle throttle on the triggers are shown below.
+
 Valve Index controllers
 ![Index controllers](/assets/images/controls/Vehicles-Index.png)
 
@@ -77,11 +82,11 @@ Touch-like controllers
 ![Touch controllers](/assets/images/controls/Vehicles-Touch.png)
 
 - press left-hand trigger to enter vehicles
-- hold right-hand trigger to accelerate, left-hand trigger to brake/reverse
-- use left-hand stick to steer
-  - if you prefer to also use the stick to accelerate, create a custom controller binding and unbind the Accelerate and Brake bindings
+- use left-hand stick to steer and accelerate/brake (default bindings)
+- hold right-hand trigger to accelerate, left-hand trigger to brake/reverse (alternative bindings)
 - use right-hand stick to look around
-- press right hand A/X button to shoot vehicle weapon; aim by pointing with your right hand
+- press right hand trigger to shoot vehicle weapon; aim by pointing with your right hand
+  - alternative bindings: right hand A/X button to shoot
 - hold right hand B/Y button to switch between vehicle weapons
 - press left-hand stick / trackpad to switch to 3rd person camera
 - press right-hand B/Y button to change seats
