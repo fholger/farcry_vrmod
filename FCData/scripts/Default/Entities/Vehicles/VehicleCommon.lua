@@ -1634,8 +1634,8 @@ function VC:UpdateHaptics(dt)
 			amplitude = 0.1 + 0.3 * fCarSpeed / 30;
 		end
 		_localplayer.cnt:TriggerBHapticsEffect("vehicle_rumble", "vehicle_rumble", amplitude);
-		_localplayer.cnt:TriggerBHapticsEffect("vehicle_rumble_arms_left", "vehicle_rumble_arms_left", amplitude);
-		_localplayer.cnt:TriggerBHapticsEffect("vehicle_rumble_arms_right", "vehicle_rumble_arms_right", amplitude);
+		_localplayer.cnt:TriggerBHapticsEffect("vehicle_rumble_arms_left", "vehicle_rumble_arms_left", amplitude + 0.2);
+		_localplayer.cnt:TriggerBHapticsEffect("vehicle_rumble_arms_right", "vehicle_rumble_arms_right", amplitude + 0.2);
 		_localplayer.cnt:TriggerBHapticsEffect("vehicle_rumble_visor", "vehicle_rumble_visor", amplitude);
 	end
 end
