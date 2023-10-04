@@ -421,6 +421,7 @@ BasePickup.Client={
 						effect = self.bhaptics_effect;
 					end
 					self.player.cnt:TriggerBHapticsEffect(effect, effect, 0.5);
+					self.player.cnt:TriggerBHapticsEffect(effect .. "_arms", effect .. "_arms", 1);
 				end
 			end
 		end,
