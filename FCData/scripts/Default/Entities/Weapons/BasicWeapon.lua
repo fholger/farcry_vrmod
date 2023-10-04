@@ -2,6 +2,9 @@
 Script:LoadScript("scripts/default/hud/DefaultZoomHUD.lua");
 Script:LoadScript("scripts/default/hud/AimModeZoomHUD.lua");
 Game:CreateVariable("w_firstpersontrail","1")
+Game:RegisterBHapticsEffect("RecoilArm_L", "bhaptics/arms/RecoilArm_L.tact");
+Game:RegisterBHapticsEffect("RecoilArm_R", "bhaptics/arms/RecoilArm_R.tact");
+Game:RegisterBHapticsEffect("RecoilVisor", "bhaptics/visor/firevisor.tact");
 
 BasicWeapon = {
 	UnderwaterBubbles = {
@@ -640,6 +643,8 @@ function BasicWeapon.Client:OnFire( Params )
 		
 		if (CurFireParams.BHapticsFireRight ~= nil) then
 			my_player.cnt:TriggerBHapticsEffect(CurFireParams.BHapticsFireRight, CurFireParams.BHapticsFireLeft, CurFireParams.BHapticsIntensity);
+			my_player.cnt:TriggerBHapticsEffect("RecoilArm_R", "RecoilArm_L", CurFireParams.BHapticsIntensity);
+			my_player.cnt:TriggerBHapticsEffect("RecoilVisor", "RecoilVisor", CurFireParams.BHapticsIntensity);
 		end
 	end
 	

@@ -578,6 +578,7 @@ function BasicPlayer:Client_OnInit()
 	Game:RegisterBHapticsEffect("hit_by_bullet", "bhaptics/vest/HitByBullet.tact");
 	Game:RegisterBHapticsEffect("hit_by_melee", "bhaptics/vest/HitByMelee.tact");
 	Game:RegisterBHapticsEffect("hit_by_explosion", "bhaptics/vest/HitByExplosion.tact");
+	Game:RegisterBHapticsEffect("hit_by_explosion_visor", "bhaptics/visor/ExplosionFace.tact");
 	Game:RegisterBHapticsEffect("hit_by_sniper", "bhaptics/vest/HitBySniper.tact");
 	Game:RegisterBHapticsEffect("hit_by_shotgun", "bhaptics/vest/HitByBuckshot.tact");
 	Game:RegisterBHapticsEffect("damage_fall", "bhaptics/vest/Landing.tact");
@@ -588,9 +589,14 @@ function BasicPlayer:Client_OnInit()
 	Game:RegisterBHapticsEffect("pickup", "bhaptics/vest/ConsumeOther.tact");
 	Game:RegisterBHapticsEffect("heartbeat", "bhaptics/vest/Heartbeat.tact");
 	Game:RegisterBHapticsEffect("swimming", "bhaptics/vest/Swimming.tact");
+	Game:RegisterBHapticsEffect("swimming_arms", "bhaptics/arms/Swimming_Arms.tact");
+	Game:RegisterBHapticsEffect("swimming_visor", "bhaptics/visor/swimming_visor.tact");
 	Game:RegisterBHapticsEffect("vehicle_rumble", "bhaptics/vest/VehicleRumble.tact");
 	Game:CreateHapticsEffectFlat("vehicle_engine", 1.0, 0.5, 0.3, 0.2);
 	Game:RegisterBHapticsEffect("vehicle_rumble", "bhaptics/vest/VehicleRumble.tact");
+	Game:RegisterBHapticsEffect("vehicle_rumble_arms_left", "bhaptics/arms/Rumble_Left_Arms.tact");
+	Game:RegisterBHapticsEffect("vehicle_rumble_arms_right", "bhaptics/arms/Rumble_Right_Arms.tact");
+	Game:RegisterBHapticsEffect("vehicle_rumble_visor", "bhaptics/visor/Rumble_Head.tact");
 
 	self:RegisterStates();
 
@@ -1450,6 +1456,7 @@ function BasicPlayer:Client_OnDamage( hit )
 				Hud:SetScreenDamageColor(0.25, 0.0, 0);		
 				self.cnt:TriggerHapticEffect("damage_explosion", amplitude);
 				self.cnt:TriggerBHapticsEffect("hit_by_explosion", "hit_by_explosion", amplitude, hit.pos, hit.dir);
+				self.cnt:TriggerBHapticsEffect("hit_by_explosion_visor", "hit_by_explosion_visor", amplitude);
 			elseif	(hit.drowning) then						
 				Hud:OnMiscDamage(hit.damage);							
 				Hud:SetScreenDamageColor(0.6, 0.7, 0.9);			
@@ -2570,6 +2577,8 @@ function BasicPlayer:Client_OnTimer()
 		
 		if (self.nextSwimHapticEvent ~= nil and self.nextSwimHapticEvent <= _time) then
 			self.cnt:TriggerBHapticsEffect("swimming", "swimming", 0.1);
+			self.cnt:TriggerBHapticsEffect("swimming_arms", "swimming_arms", 0.1);
+			self.cnt:TriggerBHapticsEffect("swimming_visor", "swimming_visor", 0.1);
 			if (self.swimHapticEventInterval ~= nil) then
 				self.nextSwimHapticEvent = self.nextSwimHapticEvent + self.swimHapticEventInterval;
 			else
