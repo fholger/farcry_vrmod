@@ -640,6 +640,8 @@ function BasicWeapon.Client:OnFire( Params )
 		
 		if (CurFireParams.BHapticsFireRight ~= nil) then
 			my_player.cnt:TriggerBHapticsEffect(CurFireParams.BHapticsFireRight, CurFireParams.BHapticsFireLeft, CurFireParams.BHapticsIntensity);
+			my_player.cnt:TriggerBHapticsEffect("recoilarm_r", "recoilarm_l", 1 + CurFireParams.BHapticsIntensity);
+			my_player.cnt:TriggerBHapticsEffect("recoilvisor", "recoilvisor", 1 + CurFireParams.BHapticsIntensity);
 		end
 	end
 	
