@@ -7,18 +7,13 @@ You need to own and have installed the original Far Cry. It is available at:
 * [Steam](https://store.steampowered.com/app/13520/Far_Cry/)
 * [gog.com](https://www.gog.com/en/game/far_cry)
 
+Features:
 - full roomscale 6DOF VR rendering and movement
 - full motion controller support
 - two-handed gun handling
 - immersive binocular and weapon scope handling
 - manual ladder climbing
 - controller vibrations and bHaptics vest support
-
-*ATTENTION Freelancers!* I have been made aware of offers of payment to implement certain features into this mod.
-If you accepted or are considering such an offer, please be aware that the terms of the Far Cry Mod SDK, on which this VR mod
-is based, expressly forbid any and all monetization for derivative work. For details refer to the license and EULA. These are
-the terms dictated by Ubisoft and Crytek by which I have abided. Out of respect for my work, I kindly ask you to do the same.
-(Also, I'd prefer not to summon the wrath of Ubisoft.)
 
 ## Installation
 
