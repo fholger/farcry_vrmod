@@ -2786,6 +2786,24 @@ void CPlayer::TriggerBHapticsEffect(const char* keyRight, const char* keyLeft, f
 	TriggerBHapticsEffect(keyRight, keyLeft, intensity, delta, offsetY);
 }
 
+void CPlayer::TriggerProtubeEffect(float kickPower, float rumblePower, float rumbleSeconds)
+{
+	if (IsMyPlayer())
+	{
+		if (kickPower > 0)
+		{
+			if (rumblePower > 0 && rumbleSeconds > 0)
+				gVR->GetHaptics()->ProtubeShot(kickPower, rumblePower, rumbleSeconds, m_twoHandWeaponMode);
+			else
+				gVR->GetHaptics()->ProtubeKick(kickPower, m_twoHandWeaponMode);
+		}
+		else if (rumblePower > 0 && rumbleSeconds > 0)
+		{
+			gVR->GetHaptics()->ProtubeRumble(rumblePower, rumbleSeconds, m_twoHandWeaponMode);
+		}
+	}
+}
+
 void CPlayer::ModifyVehicleWeaponAim(Vec3& aimPos, Vec3& aimAngles)
 {
 	if (!m_usesMotionControls)

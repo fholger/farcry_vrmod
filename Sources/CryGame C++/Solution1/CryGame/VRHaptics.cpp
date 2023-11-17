@@ -4,6 +4,7 @@
 #include "VRInput.h"
 #include "VRManager.h"
 #include <HapticLibrary.h>
+#include <protubevr.h>
 
 
 
@@ -13,6 +14,7 @@ void VRHaptics::Init(CXGame* game, VRInput* vrInput)
 	m_vrInput = vrInput;
 	CryLogAlways("Initialised haptics.");
 	InitialiseSync("farcryvr", "Far Cry VR");
+	InitRifle();
 	InitEffects();
 }
 
@@ -117,6 +119,28 @@ void VRHaptics::StopAllEffects()
 	StopEffects(0);
 	StopEffects(1);
 	TurnOff();
+}
+
+void VRHaptics::ProtubeKick(float power, bool twoHanded)
+{
+	uint8 pw = clamp_tpl(power, 0.f, 1.f) * 255;
+	ForceTubeVRChannel channel = twoHanded ? rifle : rifleButt;
+	KickChannel(pw, channel);
+}
+
+void VRHaptics::ProtubeRumble(float power, float seconds, bool twoHanded)
+{
+	uint8 pw = clamp_tpl(power, 0.f, 1.f) * 255;
+	ForceTubeVRChannel channel = twoHanded ? rifle : rifleButt;
+	RumbleChannel(pw, seconds, channel);
+}
+
+void VRHaptics::ProtubeShot(float kickPower, float rumblePower, float rumbleSeconds, bool twoHanded)
+{
+	uint8 kpw = clamp_tpl(kickPower, 0.f, 1.f) * 255;
+	uint8 rpw = clamp_tpl(rumblePower, 0.f, 1.f) * 255;
+	ForceTubeVRChannel channel = twoHanded ? rifle : rifleButt;
+	ShotChannel(kpw, rpw, rumbleSeconds, channel);
 }
 
 void VRHaptics::CreateFlatEffect(const char* effectName, float duration, float amplitude, float easeInTime, float easeOutTime)

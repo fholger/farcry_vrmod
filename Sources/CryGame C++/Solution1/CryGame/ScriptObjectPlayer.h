@@ -187,6 +187,7 @@ public:
 	int TriggerBHapticsEffect(IFunctionHandler* pH);
 	int IsBHapticsEffectPlaying(IFunctionHandler* pH);
 	int StopBHapticsEffect(IFunctionHandler* pH);
+	int TriggerProtubeEffect(IFunctionHandler* pH);
 
 private:
 

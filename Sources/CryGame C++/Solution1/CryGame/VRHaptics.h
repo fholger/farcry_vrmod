@@ -33,6 +33,10 @@ public:
 	void StopEffects(int hand);
 	void StopAllEffects();
 
+	void ProtubeKick(float power, bool twoHanded);
+	void ProtubeRumble(float power, float seconds, bool twoHanded);
+	void ProtubeShot(float kickPower, float rumblePower, float rumbleSeconds, bool twoHanded);
+
 	void CreateFlatEffect(const char* effectName, float duration, float amplitude, float easeInTime = 0.0f, float easeOutTime = 0.0f);
 	void CreateCustomEffect(const char* effectName, float* amplitudes, int count);
 

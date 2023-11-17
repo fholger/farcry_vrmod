@@ -189,6 +189,7 @@ void CScriptObjectPlayer::InitializeTemplate(IScriptSystem *pSS)
 	REG_FUNC(CScriptObjectPlayer, TriggerBHapticsEffect);
 	REG_FUNC(CScriptObjectPlayer, IsBHapticsEffectPlaying);
 	REG_FUNC(CScriptObjectPlayer, StopBHapticsEffect);
+	REG_FUNC(CScriptObjectPlayer, TriggerProtubeEffect);
 
 	pSS->SetGlobalValue("BITMASK_PLAYER",BITMASK_PLAYER);
 	pSS->SetGlobalValue("BITMASK_WEAPON",BITMASK_WEAPON);	
@@ -2205,6 +2206,20 @@ int CScriptObjectPlayer::StopBHapticsEffect(IFunctionHandler* pH)
 	pH->GetParam(1, key);
 	if (key != nullptr)
 		gVR->GetHaptics()->StopBHapticsEffect(key);
+	return pH->EndFunction();
+}
+
+int CScriptObjectPlayer::TriggerProtubeEffect(IFunctionHandler* pH)
+{
+	CHECK_PARAMETERS(3);
+	float kickPower = 0;
+	float rumblePower = 0;
+	float rumbleSeconds = 0;
+	pH->GetParam(1, kickPower);
+	pH->GetParam(2, rumblePower);
+	pH->GetParam(3, rumbleSeconds);
+
+	m_pPlayer->TriggerProtubeEffect(kickPower, rumblePower, rumbleSeconds);
 	return pH->EndFunction();
 }
 
