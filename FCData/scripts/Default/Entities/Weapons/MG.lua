@@ -54,6 +54,9 @@ MG = {
 		BHapticsFireRight = "m4_fire_r",
 		BHapticsFireLeft = "m4_fire_l",
 		BHapticsIntensity = 0.1,
+		ProtubeKickPower = 0.5,
+		ProtubeRumblePower = 0.0,
+		ProtubeRumbleSeconds = 0.0,
 		
 		LightFlash = {
 			fRadius = 5.0,

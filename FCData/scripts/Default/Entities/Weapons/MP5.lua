@@ -75,6 +75,9 @@ MP5 = {
 		BHapticsFireRight = "m4_fire_r",
 		BHapticsFireLeft = "m4_fire_l",
 		BHapticsIntensity = 0.07,
+		ProtubeKickPower = 0.4,
+		ProtubeRumblePower = 0.0,
+		ProtubeRumbleSeconds = 0.0,
 
 		SmokeEffect = {
 			size = {0.15,0.07,0.035,0.01},
@@ -178,6 +181,9 @@ MP5 = {
 		BHapticsFireRight = "m4_fire_r",
 		BHapticsFireLeft = "m4_fire_l",
 		BHapticsIntensity = 0.1,
+		ProtubeKickPower = 0.6,
+		ProtubeRumblePower = 0.0,
+		ProtubeRumbleSeconds = 0.0,
 		
 		LightFlash = {
 			fRadius = 3.0,

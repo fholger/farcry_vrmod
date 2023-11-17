@@ -72,6 +72,9 @@ M4 = {
 		BHapticsFireRight = "m4_fire_r",
 		BHapticsFireLeft = "m4_fire_l",
 		BHapticsIntensity = 0.07,
+		ProtubeKickPower = 0.5,
+		ProtubeRumblePower = 0.0,
+		ProtubeRumbleSeconds = 0.0,
 		
 		LightFlash = {
 			fRadius = 3.0,
@@ -219,6 +222,9 @@ M4 = {
 		BHapticsFireRight = "pistol_fire_r",
 		BHapticsFireLeft = "pistol_fire_l",
 		BHapticsIntensity = 0.1,
+		ProtubeKickPower = 0.7,
+		ProtubeRumblePower = 0.0,
+		ProtubeRumbleSeconds = 0.0,
 		
 		ShellCases = {
 			geometry=System:LoadObject("Objects/Weapons/shells/rifleshell.cgf"),

@@ -52,6 +52,9 @@ M249 = {
 		
 		DrySound = "Sounds/Weapons/DE/dryfire.wav",
 		HapticFireEffect = "m4_fire",
+		ProtubeKickPower = 0.5,
+		ProtubeRumblePower = 0.0,
+		ProtubeRumbleSeconds = 0.0,
 		
 		LightFlash = {
 			fRadius = 3.0,

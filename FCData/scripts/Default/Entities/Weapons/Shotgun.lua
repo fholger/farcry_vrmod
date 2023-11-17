@@ -70,6 +70,9 @@ Shotgun = {
 		BHapticsFireRight = "shotgun_fire_r",
 		BHapticsFireLeft = "shotgun_fire_l",
 		BHapticsIntensity = 0.7,
+		ProtubeKickPower = 0.8,
+		ProtubeRumblePower = 0.8,
+		ProtubeRumbleSeconds = 0.5,
 
 		LightFlash = {
 			fRadius = 5.0,

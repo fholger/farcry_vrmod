@@ -73,6 +73,9 @@ OICWSP = {
 		BHapticsFireRight = "m4_fire_r",
 		BHapticsFireLeft = "m4_fire_l",
 		BHapticsIntensity = 0.1,
+		ProtubeKickPower = 0.3,
+		ProtubeRumblePower = 0.0,
+		ProtubeRumbleSeconds = 0.0,
 
 		ScopeTexId = GetScopeTex(),
 
@@ -197,6 +200,9 @@ OICWSP = {
 		BHapticsFireRight = "rl_fire_r",
 		BHapticsFireLeft = "rl_fire_l",
 		BHapticsIntensity = 0.3,
+		ProtubeKickPower = 1.0,
+		ProtubeRumblePower = 0.8,
+		ProtubeRumbleSeconds = 1.0,
 
 		LightFlash = {
 			fRadius = 3.0,
@@ -286,6 +292,9 @@ OICWMP = {
 		BHapticsFireRight = "m4_fire_r",
 		BHapticsFireLeft = "m4_fire_l",
 		BHapticsIntensity = 0.1,
+		ProtubeKickPower = 0.3,
+		ProtubeRumblePower = 0.0,
+		ProtubeRumbleSeconds = 0.0,
 
 		ScopeTexId = GetScopeTex(),
 
@@ -415,6 +424,9 @@ OICWMP = {
 			BHapticsFireRight = "rl_fire_r",
 			BHapticsFireLeft = "rl_fire_l",
 			BHapticsIntensity = 0.3,
+			ProtubeKickPower = 1.0,
+			ProtubeRumblePower = 0.8,
+			ProtubeRumbleSeconds = 1.0,
 
 			
 			LightFlash = {

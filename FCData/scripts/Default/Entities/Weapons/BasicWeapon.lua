@@ -643,6 +643,9 @@ function BasicWeapon.Client:OnFire( Params )
 			my_player.cnt:TriggerBHapticsEffect("recoilarm_r", "recoilarm_l", 1 + CurFireParams.BHapticsIntensity);
 			my_player.cnt:TriggerBHapticsEffect("recoilvisor", "recoilvisor", 1 + CurFireParams.BHapticsIntensity);
 		end
+		if (CurFireParams.ProtubeKickPower ~= nil) then
+			my_player.cnt:TriggerProtubeEffect(CurFireParams.ProtubeKickPower, CurFireParams.ProtubeRumblePower, CurFireParams.ProtubeRumbleSeconds);
+		end
 	end
 	
 	self.bFiredShot = 1;

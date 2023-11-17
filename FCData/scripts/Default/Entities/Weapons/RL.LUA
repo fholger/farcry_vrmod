@@ -53,6 +53,9 @@ RLSP = {
 			BHapticsFireRight = "rl_fire_r",
 			BHapticsFireLeft = "rl_fire_l",
 			BHapticsIntensity = 0.4,
+			ProtubeKickPower = 1.0,
+			ProtubeRumblePower = 1.0,
+			ProtubeRumbleSeconds = 1.0,
 	
 	-- Light from flying rocket is enough so this light is not needed
 	--		LightFlash = {
@@ -135,6 +138,9 @@ RLMP = {
 			BHapticsFireRight = "rl_fire_r",
 			BHapticsFireLeft = "rl_fire_l",
 			BHapticsIntensity = 0.4,
+			ProtubeKickPower = 1.0,
+			ProtubeRumblePower = 1.0,
+			ProtubeRumbleSeconds = 1.0,
 	
 	-- Light from flying rocket is enough so this light is not needed
 	--		LightFlash = {

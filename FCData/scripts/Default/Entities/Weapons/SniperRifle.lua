@@ -74,6 +74,9 @@ SniperRifle = {
 		BHapticsFireRight = "rl_fire_r",
 		BHapticsFireLeft = "rl_fire_l",
 		BHapticsIntensity = 0.15,
+		ProtubeKickPower = 1.0,
+		ProtubeRumblePower = 1.0,
+		ProtubeRumbleSeconds = 0.5,
 
 		LightFlash = {
 			fRadius = 3.0,
@@ -187,6 +190,9 @@ SniperRifle = {
 		},
 		DrySound = "Sounds/Weapons/AW50/DryFire.wav",
 		HapticFireEffect = "sniper_fire",
+		ProtubeKickPower = 1.0,
+		ProtubeRumblePower = 1.0,
+		ProtubeRumbleSeconds = 0.5,
 
 		LightFlash = {
 			fRadius = 3.0,

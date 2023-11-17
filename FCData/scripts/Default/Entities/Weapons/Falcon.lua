@@ -75,7 +75,10 @@ Falcon = {
 		BHapticsFireRight = "pistol_fire_r",
 		BHapticsFireLeft = "pistol_fire_l",
 		BHapticsIntensity = 0.1,
-		
+		ProtubeKickPower = 0.6,
+		ProtubeRumblePower = 0.0,
+		ProtubeRumbleSeconds = 0.0,
+
 		ShellCases = {
 			geometry=System:LoadObject("Objects/Weapons/shells/smgshell.cgf"),
 			focus = 1.5,

@@ -35,6 +35,9 @@ Mortar = {
 			},
 			DrySound = "Sounds/Weapons/Mortar/DryFire.wav",
 			HapticFireEffect = "mortar_fire",
+			ProtubeKickPower = 1.0,
+			ProtubeRumblePower = 0.8,
+			ProtubeRumbleSeconds = 1.0,
 			
 			LightFlash = {
 				fRadius = 5.0,

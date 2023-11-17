@@ -69,6 +69,9 @@ AG36SP = {
 		BHapticsFireRight = "m4_fire_r",
 		BHapticsFireLeft = "m4_fire_l",
 		BHapticsIntensity = 0.1,
+		ProtubeKickPower = 0.7,
+		ProtubeRumblePower = 0,
+		ProtubeRumbleSeconds = 0,
 
 		ScopeTexId = GetScopeTex(),
 
@@ -196,6 +199,9 @@ AG36SP = {
 		BHapticsFireRight = "rl_fire_r",
 		BHapticsFireLeft = "rl_fire_l",
 		BHapticsIntensity = 0.3,
+		ProtubeKickPower = 1.0,
+		ProtubeRumblePower = 0.8,
+		ProtubeRumbleSeconds = 1.0,
 
 		SoundMinMaxVol = { 255, 4, 2600 },
 
@@ -287,6 +293,9 @@ AG36MP = {
 		BHapticsFireRight = "m4_fire_r",
 		BHapticsFireLeft = "m4_fire_l",
 		BHapticsIntensity = 0.1,
+		ProtubeKickPower = 0.7,
+		ProtubeRumblePower = 0,
+		ProtubeRumbleSeconds = 0,
 
 		ScopeTexId = GetScopeTex(),
 
@@ -419,6 +428,9 @@ AG36MP = {
 		BHapticsFireRight = "rl_fire_r",
 		BHapticsFireLeft = "rl_fire_l",
 		BHapticsIntensity = 0.3,
+		ProtubeKickPower = 1.0,
+		ProtubeRumblePower = 0.8,
+		ProtubeRumbleSeconds = 1.0,
 
 		SoundMinMaxVol = { 255, 4, 2600 },
 
