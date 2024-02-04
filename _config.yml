@@ -80,6 +80,9 @@ footer:
     - label: "Discord"
       icon: "fab fa-fw fa-discord"
       url: "http://flat2vr.com/"
+    - label: "Site notice"
+      icon: "fa-solid fa-envelope"
+      url: "https://frydrych.org/contact/"
 
 defaults:
   # _posts

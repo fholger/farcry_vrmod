@@ -27,3 +27,8 @@ It is being developed by Holger Frydrych and is available free of charge.
 You can come and hang out with us on the [Flat2VR Discord](http://flat2vr.com).
 
 You can also contact us at [team@farcryvr.de](mailto: team@farcryvr.de).
+
+# Legal notices
+
+- [Site notices](https://frydrych.org/contact/) / [Impressum](https://frydrych.org/impressum/)
+- [Data protection declaration](https://frydrych.org/data_protection) / [Datenschutzerklärung](https://frydrych.org/datenschutz)
