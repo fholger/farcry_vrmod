@@ -999,11 +999,17 @@ void VRManager::SetHudAsWeaponZoom()
 	vr::VROverlay()->SetOverlayTransformAbsolute(m_hudOverlay, vr::TrackingUniverseStanding, &hudTransform);
 }
 
-void VRManager::InitDevice(IDirect3DDevice9Ex* device)
+void VRManager::ReleaseDeviceResources()
 {
 	m_d3d->hudTexture.Reset();
 	m_d3d->eyeTextures[0].Reset();
 	m_d3d->eyeTextures[1].Reset();
+	m_d3d->stereoTexture.Reset();
+}
+
+void VRManager::InitDevice(IDirect3DDevice9Ex* device)
+{
+	ReleaseDeviceResources();
 
 	CryLogAlways("Acquiring device...");
 	m_d3d->device = device;

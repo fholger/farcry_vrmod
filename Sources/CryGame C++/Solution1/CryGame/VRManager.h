@@ -35,6 +35,9 @@ public:
 	void MirrorEyeToBackBuffer();
 
 	void SetDevice(IDirect3DDevice9Ex *device);
+	// Releases all D3DPOOL_DEFAULT resources owned by the VR manager (eye, HUD and stereo textures).
+	// Must be called before the device is reset; the textures are recreated lazily on next use.
+	void ReleaseDeviceResources();
 	void FinishFrame();
 
 	vector2di GetRenderSize() const;

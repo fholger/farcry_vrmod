@@ -37,6 +37,15 @@ HRESULT __stdcall Hook_D3D9Present(IDirect3DDevice9Ex* pSelf, const RECT* pSourc
 	return result;
 }
 
+HRESULT __stdcall Hook_D3D9Reset(IDirect3DDevice9Ex* pSelf, D3DPRESENT_PARAMETERS* pPresentationParameters)
+{
+	// D3D9 (and dxvk since 2.3) rejects Reset with D3DERR_INVALIDCALL while any D3DPOOL_DEFAULT resource is still alive.
+	// The engine resets the device whenever the render resolution changes, so drop our render targets first;
+	// they are recreated on demand by the Capture* functions.
+	gVR->ReleaseDeviceResources();
+	return hooks::CallOriginal(Hook_D3D9Reset)(pSelf, pPresentationParameters);
+}
+
 void __fastcall Hook_Renderer_SetCamera(IRenderer* pSelf, void* notUsed, const CCamera& cam)
 {
 	CCamera cc = cam;
@@ -66,6 +75,7 @@ void VRRenderer::Init(CXGame *game)
 
 	CryLogAlways("Initializing rendering function hooks");
 	hooks::InstallHook("SetWindowPos", &SetWindowPos, &Hook_SetWindowPos);
+	hooks::InstallVirtualFunctionHook("IDirect3DDevice9Ex::Reset", device, 16, &Hook_D3D9Reset);
 	hooks::InstallVirtualFunctionHook("IDirect3DDevice9Ex::Present", device, 17, &Hook_D3D9Present);
 	hooks::InstallVirtualFunctionHook("IRenderer::SetCamera", m_pGame->m_pRenderer, 36, &Hook_Renderer_SetCamera);
 }

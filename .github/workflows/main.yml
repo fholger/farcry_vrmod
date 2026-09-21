@@ -14,13 +14,16 @@ jobs:
 
     permissions: write-all
 
+    env:
+      PYTHONUTF8: 1
+
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v7
         with:
           submodules: recursive
 
       - name: Setup Python (for meson)
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v7
         with:
           python-version: '3.x'
 
@@ -28,14 +31,13 @@ jobs:
         run: pip install meson ninja
 
       - name: Install Vulkan SDK
-        uses: humbletim/setup-vulkan-sdk@v1.2.0
+        uses: jakoch/install-vulkan-sdk-action@v1.6.0
         with:
-          vulkan-query-version: 1.3.261.1
-          vulkan-use-cache: true
-          vulkan-components: Glslang
+          vulkan_version: 1.3.290.0
+          cache: true
 
       - name: Setup MSBuild
-        uses: microsoft/setup-msbuild@v1.1
+        uses: microsoft/setup-msbuild@v3
         with:
           msbuild-architecture: x86
 
@@ -64,23 +66,32 @@ jobs:
         shell: cmd
         run: create_installer.bat
 
+      - name: Move 'latest' tag to this commit
+        if: github.ref == 'refs/heads/main'
+        shell: bash
+        run: |
+          git tag -f latest
+          git push -f origin latest
+
       - name: Update Github dev release
         if: github.ref == 'refs/heads/main'
-        uses: marvinpinto/action-automatic-releases@latest
+        uses: softprops/action-gh-release@v3
         with:
-          repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          automatic_release_tag: "latest"
+          token: "${{ secrets.GITHUB_TOKEN }}"
+          tag_name: latest
+          target_commitish: ${{ github.sha }}
           prerelease: true
-          title: "FarCry VR development build"
+          make_latest: false
+          name: "FarCry VR development build"
           files: |
             installer/farcry-vrmod*.exe
 
       - name: Create tagged Github release
         if: github.ref_type == 'tag'
-        uses: marvinpinto/action-automatic-releases@latest
+        uses: softprops/action-gh-release@v3
         with:
-          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          token: "${{ secrets.GITHUB_TOKEN }}"
           prerelease: false
-          title: "FarCry VR release ${{ github.ref_name }}"
+          name: "FarCry VR release ${{ github.ref_name }}"
           files: |
             installer/farcry-vrmod*.exe
